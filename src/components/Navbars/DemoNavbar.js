@@ -75,7 +75,7 @@ class DemoNavbar extends React.Component {
               <NavbarBrand className="mr-lg-5" to="/" tag={Link}>
                 <img
                   alt="..."
-                  src={require('assets/img/brand/TMaskLogo.png').default}
+                  src={require('assets/img/brand/TMASK_mask.png').default}
                 />
               </NavbarBrand>
               <button className="navbar-toggler" id="navbar_global">
@@ -94,7 +94,7 @@ class DemoNavbar extends React.Component {
                       <Link to="/">
                         <img
                           alt="..."
-                          src={require("assets/img/brand/TMaskLogo.png").default}
+                          src={require("assets/img/brand/TMASK_mask.png").default}
                         />
                       </Link>
                     </Col>
@@ -143,7 +143,7 @@ class DemoNavbar extends React.Component {
                               Builder
                             </h6>
                             <p className="description d-none d-md-inline-block mb-0">
-                              Buld Your Perfect Mask!
+                              Build Your Perfect Mask!
                             </p>
                           </Media>
                         </Media>
@@ -171,9 +171,9 @@ class DemoNavbar extends React.Component {
                   <NavItem>
                     <NavLink
                       className="nav-link-icon"
-                      href="https://github.com/creativetimofficial/argon-design-system-react"
+                      href=""
                       id="tooltip112445449"
-                      target="_blank"
+                      //target="_blank"
                     >
                       <i className="fa fa-question-circle" />
                       <span className="nav-link-inner--text d-lg-none ml-2">
