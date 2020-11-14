@@ -17,7 +17,7 @@
 */
 import React from "react";
 // nodejs library that concatenates classes
-import classnames from "classnames";
+//import classnames from "classnames";
 
 // reactstrap components
 import {
@@ -26,11 +26,11 @@ import {
   Card,
   CardBody,
   CardImg,
-  FormGroup,
+  /*FormGroup,
   Input,
   InputGroupAddon,
   InputGroupText,
-  InputGroup,
+  InputGroup,*/
   Container,
   Row,
   Col
@@ -41,7 +41,7 @@ import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import CardsFooter from "components/Footers/CardsFooter.js";
 
 // index page sections
-import Download from "../IndexSections/Download.js";
+//import Download from "../IndexSections/Download.js";
 
 class Landing extends React.Component {
   state = {};
@@ -246,7 +246,7 @@ class Landing extends React.Component {
             <Container>
               <Row className="row-grid align-items-center">
                 <Col className="order-md-2" md="8">
-                  <iframe width="640" height="360" src="https://www.youtube.com/embed/oBYRBx43eR0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  <iframe title="promo" width="640" height="360" src="https://www.youtube.com/embed/oBYRBx43eR0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </Col>
                 <Col className="order-md-1" md="4">
                   <div className="pr-md-5">
