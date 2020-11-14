@@ -17,7 +17,7 @@
 */
 import React from "react";
 // nodejs library that concatenates classes
-import classnames from "classnames";
+//import classnames from "classnames";
 
 // reactstrap components
 import {
@@ -26,11 +26,11 @@ import {
   Card,
   CardBody,
   CardImg,
-  FormGroup,
+  /*FormGroup,
   Input,
   InputGroupAddon,
   InputGroupText,
-  InputGroup,
+  InputGroup,*/
   Container,
   Row,
   Col
@@ -41,7 +41,7 @@ import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import CardsFooter from "components/Footers/CardsFooter.js";
 
 // index page sections
-import Download from "../IndexSections/Download.js";
+//import Download from "../IndexSections/Download.js";
 
 class Landing extends React.Component {
   state = {};
