@@ -22,9 +22,9 @@ import React from "react";
 import Cards from "components/Cards.js";
 // reactstrap components
 import {
- /* Badge,
+ //Badge,
   Button,
-  Card,
+  /* Card,
   CardBody,
   CardImg,
   FormGroup,
@@ -44,53 +44,110 @@ import CardsFooter from "components/Footers/CardsFooter.js";
 // index page sections
 //import Download from "../IndexSections/Download.js";
 
+
+
 const cards = [
   {
     id : 1,
     title: "Mascara 1",
     image: require("assets/img/masks/goku.png").default,
+    description: "Some Random Text about this product",
     selected: false
   },
   {
     id : 2,
     title: "Mascara 2",
     image: require("assets/img/masks/goku.png").default,
+    description: "Some Random Text about this product",
     selected: false
   },
   {
     id : 3,
     title: "Mascara 3",
     image: require("assets/img/masks/goku.png").default,
+    description: "Some Random Text about this product",
     selected: true
   },
   {
     id : 4,
     title: "Mascara 4",
     image: require("assets/img/masks/goku.png").default,
+    description: "Some Random Text about this product",
     selected: true
   },
   {
     id : 5,
     title: "Mascara 5",
     image: require("assets/img/masks/goku.png").default,
+    description: "Some Random Text about this product",
     selected: true
   },
   {
     id : 6,
     title: "Mascara 6",
     image: require("assets/img/masks/goku.png").default,
+    description: "Some Random Text about this product",
+    selected: true
+  }
+]
+
+const cards2 = [
+  {
+    id : 1,
+    title: "Mascara 1",
+    image: require("assets/img/masks/fire.png").default,
+    description: "Some Random Text about this product",
+    selected: false
+  },
+  {
+    id : 2,
+    title: "Mascara 2",
+    image: require("assets/img/masks/fire.png").default,
+    description: "Some Random Text about this product",
+    selected: false
+  },
+  {
+    id : 3,
+    title: "Mascara 3",
+    image: require("assets/img/masks/fire.png").default,
+    description: "Some Random Text about this product",
+    selected: true
+  },
+  {
+    id : 4,
+    title: "Mascara 4",
+    image: require("assets/img/masks/fire.png").default,
+    description: "Some Random Text about this product",
+    selected: true
+  },
+  {
+    id : 5,
+    title: "Mascara 5",
+    image: require("assets/img/masks/fire.png").default,
+    description: "Some Random Text about this product",
+    selected: true
+  },
+  {
+    id : 6,
+    title: "Mascara 6",
+    image: require("assets/img/masks/fire.png").default,
+    description: "Some Random Text about this product",
     selected: true
   }
 ]
 
 class Catalog extends React.Component {
-  state = {};
+
+  state = {
+    flag: false
+  };
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
   }
   render() {
+    const flag =  this.state.flag;
     return (
       <>
         <DemoNavbar />
@@ -110,9 +167,31 @@ class Catalog extends React.Component {
                 <span />
               </div>
               <Container>
-                <Row className="row-grid align-items-center my-md">
-                    <Cards cards={ cards }/>
-                </Row>
+              <Button 
+              color="info" 
+              type="button"
+              onClick={() =>{this.setState({flag: false});}}
+              >
+                Primary
+              </Button>
+              <Button 
+              color="secondary" 
+              type="button"
+              onClick={() =>{this.setState({flag: true});}}
+              >
+                Made By Customers
+              </Button>
+
+                { flag &&
+                  <Row className="row-grid align-items-center my-md">
+                      <Cards cards={ cards }/>
+                  </Row>
+                }
+                { !flag &&
+                  <Row className="row-grid align-items-center my-md">
+                      <Cards cards={ cards2 }/>
+                  </Row>
+                }
               </Container>
               {/* SVG separator */}
               <div className="separator separator-bottom separator-skew">
