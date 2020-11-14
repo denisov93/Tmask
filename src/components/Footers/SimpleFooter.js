@@ -19,6 +19,7 @@
 import React from "react";
 // reactstrap components
 import {
+// eslint-disable-next-line
   Button,
   NavItem,
   NavLink,
@@ -26,6 +27,7 @@ import {
   Container,
   Row,
   Col,
+  // eslint-disable-next-line
   UncontrolledTooltip
 } from "reactstrap";
 
@@ -36,6 +38,7 @@ class SimpleFooter extends React.Component {
         <footer className="footer has-cards">
           <Container>
             <hr />
+            
             <Row className="align-items-center justify-content-md-between">
               <Col md="6">
                 <div className="copyright">
