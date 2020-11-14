@@ -168,11 +168,11 @@ class Catalog extends React.Component {
               </div>
               <Container>
               <Button 
-              color="info" 
+              color="secondary" 
               type="button"
               onClick={() =>{this.setState({flag: false});}}
               >
-                Primary
+                Made By TMask Team
               </Button>
               <Button 
               color="secondary" 
