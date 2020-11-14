@@ -78,7 +78,7 @@ class Login extends React.Component {
                           <span className="btn-inner--icon mr-1">
                             <img
                               alt="..."
-                              src={require("assets/img/icons/common/github.svg")}
+                              src={require("assets/img/icons/common/github.svg").default}
                             />
                           </span>
                           <span className="btn-inner--text">Github</span>
@@ -92,7 +92,7 @@ class Login extends React.Component {
                           <span className="btn-inner--icon mr-1">
                             <img
                               alt="..."
-                              src={require("assets/img/icons/common/google.svg")}
+                              src={require("assets/img/icons/common/google.svg").default}
                             />
                           </span>
                           <span className="btn-inner--text">Google</span>
@@ -166,8 +166,8 @@ class Login extends React.Component {
                     <Col className="text-right" xs="6">
                       <a
                         className="text-light"
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
+                        href="/register-page"
+                        onClick={e => e.render()}
                       >
                         <small>Create new account</small>
                       </a>
