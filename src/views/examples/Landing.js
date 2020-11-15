@@ -261,7 +261,7 @@ class Landing extends React.Component {
                           <div>
                             <Badge
                               className="badge-circle mr-3"
-                              color="success"
+                              color="default"
                             >
                               <i className="ni ni-image" />
                             </Badge>
@@ -278,7 +278,7 @@ class Landing extends React.Component {
                           <div>
                             <Badge
                               className="badge-circle mr-3"
-                              color="success"
+                              color="danger"
                             >
                               <i className="ni ni-app" />
                             </Badge>
@@ -293,7 +293,7 @@ class Landing extends React.Component {
                           <div>
                             <Badge
                               className="badge-circle mr-3"
-                              color="success"
+                              color="primary"
                             >
                               <i className="ni ni-cloud-upload-96" />
                             </Badge>
