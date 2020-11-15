@@ -75,7 +75,7 @@ class Landing extends React.Component {
                   <Row>
                     <Col lg="12">
                       <h1 className="display-3 text-white">
-                        Because Your Mask{" "}
+                        Because Your Masks{" "}
                         <span>don't need to be boring.</span>
                       </h1>
                       <p className="lead text-white">
