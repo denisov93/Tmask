@@ -46,92 +46,92 @@ import CardsFooter from "components/Footers/CardsFooter.js";
 
 
 
-const cards = [
+const cards2 = [
   {
     id : 1,
-    title: "Mascara 1",
+    title: "Goku Mask",
     image: require("assets/img/masks/goku.png").default,
-    description: "Some Random Text about this product",
+    description: "This Mask is perfect for someone who loves anime",
     selected: false
   },
   {
     id : 2,
-    title: "Mascara 2",
-    image: require("assets/img/masks/goku.png").default,
-    description: "Some Random Text about this product",
+    title: "Abstract Blue",
+    image: require("assets/img/masks/mask_abstract_blue.png").default,
+    description: "Made with love",
     selected: false
   },
   {
     id : 3,
-    title: "Mascara 3",
-    image: require("assets/img/masks/goku.png").default,
-    description: "Some Random Text about this product",
+    title: "Abstract Green",
+    image: require("assets/img/masks/mask_abstract_green.png").default,
+    description: "You Are Free Spirited",
     selected: true
   },
   {
     id : 4,
-    title: "Mascara 4",
-    image: require("assets/img/masks/goku.png").default,
-    description: "Some Random Text about this product",
+    title: "Abstract Red",
+    image: require("assets/img/masks/mask_abstract_red.png").default,
+    description: "Made with Passion",
     selected: true
   },
   {
     id : 5,
-    title: "Mascara 5",
-    image: require("assets/img/masks/goku.png").default,
-    description: "Some Random Text about this product",
+    title: "Simple Pink",
+    image: require("assets/img/masks/mask_simple_pink.png").default,
+    description: "Girly Mask",
     selected: true
   },
   {
     id : 6,
-    title: "Mascara 6",
-    image: require("assets/img/masks/goku.png").default,
-    description: "Some Random Text about this product",
+    title: "The Mask",
+    image: require("assets/img/masks/mask_tmask.png").default,
+    description: "Great Product, Such WOW",
     selected: true
   }
 ]
 
-const cards2 = [
+const cards = [
   {
     id : 1,
-    title: "Mascara 1",
+    title: "Fire",
     image: require("assets/img/masks/fire.png").default,
-    description: "Some Random Text about this product",
+    description: "Things Are On Fire",
     selected: false
   },
   {
     id : 2,
-    title: "Mascara 2",
-    image: require("assets/img/masks/fire.png").default,
-    description: "Some Random Text about this product",
+    title: "Fire 2",
+    image: require("assets/img/masks/mask_fire.png").default,
+    description: "Because Fire is Never enought",
     selected: false
   },
   {
     id : 3,
-    title: "Mascara 3",
-    image: require("assets/img/masks/fire.png").default,
-    description: "Some Random Text about this product",
+    title: "Artist",
+    image: require("assets/img/masks/mask_bob_ross.png").default,
+    description: "Big Man, loved his show",
     selected: true
   },
   {
     id : 4,
-    title: "Mascara 4",
-    image: require("assets/img/masks/fire.png").default,
-    description: "Some Random Text about this product",
+    title: "The Whale",
+    image: require("assets/img/masks/mask_whale.png").default,
+    description: "Some People paint bunny in their clotes, meawhile i....",
     selected: true
   },
   {
     id : 5,
-    title: "Mascara 5",
-    image: require("assets/img/masks/fire.png").default,
-    description: "Some Random Text about this product",
+    title: "Matrix",
+    image: require("assets/img/masks/mask_matrix.png").default,
+    description: "Keanu Our GOD",
     selected: true
   },
   {
     id : 6,
-    title: "Mascara 6",
-    image: require("assets/img/masks/fire.png").default,
-    description: "Some Random Text about this product",
+    title: "Triangle",
+    image: require("assets/img/masks/mask_triangle.png").default,
+    description: "Yes, it is triangle... Dont ask...",
     selected: true
   }
 ]
