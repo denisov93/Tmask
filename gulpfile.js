@@ -17,6 +17,7 @@ gulp.task("licenses", async function() {
 * Licensed under MIT (https://github.com/creativetimofficial/argon-design-system-react/blob/master/LICENSE.md)
 
 * Coded by Creative Tim
+* Modified by Tactical Design
 
 =========================================================
 
@@ -41,6 +42,7 @@ gulp.task("licenses", async function() {
 * Licensed under MIT (https://github.com/creativetimofficial/argon-design-system-react/blob/master/LICENSE.md)
 
 * Coded by Creative Tim
+* Modified by Tactical Design
 
 =========================================================
 
@@ -65,6 +67,7 @@ gulp.task("licenses", async function() {
 * Licensed under MIT (https://github.com/creativetimofficial/argon-design-system-react/blob/master/LICENSE.md)
 
 * Coded by Creative Tim
+* Modified by Tactical Design
 
 =========================================================
 
