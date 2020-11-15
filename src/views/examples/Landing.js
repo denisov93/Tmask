@@ -95,8 +95,8 @@ class Landing extends React.Component {
                           <span className="btn-inner--text">view mask Catalog</span>
                         </Button>
                         <Button
-                          className="btn-white btn-icon mb-3 mb-sm-0 ml-1"
-                          color="default"
+                          className="btn-icon mb-3 mb-sm-0"
+                          color="info"
                           href="/builder"
                         >
                           <span className="btn-inner--icon mr-1">
