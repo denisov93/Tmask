@@ -84,13 +84,9 @@ class Builder extends React.Component {
 
           <Col id="editorCard" className="col-6">
           <Card className="card-profile shadow" style={{height:"800px"}}>
-<<<<<<< HEAD
-            <div></div>  
-=======
             <div id="editor">
               <MaskEditor />
             </div>
->>>>>>> c5aa6af14535cd4210a6e2446e4fd2e118602ec3
           </Card>
           </Col>
 
