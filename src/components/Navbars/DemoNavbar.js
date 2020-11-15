@@ -38,6 +38,7 @@ import {
   Col,
   UncontrolledTooltip
 } from "reactstrap";
+import AuthSys from "components/AuthSys";
 
 class DemoNavbar extends React.Component {
   componentDidMount() {
@@ -185,19 +186,7 @@ class DemoNavbar extends React.Component {
                     </UncontrolledTooltip>
                   </NavItem>
                   <NavItem className="d-none d-lg-block ml-lg-4">
-                    <Button
-                      className="btn-neutral btn-icon"
-                      color="default"
-                      to="/login-page" 
-                      tag={Link}
-                    >
-                      <span className="btn-inner--icon">
-                        <i className="fa fa-sign-in mr-2" />
-                      </span>
-                      <span className="nav-link-inner--text ml-1">
-                        Login
-                      </span>
-                    </Button>
+                    <AuthSys />
                   </NavItem>
                 </Nav>
               </UncontrolledCollapse>

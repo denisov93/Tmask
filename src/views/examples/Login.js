@@ -17,6 +17,7 @@
 */
 import React from "react";
 
+
 // reactstrap components
 import {
   Button,
@@ -39,11 +40,29 @@ import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 
 class Login extends React.Component {
+
+  constructor(){
+    super()
+    
+    this.state = {
+      user : "",
+      pass : ""
+    };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
   }
+
+  handleSubmit(event) {
+    console.log("user:"+this.state.user+" pass:"+this.state.pass);
+    event.preventDefault();
+  }
+
   render() {
     return (
       <>
@@ -103,15 +122,15 @@ class Login extends React.Component {
                       <div className="text-center text-muted mb-4">
                         <small>Or sign in with credentials</small>
                       </div>
-                      <Form role="form">
+                      <Form role="form" onSubmit={this.handleSubmit}>
                         <FormGroup className="mb-3">
                           <InputGroup className="input-group-alternative">
                             <InputGroupAddon addonType="prepend">
                               <InputGroupText>
-                                <i className="ni ni-email-83" />
+                                <i className="ni ni-circle-08" />
                               </InputGroupText>
                             </InputGroupAddon>
-                            <Input placeholder="Email" type="email" />
+                            <Input id="id_account" placeholder="Username / Email" type="username" onChange={e=> this.setState({user: e.target.value})} />
                           </InputGroup>
                         </FormGroup>
                         <FormGroup>
@@ -122,9 +141,11 @@ class Login extends React.Component {
                               </InputGroupText>
                             </InputGroupAddon>
                             <Input
+                              id="id_password"
                               placeholder="Password"
                               type="password"
                               autoComplete="off"
+                              onChange={e=> this.setState({pass: e.target.value})}
                             />
                           </InputGroup>
                         </FormGroup>
@@ -142,12 +163,11 @@ class Login extends React.Component {
                           </label>
                         </div>
                         <div className="text-center">
-                          <Button
-                            className="my-4"
-                            color="primary"
-                            type="button"
-                          >
-                            Sign in
+                          <br/>
+                          <Button type="submit"
+                              className="my-4"
+                              color="primary">
+                             SIGN IN
                           </Button>
                         </div>
                       </Form>
