@@ -75,7 +75,7 @@ class Profile extends React.Component {
                           <img
                             alt="..."
                             className="rounded-circle"
-                            src={require("assets/img/theme/team-4-800x800.jpg")}
+                            src={require("assets/img/userimage/user_alicia.png").default}
                           />
                         </a>
                       </div>
@@ -108,36 +108,28 @@ class Profile extends React.Component {
                     <Col className="order-lg-1" lg="4">
                       <div className="card-profile-stats d-flex justify-content-center">
                         <div>
-                          <span className="heading">22</span>
-                          <span className="description">Friends</span>
+                          <span className="heading">12</span>
+                          <span className="description">Masks</span>
                         </div>
                         <div>
-                          <span className="heading">10</span>
+                          <span className="heading">7</span>
                           <span className="description">Photos</span>
                         </div>
                         <div>
-                          <span className="heading">89</span>
-                          <span className="description">Comments</span>
+                          <span className="heading">31</span>
+                          <span className="description"><i className="ni ni-chat-round"/>{" "}Comments</span>
                         </div>
                       </div>
                     </Col>
                   </Row>
                   <div className="text-center mt-5">
                     <h3>
-                      Jessica Jones{" "}
-                      <span className="font-weight-light">, 27</span>
+                    <i className="ni ni-badge"/>{" "}Alicia Jones{""}
+                      <span className="font-weight-light">, 19</span>
                     </h3>
-                    <div className="h6 font-weight-300">
-                      <i className="ni location_pin mr-2" />
-                      Bucharest, Romania
-                    </div>
-                    <div className="h6 mt-4">
-                      <i className="ni business_briefcase-24 mr-2" />
-                      Solution Manager - Creative Tim Officer
-                    </div>
                     <div>
                       <i className="ni education_hat mr-2" />
-                      University of Computer Science
+                      "I have a Motto, but it is not here."
                     </div>
                   </div>
                   <div className="mt-5 py-5 border-top text-center">
@@ -150,9 +142,6 @@ class Profile extends React.Component {
                           giving it a warm, intimate feel with a solid groove
                           structure. An artist of considerable range.
                         </p>
-                        <a href="#pablo" onClick={e => e.preventDefault()}>
-                          Show more
-                        </a>
                       </Col>
                     </Row>
                   </div>
