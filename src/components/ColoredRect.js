@@ -1,13 +1,30 @@
-import React from 'react';
-import { render } from 'react-dom';
-import { Stage, Layer, Group, Rect, Text, Circle, Line } from 'react-konva';
+import React, { Component } from 'react';
+import { Stage, Layer, Rect, Text } from 'react-konva';
+import Konva from 'konva';
 
-// make a portal implementation
-const Portal = ({ selector, enabled, children }) => {
-  // "selector" is a string to find another container to insert all internals
-  // if can be like ".top-layer" or "#overlay-group"
-  const outer = React.useRef(null);
-  const inner = React.useRef(null);
+class ColoredRect extends React.Component {
+  state = {
+    color: 'red'
+  };
+  handleClick = () => {
+    this.setState({
+      color: Konva.Util.getRandomColor()
+    });
+  };
+  render() {
+    return (
+      <Rect
+        x={100}
+        y={100}
+        draggable={true}
+        width={200}
+        height={200}
+        fill={this.state.color}
+        onClick={this.handleClick}
+      />
+    );
+  }
+}
 
   React.useEffect(() => {
     const stage = outer.current.getStage();
