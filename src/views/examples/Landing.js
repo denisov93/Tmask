@@ -75,7 +75,7 @@ class Landing extends React.Component {
                   <Row>
                     <Col lg="12">
                       <h1 className="display-3 text-white">
-                        Because Your Mask{" "}
+                        Because Your Masks{" "}
                         <span>don't need to be boring.</span>
                       </h1>
                       <p className="lead text-white">
@@ -95,8 +95,8 @@ class Landing extends React.Component {
                           <span className="btn-inner--text">view mask Catalog</span>
                         </Button>
                         <Button
-                          className="btn-white btn-icon mb-3 mb-sm-0 ml-1"
-                          color="default"
+                          className="btn-icon mb-3 mb-sm-0"
+                          color="info"
                           href="/builder"
                         >
                           <span className="btn-inner--icon mr-1">
@@ -242,7 +242,7 @@ class Landing extends React.Component {
             <Container>
               <Row className="row-grid align-items-center">
                 <Col className="order-md-2" md="8">
-                <iframe id="ytplayer" type="text/html" width="640" height="360"
+                <iframe title="Intentionally blank" aria-hidden="true" id="ytplayer" type="text/html" width="640" height="360"
                   src="http://www.youtube.com/embed/oBYRBx43eR0?autoplay=1&loop=1&controls=0&showinfo=0"
                   frameborder="0"/>
                 </Col>
@@ -261,7 +261,7 @@ class Landing extends React.Component {
                           <div>
                             <Badge
                               className="badge-circle mr-3"
-                              color="success"
+                              color="default"
                             >
                               <i className="ni ni-image" />
                             </Badge>
@@ -278,7 +278,7 @@ class Landing extends React.Component {
                           <div>
                             <Badge
                               className="badge-circle mr-3"
-                              color="success"
+                              color="danger"
                             >
                               <i className="ni ni-app" />
                             </Badge>
@@ -293,7 +293,7 @@ class Landing extends React.Component {
                           <div>
                             <Badge
                               className="badge-circle mr-3"
-                              color="success"
+                              color="primary"
                             >
                               <i className="ni ni-cloud-upload-96" />
                             </Badge>
