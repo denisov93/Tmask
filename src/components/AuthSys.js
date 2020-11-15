@@ -4,7 +4,6 @@ import {
   Button, NavLink
 } from "reactstrap";
 
-
 function LoginButton(props) {
   return (
           <Button onClick={props.onClick}
@@ -67,16 +66,33 @@ class AuthSys extends React.Component{
   render() {
 
     const isLoggedIn = this.state.isLoggedIn;
-    let button;
+    let components;
+    let accountimg;
+    let accountdetails;
+
     if (isLoggedIn) {
-      button = <LogoutButton onClick={this.handleLogoutClick} />;
+      //user image
+      accountimg = <img alt=""
+      src={require("assets/img/userimage/user_alicia.png").default}
+      style={{width: 42, height: 42, borderRadius: 90/2, borderStyle: "solid", borderColor: "white", borderWidth: 2 }}/>
+      //user name
+      accountdetails = 
+      <div style={{display:"grid", placeItems: "center", paddingInlineStart: 10, paddingInlineEnd: 10 }}><font color="white">Alicia</font></div>
+      //logout button
+      components = <LogoutButton onClick={this.handleLogoutClick} />;
+      //
     } else {
-      button = <LoginButton onClick={this.handleLoginClick} />;
+      //login button
+      components = <LoginButton onClick={this.handleLoginClick} />;
     }
 
+
+
     return (
-      <div>
-        {button}
+      <div style={{display: "flex", flexWrap:"wrap", justifyContent: "center"}}>
+        {accountimg}
+        {accountdetails}
+        {components}
       </div>
     );
   }
