@@ -20,6 +20,8 @@ import React from "react";
 // nodejs library that concatenates classes
 import ColoredRect from "./ColoredRect.js"
 
+import Konva from 'konva';
+
 import { Stage, Layer, Group, Rect, Text, Circle, Line } from 'react-konva';
 // reactstrap components
 import {
@@ -80,8 +82,7 @@ class Builder extends React.Component {
           </Col>
           <Col className="col-6">
           <Card className="card-profile shadow" style={{height:"800px"}}>
-          
-          
+            <div></div>  
           </Card>
           </Col>
           <Col className="col-3">
