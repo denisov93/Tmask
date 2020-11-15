@@ -18,7 +18,7 @@
 */
 import React from "react";
 // nodejs library that concatenates classes
-import ColoredRect from "./ColoredRect.js"
+import MaskEditor from "components/MaskEditor.js"
 
 import { Stage, Layer, Group, Rect, Text, Circle, Line } from 'react-konva';
 // reactstrap components
@@ -44,6 +44,7 @@ import CardsFooter from "components/Footers/CardsFooter.js";
 
 // index page sections
 import Download from "../IndexSections/Download.js";
+import ColoredRect from "components/ColoredRect.js";
 
 class Builder extends React.Component {
   state = {};
@@ -73,22 +74,26 @@ class Builder extends React.Component {
               </div>
               <br></br>
               <Row>
-          <Col className="col-3">
+          <Col id="leftComponents" className="col-3">
           <Card className="card-profile shadow" style={{height:"800px"}}>
           
           </Card>
           </Col>
-          <Col className="col-6">
+
+          <Col id="editorCard" className="col-6">
           <Card className="card-profile shadow" style={{height:"800px"}}>
-          
-          
+            <div id="editor">
+              <MaskEditor />
+            </div>
           </Card>
           </Col>
-          <Col className="col-3">
+
+          <Col id="rightComponents" className="col-3">
           <Card className="card shadow" style={{height:"800px"}}>
           
           </Card>
           </Col>
+
         </Row>
               {/* SVG separator */}
               <div className="separator separator-bottom separator-skew">
