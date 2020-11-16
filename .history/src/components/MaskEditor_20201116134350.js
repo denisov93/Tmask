@@ -122,10 +122,6 @@ class MaskEditor extends React.Component {
           </Layer>
         </Stage>
         
-        <Button onClick={this.handleExportClick} text="Download" />
-        <br></br>
-        <Button onClick={this.handleAddHeart} text="Add heart" />
-        <BrushOptions value={this.state.brushColor} onChange={this.handleBrushColorChoice} />
             
             </div>
           );

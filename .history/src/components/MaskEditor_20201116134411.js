@@ -105,6 +105,10 @@ class MaskEditor extends React.Component {
               this.container = node;
             }}
           >
+<Button onClick={this.handleAddHeart} text="Add heart" />
+        <BrushOptions value={this.state.brushColor} onChange={this.handleBrushColorChoice} />
+        <Button onClick={this.handleExportClick} text="Download" />
+
             <Stage width={this.state.stageWidth} height={this.state.stageHeight} ref={node => { this.stageRef = node }} onMouseDown={this.handleStageMouseDown}>
           <Layer>
             <URLImage src={mask} ref={node => { this.maskRef = node }} />
@@ -122,10 +126,6 @@ class MaskEditor extends React.Component {
           </Layer>
         </Stage>
         
-        <Button onClick={this.handleExportClick} text="Download" />
-        <br></br>
-        <Button onClick={this.handleAddHeart} text="Add heart" />
-        <BrushOptions value={this.state.brushColor} onChange={this.handleBrushColorChoice} />
             
             </div>
           );
