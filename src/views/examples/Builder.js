@@ -20,23 +20,33 @@ import React from "react";
 // nodejs library that concatenates classes
 import MaskEditor from "components/MaskEditor.js"
 
-import Konva from 'konva';
-
-import { Stage, Layer, Group, Rect, Text, Circle, Line } from 'react-konva';
 // reactstrap components
 import {
+  // eslint-disable-next-line
   Badge,
+  // eslint-disable-next-line
   Button,
+  // eslint-disable-next-line
   Card,
+  // eslint-disable-next-line
   CardBody,
+  // eslint-disable-next-line
   CardImg,
+  // eslint-disable-next-line
   FormGroup,
+  // eslint-disable-next-line
   Input,
+  // eslint-disable-next-line
   InputGroupAddon,
+  // eslint-disable-next-line
   InputGroupText,
+  // eslint-disable-next-line
   InputGroup,
+  // eslint-disable-next-line
   Container,
+  // eslint-disable-next-line
   Row,
+  // eslint-disable-next-line
   Col
 } from "reactstrap";
 
@@ -45,8 +55,6 @@ import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import CardsFooter from "components/Footers/CardsFooter.js";
 
 // index page sections
-import Download from "../IndexSections/Download.js";
-import ColoredRect from "components/ColoredRect.js";
 
 class Builder extends React.Component {
   state = {};
@@ -76,21 +84,19 @@ class Builder extends React.Component {
               </div>
               <br></br>
               <Row>
-          <Col id="leftComponents" className="col-3">
+          <Col id="leftComponent" className="col-3">
           <Card className="card-profile shadow" style={{height:"800px"}}>
           
           </Card>
           </Col>
 
-          <Col id="editorCard" className="col-6">
-          <Card className="card-profile shadow" style={{height:"800px"}}>
-            <div id="editor">
-              <MaskEditor />
-            </div>
+          <Col id="middleComponent" className="col-6">
+          <Card id="editor" className="card-profile shadow" style={{height:"800px"}}>
+          <MaskEditor />
           </Card>
           </Col>
 
-          <Col id="rightComponents" className="col-3">
+          <Col id="rightComponent" className="col-3">
           <Card className="card shadow" style={{height:"800px"}}>
           
           </Card>
