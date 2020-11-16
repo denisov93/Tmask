@@ -105,7 +105,7 @@ class MaskEditor extends React.Component {
               this.container = node;
             }}
           >
-            <Stage width={this.state.stageWidth} height={this.state.stageHeight} ref={node => { this.stageRef = node }} onMouseDown={this.handleStageMouseDown}>
+            <Stage width={this.stageWidth} height={this.state.stageHeight} ref={node => { this.stageRef = node }} onMouseDown={this.handleStageMouseDown}>
           <Layer>
             <URLImage src={mask} ref={node => { this.maskRef = node }} />
           </Layer>

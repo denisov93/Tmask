@@ -49,7 +49,7 @@ import {
   // eslint-disable-next-line
   Col
 } from "reactstrap";
-
+import App from "components/App.js"
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import CardsFooter from "components/Footers/CardsFooter.js";
@@ -93,7 +93,7 @@ class Builder extends React.Component {
           <Col id="middleComponent" className="col-6">
           <Card id="editor" className="card-profile shadow" style={{height:"800px"}}>
           
-          <MaskEditor />
+          <App />
           
           </Card>
           </Col>

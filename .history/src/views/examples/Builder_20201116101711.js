@@ -92,9 +92,7 @@ class Builder extends React.Component {
 
           <Col id="middleComponent" className="col-6">
           <Card id="editor" className="card-profile shadow" style={{height:"800px"}}>
-          
           <MaskEditor />
-          
           </Card>
           </Col>
 
