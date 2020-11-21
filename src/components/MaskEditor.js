@@ -10,6 +10,7 @@ import Drawing from 'components/Drawing';
 import BrushOptions from 'components/BrushOptions';
 import Button from 'components/UniversalButton';
 
+
 class MaskEditor extends React.Component {
     state = {
         stageWidth: 1000,
@@ -17,15 +18,21 @@ class MaskEditor extends React.Component {
         selectedShapeName: '',
         hearts: [],
         brushColor: '#E0BBE4'
+       
       };
+
       componentDidMount() {
         this.checkSize();
         // here we should add listener for "container" resize
         // take a look here https://developers.google.com/web/updates/2016/10/resizeobserver
         // for simplicity I will just listen window resize
         window.addEventListener("resize", this.checkSize);
+
+        
+        
       }
     
+
       componentWillUnmount() {
         window.removeEventListener("resize", this.checkSize);
       }
@@ -93,6 +100,7 @@ class MaskEditor extends React.Component {
       };
 
         render() {
+          
           // Stage is a div container
           // Layer is actual canvas element (so you may have several canvases in the stage)
           // And then we have canvas shapes inside the Layer
@@ -122,9 +130,7 @@ class MaskEditor extends React.Component {
           </Layer>
         </Stage>
         
-        <Button onClick={this.handleExportClick} text="Download" />
-        <br></br>
-        <Button onClick={this.handleAddHeart} text="Add heart" />
+        
         <BrushOptions value={this.state.brushColor} onChange={this.handleBrushColorChoice} />
             
             </div>

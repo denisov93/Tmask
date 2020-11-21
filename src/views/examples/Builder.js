@@ -53,11 +53,24 @@ import {
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import CardsFooter from "components/Footers/CardsFooter.js";
-
+import { withStyles } from '@material-ui/core/styles';
+import MuiAccordion from '@material-ui/core/Accordion';
+import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
+import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
+import Typography from '@material-ui/core/Typography';
 // index page sections
 
 class Builder extends React.Component {
-  state = {};
+  state = {  };
+
+  heartAdd = () =>{
+    this.refs.editor.handleAddHeart()
+  }
+
+  download = () =>{
+    this.refs.editor.handleExportClick()
+  }
+
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
@@ -86,14 +99,30 @@ class Builder extends React.Component {
               <Row>
           <Col id="leftComponent" className="col-3">
           <Card className="card-profile shadow" style={{height:"800px"}}>
-          
+
+            <Button
+              className="mt-4"
+              color="primary"
+              onClick={()=>{this.heartAdd()}}
+            >
+              Add Heart
+            </Button>
+            <br></br>
+            <Button
+              className="mt-4"
+              color="primary"
+              onClick={()=>{this.download()}}
+            >
+              Add Heart
+            </Button>
+
           </Card>
           </Col>
 
           <Col id="middleComponent" className="col-6">
           <Card id="editor" className="card-profile shadow" style={{height:"800px"}}>
           
-          <MaskEditor />
+          <MaskEditor ref="editor"/>
           
           </Card>
           </Col>
@@ -134,3 +163,43 @@ class Builder extends React.Component {
 
 export default Builder;
 
+const Accordion = withStyles({
+  root: {
+    border: '1px solid rgba(0, 0, 0, .125)',
+    boxShadow: 'none',
+    '&:not(:last-child)': {
+      borderBottom: 0,
+    },
+    '&:before': {
+      display: 'none',
+    },
+    '&$expanded': {
+      margin: 'auto',
+    },
+  },
+  expanded: {},
+})(MuiAccordion);
+
+const AccordionSummary = withStyles({
+  root: {
+    backgroundColor: 'rgba(0, 0, 0, .03)',
+    borderBottom: '1px solid rgba(0, 0, 0, .125)',
+    marginBottom: -1,
+    minHeight: 56,
+    '&$expanded': {
+      minHeight: 56,
+    },
+  },
+  content: {
+    '&$expanded': {
+      margin: '12px 0',
+    },
+  },
+  expanded: {},
+})(MuiAccordionSummary);
+
+const AccordionDetails = withStyles((theme) => ({
+  root: {
+    padding: theme.spacing(2),
+  },
+}))(MuiAccordionDetails);
