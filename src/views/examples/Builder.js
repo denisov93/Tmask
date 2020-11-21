@@ -61,7 +61,9 @@ import Typography from '@material-ui/core/Typography';
 // index page sections
 
 class Builder extends React.Component {
-  state = {  };
+  state = { 
+    expanded:''
+   };
 
   heartAdd = () =>{
     this.refs.editor.handleAddHeart()
@@ -71,6 +73,14 @@ class Builder extends React.Component {
     this.refs.editor.handleExportClick()
   }
 
+  setExpanded(panel){
+    this.setState({ expanded: panel });
+  }
+
+  handleChange = (panel) => (event, newExpanded) => {
+    this.setExpanded(newExpanded ? panel : false);
+  };
+  
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
@@ -99,23 +109,56 @@ class Builder extends React.Component {
               <Row>
           <Col id="leftComponent" className="col-3">
           <Card className="card-profile shadow" style={{height:"800px"}}>
-
-            <Button
-              className="mt-4"
-              color="primary"
-              onClick={()=>{this.heartAdd()}}
-            >
-              Add Heart
-            </Button>
-            <br></br>
-            <Button
-              className="mt-4"
-              color="primary"
-              onClick={()=>{this.download()}}
-            >
-              Add Heart
-            </Button>
-
+          <Accordion square expanded={this.state.expanded === 'panel1'} onChange={this.handleChange('panel1')}>
+            <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+              <Typography>Collapsible Group Item #1</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>
+              <Button
+                  className="mt-4"
+                  color="primary"
+                  onClick={()=>{this.heartAdd()}}
+                >
+                  Add Heart
+                </Button>
+                <br></br>
+                <Button
+                  className="mt-4"
+                  color="primary"
+                  onClick={()=>{this.download()}}
+                >
+                  Add Heart
+                </Button>
+              </Typography>
+            </AccordionDetails>
+      </Accordion>
+      <Accordion square expanded={this.state.expanded === 'panel2'} onChange={this.handleChange('panel2')}>
+        <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
+          <Typography>Collapsible Group Item #2</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+            sit amet blandit leo lobortis eget. Lorem ipsum dolor sit amet, consectetur adipiscing
+            elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion square expanded={this.state.expanded === 'panel3'} onChange={this.handleChange('panel3')}>
+        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
+          <Typography>Collapsible Group Item #3</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+            sit amet blandit leo lobortis eget. Lorem ipsum dolor sit amet, consectetur adipiscing
+            elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+            
+            
           </Card>
           </Col>
 
