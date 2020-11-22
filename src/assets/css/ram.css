@@ -1,0 +1,52 @@
+
+.bigblue {
+    color: DodgerBlue;
+    padding: 40px;
+    font-family: Arial;
+    text-align: center;
+  }
+
+.RAM .parent {
+    display: grid;
+    grid-gap:1rem;
+    grid-template-columns: repeat(auto-fit,minmax(100px,1fr));
+}
+
+.LineUp .parent {
+    height: auto;
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(3,1fr);
+}
+
+.LineUp .visual {
+    height: 100px;
+    width: 100%;
+}
+
+.LineUp .card {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    justify-content: space-between;
+}
+
+.LineUp h3 {
+    margin: 0
+}
+
+.AspectRatio .parent{
+    display: grid;
+    place-items: center;
+}
+
+.AspectRatio .visual{
+    aspect-ratio: 16 / 9;
+}
+
+.AspectRatio .card{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
