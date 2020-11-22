@@ -28,7 +28,9 @@ import {
   Button,
   // eslint-disable-next-line
   Card,
+  // eslint-disable-next-line
   CardHeader,
+  // eslint-disable-next-line
   CardTitle,
   // eslint-disable-next-line
   CardBody,
@@ -57,8 +59,34 @@ import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import CardsFooter from "components/Footers/CardsFooter.js";
 
 import Accordion from 'react-bootstrap/Accordion';
+import CustomStyles from 'assets/css/custom-styles.css';
 
+const maskIndex = [
+  "",
+  "",
+  "",
+]
 
+const accordionStyle = {
+  maxHeight: '400px',
+  overflowY:'scroll',
+}
+
+const btnStyle = {
+  borderRadius: '16px',
+  backgroundPosition: 'left top',
+  backgroundRepeat: 'repeat',
+  paddingLeft: '1px',
+  margin:'2px',
+  width: '90px',
+  height: '90px',
+};
+
+const RAM = {
+    display: 'grid',
+    gridGap:'1rem',
+    gridTemplateColumns: 'repeat(auto-fit,minmax(80px,1fr))'
+}
 
 class Builder extends React.Component {
   state = { 
@@ -121,114 +149,102 @@ class Builder extends React.Component {
               <Accordion.Toggle as={CardHeader} eventKey="0" >
                   Masks
               </Accordion.Toggle>
-              <Accordion.Collapse eventKey="0">
-                <Col>
-                  <Row>
-                    <Col>
+              <Accordion.Collapse style={accordionStyle} eventKey="0">
+                <div style={RAM}>
                     <Button
-                      className="mt-4"
                       color="primary"
+                      style={btnStyle}
                       onClick={()=>{this.heartAdd()}}
                     >
                       Add Heart
                     </Button>
                     
                     <Button
-                      className="mt-4"
                       color="primary"
-                      onClick={()=>{this.download()}}
+                      style={btnStyle}
+                      onClick={()=>{this.heartAdd()}}
                     >
                       Add Heart
                     </Button>
                     <Button
-                      className="mt-4"
                       color="primary"
-                      onClick={()=>{this.download()}}
+                      style={btnStyle}
+                      onClick={()=>{this.heartAdd()}}
                     >
                       Add Heart
                     </Button>
-                    </Col>
-                    </Row>
 
-                    <Row>
-                    <Col>
+
                     <Button
-                      className="mt-4"
                       color="primary"
+                      style={btnStyle}
                       onClick={()=>{this.heartAdd()}}
                     >
                       Add Heart
                     </Button>
                     
                     <Button
-                      className="mt-4"
                       color="primary"
-                      onClick={()=>{this.download()}}
+                      style={btnStyle}
+                      onClick={()=>{this.heartAdd()}}
                     >
                       Add Heart
                     </Button>
                     <Button
-                      className="mt-4"
                       color="primary"
-                      onClick={()=>{this.download()}}
+                      style={btnStyle}
+                      onClick={()=>{this.heartAdd()}}
                     >
                       Add Heart
                     </Button>
-                    </Col>
-                    </Row>
-                    <Row>
-                    <Col>
+
                     <Button
-                      className="mt-4"
                       color="primary"
+                      style={btnStyle}
                       onClick={()=>{this.heartAdd()}}
                     >
                       Add Heart
                     </Button>
                     
                     <Button
-                      className="mt-4"
                       color="primary"
-                      onClick={()=>{this.download()}}
+                      style={btnStyle}
+                      onClick={()=>{this.heartAdd()}}
                     >
                       Add Heart
                     </Button>
                     <Button
-                      className="mt-4"
                       color="primary"
-                      onClick={()=>{this.download()}}
+                      style={btnStyle}
+                      onClick={()=>{this.heartAdd()}}
                     >
                       Add Heart
                     </Button>
-                    </Col>
-                    </Row>
-                    <Row>
-                    <Col>
+
                     <Button
-                      className="mt-4"
                       color="primary"
+                      style={btnStyle}
                       onClick={()=>{this.heartAdd()}}
                     >
                       Add Heart
                     </Button>
                     
                     <Button
-                      className="mt-4"
                       color="primary"
-                      onClick={()=>{this.download()}}
+                      style={btnStyle}
+                      onClick={()=>{this.heartAdd()}}
                     >
                       Add Heart
                     </Button>
                     <Button
-                      className="mt-4"
                       color="primary"
-                      onClick={()=>{this.download()}}
+                      style={btnStyle}
+                      onClick={()=>{this.heartAdd()}}
                     >
                       Add Heart
                     </Button>
-                    </Col>
-                    </Row>
-                </Col>
+
+                </div>
               </Accordion.Collapse>
               
               <Card>
@@ -237,18 +253,18 @@ class Builder extends React.Component {
               </Accordion.Toggle>
               <Accordion.Collapse eventKey="1">
                 <Card>
-                    <Button
-                      className="mt-4"
+                <Button
                       color="primary"
+                      style={btnStyle}
                       onClick={()=>{this.heartAdd()}}
                     >
                       Add Heart
                     </Button>
                     
                     <Button
-                      className="mt-4"
                       color="primary"
-                      onClick={()=>{this.download()}}
+                      style={btnStyle}
+                      onClick={()=>{this.heartAdd()}}
                     >
                       Add Heart
                     </Button>
@@ -262,18 +278,18 @@ class Builder extends React.Component {
               </Accordion.Toggle>
               <Accordion.Collapse eventKey="2">
                 <Card>
-                    <Button
-                      className="mt-4"
+                <Button
                       color="primary"
+                      style={btnStyle}
                       onClick={()=>{this.heartAdd()}}
                     >
                       Add Heart
                     </Button>
                     
                     <Button
-                      className="mt-4"
                       color="primary"
-                      onClick={()=>{this.download()}}
+                      style={btnStyle}
+                      onClick={()=>{this.heartAdd()}}
                     >
                       Add Heart
                     </Button>
@@ -288,18 +304,18 @@ class Builder extends React.Component {
               <Accordion.Collapse eventKey="3">
                 <Card>
                 
-                    <Button
-                      className="mt-4"
+                <Button
                       color="primary"
+                      style={btnStyle}
                       onClick={()=>{this.heartAdd()}}
                     >
                       Add Heart
                     </Button>
                     
                     <Button
-                      className="mt-4"
                       color="primary"
-                      onClick={()=>{this.download()}}
+                      style={btnStyle}
+                      onClick={()=>{this.heartAdd()}}
                     >
                       Add Heart
                     </Button>
@@ -314,18 +330,18 @@ class Builder extends React.Component {
               <Accordion.Collapse eventKey="4">
                 <Card>
                 
-                    <Button
-                      className="mt-4"
+                <Button
                       color="primary"
+                      style={btnStyle}
                       onClick={()=>{this.heartAdd()}}
                     >
                       Add Heart
                     </Button>
                     
                     <Button
-                      className="mt-4"
                       color="primary"
-                      onClick={()=>{this.download()}}
+                      style={btnStyle}
+                      onClick={()=>{this.heartAdd()}}
                     >
                       Add Heart
                     </Button>
