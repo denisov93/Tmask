@@ -56,7 +56,7 @@
     "classnames": "2.2.6",
     "dart-sass": "^1.25.0",
     "headroom.js": "0.11.0",
-    "konva": "^7.1.6",
+    "konva": "^7.1.9",
     "moment": "2.24.0",
     "node-sass": "npm:dart-sass@^1.25.0",
     "nouislider": "14.1.1",
@@ -76,7 +76,7 @@
     "eslint-plugin-flowtype": "3.13.0",
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.8",
-    "jquery": "3.4.1",
+    "jquery": "^3.5.1",
     "typescript": "3.7.5"
   }
 }
