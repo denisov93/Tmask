@@ -58,7 +58,7 @@ import CardsFooter from "components/Footers/CardsFooter.js";
 
 import Accordion from 'react-bootstrap/Accordion';
 
-import ram from 'assets/css/ram.css';
+
 
 class Builder extends React.Component {
   state = { 
@@ -118,11 +118,13 @@ class Builder extends React.Component {
               
               <Accordion defaultActiveKey="0">
               
-              <Accordion.Toggle as={CardHeader} eventKey="0" style={ram.testu}>
+              <Accordion.Toggle as={CardHeader} eventKey="0" >
                   Masks
               </Accordion.Toggle>
               <Accordion.Collapse eventKey="0">
                 <Col>
+                  <Row>
+                    <Col>
                     <Button
                       className="mt-4"
                       color="primary"
@@ -145,6 +147,87 @@ class Builder extends React.Component {
                     >
                       Add Heart
                     </Button>
+                    </Col>
+                    </Row>
+
+                    <Row>
+                    <Col>
+                    <Button
+                      className="mt-4"
+                      color="primary"
+                      onClick={()=>{this.heartAdd()}}
+                    >
+                      Add Heart
+                    </Button>
+                    
+                    <Button
+                      className="mt-4"
+                      color="primary"
+                      onClick={()=>{this.download()}}
+                    >
+                      Add Heart
+                    </Button>
+                    <Button
+                      className="mt-4"
+                      color="primary"
+                      onClick={()=>{this.download()}}
+                    >
+                      Add Heart
+                    </Button>
+                    </Col>
+                    </Row>
+                    <Row>
+                    <Col>
+                    <Button
+                      className="mt-4"
+                      color="primary"
+                      onClick={()=>{this.heartAdd()}}
+                    >
+                      Add Heart
+                    </Button>
+                    
+                    <Button
+                      className="mt-4"
+                      color="primary"
+                      onClick={()=>{this.download()}}
+                    >
+                      Add Heart
+                    </Button>
+                    <Button
+                      className="mt-4"
+                      color="primary"
+                      onClick={()=>{this.download()}}
+                    >
+                      Add Heart
+                    </Button>
+                    </Col>
+                    </Row>
+                    <Row>
+                    <Col>
+                    <Button
+                      className="mt-4"
+                      color="primary"
+                      onClick={()=>{this.heartAdd()}}
+                    >
+                      Add Heart
+                    </Button>
+                    
+                    <Button
+                      className="mt-4"
+                      color="primary"
+                      onClick={()=>{this.download()}}
+                    >
+                      Add Heart
+                    </Button>
+                    <Button
+                      className="mt-4"
+                      color="primary"
+                      onClick={()=>{this.download()}}
+                    >
+                      Add Heart
+                    </Button>
+                    </Col>
+                    </Row>
                 </Col>
               </Accordion.Collapse>
               
@@ -225,10 +308,10 @@ class Builder extends React.Component {
               </Accordion.Collapse>
               </Card>
               <Card>
-              <Accordion.Toggle as={CardHeader} eventKey="3">
+              <Accordion.Toggle as={CardHeader} eventKey="4">
                   Decorations
               </Accordion.Toggle>
-              <Accordion.Collapse eventKey="3">
+              <Accordion.Collapse eventKey="4">
                 <Card>
                 
                     <Button
