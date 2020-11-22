@@ -57,8 +57,8 @@ import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import CardsFooter from "components/Footers/CardsFooter.js";
 
 import Accordion from 'react-bootstrap/Accordion';
-import ram from'assets/css/ram.css';
 
+import ram from 'assets/css/ram.css';
 
 class Builder extends React.Component {
   state = { 
@@ -110,132 +110,169 @@ class Builder extends React.Component {
               <Row>   
               
           <Col id="leftComponent" className="col-3">
-          <Card className="card-profile shadow" style={{height:"800px"}}>
 
+              <Col >
+                
+              <Card className="card shadow" style={{height:"800px"}}>
+
+              
+              <Accordion defaultActiveKey="0">
+              
+              <Accordion.Toggle as={CardHeader} eventKey="0" style={ram.testu}>
+                  Masks
+              </Accordion.Toggle>
+              <Accordion.Collapse eventKey="0">
+                <Col>
+                    <Button
+                      className="mt-4"
+                      color="primary"
+                      onClick={()=>{this.heartAdd()}}
+                    >
+                      Add Heart
+                    </Button>
+                    
+                    <Button
+                      className="mt-4"
+                      color="primary"
+                      onClick={()=>{this.download()}}
+                    >
+                      Add Heart
+                    </Button>
+                    <Button
+                      className="mt-4"
+                      color="primary"
+                      onClick={()=>{this.download()}}
+                    >
+                      Add Heart
+                    </Button>
+                </Col>
+              </Accordion.Collapse>
+              
+              <Card>
+              <Accordion.Toggle as={CardHeader} eventKey="1">
+                  Materials
+              </Accordion.Toggle>
+              <Accordion.Collapse eventKey="1">
+                <Card>
+                    <Button
+                      className="mt-4"
+                      color="primary"
+                      onClick={()=>{this.heartAdd()}}
+                    >
+                      Add Heart
+                    </Button>
+                    
+                    <Button
+                      className="mt-4"
+                      color="primary"
+                      onClick={()=>{this.download()}}
+                    >
+                      Add Heart
+                    </Button>
+
+                </Card>
+              </Accordion.Collapse>
+              </Card>
+              <Card>
+              <Accordion.Toggle as={CardHeader} eventKey="2">
+                  Images
+              </Accordion.Toggle>
+              <Accordion.Collapse eventKey="2">
+                <Card>
+                    <Button
+                      className="mt-4"
+                      color="primary"
+                      onClick={()=>{this.heartAdd()}}
+                    >
+                      Add Heart
+                    </Button>
+                    
+                    <Button
+                      className="mt-4"
+                      color="primary"
+                      onClick={()=>{this.download()}}
+                    >
+                      Add Heart
+                    </Button>
+
+                </Card>
+              </Accordion.Collapse>
+              </Card>
+              <Card>
+              <Accordion.Toggle as={CardHeader} eventKey="3">
+                  Colors
+              </Accordion.Toggle>
+              <Accordion.Collapse eventKey="3">
+                <Card>
+                
+                    <Button
+                      className="mt-4"
+                      color="primary"
+                      onClick={()=>{this.heartAdd()}}
+                    >
+                      Add Heart
+                    </Button>
+                    
+                    <Button
+                      className="mt-4"
+                      color="primary"
+                      onClick={()=>{this.download()}}
+                    >
+                      Add Heart
+                    </Button>
+                
+                </Card>
+              </Accordion.Collapse>
+              </Card>
+              <Card>
+              <Accordion.Toggle as={CardHeader} eventKey="3">
+                  Decorations
+              </Accordion.Toggle>
+              <Accordion.Collapse eventKey="3">
+                <Card>
+                
+                    <Button
+                      className="mt-4"
+                      color="primary"
+                      onClick={()=>{this.heartAdd()}}
+                    >
+                      Add Heart
+                    </Button>
+                    
+                    <Button
+                      className="mt-4"
+                      color="primary"
+                      onClick={()=>{this.download()}}
+                    >
+                      Add Heart
+                    </Button>
+                
+                </Card>
+              </Accordion.Collapse>
+              </Card>
+
+              </Accordion> 
+          </Card>
+        </Col>
+
+      </Col>
           
-          <Accordion defaultActiveKey="0">
-          <Card>
-          <Accordion.Toggle as={CardHeader} eventKey="0">
-              
-              <h5> Click Me! </h5>
-
-          </Accordion.Toggle>
-          <Accordion.Collapse eventKey="0">
-            <Card>
-                <Button
-                  className="mt-4"
-                  color="primary"
-                  onClick={()=>{this.heartAdd()}}
-                >
-                  Add Heart
-                </Button>
-                
-                <Button
-                  className="mt-4"
-                  color="primary"
-                  onClick={()=>{this.download()}}
-                >
-                  Add Heart
-                </Button>
-
-            </Card>
-          </Accordion.Collapse>
-          </Card>
-          <Card>
-          <Accordion.Toggle as={CardHeader} eventKey="1">
-              Click Me!
-          </Accordion.Toggle>
-          <Accordion.Collapse eventKey="1">
-            <Card>
-                <Button
-                  className="mt-4"
-                  color="primary"
-                  onClick={()=>{this.heartAdd()}}
-                >
-                  Add Heart
-                </Button>
-                
-                <Button
-                  className="mt-4"
-                  color="primary"
-                  onClick={()=>{this.download()}}
-                >
-                  Add Heart
-                </Button>
-
-            </Card>
-          </Accordion.Collapse>
-          </Card>
-          <Card>
-          <Accordion.Toggle as={CardHeader} eventKey="2">
-              Click Me!
-          </Accordion.Toggle>
-          <Accordion.Collapse eventKey="2">
-            <Card>
-                <Button
-                  className="mt-4"
-                  color="primary"
-                  onClick={()=>{this.heartAdd()}}
-                >
-                  Add Heart
-                </Button>
-                
-                <Button
-                  className="mt-4"
-                  color="primary"
-                  onClick={()=>{this.download()}}
-                >
-                  Add Heart
-                </Button>
-
-            </Card>
-          </Accordion.Collapse>
-          </Card>
-          <Card>
-          <Accordion.Toggle as={CardHeader} eventKey="3">
-              Click Me!
-          </Accordion.Toggle>
-          <Accordion.Collapse eventKey="3">
-            <Card>
-            
-                <Button
-                  className="mt-4"
-                  color="primary"
-                  onClick={()=>{this.heartAdd()}}
-                >
-                  Add Heart
-                </Button>
-                
-                <Button
-                  className="mt-4"
-                  color="primary"
-                  onClick={()=>{this.download()}}
-                >
-                  Add Heart
-                </Button>
-            
-            </Card>
-          </Accordion.Collapse>
-          </Card>
-          </Accordion>
-
-              
-              
-          </Card>
-          </Col>
-          
-          <Col id="middleComponent" className="col-6">
-          <Card id="editor" className="card-profile shadow" style={{height:"800px"}}>
+          <Col id="middleComponent" className="col-6" >
+          <Card id="editor" className="card shadow" style={{height:"800px"}}>
           
           <MaskEditor ref="editor"/>
           
           </Card>
           </Col>
 
-          <Col id="rightComponent" className="col-3">
-          <Card className="card shadow" style={{height:"800px"}}>
           
-          </Card>
+          <Col id="rightComponent"  className="col-3">
+            <Col >
+              <Card className="card shadow" style={{height:"800px"}}>
+              wqedqwd
+              </Card>
+            </Col>  
+          
           </Col>
 
         </Row>
