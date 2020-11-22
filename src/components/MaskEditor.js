@@ -10,6 +10,7 @@ import Drawing from 'components/Drawing';
 import BrushOptions from 'components/BrushOptions';
 import Button from 'components/UniversalButton';
 
+import PropTypes from 'prop-types';
 
 class MaskEditor extends React.Component {
     state = {
@@ -121,7 +122,7 @@ class MaskEditor extends React.Component {
             <Drawing width={600} height={565} color={this.state.brushColor} />
           </Layer>
           <Layer>
-            {this.state.hearts.map((el, index) =>
+            {this.props.hearts.map((el, index) =>
               (<Heart key={index} color={this.state.value} name={`heart${index}`}></Heart>)
             )}
             <Transformer
@@ -137,5 +138,9 @@ class MaskEditor extends React.Component {
           );
         }
       }
+
+MaskEditor.propTypes ={
+  hearts : PropTypes.array.isRequired
+}
 
 export default MaskEditor

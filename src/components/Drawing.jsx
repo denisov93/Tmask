@@ -27,7 +27,7 @@ class Drawing extends Component {
     handleMouseMove = (e, color) => {
         let evt = e.evt;
         const { context, isDrawing } = this.state;
-        console.log(evt)
+        //console.log(evt)
         if (isDrawing) {
             context.strokeStyle = color;
             context.lineJoin = "round";
@@ -35,10 +35,10 @@ class Drawing extends Component {
 
             if (evt.buttons === 1) {
                 // draw
-                console.log(evt.buttons === 1)
+               // console.log(evt.buttons === 1)
                 context.globalCompositeOperation = "source-over";
             } else if (evt.buttons === 2) {
-                console.log(evt.buttons, evt, evt.buttons === 2)
+               // console.log(evt.buttons, evt, evt.buttons === 2)
                 // erase
                 context.globalCompositeOperation = "destination-out";
             }

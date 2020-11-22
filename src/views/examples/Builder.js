@@ -90,11 +90,19 @@ const RAM = {
 
 class Builder extends React.Component {
   state = { 
-    expanded:''
+    expanded:'',
+    hearts:[]
    };
 
   heartAdd = () =>{
-    this.refs.editor.handleAddHeart()
+    this.refs.editor.handleAddHeart();
+    console.log(this.refs.editor.state)
+  }
+
+  handleAddHeart = () => {
+    this.setState({
+      hearts: [...this.state.hearts, "<3"]
+    })
   }
 
   download = () =>{
@@ -154,7 +162,7 @@ class Builder extends React.Component {
                     <Button
                       color="primary"
                       style={btnStyle}
-                      onClick={()=>{this.heartAdd()}}
+                      onClick={()=>{this.handleAddHeart()}}
                     >
                       Add Heart
                     </Button>
@@ -359,7 +367,7 @@ class Builder extends React.Component {
           <Col id="middleComponent" className="col-6" >
           <Card id="editor" className="card shadow" style={{height:"800px"}}>
           
-          <MaskEditor ref="editor"/>
+          <MaskEditor hearts={this.state.hearts} ref="editor"/>
           
           </Card>
           </Col>

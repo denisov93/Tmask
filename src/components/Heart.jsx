@@ -9,6 +9,7 @@ class Heart extends Component {
     }
 
     handleClick = () => {
+        console.log(this)
         this.setState({
             color: Konva.Util.getRandomColor()
         });
