@@ -57,7 +57,7 @@ import {
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import CardsFooter from "components/Footers/CardsFooter.js";
-
+import { ReactComponent as TrashCan } from 'assets/svg/trash.svg';
 import Accordion from 'react-bootstrap/Accordion';
 import CustomStyles from 'assets/css/custom-styles.css';
 
@@ -90,6 +90,33 @@ const RAM = {
     maxWidth:'375px',
 }
 
+const simpleLayer = {
+  height: "4em" ,
+  background: "#f4f4f4",
+      padding: "10px",
+      borderBottom: "1px #ccc dotted"
+}
+
+const btnDeleteStyle = {
+  background: "#ff0000",
+  color: "#fff",
+  border: "none",
+  padding: "5px 9px",
+  borderRadius: "50%",
+  cursor: "pointer",
+  float: "right",
+};
+
+const trashStyle = {
+  
+  border: "none",
+  padding: "5px 9px",
+  
+  cursor: "pointer",
+  float: "right",
+
+};
+
 class Builder extends React.Component {
   state = { 
     expanded:'',
@@ -104,6 +131,12 @@ class Builder extends React.Component {
   handleAddHeart = () => {
     this.setState({
       hearts: [...this.state.hearts, "<3"]
+    })
+  }
+
+  handleDeleteHeart = id =>{
+    this.setState({
+      hearts: [...this.state.hearts.filter((el, index) => index !== id)]
     })
   }
 
@@ -378,7 +411,18 @@ class Builder extends React.Component {
           <Col id="rightComponent"  className="col-3">
             <Col >
               <Card className="card shadow" style={{height:"800px"}}>
-              wqedqwd
+              
+              {this.state.hearts.map((el, index) =>
+              (<div style={simpleLayer} key={index} >
+                <span >
+                {`Layer ${index+1}`}
+                </span>
+                <span style={trashStyle}>
+                  {<TrashCan/>}
+                </span>
+              </div>)
+              )}
+
               </Card>
             </Col>  
           
