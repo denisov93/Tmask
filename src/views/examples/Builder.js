@@ -85,8 +85,9 @@ const btnStyle = {
 
 const RAM = {
     display: 'grid',
-    gridGap:'1rem',
-    gridTemplateColumns: 'repeat(auto-fit,minmax(74px,1fr))'
+    gridGap:'0rem',
+    gridTemplateColumns: 'repeat(auto-fit,minmax(90px,1fr))',
+    maxWidth:'375px',
 }
 
 class Builder extends React.Component {
