@@ -69,8 +69,8 @@ const maskIndex = [
 
 const accordionStyle = {
   maxHeight: '400px',
-  overflowY:'scroll',
-  overflowX:'hidden',
+  overflowY: 'scroll',
+  overflowX: 'hidden',
 }
 
 const btnStyle = {
@@ -78,23 +78,23 @@ const btnStyle = {
   backgroundPosition: 'left top',
   backgroundRepeat: 'repeat',
   paddingLeft: '1px',
-  margin:'2px',
+  margin: '2px',
   width: '90px',
   height: '90px',
 };
 
 const RAM = {
-    display: 'grid',
-    gridGap:'0rem',
-    gridTemplateColumns: 'repeat(auto-fit,minmax(90px,1fr))',
-    maxWidth:'375px',
+  display: 'grid',
+  gridGap: '0rem',
+  gridTemplateColumns: 'repeat(auto-fit,minmax(90px,1fr))',
+  maxWidth: '375px',
 }
 
 const simpleLayer = {
-  height: "4em" ,
+  height: "4em",
   background: "#f4f4f4",
-      padding: "10px",
-      borderBottom: "1px #ccc dotted"
+  padding: "10px",
+  borderBottom: "1px #ccc dotted"
 }
 
 const btnDeleteStyle = {
@@ -108,22 +108,23 @@ const btnDeleteStyle = {
 };
 
 const trashStyle = {
-  
+
   border: "none",
   padding: "5px 9px",
-  
+
   cursor: "pointer",
   float: "right",
 
 };
 
 class Builder extends React.Component {
-  state = { 
-    expanded:'',
-    hearts:[]
-   };
+  state = {
+    expanded: '',
+    selectedLayer:-1,
+    hearts: []
+  };
 
-  heartAdd = () =>{
+  heartAdd = () => {
     this.refs.editor.handleAddHeart();
     console.log(this.refs.editor.state)
   }
@@ -134,24 +135,31 @@ class Builder extends React.Component {
     })
   }
 
-  handleDeleteHeart = id =>{
+  handleDeleteHeart = id => {
     this.setState({
-      hearts: [...this.state.hearts.filter((el, index) => index !== id)]
+      hearts: [...this.state.hearts.filter((e1, index) => index !== id)]
     })
   }
 
-  download = () =>{
+  handleSelectedLayer = (id) => {
+    //if id = -1 or doesn't exist Alert("Doesn't exist")
+    this.setState({
+      selectedLayer: id
+    })
+  }
+
+  download = () => {
     this.refs.editor.handleExportClick()
   }
 
-  setExpanded(panel){
+  setExpanded(panel) {
     this.setState({ expanded: panel });
   }
 
   handleChange = (panel) => (event, newExpanded) => {
     this.setExpanded(newExpanded ? panel : false);
   };
-  
+
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
@@ -177,258 +185,238 @@ class Builder extends React.Component {
                 <span />
               </div>
               <br></br>
-              
-              <Row>   
-              
-          <Col id="leftComponent" className="col-3">
 
-              <Col >
-                
-              <Card className="card shadow" style={{height:"800px"}}>
-
-              
-              <Accordion defaultActiveKey="0">
-              
-              <Accordion.Toggle as={CardHeader} eventKey="0" >
-                  Masks
-              </Accordion.Toggle>
-              <Accordion.Collapse style={accordionStyle} eventKey="0">
-                <div style={RAM}>
-                    <Button
-                      color="primary"
-                      style={btnStyle}
-                      onClick={()=>{this.handleAddHeart()}}
-                    >
-                      Add Heart
-                    </Button>
-                    
-                    <Button
-                      color="primary"
-                      style={btnStyle}
-                      onClick={()=>{this.heartAdd()}}
-                    >
-                      Add Heart
-                    </Button>
-                    <Button
-                      color="primary"
-                      style={btnStyle}
-                      onClick={()=>{this.heartAdd()}}
-                    >
-                      Add Heart
-                    </Button>
+              <Row>
 
 
-                    <Button
-                      color="primary"
-                      style={btnStyle}
-                      onClick={()=>{this.heartAdd()}}
-                    >
-                      Add Heart
-                    </Button>
-                    
-                    <Button
-                      color="primary"
-                      style={btnStyle}
-                      onClick={()=>{this.heartAdd()}}
-                    >
-                      Add Heart
-                    </Button>
-                    <Button
-                      color="primary"
-                      style={btnStyle}
-                      onClick={()=>{this.heartAdd()}}
-                    >
-                      Add Heart
-                    </Button>
+                <Col id="leftComponent" className="col-3">
 
-                    <Button
-                      color="primary"
-                      style={btnStyle}
-                      onClick={()=>{this.heartAdd()}}
-                    >
-                      Add Heart
-                    </Button>
-                    
-                    <Button
-                      color="primary"
-                      style={btnStyle}
-                      onClick={()=>{this.heartAdd()}}
-                    >
-                      Add Heart
-                    </Button>
-                    <Button
-                      color="primary"
-                      style={btnStyle}
-                      onClick={()=>{this.heartAdd()}}
-                    >
-                      Add Heart
-                    </Button>
+                  <Col >
 
-                    <Button
-                      color="primary"
-                      style={btnStyle}
-                      onClick={()=>{this.heartAdd()}}
-                    >
-                      Add Heart
-                    </Button>
-                    
-                    <Button
-                      color="primary"
-                      style={btnStyle}
-                      onClick={()=>{this.heartAdd()}}
-                    >
-                      Add Heart
-                    </Button>
-                    <Button
-                      color="primary"
-                      style={btnStyle}
-                      onClick={()=>{this.heartAdd()}}
-                    >
-                      Add Heart
-                    </Button>
+                    <Card className="card shadow" style={{ height: "800px" }}>
 
-                </div>
-              </Accordion.Collapse>
-              
-              <Card>
-              <Accordion.Toggle as={CardHeader} eventKey="1">
-                  Materials
-              </Accordion.Toggle>
-              <Accordion.Collapse eventKey="1">
-                <Card>
-                <Button
-                      color="primary"
-                      style={btnStyle}
-                      onClick={()=>{this.heartAdd()}}
-                    >
-                      Add Heart
-                    </Button>
-                    
-                    <Button
-                      color="primary"
-                      style={btnStyle}
-                      onClick={()=>{this.heartAdd()}}
-                    >
-                      Add Heart
-                    </Button>
+                      <Accordion defaultActiveKey="0">
 
-                </Card>
-              </Accordion.Collapse>
-              </Card>
-              <Card>
-              <Accordion.Toggle as={CardHeader} eventKey="2">
-                  Images
-              </Accordion.Toggle>
-              <Accordion.Collapse eventKey="2">
-                <Card>
-                <Button
-                      color="primary"
-                      style={btnStyle}
-                      onClick={()=>{this.heartAdd()}}
-                    >
-                      Add Heart
-                    </Button>
-                    
-                    <Button
-                      color="primary"
-                      style={btnStyle}
-                      onClick={()=>{this.heartAdd()}}
-                    >
-                      Add Heart
-                    </Button>
+                        <Accordion.Toggle as={CardHeader} eventKey="0">
+                          {" "}<i class="fa fa-shield"></i> Masks
+                          </Accordion.Toggle>
+                        <Accordion.Collapse style={accordionStyle} eventKey="0">
+                          <div style={RAM}>
+                            <Button
+                              color="primary"
+                              style={btnStyle}
+                              onClick={() => { this.handleAddHeart() }}
+                            >
+                              Add Heart
+                              </Button>
 
-                </Card>
-              </Accordion.Collapse>
-              </Card>
-              <Card>
-              <Accordion.Toggle as={CardHeader} eventKey="3">
-                  Colors
-              </Accordion.Toggle>
-              <Accordion.Collapse eventKey="3">
-                <Card>
-                
-                <Button
-                      color="primary"
-                      style={btnStyle}
-                      onClick={()=>{this.heartAdd()}}
-                    >
-                      Add Heart
-                    </Button>
-                    
-                    <Button
-                      color="primary"
-                      style={btnStyle}
-                      onClick={()=>{this.heartAdd()}}
-                    >
-                      Add Heart
-                    </Button>
-                
-                </Card>
-              </Accordion.Collapse>
-              </Card>
-              <Card>
-              <Accordion.Toggle as={CardHeader} eventKey="4">
-                  Decorations
-              </Accordion.Toggle>
-              <Accordion.Collapse eventKey="4">
-                <Card>
-                
-                <Button
-                      color="primary"
-                      style={btnStyle}
-                      onClick={()=>{this.heartAdd()}}
-                    >
-                      Add Heart
-                    </Button>
-                    
-                    <Button
-                      color="primary"
-                      style={btnStyle}
-                      onClick={()=>{this.heartAdd()}}
-                    >
-                      Add Heart
-                    </Button>
-                
-                </Card>
-              </Accordion.Collapse>
-              </Card>
+                            <Button
+                              color="primary"
+                              style={btnStyle}
+                              onClick={() => { this.handleDeleteHeart(0) }}
+                            >
+                              Delete Heart
+                              </Button>
+                            <Button
+                              color="primary"
+                              style={btnStyle}
+                              onClick={() => { this.heartAdd() }}
+                            >
+                              Add Heart
+                              </Button>
 
-              </Accordion> 
-          </Card>
-        </Col>
+                            <Button
+                              color="primary"
+                              style={btnStyle}
+                              onClick={() => { this.heartAdd() }}
+                            >
+                              Add Heart
+                              </Button>
 
-      </Col>
-          
-          <Col id="middleComponent" className="col-6" >
-          <Card id="editor" className="card shadow" style={{height:"800px"}}>
-          
-          <MaskEditor hearts={this.state.hearts} ref="editor"/>
-          
-          </Card>
-          </Col>
+                            <Button
+                              color="primary"
+                              style={btnStyle}
+                              onClick={() => { this.heartAdd() }}
+                            >
+                              Add Heart
+                              </Button>
 
-          
-          <Col id="rightComponent"  className="col-3">
-            <Col >
-              <Card className="card shadow" style={{height:"800px"}}>
-              
-              {this.state.hearts.map((el, index) =>
-              (<div style={simpleLayer} key={index} >
-                <span >
-                {`Layer ${index+1}`}
-                </span>
-                <span style={trashStyle}>
-                  {<TrashCan/>}
-                </span>
-              </div>)
-              )}
+                          </div>
+                        </Accordion.Collapse>
 
-              </Card>
-            </Col>  
-          
-          </Col>
+                        <Card>
+                          <Accordion.Toggle as={CardHeader} eventKey="1">
+                            <i class="fa fa-cubes"></i> Materials
+                            </Accordion.Toggle>
+                          <Accordion.Collapse eventKey="1">
+                            <div style={RAM}>
+                              <Button
+                                color="primary"
+                                style={btnStyle}
+                                onClick={() => { this.heartAdd() }}
+                              >
+                                Add Heart
+                                </Button>
 
-        </Row>
+                              <Button
+                                color="primary"
+                                style={btnStyle}
+                                onClick={() => { this.heartAdd() }}
+                              >
+                                Add Heart
+                                </Button>
+
+                              <Button
+                                color="primary"
+                                style={btnStyle}
+                                onClick={() => { this.heartAdd() }}
+                              >
+                                Add Heart
+                                </Button>
+
+                            </div>
+                          </Accordion.Collapse>
+                        </Card>
+                        <Card>
+                          <Accordion.Toggle as={CardHeader} eventKey="2">
+                            <i class="fa fa-image"></i> Images
+                            </Accordion.Toggle>
+                          <Accordion.Collapse eventKey="2">
+                            <div style={RAM}>
+                              <Button
+                                color="primary"
+                                style={btnStyle}
+                                onClick={() => { this.heartAdd() }}
+                              >
+                                Add Heart
+                                </Button>
+
+                              <Button
+                                color="primary"
+                                style={btnStyle}
+                                onClick={() => { this.heartAdd() }}
+                              >
+                                Add Heart
+                                </Button>
+
+                              <Button
+                                color="primary"
+                                style={btnStyle}
+                                onClick={() => { this.heartAdd() }}
+                              >
+                                Add Heart
+                                </Button>
+
+                            </div>
+                          </Accordion.Collapse>
+                        </Card>
+                        <Card>
+                          <Accordion.Toggle as={CardHeader} eventKey="3">
+                            <i class="fa fa-paint-brush"></i> Colors
+                            </Accordion.Toggle>
+                          <Accordion.Collapse eventKey="3">
+                            <div style={RAM}>
+                              <Button
+                                color="primary"
+                                style={btnStyle}
+                                onClick={() => { this.heartAdd() }}
+                              >
+                                Add Heart
+                                </Button>
+
+                              <Button
+                                color="primary"
+                                style={btnStyle}
+                                onClick={() => { this.heartAdd() }}
+                              >
+                                Add Heart
+                                </Button>
+
+                              <Button
+                                color="primary"
+                                style={btnStyle}
+                                onClick={() => { this.heartAdd() }}
+                              >
+                                Add Heart
+                                </Button>
+
+                            </div>
+                          </Accordion.Collapse>
+                        </Card>
+                        <Card>
+                          <Accordion.Toggle as={CardHeader} eventKey="4">
+                            <i class="fa fa-star"></i> Decorations
+                            </Accordion.Toggle>
+                          <Accordion.Collapse eventKey="4">
+                            <div style={RAM}>
+
+                              <Button
+                                color="primary"
+                                style={btnStyle}
+                                onClick={() => { this.heartAdd() }}
+                              >
+                                Add Heart
+                                </Button>
+
+                              <Button
+                                color="primary"
+                                style={btnStyle}
+                                onClick={() => { this.heartAdd() }}
+                              >
+                                Add Heart
+                                </Button>
+
+                              <Button
+                                color="primary"
+                                style={btnStyle}
+                                onClick={() => { this.heartAdd() }}
+                              >
+                                Add Heart
+                                </Button>
+
+                            </div>
+                          </Accordion.Collapse>
+                        </Card>
+
+                      </Accordion>
+                    </Card>
+                  </Col>
+
+                </Col>
+
+                <Col id="middleComponent" className="col-6" >
+                  <Card id="editor" className="card shadow" style={{ height: "800px" }}>
+
+                    <MaskEditor hearts={this.state.hearts} ref="editor" />
+
+                  </Card>
+                </Col>
+
+
+                <Col id="rightComponent" className="col-3">
+                  <Col >
+                    <Card className="card shadow" style={{ height: "800px" }}>
+
+                      {this.state.hearts.map((el, index) =>
+                        (<div style={simpleLayer} key={index} onClick={""}>
+                          <span >
+                            {`Layer ${index + 1}`}
+                          </span>
+                          <span style={trashStyle}>
+                            {<TrashCan onClick={() => { 
+                              this.handleDeleteHeart(index)
+                              this.forceUpdate()
+                              }}/>}
+                          </span>
+                        </div>)
+                      )}
+
+                    </Card>
+                  </Col>
+
+                </Col>
+
+              </Row>
               {/* SVG separator */}
               <div className="separator separator-bottom separator-skew">
                 <svg
@@ -449,7 +437,7 @@ class Builder extends React.Component {
             {/* 1st Hero Variation */}
           </div>
         </main>
-        
+
         <CardsFooter />
       </>
     );
