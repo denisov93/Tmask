@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Stage, Layer, Rect, Text } from 'react-konva';
 import Konva from 'konva';
 import ColoredRect from 'components/ColoredRect.js';
-import Heart from 'components/Heart';
+import Heart from 'components/editorDecorations/Heart';
+import Star from 'components/editorDecorations/Star';
 import URLImage from 'components/URLImage';
 import mask from '../assets/img/masks/white.png';
 import Transformer from 'components/Transformer';
@@ -17,7 +18,7 @@ class MaskEditor extends React.Component {
         stageWidth: 1000,
         stageHeight: 1000,
         selectedShapeName: '',
-        hearts: [],
+        decorations: [],
         brushColor: '#000000'
       };
 
@@ -54,6 +55,10 @@ class MaskEditor extends React.Component {
           this.setState({
             selectedShapeName: name
           });
+        } else if (name === `star${e.target.index}`) {
+          this.setState({
+            selectedShapeName: name
+          });
         } else {
           this.setState({
             selectedShapeName: ''
@@ -63,7 +68,13 @@ class MaskEditor extends React.Component {
     
       handleAddHeart = () => {
         this.setState({
-          hearts: [...this.state.hearts, "<3"]
+          decorations: [...this.state.decorations, "<3"]
+        })
+      }
+
+      handleAddStar = () => {
+        this.setState({
+          decorations: [...this.state.decorations, "*"]
         })
       }
     
@@ -115,18 +126,25 @@ class MaskEditor extends React.Component {
             <URLImage src={mask} ref={node => { this.maskRef = node }} />
           </Layer>
           <Layer>
-            <Drawing width={600} height={565} color={this.state.brushColor} />
+            <Drawing width={1000} height={800} color={this.state.brushColor} />
           </Layer>
           <Layer>
-            {this.props.hearts.map((el, index) =>
-              (<Heart key={index} color={this.state.value} name={`heart${index}`}></Heart>)
-            )}
+            {
+            this.props.decorations.map(
+              (el, index) => 
+              {
+                if(el === "<3"){
+                  return (<Heart key={index} color={this.state.value} name={`heart${index}`}></Heart>)
+                }else if(el === "*"){
+                  return (<Star key={index} color={this.state.value} name={`star${index}`}></Star>)
+                }
+              })
+            }
             <Transformer
               selectedShapeName={this.state.selectedShapeName}
             />
           </Layer>
         </Stage>
-        
         
         <BrushOptions value={this.state.brushColor} onChange={this.handleBrushColorChoice} />
             
@@ -136,7 +154,7 @@ class MaskEditor extends React.Component {
       }
 
 MaskEditor.propTypes ={
-  hearts : PropTypes.array.isRequired
+  decorations : PropTypes.array.isRequired
 }
 
 export default MaskEditor

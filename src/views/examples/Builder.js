@@ -59,13 +59,17 @@ import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import CardsFooter from "components/Footers/CardsFooter.js";
 import { ReactComponent as TrashCan } from 'assets/svg/trash.svg';
 import Accordion from 'react-bootstrap/Accordion';
-import CustomStyles from 'assets/css/custom-styles.css';
 
 const maskIndex = [
   "",
   "",
   "",
 ]
+
+const btnImageStyle = {
+  width: '60px',
+  height: '60px',
+}
 
 const accordionStyle = {
   maxHeight: '400px',
@@ -75,12 +79,13 @@ const accordionStyle = {
 
 const btnStyle = {
   borderRadius: '16px',
-  backgroundPosition: 'left top',
-  backgroundRepeat: 'repeat',
-  paddingLeft: '1px',
-  margin: '2px',
+  paddingLeft: '19px',
+  margin: '1px',
   width: '90px',
   height: '90px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
 };
 
 const RAM = {
@@ -121,7 +126,7 @@ class Builder extends React.Component {
   state = {
     expanded: '',
     selectedLayer:-1,
-    hearts: []
+    decorations: []
   };
 
   heartAdd = () => {
@@ -129,15 +134,27 @@ class Builder extends React.Component {
     console.log(this.refs.editor.state)
   }
 
+  starAdd = () => {
+    this.refs.editor.handleAddStar();
+    console.log(this.refs.editor.state)
+  }
+
   handleAddHeart = () => {
     this.setState({
-      hearts: [...this.state.hearts, "<3"]
+      decorations: [...this.state.decorations, "<3"]
     })
   }
 
-  handleDeleteHeart = id => {
+  handleAddStar = () => {
     this.setState({
-      hearts: [...this.state.hearts.filter((e1, index) => index !== id)]
+      decorations: [...this.state.decorations, "*"]
+    })
+  }
+
+  handleUndoDecoration = () =>{
+    this.state.decorations.splice(-1,1)
+    this.setState({
+      decorations: this.state.decorations
     })
   }
 
@@ -213,7 +230,7 @@ class Builder extends React.Component {
                             <Button
                               color="primary"
                               style={btnStyle}
-                              onClick={() => { this.handleDeleteHeart(0) }}
+                              onClick={() => { this.handleUndoDecoration() }}
                             >
                               Delete Heart
                               </Button>
@@ -353,17 +370,16 @@ class Builder extends React.Component {
                               <Button
                                 color="primary"
                                 style={btnStyle}
-                                onClick={() => { this.heartAdd() }}
-                              >
-                                Add Heart
-                                </Button>
+                                onClick={() => { this.handleAddHeart() }}>
+                              <img src={require("assets/img/masks/goku.png").default} style={btnImageStyle} alt="Heart" onClick={this.myfunction} />
+                              </Button>
 
                               <Button
                                 color="primary"
                                 style={btnStyle}
-                                onClick={() => { this.heartAdd() }}
+                                onClick={() => { this.handleAddStar() }}
                               >
-                                Add Heart
+                                Add Star
                                 </Button>
 
                               <Button
@@ -387,7 +403,7 @@ class Builder extends React.Component {
                 <Col id="middleComponent" className="col-6" >
                   <Card id="editor" className="card shadow" style={{ height: "800px" }}>
 
-                    <MaskEditor hearts={this.state.hearts} ref="editor" />
+                    <MaskEditor decorations={this.state.decorations} ref="editor" />
 
                   </Card>
                 </Col>
@@ -397,14 +413,14 @@ class Builder extends React.Component {
                   <Col >
                     <Card className="card shadow" style={{ height: "800px" }}>
 
-                      {this.state.hearts.map((el, index) =>
+                      {this.state.decorations.map((el, index) =>
                         (<div style={simpleLayer} key={index} onClick={""}>
                           <span >
                             {`Layer ${index + 1}`}
                           </span>
                           <span style={trashStyle}>
                             {<TrashCan onClick={() => { 
-                              this.handleDeleteHeart(index)
+                              this.handleUndoDecoration()
                               this.forceUpdate()
                               }}/>}
                           </span>

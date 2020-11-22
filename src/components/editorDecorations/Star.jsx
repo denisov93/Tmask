@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Path } from 'react-konva';
 import Konva from 'konva';
 
-class Heart extends Component {
+class Star extends Component {
 
     state = {
-        color: 'pink'
+        color: 'yellow'
     }
 
     handleClick = () => {
@@ -18,10 +18,10 @@ class Heart extends Component {
     render() {
         const { name } = this.props;
         return (<Path
-            x={250}
-            y={300}
+            x={24}
+            y={24}
             scaling={true}
-            data={"M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"}
+            data={"M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"}
             fill={this.state.color}
             name={name}
             onClick={this.handleClick}
@@ -30,4 +30,4 @@ class Heart extends Component {
     }
 }
 
-export default Heart;
+export default Star;
