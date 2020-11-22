@@ -65,6 +65,16 @@ class DemoNavbar extends React.Component {
   };
 
   render() {
+
+    var itemCount = 0
+    let cartPopup;
+
+    if (itemCount > 0) {
+      cartPopup = "Checkout Your Cart!";
+    } else {
+      cartPopup = "Your cart is empty.";
+    }
+
     return (
       <>
         <header className="header-global">
@@ -160,13 +170,14 @@ class DemoNavbar extends React.Component {
                       to="/cart" 
                       tag={Link}
                     >
+                      {itemCount}{" "}
                       <i className="fa fa-shopping-cart" />
                       <span className="nav-link-inner--text d-lg-none ml-2">
                         Cart
                       </span>
                     </NavLink>
                     <UncontrolledTooltip delay={0} target="tooltip184698705">
-                      Checkout Your Cart!
+                        {cartPopup}
                     </UncontrolledTooltip>
                   </NavItem>
                   <NavItem>
