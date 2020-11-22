@@ -70,6 +70,7 @@ const maskIndex = [
 const accordionStyle = {
   maxHeight: '400px',
   overflowY:'scroll',
+  overflowX:'hidden',
 }
 
 const btnStyle = {
@@ -85,7 +86,7 @@ const btnStyle = {
 const RAM = {
     display: 'grid',
     gridGap:'1rem',
-    gridTemplateColumns: 'repeat(auto-fit,minmax(80px,1fr))'
+    gridTemplateColumns: 'repeat(auto-fit,minmax(74px,1fr))'
 }
 
 class Builder extends React.Component {

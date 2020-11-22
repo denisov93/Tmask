@@ -18,8 +18,7 @@ class MaskEditor extends React.Component {
         stageHeight: 1000,
         selectedShapeName: '',
         hearts: [],
-        brushColor: '#E0BBE4'
-       
+        brushColor: '#000000'
       };
 
       componentDidMount() {
@@ -28,9 +27,6 @@ class MaskEditor extends React.Component {
         // take a look here https://developers.google.com/web/updates/2016/10/resizeobserver
         // for simplicity I will just listen window resize
         window.addEventListener("resize", this.checkSize);
-
-        
-        
       }
     
 
