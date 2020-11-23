@@ -270,7 +270,7 @@ class Builder extends React.Component {
 
                 <Col id="leftComponent" className="col-3">
 
-                  <Col >
+                  <Col style={{userSelect: 'none'}}>
 
                     <Card className="card shadow" style={{ height: "800px" }}>
 
@@ -588,7 +588,7 @@ class Builder extends React.Component {
 
 
                 <Col id="rightComponent" className="col-3">
-                  <Col >
+                  <Col style={{userSelect: 'none'}}>
                     <Card className="card shadow" style={{ height: "800px" }}>
 
                       {this.state.decorations.map((el, index) =>
