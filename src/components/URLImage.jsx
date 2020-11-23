@@ -58,10 +58,11 @@ class URLImage extends Component {
         this.imageNode.getLayer().batchDraw();
     };
     render() {
-        const { x, y } = this.props;
+        const { x, y, name } = this.props;
         
         return (
-            <Image
+            <Image 
+                name={name}
                 x={x}
                 y={y}
                 image={this.state.image}

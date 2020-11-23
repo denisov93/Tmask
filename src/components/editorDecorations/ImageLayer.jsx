@@ -33,7 +33,7 @@ class ImageLayer extends Component {
 }
 
 ImageLayer.propTypes ={
-    imageLayer : PropTypes.string.isRequired
+    imageLayer : PropTypes.string.isRequired,
   }
 
 export default ImageLayer;

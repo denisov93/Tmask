@@ -150,9 +150,9 @@ class Builder extends React.Component {
     
   }
 
-  handleAddImageLayer = lr =>{
+  handleAddImageLayer(name,lr){
     this.setState({
-      decorations: [...this.state.decorations, lr]
+      decorations: [...this.state.decorations, (name,lr)]
     })
   }
 
@@ -165,6 +165,12 @@ class Builder extends React.Component {
   handleAddStar = () => {
     this.setState({
       decorations: [...this.state.decorations, "*"]
+    })
+  }
+
+  handleAddTriangle = () => {
+    this.setState({
+      decorations: [...this.state.decorations, "Δ"]
     })
   }
 
@@ -353,7 +359,7 @@ class Builder extends React.Component {
                                 onClick={(e)=>{
                                 e.preventDefault()
                                 
-                                this.handleAddImageLayer(image1)
+                                this.handleAddImageLayer("editor_image_1", image1)
                                 }}/>
                               </Button>
 
@@ -454,7 +460,7 @@ class Builder extends React.Component {
                               <Button
                                 color="primary"
                                 style={btnStyle}
-                                onClick={() => {  }}>
+                                onClick={() => { this.handleAddTriangle() }}>
                               <img src={require("assets/img/editorResources/editor_triangle.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
                               </Button>
 

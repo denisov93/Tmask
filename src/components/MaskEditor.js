@@ -1,20 +1,28 @@
 import React, { Component } from 'react';
 import { Stage, Layer, Rect, Text } from 'react-konva';
+// eslint-disable-next-line
 import Konva from 'konva';
+// eslint-disable-next-line
 import ColoredRect from 'components/ColoredRect.js';
 import Heart from 'components/editorDecorations/Heart';
 import Star from 'components/editorDecorations/Star';
+import Triangle from 'components/editorDecorations/Triangle';
 import URLImage from 'components/URLImage';
 
 import mask from '../assets/img/masks/white.png';
+// eslint-disable-next-line
 import mask1 from 'assets/img/editorResources/editor_mask_cloth.png';
+// eslint-disable-next-line
 import mask2 from 'assets/img/editorResources/editor_mask_cirurgical.png';
+// eslint-disable-next-line
 import mask3 from 'assets/img/editorResources/editor_mask_N95_type2.png';
+// eslint-disable-next-line
 import mask4 from 'assets/img/editorResources/editor_mask_N95.png';
 
 import Transformer from 'components/Transformer';
 import Drawing from 'components/Drawing';
 import BrushOptions from 'components/BrushOptions';
+// eslint-disable-next-line
 import Button from 'components/UniversalButton';
 
 import PropTypes from 'prop-types';
@@ -25,7 +33,6 @@ class MaskEditor extends React.Component {
         stageWidth: 1000,
         stageHeight: 1000,
         selectedShapeName: '',
-        decorations: [],
         brushColor: '#000000'
       };
 
@@ -63,32 +70,34 @@ class MaskEditor extends React.Component {
         // find clicked shape by its name
         const name = e.target.name();
         if (name === `heart${e.target.index}`) {
+          console.log("Selected Shape: " + name)
           this.setState({
             selectedShapeName: name
           });
         } else if (name === `star${e.target.index}`) {
+          console.log("Selected Shape: " + name)
+          this.setState({
+            selectedShapeName: name
+          });
+        } else if (name === `triangle${e.target.index}`) {
+          console.log("Selected Shape: " + name)
+          this.setState({
+            selectedShapeName: name
+          });
+        } else if (name === `image${e.target.index}`) {
+          console.log("Selected Image: " + name)
           this.setState({
             selectedShapeName: name
           });
         } else {
+          console.log("DEFAULT CASE: [name:" + name + "]["+e.target.index+"]")
+          console.log(this.state.decorations)
           this.setState({
             selectedShapeName: ''
           });
         }
       };
-    
-      handleAddHeart = () => {
-        this.setState({
-          decorations: [...this.state.decorations, "<3"]
-        })
-      }
 
-      handleAddStar = () => {
-        this.setState({
-          decorations: [...this.state.decorations, "*"]
-        })
-      }
-    
       handleExportClick = () => {
         const dataURL = this.stageRef.getStage().toDataURL();
         this.downloadURI(dataURL, "mask.jpg");
@@ -148,9 +157,11 @@ class MaskEditor extends React.Component {
                   return (<Heart key={index} color={this.state.value} name={`heart${index}`}></Heart>)
                 }else if(el === "*"){
                   return (<Star key={index} color={this.state.value} name={`star${index}`}></Star>)
+                }else if(el === "Δ"){
+                  return (<Triangle key={index} color={this.state.value} name={`triangle${index}`}></Triangle>)
                 }else
                   return (
-                  <ImageLayer key={index} imageLayer={el} canChange={true} canDrag={true} opacity={0.7} opacitySwitch={true} name={`image${index}`}></ImageLayer>
+                  <ImageLayer key={index} name={`image${index}`} imageLayer={el} canChange={true} canDrag={true} opacity={0.7} opacitySwitch={true}></ImageLayer>
                   )
               })
             }
