@@ -503,7 +503,7 @@ class Builder extends React.Component {
                     <Card className="card shadow" style={{ height: "800px" }}>
 
                       {this.state.decorations.map((el, index) =>
-                        (<div style={simpleLayer} key={index} onClick={""}>
+                        (<div style={simpleLayer} key={index}>
                           <span >
                             {`Layer ${index + 1}`}
                           </span>

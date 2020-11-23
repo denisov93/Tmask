@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Image } from 'react-konva';
+import PropTypes from 'prop-types';
 
 class URLImage extends Component {
     state = {
+        canChange: this.props.canChange,
+        canDrag: true,
         image: null,
         opacity: 0.7,
         opacitySwitch: true
@@ -20,16 +23,18 @@ class URLImage extends Component {
     }
     handleClick = () => {
         console.log("Pressed an image")
-        if(this.state.opacitySwitch){
-            this.setState({
-                opacitySwitch: false,
-                opacity: 1
-            });
-        }else{
-            this.setState({
-                opacitySwitch: true,
-                opacity: 0.7
-            });
+        if(this.state.canChange){
+            if(this.state.opacitySwitch){
+                this.setState({
+                    opacitySwitch: false,
+                    opacity: 1
+                });
+            }else{
+                this.setState({
+                    opacitySwitch: true,
+                    opacity: 0.7
+                });
+            }
         }
     };
     loadImage() {
@@ -42,7 +47,11 @@ class URLImage extends Component {
         // after setState react-konva will update canvas and redraw the layer
         // because "image" property is changed
         this.setState({
-            image: this.image
+            image: this.image,
+            isChangable: this.props.canChange,
+            canDrag: this.props.canDrag,
+            opacity: this.props.opacity,
+            opacitySwitch: this.props.opacitySwitch
         });
         // if you keep same image object during source updates
         // you will have to update layer manually:
@@ -50,6 +59,7 @@ class URLImage extends Component {
     };
     render() {
         const { x, y } = this.props;
+        
         return (
             <Image
                 x={x}
@@ -58,14 +68,20 @@ class URLImage extends Component {
                 ref={node => {
                     this.imageNode = node;
                 }}
-                draggable={true}
                 scaling={true}
-                draggable={true}
+                draggable={this.state.canDrag}
                 opacity={this.state.opacity}
                 onClick={this.handleClick}
             />
         );
     }
 }
+
+URLImage.propTypes ={
+    canChange : PropTypes.bool.isRequired,
+    canDrag: PropTypes.bool.isRequired,
+    opacity: PropTypes.number.isRequired,
+    opacitySwitch: PropTypes.bool.isRequired
+  }
 
 export default URLImage;

@@ -31,6 +31,7 @@ class MaskEditor extends React.Component {
 
       componentDidMount() {
         this.checkSize();
+        console.log("Image Created")
         // here we should add listener for "container" resize
         // take a look here https://developers.google.com/web/updates/2016/10/resizeobserver
         // for simplicity I will just listen window resize
@@ -133,7 +134,7 @@ class MaskEditor extends React.Component {
           >
             <Stage width={this.state.stageWidth} height={this.state.stageHeight} ref={node => { this.stageRef = node }} onMouseDown={this.handleStageMouseDown}>
           <Layer>
-            <URLImage src={ this.props.maskType } ref={node => { this.maskRef = node }}/>
+            <URLImage src={ this.props.maskType } canChange={false} canDrag={false} opacity={1} opacitySwitch={false} ref={node => { this.maskRef = node }}/>
           </Layer>
           <Layer>
             <Drawing width={1000} height={800} color={this.state.brushColor} />
@@ -149,7 +150,7 @@ class MaskEditor extends React.Component {
                   return (<Star key={index} color={this.state.value} name={`star${index}`}></Star>)
                 }else
                   return (
-                  <ImageLayer key={index} imageLayer={el} name={`image${index}`}></ImageLayer>
+                  <ImageLayer key={index} imageLayer={el} canChange={true} canDrag={true} opacity={0.7} opacitySwitch={true} name={`image${index}`}></ImageLayer>
                   )
               })
             }

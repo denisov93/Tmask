@@ -10,19 +10,16 @@ import PropTypes from 'prop-types';
 class ImageLayer extends Component {
 
     state = {
-        opacity: 1
+        opacity: 0.7
     }
 
     handleClick = () => {
         console.log("Pressed an image")
-        this.setState({
-            opacity: 0.5
-        });
     };
 
     render() {
         const { name } = this.props;
-        return (<URLImage
+        return (<URLImage canChange={true} canDrag={true} opacity={0.7} opacitySwitch={true}
             name={name}
             src={ this.props.imageLayer } 
             x={300}
