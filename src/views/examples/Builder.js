@@ -73,7 +73,7 @@ import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import CardsFooter from "components/Footers/CardsFooter.js";
 import { ReactComponent as TrashCan } from 'assets/svg/trash.svg';
 import Accordion from 'react-bootstrap/Accordion';
-import { faAlignRight } from "@fortawesome/free-solid-svg-icons";
+
 
 const maskIndex = [
   "",
@@ -150,7 +150,8 @@ class Builder extends React.Component {
     expanded: '',
     selectedLayer:-1,
     decorations: [],
-    maskType: mask
+    maskType: mask,
+    maskBB:[]
   };
 
   handleChangeImageSrc = src =>{
@@ -210,13 +211,31 @@ class Builder extends React.Component {
     this.setExpanded(newExpanded ? panel : false);
   };
 
-  
-  handleAddNewImageUser = () =>{
-    
-    var doc = document.getElementById("file-input") 
-    doc.click()
+  handleImageBB = img =>{
+    this.setState({
+      maskBB : [...this.state.maskBB, img]
+    })
+  }
 
-    
+  handleAddNewImageUser = () =>{  
+    var fileInput = document.getElementById('file-input');
+    var img = new Image();
+    var reader = new FileReader();
+    fileInput.click();
+
+    fileInput.onchange = function(e){
+        const file = fileInput.files[0];
+
+        
+        reader.onload = function(e) {    
+            img.src = reader.result;     
+        }
+        reader.readAsDataURL(file);
+        
+        
+    };  
+
+    reader.onloadend = ( ) => this.handleImageBB(img);
     
   }
 
@@ -370,6 +389,21 @@ class Builder extends React.Component {
                               this.handleAddNewImageUser() }}>
                             📤 Upload New
                             </Button>
+                              {this.state.maskBB.map((el,index)=>
+                                (<div key={index}>
+                                  <Button
+                                    color="primary"
+                                    style={btnStyle}
+                                    onClick={() => { }}>
+                                    <img src={el.src} style={btnImageStyle} alt="Not Bob Ross" 
+                                      onClick={(e)=>{
+                                      e.preventDefault()
+                                      this.handleAddImageLayer("editor_image_1", el.src)
+                                    }}/>
+                                 </Button>
+                                </div>)
+                              )}
+
                               <Button
                                 color="primary"
                                 style={btnStyle}
