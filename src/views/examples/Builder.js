@@ -68,8 +68,9 @@ const maskIndex = [
 ]
 
 const btnImageStyle = {
-  width: '80px',
-  height: '80px',
+  paddingLeft: '1px',
+  width: '83px',
+  height: '82px',
   borderRadius: '14px',
 }
 
