@@ -30,6 +30,9 @@ class MaskEditor extends React.Component {
         window.addEventListener("resize", this.checkSize);
       }
     
+      selectedShapeName(){
+        alert(this.state.selectedShapeName)
+      }
 
       componentWillUnmount() {
         window.removeEventListener("resize", this.checkSize);
@@ -154,7 +157,8 @@ class MaskEditor extends React.Component {
       }
 
 MaskEditor.propTypes ={
-  decorations : PropTypes.array.isRequired
+  decorations : PropTypes.array.isRequired,
+  selectedShapeName: PropTypes.string.isRequired
 }
 
 export default MaskEditor
