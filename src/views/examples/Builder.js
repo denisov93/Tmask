@@ -357,12 +357,11 @@ class Builder extends React.Component {
                               justifyContent: 'right',
                             }}>
                             <i className="fa fa-image"></i> Images
-
-                            <input id="file-input" type="file" name="name" style={emptyness} />
                             </div>
                             </Accordion.Toggle>
                           <Accordion.Collapse style={accordionStyle} eventKey="2">
                             <div style={RAM}>
+                            <input id="file-input" type="file" name="name" style={emptyness} />
                             <Button
                             color="primary"
                             style={btnStyle}
