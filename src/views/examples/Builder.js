@@ -59,6 +59,7 @@ import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import CardsFooter from "components/Footers/CardsFooter.js";
 import { ReactComponent as TrashCan } from 'assets/svg/trash.svg';
 import Accordion from 'react-bootstrap/Accordion';
+import { faAlignRight } from "@fortawesome/free-solid-svg-icons";
 
 const maskIndex = [
   "",
@@ -67,17 +68,21 @@ const maskIndex = [
 ]
 
 const btnImageStyle = {
-  width: '60px',
-  height: '60px',
+  paddingLeft: '1px',
+  width: '83px',
+  height: '82px',
+  borderRadius: '14px',
 }
 
 const accordionStyle = {
-  maxHeight: '400px',
+  maxHeight: '500px',
   overflowY: 'scroll',
   overflowX: 'hidden',
 }
 
 const btnStyle = {
+  background: "#A0B0C0",
+  border: '0px',
   borderRadius: '16px',
   paddingLeft: '19px',
   margin: '1px',
@@ -128,16 +133,6 @@ class Builder extends React.Component {
     selectedLayer:-1,
     decorations: []
   };
-
-  heartAdd = () => {
-    this.refs.editor.handleAddHeart();
-    console.log(this.refs.editor.state)
-  }
-
-  starAdd = () => {
-    this.refs.editor.handleAddStar();
-    console.log(this.refs.editor.state)
-  }
 
   handleAddHeart = () => {
     this.setState({
@@ -219,44 +214,33 @@ class Builder extends React.Component {
                           </Accordion.Toggle>
                         <Accordion.Collapse style={accordionStyle} eventKey="0">
                           <div style={RAM}>
-                            <Button
+                          <Button
                               color="primary"
                               style={btnStyle}
-                              onClick={() => { this.handleAddHeart() }}
-                            >
-                              Add Heart
-                              </Button>
+                              onClick={() => { /* change background image of mask */ }}>
+                          <img src={require("assets/img/editorResources/editor_mask_cloth.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                          </Button>
 
-                            <Button
+                          <Button
                               color="primary"
                               style={btnStyle}
-                              onClick={() => { this.handleUndoDecoration() }}
-                            >
-                              Delete Heart
-                              </Button>
-                            <Button
-                              color="primary"
-                              style={btnStyle}
-                              onClick={() => { this.heartAdd() }}
-                            >
-                              Add Heart
-                              </Button>
+                              onClick={() => { /* change background image of mask */ }}>
+                          <img src={require("assets/img/editorResources/editor_mask_cirurgical.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                          </Button>
 
-                            <Button
+                          <Button
                               color="primary"
                               style={btnStyle}
-                              onClick={() => { this.heartAdd() }}
-                            >
-                              Add Heart
-                              </Button>
+                              onClick={() => { /* change background image of mask */ }}>
+                          <img src={require("assets/img/editorResources/editor_mask_N95_type2.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                          </Button>
 
-                            <Button
+                          <Button
                               color="primary"
                               style={btnStyle}
-                              onClick={() => { this.heartAdd() }}
-                            >
-                              Add Heart
-                              </Button>
+                              onClick={() => { /* change background image of mask */ }}>
+                          <img src={require("assets/img/editorResources/editor_mask_N95.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                          </Button>
 
                           </div>
                         </Accordion.Collapse>
@@ -265,64 +249,113 @@ class Builder extends React.Component {
                           <Accordion.Toggle as={CardHeader} eventKey="1">
                             <i class="fa fa-cubes"></i> Materials
                             </Accordion.Toggle>
-                          <Accordion.Collapse eventKey="1">
+                          <Accordion.Collapse style={accordionStyle} eventKey="1">
                             <div style={RAM}>
                               <Button
                                 color="primary"
                                 style={btnStyle}
-                                onClick={() => { this.heartAdd() }}
+                                onClick={() => { }}
                               >
-                                Add Heart
+                                Cloth
                                 </Button>
 
                               <Button
                                 color="primary"
                                 style={btnStyle}
-                                onClick={() => { this.heartAdd() }}
+                                onClick={() => {  }}
                               >
-                                Add Heart
+                                Plastic
                                 </Button>
 
                               <Button
                                 color="primary"
                                 style={btnStyle}
-                                onClick={() => { this.heartAdd() }}
+                                onClick={() => { }}
                               >
-                                Add Heart
-                                </Button>
+                                100% Cotton
+                              </Button>
+
+                              <Button
+                                color="primary"
+                                style={btnStyle}
+                                onClick={() => { }}
+                              >
+                                Poly-propylene
+                              </Button>
 
                             </div>
                           </Accordion.Collapse>
                         </Card>
                         <Card>
                           <Accordion.Toggle as={CardHeader} eventKey="2">
+                            <div style={{
+                              flex: 1,
+                              flexDirection: 'row',
+                              justifyContent: 'right',
+                            }}>
                             <i class="fa fa-image"></i> Images
+
+                            <Button
+                            style={{
+                              flex: 1,
+                              alignSelf: 'flex-end'
+                            }}
+                            onClick={() => { alert("Upload not available in your country.")}}>
+                            📤 Upload
+                            </Button>
+
+                            </div>
                             </Accordion.Toggle>
-                          <Accordion.Collapse eventKey="2">
+                          <Accordion.Collapse style={accordionStyle} eventKey="2">
                             <div style={RAM}>
                               <Button
                                 color="primary"
                                 style={btnStyle}
-                                onClick={() => { this.heartAdd() }}
-                              >
-                                Add Heart
-                                </Button>
+                                onClick={() => { }}>
+                              <img src={require("assets/img/editorResources/editor_image_1.png").default} style={btnImageStyle} alt="Bob Ross" onClick={this.myfunction} />
+                              </Button>
 
                               <Button
                                 color="primary"
                                 style={btnStyle}
-                                onClick={() => { this.heartAdd() }}
-                              >
-                                Add Heart
-                                </Button>
+                                onClick={() => {  }}>
+                              <img src={require("assets/img/editorResources/editor_image_2.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                              </Button>
 
                               <Button
                                 color="primary"
                                 style={btnStyle}
-                                onClick={() => { this.heartAdd() }}
-                              >
-                                Add Heart
-                                </Button>
+                                onClick={() => { }}>
+                              <img src={require("assets/img/editorResources/editor_image_3.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                              </Button>
+
+                              <Button
+                                color="primary"
+                                style={btnStyle}
+                                onClick={() => { }}>
+                              <img src={require("assets/img/editorResources/editor_image_4.jpg").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                              </Button>
+
+                              <Button
+                                color="primary"
+                                style={btnStyle}
+                                onClick={() => { }}>
+                              <img src={require("assets/img/editorResources/editor_image_5.jpg").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                              </Button>
+
+                              <Button
+                                color="primary"
+                                style={btnStyle}
+                                onClick={() => { }}>
+                              <img src={require("assets/img/editorResources/editor_image_6.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                              </Button>
+
+                              <Button
+                                color="primary"
+                                style={btnStyle}
+                                onClick={() => { }}>
+                              <img src={require("assets/img/editorResources/editor_image_7.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                              </Button>
 
                             </div>
                           </Accordion.Collapse>
@@ -331,31 +364,26 @@ class Builder extends React.Component {
                           <Accordion.Toggle as={CardHeader} eventKey="3">
                             <i class="fa fa-paint-brush"></i> Colors
                             </Accordion.Toggle>
-                          <Accordion.Collapse eventKey="3">
+                          <Accordion.Collapse style={accordionStyle} eventKey="3">
                             <div style={RAM}>
                               <Button
                                 color="primary"
                                 style={btnStyle}
-                                onClick={() => { this.heartAdd() }}
-                              >
-                                Add Heart
-                                </Button>
+                                onClick={() => {  }}>
+                              <img src={require("assets/img/editorResources/editor_colorwheel.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                              </Button>
 
                               <Button
                                 color="primary"
                                 style={btnStyle}
-                                onClick={() => { this.heartAdd() }}
-                              >
-                                Add Heart
-                                </Button>
+                                onClick={() => {  }}>
+                              </Button>
 
                               <Button
                                 color="primary"
                                 style={btnStyle}
-                                onClick={() => { this.heartAdd() }}
-                              >
-                                Add Heart
-                                </Button>
+                                onClick={() => {  }}>
+                              </Button>
 
                             </div>
                           </Accordion.Collapse>
@@ -364,31 +392,50 @@ class Builder extends React.Component {
                           <Accordion.Toggle as={CardHeader} eventKey="4">
                             <i class="fa fa-star"></i> Decorations
                             </Accordion.Toggle>
-                          <Accordion.Collapse eventKey="4">
+                          <Accordion.Collapse style={accordionStyle} eventKey="4">
                             <div style={RAM}>
 
                               <Button
                                 color="primary"
                                 style={btnStyle}
                                 onClick={() => { this.handleAddHeart() }}>
-                              <img src={require("assets/img/masks/goku.png").default} style={btnImageStyle} alt="Heart" onClick={this.myfunction} />
+                              <img src={require("assets/img/editorResources/editor_heart.png").default} style={btnImageStyle} alt="Heart" onClick={this.myfunction} />
                               </Button>
 
                               <Button
                                 color="primary"
                                 style={btnStyle}
-                                onClick={() => { this.handleAddStar() }}
-                              >
-                                Add Star
-                                </Button>
+                                onClick={() => { this.handleAddStar() }}>
+                              <img src={require("assets/img/editorResources/editor_star.png").default} style={btnImageStyle} alt="Star" onClick={this.myfunction} />
+                              </Button>
 
                               <Button
                                 color="primary"
                                 style={btnStyle}
-                                onClick={() => { this.heartAdd() }}
-                              >
-                                Add Heart
-                                </Button>
+                                onClick={() => {  }}>
+                              <img src={require("assets/img/editorResources/editor_triangle.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                              </Button>
+
+                              <Button
+                                color="primary"
+                                style={btnStyle}
+                                onClick={() => {  }}>
+                              <img src={require("assets/img/editorResources/editor_circle.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                              </Button>
+
+                              <Button
+                                color="primary"
+                                style={btnStyle}
+                                onClick={() => {  }}>
+                              <img src={require("assets/img/editorResources/editor_square.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                              </Button>
+
+                              <Button
+                                color="primary"
+                                style={btnStyle}
+                                onClick={() => {  }}>
+                              <img src={require("assets/img/editorResources/editor_xmas.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                              </Button>
 
                             </div>
                           </Accordion.Collapse>
