@@ -5,13 +5,20 @@ import ColoredRect from 'components/ColoredRect.js';
 import Heart from 'components/editorDecorations/Heart';
 import Star from 'components/editorDecorations/Star';
 import URLImage from 'components/URLImage';
+
 import mask from '../assets/img/masks/white.png';
+import mask1 from 'assets/img/editorResources/editor_mask_cloth.png';
+import mask2 from 'assets/img/editorResources/editor_mask_cirurgical.png';
+import mask3 from 'assets/img/editorResources/editor_mask_N95_type2.png';
+import mask4 from 'assets/img/editorResources/editor_mask_N95.png';
+
 import Transformer from 'components/Transformer';
 import Drawing from 'components/Drawing';
 import BrushOptions from 'components/BrushOptions';
 import Button from 'components/UniversalButton';
 
 import PropTypes from 'prop-types';
+import ImageLayer from './editorDecorations/ImageLayer';
 
 class MaskEditor extends React.Component {
     state = {
@@ -126,7 +133,7 @@ class MaskEditor extends React.Component {
           >
             <Stage width={this.state.stageWidth} height={this.state.stageHeight} ref={node => { this.stageRef = node }} onMouseDown={this.handleStageMouseDown}>
           <Layer>
-            <URLImage src={mask} ref={node => { this.maskRef = node }} />
+            <URLImage src={ this.props.maskType } ref={node => { this.maskRef = node }}/>
           </Layer>
           <Layer>
             <Drawing width={1000} height={800} color={this.state.brushColor} />
@@ -140,7 +147,12 @@ class MaskEditor extends React.Component {
                   return (<Heart key={index} color={this.state.value} name={`heart${index}`}></Heart>)
                 }else if(el === "*"){
                   return (<Star key={index} color={this.state.value} name={`star${index}`}></Star>)
-                }
+                }else
+                  return (
+                  <ImageLayer key={index} imageLayer={el} name={`image${index}`}></ImageLayer>
+                  
+                  
+                  )
               })
             }
             <Transformer
@@ -158,7 +170,8 @@ class MaskEditor extends React.Component {
 
 MaskEditor.propTypes ={
   decorations : PropTypes.array.isRequired,
-  selectedShapeName: PropTypes.string.isRequired
+  selectedShapeName: PropTypes.string.isRequired,
+  maskType: PropTypes.string.isRequired 
 }
 
 export default MaskEditor

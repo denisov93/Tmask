@@ -19,6 +19,14 @@
 import React from "react";
 // nodejs library that concatenates classes
 import MaskEditor from "components/MaskEditor.js"
+import mask from 'assets/img/masks/white.png';
+import mask1 from 'assets/img/editorResources/editor_mask_cloth.png';
+import mask2 from 'assets/img/editorResources/editor_mask_cirurgical.png';
+import mask3 from 'assets/img/editorResources/editor_mask_N95_type2.png';
+import mask4 from 'assets/img/editorResources/editor_mask_N95.png';
+
+//images
+import image1 from "assets/img/editorResources/editor_image_1.png"
 
 // reactstrap components
 import {
@@ -131,8 +139,22 @@ class Builder extends React.Component {
   state = {
     expanded: '',
     selectedLayer:-1,
-    decorations: []
+    decorations: [],
+    maskType: mask
   };
+
+  handleChangeImageSrc = src =>{
+    this.setState({
+      maskType: src
+    })
+    
+  }
+
+  handleAddImageLayer = lr =>{
+    this.setState({
+      decorations: [...this.state.decorations, lr]
+    })
+  }
 
   handleAddHeart = () => {
     this.setState({
@@ -210,7 +232,7 @@ class Builder extends React.Component {
                       <Accordion defaultActiveKey="0">
 
                         <Accordion.Toggle as={CardHeader} eventKey="0">
-                          {" "}<i class="fa fa-shield"></i> Masks
+                          {" "}<i className="fa fa-shield"></i> Masks
                           </Accordion.Toggle>
                         <Accordion.Collapse style={accordionStyle} eventKey="0">
                           <div style={RAM}>
@@ -218,28 +240,43 @@ class Builder extends React.Component {
                               color="primary"
                               style={btnStyle}
                               onClick={() => { /* change background image of mask */ }}>
-                          <img src={require("assets/img/editorResources/editor_mask_cloth.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                          <img src={require("assets/img/editorResources/editor_mask_cloth.png").default} style={btnImageStyle} alt="Triangle" 
+                          onClick={ (e)=>{
+                            e.preventDefault()
+                            this.handleChangeImageSrc(mask1)
+                          }} />
                           </Button>
 
                           <Button
                               color="primary"
                               style={btnStyle}
                               onClick={() => { /* change background image of mask */ }}>
-                          <img src={require("assets/img/editorResources/editor_mask_cirurgical.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                          <img src={require("assets/img/editorResources/editor_mask_cirurgical.png").default} style={btnImageStyle} alt="Triangle" 
+                            onClick={ (e)=>{
+                            e.preventDefault()
+                            this.handleChangeImageSrc(mask2)
+                          }} /> </Button>
+
+                          <Button
+                              color="primary"
+                              style={btnStyle}
+                              onClick={() => { /* change background image of mask */ }}>
+                          <img src={require("assets/img/editorResources/editor_mask_N95_type2.png").default} style={btnImageStyle} alt="Triangle" 
+                            onClick={ (e)=>{
+                              e.preventDefault()
+                              this.handleChangeImageSrc(mask3)
+                            }} />                          
                           </Button>
 
                           <Button
                               color="primary"
                               style={btnStyle}
                               onClick={() => { /* change background image of mask */ }}>
-                          <img src={require("assets/img/editorResources/editor_mask_N95_type2.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
-                          </Button>
-
-                          <Button
-                              color="primary"
-                              style={btnStyle}
-                              onClick={() => { /* change background image of mask */ }}>
-                          <img src={require("assets/img/editorResources/editor_mask_N95.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                          <img src={require("assets/img/editorResources/editor_mask_N95.png").default} style={btnImageStyle} alt="Triangle" 
+                          onClick={ (e)=>{
+                            e.preventDefault()
+                            this.handleChangeImageSrc(mask4)
+                          }} />
                           </Button>
 
                           </div>
@@ -247,7 +284,7 @@ class Builder extends React.Component {
 
                         <Card>
                           <Accordion.Toggle as={CardHeader} eventKey="1">
-                            <i class="fa fa-cubes"></i> Materials
+                            <i className="fa fa-cubes"></i> Materials
                             </Accordion.Toggle>
                           <Accordion.Collapse style={accordionStyle} eventKey="1">
                             <div style={RAM}>
@@ -293,7 +330,7 @@ class Builder extends React.Component {
                               flexDirection: 'row',
                               justifyContent: 'right',
                             }}>
-                            <i class="fa fa-image"></i> Images
+                            <i className="fa fa-image"></i> Images
 
                             <Button
                             style={{
@@ -312,7 +349,12 @@ class Builder extends React.Component {
                                 color="primary"
                                 style={btnStyle}
                                 onClick={() => { }}>
-                              <img src={require("assets/img/editorResources/editor_image_1.png").default} style={btnImageStyle} alt="Bob Ross" onClick={this.myfunction} />
+                              <img src={require("assets/img/editorResources/editor_image_1.png").default} style={btnImageStyle} alt="Bob Ross" 
+                                onClick={(e)=>{
+                                e.preventDefault()
+                                
+                                this.handleAddImageLayer(image1)
+                                }}/>
                               </Button>
 
                               <Button
@@ -362,7 +404,7 @@ class Builder extends React.Component {
                         </Card>
                         <Card>
                           <Accordion.Toggle as={CardHeader} eventKey="3">
-                            <i class="fa fa-paint-brush"></i> Colors
+                            <i className="fa fa-paint-brush"></i> Colors
                             </Accordion.Toggle>
                           <Accordion.Collapse style={accordionStyle} eventKey="3">
                             <div style={RAM}>
@@ -390,7 +432,7 @@ class Builder extends React.Component {
                         </Card>
                         <Card>
                           <Accordion.Toggle as={CardHeader} eventKey="4">
-                            <i class="fa fa-star"></i> Decorations
+                            <i className="fa fa-star"></i> Decorations
                             </Accordion.Toggle>
                           <Accordion.Collapse style={accordionStyle} eventKey="4">
                             <div style={RAM}>
@@ -450,7 +492,7 @@ class Builder extends React.Component {
                 <Col id="middleComponent" className="col-6" >
                   <Card id="editor" className="card shadow" style={{ height: "800px" }}>
 
-                    <MaskEditor decorations={this.state.decorations} ref="editor" />
+                    <MaskEditor decorations={this.state.decorations} maskType={this.state.maskType} selectedShapeName={this.state.selectedLayer} ref="editor" />
 
                   </Card>
                 </Col>
