@@ -27,6 +27,12 @@ import mask4 from 'assets/img/editorResources/editor_mask_N95.png';
 
 //images
 import image1 from "assets/img/editorResources/editor_image_1.png"
+import image2 from "assets/img/editorResources/editor_image_2.png" 
+import image3 from "assets/img/editorResources/editor_image_3.png" 
+import image4 from "assets/img/editorResources/editor_image_4.jpg" 
+import image5 from "assets/img/editorResources/editor_image_5.jpg" 
+import image6 from "assets/img/editorResources/editor_image_6.png" 
+import image7 from "assets/img/editorResources/editor_image_7.png" 
 
 // reactstrap components
 import {
@@ -86,6 +92,10 @@ const accordionStyle = {
   maxHeight: '500px',
   overflowY: 'scroll',
   overflowX: 'hidden',
+}
+
+const emptyness={
+  display: 'none'
 }
 
 const btnStyle = {
@@ -199,6 +209,16 @@ class Builder extends React.Component {
   handleChange = (panel) => (event, newExpanded) => {
     this.setExpanded(newExpanded ? panel : false);
   };
+
+  
+  handleAddNewImageUser = () =>{
+    
+    var doc = document.getElementById("file-input") 
+    doc.click()
+
+    
+    
+  }
 
   componentDidMount() {
     document.documentElement.scrollTop = 0;
@@ -338,19 +358,19 @@ class Builder extends React.Component {
                             }}>
                             <i className="fa fa-image"></i> Images
 
-                            <Button
-                            style={{
-                              flex: 1,
-                              alignSelf: 'flex-end'
-                            }}
-                            onClick={() => { alert("Upload not available in your country.")}}>
-                            📤 Upload
-                            </Button>
-
+                            <input id="file-input" type="file" name="name" style={emptyness} />
                             </div>
                             </Accordion.Toggle>
                           <Accordion.Collapse style={accordionStyle} eventKey="2">
                             <div style={RAM}>
+                            <Button
+                            color="primary"
+                            style={btnStyle}
+                            onClick={ (e)=>{
+                              e.preventDefault() 
+                              this.handleAddNewImageUser() }}>
+                            📤 Upload New
+                            </Button>
                               <Button
                                 color="primary"
                                 style={btnStyle}
@@ -367,42 +387,72 @@ class Builder extends React.Component {
                                 color="primary"
                                 style={btnStyle}
                                 onClick={() => {  }}>
-                              <img src={require("assets/img/editorResources/editor_image_2.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                              <img src={require("assets/img/editorResources/editor_image_2.png").default} style={btnImageStyle} alt="Triangle" 
+                                onClick={(e)=>{
+                                e.preventDefault()
+                                
+                                this.handleAddImageLayer("editor_image_2", image2)
+                                }}/>
                               </Button>
 
                               <Button
                                 color="primary"
                                 style={btnStyle}
                                 onClick={() => { }}>
-                              <img src={require("assets/img/editorResources/editor_image_3.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                              <img src={require("assets/img/editorResources/editor_image_3.png").default} style={btnImageStyle} alt="Triangle" 
+                                onClick={(e)=>{
+                                e.preventDefault()
+                                
+                                this.handleAddImageLayer("editor_image_3", image3)
+                                }}/>
                               </Button>
 
                               <Button
                                 color="primary"
                                 style={btnStyle}
                                 onClick={() => { }}>
-                              <img src={require("assets/img/editorResources/editor_image_4.jpg").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                              <img src={require("assets/img/editorResources/editor_image_4.jpg").default} style={btnImageStyle} alt="Triangle" 
+                                onClick={(e)=>{
+                                e.preventDefault()
+                                
+                                this.handleAddImageLayer("editor_image_4", image4)
+                                }}/>
                               </Button>
 
                               <Button
                                 color="primary"
                                 style={btnStyle}
                                 onClick={() => { }}>
-                              <img src={require("assets/img/editorResources/editor_image_5.jpg").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                              <img src={require("assets/img/editorResources/editor_image_5.jpg").default} style={btnImageStyle} alt="Triangle" 
+                                onClick={(e)=>{
+                                e.preventDefault()
+                                
+                                this.handleAddImageLayer("editor_image_5", image5)
+                                }}/>
                               </Button>
 
                               <Button
                                 color="primary"
                                 style={btnStyle}
                                 onClick={() => { }}>
-                              <img src={require("assets/img/editorResources/editor_image_6.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                              <img src={require("assets/img/editorResources/editor_image_6.png").default} style={btnImageStyle} alt="Triangle" 
+                                onClick={(e)=>{
+                                e.preventDefault()
+                                
+                                this.handleAddImageLayer("editor_image_6", image6)
+                                }}/>
                               </Button>
 
                               <Button
                                 color="primary"
                                 style={btnStyle}
                                 onClick={() => { }}>
-                              <img src={require("assets/img/editorResources/editor_image_7.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                              <img src={require("assets/img/editorResources/editor_image_7.png").default} style={btnImageStyle} alt="Triangle" 
+                                onClick={(e)=>{
+                                e.preventDefault()
+                                
+                                this.handleAddImageLayer("editor_image_7", image7)
+                                }}/>
                               </Button>
 
                             </div>
