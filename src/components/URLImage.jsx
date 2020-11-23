@@ -3,7 +3,9 @@ import { Image } from 'react-konva';
 
 class URLImage extends Component {
     state = {
-        image: null
+        image: null,
+        opacity: 0.7,
+        opacitySwitch: true
     };
     componentDidMount() {
         this.loadImage();
@@ -16,6 +18,20 @@ class URLImage extends Component {
     componentWillUnmount() {
         this.image.removeEventListener('load', this.handleLoad);
     }
+    handleClick = () => {
+        console.log("Pressed an image")
+        if(this.state.opacitySwitch){
+            this.setState({
+                opacitySwitch: false,
+                opacity: 1
+            });
+        }else{
+            this.setState({
+                opacitySwitch: true,
+                opacity: 0.7
+            });
+        }
+    };
     loadImage() {
         // save to "this" to remove "load" handler on unmount
         this.image = new window.Image();
@@ -42,6 +58,11 @@ class URLImage extends Component {
                 ref={node => {
                     this.imageNode = node;
                 }}
+                draggable={true}
+                scaling={true}
+                draggable={true}
+                opacity={this.state.opacity}
+                onClick={this.handleClick}
             />
         );
     }

@@ -150,8 +150,6 @@ class MaskEditor extends React.Component {
                 }else
                   return (
                   <ImageLayer key={index} imageLayer={el} name={`image${index}`}></ImageLayer>
-                  
-                  
                   )
               })
             }

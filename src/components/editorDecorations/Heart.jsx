@@ -25,7 +25,7 @@ class Heart extends Component {
             fill={this.state.color}
             name={name}
             onClick={this.handleClick}
-            draggable
+            draggable={true}
         />)
     }
 }
