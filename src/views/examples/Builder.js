@@ -180,6 +180,12 @@ class Builder extends React.Component {
     viewMode: false, // >>> if maskOverlay is visible in canvas
   };
 
+  handleClearDrawing(){
+    console.log("Clear Drawing")
+
+    
+  }
+
   handleChangeImageSrc = src =>{
     this.setState({
       maskType: src
@@ -566,8 +572,9 @@ class Builder extends React.Component {
 
                               <Button
                                 color="primary"
-                                style={btnStyle}
-                                onClick={() => {  }}>
+                                style={btnOptionStyle}
+                                onClick={() => { this.handleClearDrawing() }}>
+                                  Clear Drawing
                               </Button>
 
                             </div>
@@ -640,7 +647,7 @@ class Builder extends React.Component {
                 <Col id="middleComponent" className="col-6" style={{ zIndex: 1, display: 'flex', justifyContent: 'space-between', position: 'relative'}} >
                   <Card id="editor" className="card shadow" style={{ height: "800px", maxWidth: "825px", position: 'absolute', left: '50%', transform: 'translateX(-50%)'}}>
 
-                    <MaskEditor maskOverlay={this.state.maskOverlay} preExport={this.state.preExport} decorations={this.state.decorations} 
+                    <MaskEditor width={825} height={800} maskOverlay={this.state.maskOverlay} preExport={this.state.preExport} decorations={this.state.decorations} 
                     maskType={this.state.maskType} ref="editor"/>
 
                   </Card>

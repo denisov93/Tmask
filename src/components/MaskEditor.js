@@ -36,8 +36,8 @@ import ajuda from 'assets/css/ajuda.css'
 class MaskEditor extends React.Component {
     state = {
         canDraw: true,
-        stageWidth: 1000,
-        stageHeight: 1000,
+        stageWidth: this.props.width,
+        stageHeight: this.props.height,
         selectedShapeName: '',
         brushColor: '#000000'
       };
@@ -54,7 +54,7 @@ class MaskEditor extends React.Component {
       componentWillUnmount() {
         window.removeEventListener("resize", this.checkSize);
       }
-      
+
       handleStageMouseDown = e => {
         // clicked on stage - clear selection
         if (e.target === e.target.getStage()) {
