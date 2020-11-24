@@ -7,6 +7,9 @@ import ColoredRect from 'components/ColoredRect.js';
 import Heart from 'components/editorDecorations/Heart';
 import Star from 'components/editorDecorations/Star';
 import Triangle from 'components/editorDecorations/Triangle';
+import Square from 'components/editorDecorations/Square';
+import Circle from 'components/editorDecorations/Circle';
+import Xmas from 'components/editorDecorations/XmasTree';
 import URLImage from 'components/URLImage';
 
 import mask from '../assets/img/masks/white.png';
@@ -86,6 +89,21 @@ class MaskEditor extends React.Component {
           this.setState({
             selectedShapeName: name
           });
+        } else if (name === `circle${e.target.index}`) {
+          console.log("Selected Shape: " + name)
+          this.setState({
+            selectedShapeName: name
+          });
+        } else if (name === `square${e.target.index}`) {
+          console.log("Selected Shape: " + name)
+          this.setState({
+            selectedShapeName: name
+          });
+        } else if (name === `xmas${e.target.index}`) {
+          console.log("Selected Shape: " + name)
+          this.setState({
+            selectedShapeName: name
+          });
         } else if (name === `image${e.target.index}`) {
           console.log("Selected Image: " + name)
           this.setState({
@@ -149,19 +167,25 @@ class MaskEditor extends React.Component {
             <URLImage src={ this.props.maskType } canChange={false} canDrag={false} opacity={1} opacitySwitch={false} ref={node => { this.maskRef = node }}/>
           </Layer>
           <Layer>
-            <Drawing width={1000} height={800} color={this.state.brushColor} />
+            <Drawing width={this.state.stageWidth} height={this.state.stageHeight} color={this.state.brushColor} />
           </Layer>
           <Layer>
             {
             this.props.decorations.map(
               (el, index) => 
               {
-                if(el === "<3"){
+                if(el === "heart"){
                   return (<Heart key={index} color={this.state.value} name={`heart${index}`}></Heart>)
-                }else if(el === "*"){
+                }else if(el === "star"){
                   return (<Star key={index} color={this.state.value} name={`star${index}`}></Star>)
-                }else if(el === "Δ"){
+                }else if(el === "triangle"){
                   return (<Triangle key={index} color={this.state.value} name={`triangle${index}`}></Triangle>)
+                }else if(el === "circle"){
+                  return (<Circle key={index} color={this.state.value} name={`circle${index}`}></Circle>)
+                }else if(el === "square"){
+                  return (<Square key={index} color={this.state.value} name={`square${index}`}></Square>)
+                }else if(el === "xmas"){
+                  return (<Xmas key={index} color={this.state.value} name={`xmas${index}`}></Xmas>)
                 }else
                   return (
                   <ImageLayer key={index} name={`image${index}`} imageLayer={el} canChange={true} canDrag={true} opacity={0.7} opacitySwitch={true}></ImageLayer>

@@ -77,6 +77,7 @@ import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import CardsFooter from "components/Footers/CardsFooter.js";
 import { ReactComponent as TrashCan } from 'assets/svg/trash.svg';
 import Accordion from 'react-bootstrap/Accordion';
+import zIndex from "@material-ui/core/styles/zIndex";
 
 
 const maskIndex = [
@@ -151,6 +152,7 @@ const trashStyle = {
 
 class Builder extends React.Component {
   state = {
+    viewMode: false,
     expanded: '',
     selectedLayer:-1,
     decorations: [],
@@ -177,22 +179,36 @@ class Builder extends React.Component {
     })
   }
 
-  handleAddHeart = () => {
+  handleAddShape(element){
     this.setState({
-      decorations: [...this.state.decorations, "<3"]
+      decorations: [...this.state.decorations, element]
     })
   }
 
-  handleAddStar = () => {
+  toggleViewMode(){
     this.setState({
-      decorations: [...this.state.decorations, "*"]
+      viewMode: !this.state.viewMode
     })
   }
 
-  handleAddTriangle = () => {
-    this.setState({
-      decorations: [...this.state.decorations, "Δ"]
-    })
+  handleViewMode(){
+    if(this.state.viewMode){
+        return(
+          <div style={{display: 'flex', maxHeight:'30px', alignItems: 'center', justifyContent: 'space-evenly'}}>
+              <div></div>
+              <div>How it looks?</div><div style={{paddingTop: '5px'}}><h3><i class="fa fa-eye" style={{color:'#006600'}}></i></h3></div>
+              <div></div>
+          </div>
+        )
+    }else{
+        return(
+          <div style={{display: 'flex', maxHeight:'30px', alignItems: 'center', justifyContent: 'space-evenly'}}>
+              <div></div>
+              <div>How it looks?</div><div style={{paddingTop: '5px'}}><h3><i class="fa fa-eye-slash" style={{color:'#990000'}}></i></h3></div>
+              <div></div>
+          </div>
+        )
+    }
   }
 
   handleUndoDecoration = () =>{
@@ -281,7 +297,7 @@ class Builder extends React.Component {
               <Row>
 
 
-                <Col id="leftComponent" className="col-3">
+                <Col id="leftComponent" className="col-3" style={{zIndex: 200}}>
 
                   <Col style={{userSelect: 'none'}}>
 
@@ -290,7 +306,7 @@ class Builder extends React.Component {
                       <Accordion defaultActiveKey="0">
 
                         <Accordion.Toggle as={CardHeader} eventKey="0">
-                          {" "}<i className="fa fa-shield"></i> Masks
+                        {" "}<i class="fa fa-head-side-mask"></i>{" "}<i className="fa fa-shield"></i> Masks
                           </Accordion.Toggle>
                         <Accordion.Collapse style={accordionStyle} eventKey="0">
                           <div style={RAM}>
@@ -510,7 +526,7 @@ class Builder extends React.Component {
                         </Card>
                         <Card>
                           <Accordion.Toggle as={CardHeader} eventKey="3">
-                            <i className="fa fa-paint-brush"></i> Colors
+                            <i className="fa fa-paint-brush"></i> Painting
                             </Accordion.Toggle>
                           <Accordion.Collapse style={accordionStyle} eventKey="3">
                             <div style={RAM}>
@@ -546,43 +562,43 @@ class Builder extends React.Component {
                               <Button
                                 color="primary"
                                 style={btnStyle}
-                                onClick={() => { this.handleAddHeart() }}>
+                                onClick={() => { this.handleAddShape("heart") }}>
                               <img src={require("assets/img/editorResources/editor_heart.png").default} style={btnImageStyle} alt="Heart" onClick={this.myfunction} />
                               </Button>
 
                               <Button
                                 color="primary"
                                 style={btnStyle}
-                                onClick={() => { this.handleAddStar() }}>
+                                onClick={() => { this.handleAddShape("star") }}>
                               <img src={require("assets/img/editorResources/editor_star.png").default} style={btnImageStyle} alt="Star" onClick={this.myfunction} />
                               </Button>
 
                               <Button
                                 color="primary"
                                 style={btnStyle}
-                                onClick={() => { this.handleAddTriangle() }}>
+                                onClick={() => { this.handleAddShape("triangle") }}>
                               <img src={require("assets/img/editorResources/editor_triangle.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
                               </Button>
 
                               <Button
                                 color="primary"
                                 style={btnStyle}
-                                onClick={() => {  }}>
-                              <img src={require("assets/img/editorResources/editor_circle.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                                onClick={() => { this.handleAddShape("circle") }}>
+                              <img src={require("assets/img/editorResources/editor_circle.png").default} style={btnImageStyle} alt="Circle" onClick={this.myfunction} />
                               </Button>
 
                               <Button
                                 color="primary"
                                 style={btnStyle}
-                                onClick={() => {  }}>
-                              <img src={require("assets/img/editorResources/editor_square.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                                onClick={() => { this.handleAddShape("square") }}>
+                              <img src={require("assets/img/editorResources/editor_square.png").default} style={btnImageStyle} alt="Square" onClick={this.myfunction} />
                               </Button>
 
                               <Button
                                 color="primary"
                                 style={btnStyle}
-                                onClick={() => {  }}>
-                              <img src={require("assets/img/editorResources/editor_xmas.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                                onClick={() => { this.handleAddShape("xmas") }}>
+                              <img src={require("assets/img/editorResources/editor_xmas.png").default} style={btnImageStyle} alt="XmasTree" onClick={this.myfunction} />
                               </Button>
 
                             </div>
@@ -592,16 +608,17 @@ class Builder extends React.Component {
                       </Accordion>
                       <Button onClick={
                         (e)=>{
+                          this.toggleViewMode()
                           e.preventDefault()
                         this.download()
-                      }}>How it looks?</Button>
+                      }}>{this.handleViewMode()} </Button>
                     </Card>
                   </Col>
 
                 </Col>
 
-                <Col id="middleComponent" className="col-6" >
-                  <Card id="editor" className="card shadow" style={{ height: "800px" }}>
+                <Col id="middleComponent" className="col-6" style={{ zIndex: 500, display: 'flex', justifyContent: 'space-between', position: 'relative'}} >
+                  <Card id="editor" className="card shadow" style={{ height: "800px", maxWidth: "825px", position: 'absolute', left: '50%', transform: 'translateX(-50%)'}}>
 
                     <MaskEditor maskOverlay={this.state.maskOverlay} preExport={this.state.preExport} decorations={this.state.decorations} 
                     maskType={this.state.maskType} selectedShapeName={this.state.selectedLayer} ref="editor" />
@@ -610,7 +627,7 @@ class Builder extends React.Component {
                 </Col>
 
 
-                <Col id="rightComponent" className="col-3">
+                <Col id="rightComponent" className="col-3" style={{zIndex: 100}}>
                   <Col style={{userSelect: 'none'}}>
                     <Card className="card shadow" style={{ height: "800px" }}>
 
