@@ -77,14 +77,6 @@ import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import CardsFooter from "components/Footers/CardsFooter.js";
 import { ReactComponent as TrashCan } from 'assets/svg/trash.svg';
 import Accordion from 'react-bootstrap/Accordion';
-import zIndex from "@material-ui/core/styles/zIndex";
-
-
-const maskIndex = [
-  "",
-  "",
-  "",
-]
 
 const btnImageStyle = {
   paddingLeft: '1px',
@@ -102,6 +94,32 @@ const accordionStyle = {
 const emptyness={
   display: 'none'
 }
+
+const btnOptionStyle = {
+  background: "#525F7F",
+  border: '0px',
+  borderRadius: '16px',
+  paddingLeft: '17px',
+  margin: '1px',
+  width: '90px',
+  height: '90px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+};
+
+const btnCloudStyle = {
+  background: "#525F7F",
+  border: '0px',
+  borderRadius: '16px',
+  paddingLeft: '19px',
+  margin: '1px',
+  width: '90px',
+  height: '90px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+};
 
 const btnStyle = {
   background: "#A0B0C0",
@@ -141,18 +159,14 @@ const btnDeleteStyle = {
 };
 
 const trashStyle = {
-
   border: "none",
   padding: "5px 9px",
-
   cursor: "pointer",
   float: "right",
-
 };
 
 class Builder extends React.Component {
   state = {
-    viewMode: false,
     expanded: '',
     selectedLayer:-1,
     decorations: [],
@@ -160,6 +174,7 @@ class Builder extends React.Component {
     maskBB:[],
     preExport : false,
     maskOverlay: mOverlay1,
+    viewMode: false, // >>> if maskOverlay is visible in canvas
   };
 
   handleChangeImageSrc = src =>{
@@ -416,11 +431,14 @@ class Builder extends React.Component {
                             <input id="file-input" type="file" name="name" style={emptyness} />
                             <Button
                             color="primary"
-                            style={btnStyle}
+                            style={btnCloudStyle}
                             onClick={ (e)=>{
                               e.preventDefault() 
                               this.handleAddNewImageUser() }}>
-                            📤 Upload New
+                            <div>
+                              <h3 style={{paddingLeft:'4px'}}><font color='EEEEEE'><i class="fa fa-cloud-upload"></i></font></h3>
+                              <font color='FFFFFF'>Upload</font>
+                            </div>
                             </Button>
                               {this.state.maskBB.map((el,index)=>
                                 (<div key={index}>
@@ -532,15 +550,16 @@ class Builder extends React.Component {
                             <div style={RAM}>
                               <Button
                                 color="primary"
-                                style={btnStyle}
+                                style={btnOptionStyle}
                                 onClick={() => {  }}>
                               <img src={require("assets/img/editorResources/editor_colorwheel.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
                               </Button>
 
                               <Button
                                 color="primary"
-                                style={btnStyle}
+                                style={btnOptionStyle}
                                 onClick={() => {  }}>
+                                  Toggle Pen on/off
                               </Button>
 
                               <Button
