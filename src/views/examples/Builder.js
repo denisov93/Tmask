@@ -145,7 +145,10 @@ const simpleLayer = {
   height: "4em",
   background: "#f4f4f4",
   padding: "10px",
-  borderBottom: "1px #ccc dotted"
+  borderBottom: "1px #ccc dotted",
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
 }
 
 const btnDeleteStyle = {
@@ -192,6 +195,10 @@ class Builder extends React.Component {
     this.setState({
       decorations: [...this.state.decorations, (name,lr)]
     })
+  }
+
+  nameParser(string){
+    return (string.split('/').splice(-1)+'').split('.').splice(0,1)
   }
 
   handleAddShape(element){
@@ -647,12 +654,22 @@ class Builder extends React.Component {
 
                 <Col id="rightComponent" className="col-3" style={{zIndex: 0}}>
                   <Col style={{userSelect: 'none'}}>
-                    <Card className="card shadow" style={{ height: "800px" }}>
+                  <Accordion>
+                  <Accordion as={CardHeader} eventKey="4">
+                    <img alt="" className="text-white" src={require("assets/svg/layer.svg").default}/>{" "} Layers
+                  </Accordion>
+                    <Card className="card shadow" style={{ height: (800-65), overflowY: 'scroll' }}>
 
                       {this.state.decorations.map((el, index) =>
                         (<div style={simpleLayer} key={index}>
+                          <div style={{display: 'flex', backgroundColor:"#AAAAAA", alignItems: 'center', justifyContent: 'center', borderWidth: '1px', borderStyle:'double', width:56, height:42}}>
+                            <img src={el} style={{ maxWidth:54, maxHeight:40, preserveAspectRatio: true}}></img>
+                          </div>
+                          {" "}
                           <span >
-                            {`Layer ${index + 1}`}
+                            {
+                            `Layer ${index + 1}: ${ this.nameParser(this.state.decorations[index])}`
+                            }
                           </span>
                           <span style={trashStyle}>
                             {<TrashCan onClick={() => { 
@@ -664,6 +681,7 @@ class Builder extends React.Component {
                       )}
 
                     </Card>
+                    </Accordion>
                   </Col>
 
                 </Col>
