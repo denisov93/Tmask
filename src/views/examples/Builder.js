@@ -297,7 +297,7 @@ class Builder extends React.Component {
               <Row>
 
 
-                <Col id="leftComponent" className="col-3" style={{zIndex: 200}}>
+                <Col id="leftComponent" className="col-3" style={{zIndex: 0}}>
 
                   <Col style={{userSelect: 'none'}}>
 
@@ -614,10 +614,9 @@ class Builder extends React.Component {
                       }}>{this.handleViewMode()} </Button>
                     </Card>
                   </Col>
-
                 </Col>
 
-                <Col id="middleComponent" className="col-6" style={{ zIndex: 500, display: 'flex', justifyContent: 'space-between', position: 'relative'}} >
+                <Col id="middleComponent" className="col-6" style={{ zIndex: 1, display: 'flex', justifyContent: 'space-between', position: 'relative'}} >
                   <Card id="editor" className="card shadow" style={{ height: "800px", maxWidth: "825px", position: 'absolute', left: '50%', transform: 'translateX(-50%)'}}>
 
                     <MaskEditor maskOverlay={this.state.maskOverlay} preExport={this.state.preExport} decorations={this.state.decorations} 
@@ -627,7 +626,7 @@ class Builder extends React.Component {
                 </Col>
 
 
-                <Col id="rightComponent" className="col-3" style={{zIndex: 100}}>
+                <Col id="rightComponent" className="col-3" style={{zIndex: 0}}>
                   <Col style={{userSelect: 'none'}}>
                     <Card className="card shadow" style={{ height: "800px" }}>
 
