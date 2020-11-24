@@ -27,6 +27,8 @@ import Button from 'components/UniversalButton';
 
 import PropTypes from 'prop-types';
 import ImageLayer from './editorDecorations/ImageLayer';
+import ajuda from 'assets/css/ajuda.css'
+
 
 class MaskEditor extends React.Component {
     state = {
@@ -98,6 +100,7 @@ class MaskEditor extends React.Component {
         }
       };
 
+   
       handleExportClick = () => {
         const dataURL = this.stageRef.getStage().toDataURL();
         this.downloadURI(dataURL, "mask.jpg");
@@ -168,7 +171,12 @@ class MaskEditor extends React.Component {
             <Transformer
               selectedShapeName={this.state.selectedShapeName}
             />
+            {this.props.preExport && 
+            <URLImage src={ this.props.maskOverlay } className={ajuda.ajuda} canChange={false} canDrag={false} opacity={1} opacitySwitch={false} ref={node => { this.maskRef = node }}/>
+            }
           </Layer>
+
+          
         </Stage>
         
         <BrushOptions value={this.state.brushColor} onChange={this.handleBrushColorChoice} />
@@ -181,7 +189,9 @@ class MaskEditor extends React.Component {
 MaskEditor.propTypes ={
   decorations : PropTypes.array.isRequired,
   selectedShapeName: PropTypes.string.isRequired,
-  maskType: PropTypes.string.isRequired 
+  maskType: PropTypes.string.isRequired,
+  preExport: PropTypes.bool.isRequired,
+  maskOverlay: PropTypes.string.isRequired
 }
 
 export default MaskEditor

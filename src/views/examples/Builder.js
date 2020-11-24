@@ -24,7 +24,11 @@ import mask1 from 'assets/img/editorResources/editor_mask_cloth.png';
 import mask2 from 'assets/img/editorResources/editor_mask_cirurgical.png';
 import mask3 from 'assets/img/editorResources/editor_mask_N95_type2.png';
 import mask4 from 'assets/img/editorResources/editor_mask_N95.png';
-
+//ovelays
+import mOverlay1 from 'assets/img/editorResources/editor_mask_cloth_overlay.png';
+import mOverlay2 from 'assets/img/editorResources/editor_mask_cirurgical_overlay.png';
+import mOverlay3 from 'assets/img/editorResources/editor_mask_N95_type2_overlay.png';
+import mOverlay4 from 'assets/img/editorResources/editor_mask_N95_overlay.png';
 //images
 import image1 from "assets/img/editorResources/editor_image_1.png"
 import image2 from "assets/img/editorResources/editor_image_2.png" 
@@ -151,14 +155,20 @@ class Builder extends React.Component {
     selectedLayer:-1,
     decorations: [],
     maskType: mask,
-    maskBB:[]
+    maskBB:[],
+    preExport : false,
+    maskOverlay: mOverlay1,
   };
 
   handleChangeImageSrc = src =>{
     this.setState({
       maskType: src
     })
-    
+  }
+  handleChangeImageOverlay = over =>{
+    this.setState({
+      maskOverlay: over
+    })
   }
 
   handleAddImageLayer(name,lr){
@@ -200,7 +210,10 @@ class Builder extends React.Component {
   }
 
   download = () => {
-    this.refs.editor.handleExportClick()
+    this.setState({
+      preExport : !this.state.preExport
+    })
+    //this.refs.editor.handleExportClick()
   }
 
   setExpanded(panel) {
@@ -289,6 +302,7 @@ class Builder extends React.Component {
                           onClick={ (e)=>{
                             e.preventDefault()
                             this.handleChangeImageSrc(mask1)
+                            this.handleChangeImageOverlay(mOverlay1)
                           }} />
                           </Button>
 
@@ -300,6 +314,7 @@ class Builder extends React.Component {
                             onClick={ (e)=>{
                             e.preventDefault()
                             this.handleChangeImageSrc(mask2)
+                            this.handleChangeImageOverlay(mOverlay2)
                           }} /> </Button>
 
                           <Button
@@ -310,6 +325,7 @@ class Builder extends React.Component {
                             onClick={ (e)=>{
                               e.preventDefault()
                               this.handleChangeImageSrc(mask3)
+                              this.handleChangeImageOverlay(mOverlay3)
                             }} />                          
                           </Button>
 
@@ -321,6 +337,7 @@ class Builder extends React.Component {
                           onClick={ (e)=>{
                             e.preventDefault()
                             this.handleChangeImageSrc(mask4)
+                            this.handleChangeImageOverlay(mOverlay4)
                           }} />
                           </Button>
 
@@ -573,6 +590,11 @@ class Builder extends React.Component {
                         </Card>
 
                       </Accordion>
+                      <Button onClick={
+                        (e)=>{
+                          e.preventDefault()
+                        this.download()
+                      }}>How it looks?</Button>
                     </Card>
                   </Col>
 
@@ -581,7 +603,8 @@ class Builder extends React.Component {
                 <Col id="middleComponent" className="col-6" >
                   <Card id="editor" className="card shadow" style={{ height: "800px" }}>
 
-                    <MaskEditor decorations={this.state.decorations} maskType={this.state.maskType} selectedShapeName={this.state.selectedLayer} ref="editor" />
+                    <MaskEditor maskOverlay={this.state.maskOverlay} preExport={this.state.preExport} decorations={this.state.decorations} 
+                    maskType={this.state.maskType} selectedShapeName={this.state.selectedLayer} ref="editor" />
 
                   </Card>
                 </Col>
