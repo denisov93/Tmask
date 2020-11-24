@@ -233,17 +233,12 @@ class Builder extends React.Component {
     }
   }
 
-  handleUndoDecoration = () =>{
-    this.state.decorations.splice(-1,1)
+  handleUndoDecoration = item =>{
+    var state = this.state.decorations.filter( (el,index)=>{
+      return index !== item
+    },{})
     this.setState({
-      decorations: this.state.decorations
-    })
-  }
-
-  handleSelectedLayer = (id) => {
-    //if id = -1 or doesn't exist Alert("Doesn't exist")
-    this.setState({
-      selectedLayer: id
+      decorations: state
     })
   }
 
@@ -646,11 +641,10 @@ class Builder extends React.Component {
                   <Card id="editor" className="card shadow" style={{ height: "800px", maxWidth: "825px", position: 'absolute', left: '50%', transform: 'translateX(-50%)'}}>
 
                     <MaskEditor maskOverlay={this.state.maskOverlay} preExport={this.state.preExport} decorations={this.state.decorations} 
-                    maskType={this.state.maskType} selectedShapeName={this.state.selectedLayer} ref="editor" />
+                    maskType={this.state.maskType} ref="editor"/>
 
                   </Card>
                 </Col>
-
 
                 <Col id="rightComponent" className="col-3" style={{zIndex: 0}}>
                   <Col style={{userSelect: 'none'}}>
@@ -663,7 +657,7 @@ class Builder extends React.Component {
                       {this.state.decorations.map((el, index) =>
                         (<div style={simpleLayer} key={index}>
                           <div style={{display: 'flex', backgroundColor:"#AAAAAA", alignItems: 'center', justifyContent: 'center', borderWidth: '1px', borderStyle:'double', width:56, height:42}}>
-                            <img src={el} style={{ maxWidth:54, maxHeight:40, preserveAspectRatio: true}}></img>
+                            <img alt="" src={el} style={{ maxWidth:54, maxHeight:40, preserveAspectRatio: true}}></img>
                           </div>
                           {" "}
                           <span >
@@ -673,7 +667,7 @@ class Builder extends React.Component {
                           </span>
                           <span style={trashStyle}>
                             {<TrashCan onClick={() => { 
-                              this.handleUndoDecoration()
+                              this.handleUndoDecoration(index)
                               this.forceUpdate()
                               }}/>}
                           </span>

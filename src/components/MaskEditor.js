@@ -35,6 +35,7 @@ import ajuda from 'assets/css/ajuda.css'
 
 class MaskEditor extends React.Component {
     state = {
+        canDraw: true,
         stageWidth: 1000,
         stageHeight: 1000,
         selectedShapeName: '',
@@ -49,14 +50,11 @@ class MaskEditor extends React.Component {
         // for simplicity I will just listen window resize
         window.addEventListener("resize", this.checkSize);
       }
-    
-      selectedShapeName(){
-        alert(this.state.selectedShapeName)
-      }
 
       componentWillUnmount() {
         window.removeEventListener("resize", this.checkSize);
       }
+      
       handleStageMouseDown = e => {
         // clicked on stage - clear selection
         if (e.target === e.target.getStage()) {
@@ -110,8 +108,6 @@ class MaskEditor extends React.Component {
             selectedShapeName: name
           });
         } else {
-          console.log("DEFAULT CASE: [name:" + name + "]["+e.target.index+"]")
-          console.log(this.state.decorations)
           this.setState({
             selectedShapeName: ''
           });
@@ -167,7 +163,7 @@ class MaskEditor extends React.Component {
             <URLImage src={ this.props.maskType } canChange={false} canDrag={false} opacity={1} opacitySwitch={false} ref={node => { this.maskRef = node }}/>
           </Layer>
           <Layer>
-            <Drawing width={this.state.stageWidth} height={this.state.stageHeight} color={this.state.brushColor} />
+            <Drawing canDraw={this.state.canDraw} width={this.state.stageWidth} height={this.state.stageHeight} color={this.state.brushColor} />
           </Layer>
           <Layer>
             {
@@ -212,7 +208,6 @@ class MaskEditor extends React.Component {
 
 MaskEditor.propTypes ={
   decorations : PropTypes.array.isRequired,
-  selectedShapeName: PropTypes.string.isRequired,
   maskType: PropTypes.string.isRequired,
   preExport: PropTypes.bool.isRequired,
   maskOverlay: PropTypes.string.isRequired

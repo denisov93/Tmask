@@ -4,14 +4,23 @@ import { Image } from "react-konva";
 class Drawing extends Component {
     state = {
         isDrawing: false,
+        canDraw: true
     };
 
     componentDidMount() {
         const canvas = document.createElement("canvas");
-        canvas.width = 600;
-        canvas.height = 565;
+        canvas.width = this.props.width;
+        canvas.height = this.props.height;
+        console.log("Canvas Created["+ this.props.width + "w," + this.props.height+"h]")
         const context = canvas.getContext("2d");
         this.setState({ canvas, context });
+        this.setState({ canDraw: this.props.canDraw });
+
+        canvas.oncontextmenu = function (e) {
+            e.preventDefault(); //disable right click
+        };
+
+        window.addEventListener("deleteDrawing", this.deleteDraw);
     }
 
     handleMouseDown = () => {
@@ -24,11 +33,15 @@ class Drawing extends Component {
         this.setState({ isDrawing: false });
     };
 
+    deleteDraw = () => {
+        this.image.getLayer().clear()
+    }
+
     handleMouseMove = (e, color) => {
         let evt = e.evt;
-        const { context, isDrawing } = this.state;
+        const { context, isDrawing, canDraw } = this.state;
         //console.log(evt)
-        if (isDrawing) {
+        if (isDrawing && canDraw) {
             context.strokeStyle = color;
             context.lineJoin = "round";
             context.lineWidth = 5;
@@ -67,13 +80,13 @@ class Drawing extends Component {
 
     render() {
         const { canvas } = this.state;
-        const { x, y, color } = this.props;
+        const { x, y, color, width, height } = this.props;
         return (
             <Image
                 image={canvas}
                 ref={node => (this.image = node)}
-                width={600}
-                height={565}
+                width={width}
+                height={height}
                 x={x}
                 y={y}
                 onMouseDown={this.handleMouseDown}
