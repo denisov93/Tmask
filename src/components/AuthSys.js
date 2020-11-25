@@ -71,14 +71,19 @@ class AuthSys extends AppBase{
     let accountimg;
     let accountdetails;
 
+    const name = this.getSessionName()+''
+    const imgUrl = this.getSessionImg()+''
+
+    console.log("AuthSys: "+name)
+
     if (this.userHasSession()) {
       //user image
       accountimg = <img alt=""
-      src={require("assets/img/userimage/user_alicia.png").default}
+      src={imgUrl.default}
       style={{width: 42, height: 42, borderRadius: 90/2, borderStyle: "solid", borderColor: "white", borderWidth: 2 }}/>
       //user name
       accountdetails = 
-      <div style={{display:"grid", placeItems: "center", paddingInlineStart: 10, paddingInlineEnd: 10 }}><font color="white">Alicia</font></div>
+    <div style={{display:"grid", placeItems: "center", paddingInlineStart: 10, paddingInlineEnd: 10 }}><font color="white">{name}</font></div>
       //logout button
       components = <LogoutButton onClick={this.handleLogoutClick} />;
       //
