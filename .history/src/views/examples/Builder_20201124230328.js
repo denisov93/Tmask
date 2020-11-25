@@ -297,12 +297,13 @@ class Builder extends React.Component {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
+    
   }
 
-  
-
-
   render() {
+    if(this.state.clearDraw){
+      this.setState({ clearDraw: false })
+    }
     return (
       <>
         <DemoNavbar />
@@ -579,7 +580,7 @@ class Builder extends React.Component {
                               <Button
                                 color="primary"
                                 style={btnOptionStyle}
-                                onClick={() => {this.handleClearDrawing() }}>
+                                onClick={() => { this.handleClearDrawing() }}>
                                   Clear Drawing
                               </Button>
 

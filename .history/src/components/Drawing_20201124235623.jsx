@@ -44,6 +44,7 @@ class Drawing extends Component {
 
     deleteDraw = () => {
         this.image.getLayer().clear()
+        this.image.getLayer().moveUp()
     }
 
     handleMouseMove = (e, color) => {

@@ -19,6 +19,7 @@ class Drawing extends Component {
         this.setState({ canvas, context });
         this.setState({ canDraw: this.props.canDraw });
         
+        
         canvas.oncontextmenu = function (e) {
             e.preventDefault(); //disable right click
         };

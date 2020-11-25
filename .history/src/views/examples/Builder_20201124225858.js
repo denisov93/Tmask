@@ -297,11 +297,8 @@ class Builder extends React.Component {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
+    
   }
-
-  
-
-
   render() {
     return (
       <>
@@ -579,7 +576,7 @@ class Builder extends React.Component {
                               <Button
                                 color="primary"
                                 style={btnOptionStyle}
-                                onClick={() => {this.handleClearDrawing() }}>
+                                onClick={() => { this.handleClearDrawing() }}>
                                   Clear Drawing
                               </Button>
 
@@ -656,6 +653,7 @@ class Builder extends React.Component {
                     <MaskEditor 
                       width={825} height={800} maskOverlay={this.state.maskOverlay} preExport={this.state.preExport} 
                       decorations={this.state.decorations} maskType={this.state.maskType} clearDraw={this.state.clearDraw} 
+                      onClick={ this.setState({ clearDraw: false }) }
                       ref="editor"/>
 
                   </Card>

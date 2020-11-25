@@ -296,10 +296,18 @@ class Builder extends React.Component {
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
-    this.refs.main.scrollTop = 0;
+    this.refs.main.scrollTop = 0;  
   }
 
-  
+  componentDidUpdate(){
+    console.log(this.state.clearDraw)
+    if(this.state.clearDraw){
+      console.log("BBBB")
+      this.setState({
+        clearDraw:false
+      })
+    }
+  }
 
 
   render() {
@@ -579,7 +587,7 @@ class Builder extends React.Component {
                               <Button
                                 color="primary"
                                 style={btnOptionStyle}
-                                onClick={() => {this.handleClearDrawing() }}>
+                                onClick={() => { this.handleClearDrawing() }}>
                                   Clear Drawing
                               </Button>
 

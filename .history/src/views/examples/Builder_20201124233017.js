@@ -579,7 +579,7 @@ class Builder extends React.Component {
                               <Button
                                 color="primary"
                                 style={btnOptionStyle}
-                                onClick={() => {this.handleClearDrawing() }}>
+                                onClick={() => { this.handleClearDrawing(() }}>
                                   Clear Drawing
                               </Button>
 

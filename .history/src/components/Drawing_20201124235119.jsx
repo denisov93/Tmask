@@ -30,6 +30,7 @@ class Drawing extends Component {
         if(this.props.clearDraw){
             this.deleteDraw()
         }
+        this.forceUpdate()
     }
 
     handleMouseDown = () => {

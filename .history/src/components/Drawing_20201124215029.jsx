@@ -6,8 +6,7 @@ import PropTypes from 'prop-types';
 class Drawing extends Component {
     state = {
         isDrawing: false,
-        canDraw: true,
-        
+        canDraw: true
     };
 
     componentDidMount() {
@@ -18,18 +17,12 @@ class Drawing extends Component {
         const context = canvas.getContext("2d");
         this.setState({ canvas, context });
         this.setState({ canDraw: this.props.canDraw });
-        
+
         canvas.oncontextmenu = function (e) {
             e.preventDefault(); //disable right click
         };
 
-        document.addEventListener("deleteDrawing", this.deleteDraw);  
-    }
-
-    componentDidUpdate(){
-        if(this.props.clearDraw){
-            this.deleteDraw()
-        }
+        document.addEventListener("deleteDrawing", this.deleteDraw);
     }
 
     handleMouseDown = () => {
@@ -90,7 +83,6 @@ class Drawing extends Component {
     render() {
         const { canvas } = this.state;
         const { x, y, color, width, height } = this.props;
-        
         return (
             <Image
                 image={canvas}

@@ -181,11 +181,10 @@ class Builder extends React.Component {
     clearDraw: false,
   };
 
-  
-
   handleClearDrawing(){
     console.log("Clear Drawing")
-    this.setState({ clearDraw: true })
+    var a =  this.setState({ clearDraw: true }) && true ;
+    this.setState({clearDraw: !a })
   }
 
   handleChangeImageSrc = src =>{
@@ -298,10 +297,6 @@ class Builder extends React.Component {
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
   }
-
-  
-
-
   render() {
     return (
       <>
@@ -579,7 +574,7 @@ class Builder extends React.Component {
                               <Button
                                 color="primary"
                                 style={btnOptionStyle}
-                                onClick={() => {this.handleClearDrawing() }}>
+                                onClick={() => { this.handleClearDrawing() }}>
                                   Clear Drawing
                               </Button>
 
@@ -653,10 +648,8 @@ class Builder extends React.Component {
                 <Col id="middleComponent" className="col-6" style={{ zIndex: 1, display: 'flex', justifyContent: 'space-between', position: 'relative'}} >
                   <Card id="editor" className="card shadow" style={{ height: "800px", maxWidth: "825px", position: 'absolute', left: '50%', transform: 'translateX(-50%)'}}>
 
-                    <MaskEditor 
-                      width={825} height={800} maskOverlay={this.state.maskOverlay} preExport={this.state.preExport} 
-                      decorations={this.state.decorations} maskType={this.state.maskType} clearDraw={this.state.clearDraw} 
-                      ref="editor"/>
+                    <MaskEditor width={825} height={800} maskOverlay={this.state.maskOverlay} preExport={this.state.preExport} decorations={this.state.decorations} 
+                    maskType={this.state.maskType} clearDraw={this.state.clearDraw} ref="editor"/>
 
                   </Card>
                 </Col>

@@ -7,7 +7,7 @@ class Drawing extends Component {
     state = {
         isDrawing: false,
         canDraw: true,
-        
+        clearDraw:false,
     };
 
     componentDidMount() {
@@ -19,17 +19,19 @@ class Drawing extends Component {
         this.setState({ canvas, context });
         this.setState({ canDraw: this.props.canDraw });
         
+        if(this.props.clearDraw){
+            this.deleteDraw()
+        }
+        
+        this.setState({ clearDraw: this.props.clearDraw});
+
         canvas.oncontextmenu = function (e) {
             e.preventDefault(); //disable right click
         };
 
-        document.addEventListener("deleteDrawing", this.deleteDraw);  
-    }
+        document.addEventListener("deleteDrawing", this.deleteDraw);
 
-    componentDidUpdate(){
-        if(this.props.clearDraw){
-            this.deleteDraw()
-        }
+        
     }
 
     handleMouseDown = () => {

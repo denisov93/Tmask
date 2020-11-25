@@ -162,11 +162,12 @@ class MaskEditor extends React.Component {
           <Layer>
             <URLImage src={ this.props.maskType } canChange={false} canDrag={false} opacity={1} opacitySwitch={false} ref={node => { this.maskRef = node }}/>
           </Layer>
-          <Layer>
+          <Layer>{console.log("A")}
             <Drawing clearDraw={this.props.clearDraw} canDraw={this.state.canDraw} width={this.state.stageWidth} height={this.state.stageHeight} color={this.state.brushColor} />
           </Layer>
           <Layer>
             {
+            console.log("B"),
             this.props.decorations.map(
               (el, index) => 
               {

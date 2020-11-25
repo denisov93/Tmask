@@ -178,10 +178,10 @@ class Builder extends React.Component {
     preExport : false,
     maskOverlay: mOverlay1,
     viewMode: false, // >>> if maskOverlay is visible in canvas
-    clearDraw: false,
+    //clearDraw: false,
   };
 
-  
+  clearDraw = false;
 
   handleClearDrawing(){
     console.log("Clear Drawing")
@@ -296,7 +296,7 @@ class Builder extends React.Component {
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
-    this.refs.main.scrollTop = 0;
+    this.refs.main.scrollTop = 0;  
   }
 
   
@@ -579,7 +579,7 @@ class Builder extends React.Component {
                               <Button
                                 color="primary"
                                 style={btnOptionStyle}
-                                onClick={() => {this.handleClearDrawing() }}>
+                                onClick={() => { this.handleClearDrawing() }}>
                                   Clear Drawing
                               </Button>
 
@@ -655,7 +655,8 @@ class Builder extends React.Component {
 
                     <MaskEditor 
                       width={825} height={800} maskOverlay={this.state.maskOverlay} preExport={this.state.preExport} 
-                      decorations={this.state.decorations} maskType={this.state.maskType} clearDraw={this.state.clearDraw} 
+                      decorations={this.state.decorations} maskType={this.state.maskType} 
+                      clearDraw={this.clearDraw.props} 
                       ref="editor"/>
 
                   </Card>

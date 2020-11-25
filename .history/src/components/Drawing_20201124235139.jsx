@@ -29,6 +29,7 @@ class Drawing extends Component {
     componentDidUpdate(){
         if(this.props.clearDraw){
             this.deleteDraw()
+            this.forceUpdate()
         }
     }
 
