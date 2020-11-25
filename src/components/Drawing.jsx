@@ -4,11 +4,10 @@ import Konva from 'konva';
 import PropTypes from 'prop-types';
 
 class Drawing extends Component {
+
     state = {
         isDrawing: false,
-        canDraw: true,
     };
-     
 
     init(){
         const canvas = document.createElement("canvas");
@@ -17,22 +16,13 @@ class Drawing extends Component {
         console.log("Canvas Created["+ this.props.width + "w," + this.props.height+"h]")
         const context = canvas.getContext("2d");
         this.setState({ canvas, context });
-        this.setState({ canDraw: this.props.canDraw });
-        
-        canvas.oncontextmenu = function (e) {
-            e.preventDefault(); //disable right click
-        };
     }
 
-    componentDidMount() {
-        this.init()
-    }
+    componentDidMount() {this.init()}
 
     componentDidUpdate(){
-        if(this.props.clearDraw){
-            this.deleteDraw()
-        }
-        console.log(this.props)
+        if(this.props.clearDraw)this.deleteDraw()
+        console.log("[Drawing] CanDraw:"+this.props.canDraw)
     }
 
     handleMouseDown = () => {
@@ -47,15 +37,16 @@ class Drawing extends Component {
 
     async deleteDraw(){
         this.image.getLayer().clear()
-        await setTimeout(100)
+        await setTimeout(25)
         this.init()
     }
 
     handleMouseMove = (e, color) => {
         let evt = e.evt;
-        const { context, isDrawing, canDraw } = this.state;
+        const { context, isDrawing } = this.state;
+
         //console.log(evt)
-        if (isDrawing && canDraw) {
+        if (isDrawing && this.props.canDraw) {
             context.strokeStyle = color;
             context.lineJoin = "round";
             context.lineWidth = 5;

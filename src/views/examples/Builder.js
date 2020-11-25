@@ -193,6 +193,7 @@ class Builder extends React.Component {
     maskOverlay: mOverlay1,
     viewMode: false, // >>> if maskOverlay is visible in canvas
     clearDraw: false,
+    canDraw: false
   };
 
 
@@ -204,7 +205,7 @@ class Builder extends React.Component {
   }
 
   async handleFixClear(){
-    await setTimeout(100)
+    await setTimeout(25)
     this.setState({ clearDraw: false })
   }
 
@@ -239,6 +240,42 @@ class Builder extends React.Component {
     this.setState({
       viewMode: !this.state.viewMode
     })
+  }
+
+  toggleCanDraw(){
+    this.setState({
+      canDraw: !this.state.canDraw
+    })
+    console.log("Builder canDraw:"+this.state.canDraw)
+  }
+
+  handleCanDrawOption(){
+    const active = (
+      <div style={{display:'flex', height: 30, width: 30, flexDirection: 'column', alignItems: 'bottom', justifyContent: 'center'}}>
+        <div style={{paddingBottom:'-40px', paddingTop:'13px'}}><h3><i class="fa fa-toggle-on" style={{color: '#33AA55'}}></i></h3></div>
+      </div>
+    )
+    const inactive = (
+      <div style={{display:'flex', height: 30, width: 30, flexDirection: 'column', alignItems: 'bottom', justifyContent: 'center', transform: 'rotate(180deg)'}}>
+          <div><h3><i class="fa fa-toggle-on" style={{color: '#444444'}}></i></h3></div>
+      </div>
+    )
+
+    if(this.state.canDraw){
+      return(
+        <div style={{display:'flex', flexDirection: 'column', alignItems: 'center'}}>
+          <div>Pen</div>
+            {active}
+        </div>
+      )
+    }else{
+        return(
+          <div style={{display:'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <div>Pen</div>
+              {inactive}
+          </div>
+        )
+    }
   }
 
   toggleShareCheck(){
@@ -283,7 +320,7 @@ class Builder extends React.Component {
   }
 
 
-  handleUndoDecoration = item =>{
+  handleDeleteLayer = item =>{
     var state = this.state.decorations.filter( (el,index)=>{
       return index !== item
     },{})
@@ -612,8 +649,8 @@ class Builder extends React.Component {
                               <Button
                                 color="primary"
                                 style={btnOptionStyle}
-                                onClick={() => {  }}>
-                                  Toggle Pen on/off
+                                onClick={() => { this.toggleCanDraw() }}>
+                                  {this.handleCanDrawOption()}
                               </Button>
                               <Button
                                 color="primary"
@@ -693,7 +730,7 @@ class Builder extends React.Component {
                   <Card id="editor" className="card shadow" style={{ height: "800px", maxWidth: "825px", position: 'absolute', left: '50%', transform: 'translateX(-50%)'}}>
 
                     <MaskEditor 
-                      width={825} height={800} maskOverlay={this.state.maskOverlay} preExport={this.state.preExport} 
+                      width={825} height={800} canDraw={this.state.canDraw} maskOverlay={this.state.maskOverlay} preExport={this.state.preExport} 
                       decorations={this.state.decorations} maskType={this.state.maskType} clearDraw={this.state.clearDraw} 
                       ref="editor"/>
 
@@ -721,10 +758,7 @@ class Builder extends React.Component {
                             }
                           </span>
                           <span style={trashStyle}>
-                            {<TrashCan style={{ color: 'red'}}onClick={() => { 
-                              this.handleUndoDecoration(index)
-                              this.forceUpdate()
-                              }}/>}
+                            {<TrashCan onClick={() => {this.handleDeleteLayer(index)}}/>}
                           </span>
                         </div>)
                       )}

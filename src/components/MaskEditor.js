@@ -35,7 +35,6 @@ import ajuda from 'assets/css/ajuda.css'
 
 class MaskEditor extends React.Component {
     state = {
-        canDraw: true,
         stageWidth: this.props.width,
         stageHeight: this.props.height,
         selectedShapeName: '',
@@ -44,15 +43,17 @@ class MaskEditor extends React.Component {
 
       componentDidMount() {
         this.checkSize();
-        console.log("Image Created")
-        // here we should add listener for "container" resize
-        // take a look here https://developers.google.com/web/updates/2016/10/resizeobserver
-        // for simplicity I will just listen window resize
+
         window.addEventListener("resize", this.checkSize);
+        console.log("Image Created")
       }
 
       componentWillUnmount() {
         window.removeEventListener("resize", this.checkSize);
+      }
+
+      componentDidUpdate(){
+        console.log("[MaskEditor] CanDraw:"+this.props.canDraw)
       }
 
       handleStageMouseDown = e => {
@@ -113,7 +114,6 @@ class MaskEditor extends React.Component {
           });
         }
       };
-
    
       handleExportClick = () => {
         const dataURL = this.stageRef.getStage().toDataURL();
@@ -163,7 +163,7 @@ class MaskEditor extends React.Component {
             <URLImage src={ this.props.maskType } canChange={false} canDrag={false} opacity={1} opacitySwitch={false} ref={node => { this.maskRef = node }}/>
           </Layer>
           <Layer>
-            <Drawing clearDraw={this.props.clearDraw} canDraw={this.state.canDraw} width={this.state.stageWidth} height={this.state.stageHeight} color={this.state.brushColor} />
+            <Drawing clearDraw={this.props.clearDraw} canDraw={this.props.canDraw} width={this.state.stageWidth} height={this.state.stageHeight} color={this.state.brushColor} />
           </Layer>
           <Layer>
             {
@@ -211,7 +211,7 @@ MaskEditor.propTypes ={
   maskType: PropTypes.string.isRequired,
   preExport: PropTypes.bool.isRequired,
   maskOverlay: PropTypes.string.isRequired,
-  clearDraw: PropTypes.bool.isRequired
+  clearDraw: PropTypes.bool.isRequired,
 }
 
 export default MaskEditor
