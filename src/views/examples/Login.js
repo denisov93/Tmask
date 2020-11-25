@@ -67,7 +67,6 @@ class Login extends AppBase {
 
   pressedSubmit(){
     this.validateSignIn(this.state.user,this.state.pass)
-    this.userHasSession()
   }
 
   render() {

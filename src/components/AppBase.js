@@ -61,6 +61,22 @@ class AppBase extends React.Component{
     cart:[]
   }
 
+  deleteCookie(){
+    localStorage.clear()
+  }
+
+  setCookie(key,value){
+    var serialize = JSON.stringify(value)
+    localStorage.setItem(key, serialize)
+  }
+
+  getCookie(key){
+    var deserialized = localStorage.getItem(key)
+    var value = JSON.parse(deserialized)
+    console.log(value)
+    return value
+  }
+
   getMyCart(){
     console.log("cart is: ",this.globalVar.cart)
     
@@ -109,15 +125,16 @@ class AppBase extends React.Component{
     return this.globalVar.isLoggedIn
   }
 
-  addItemToCart(cart){
-    console.log("Added ",cart)
-    this.globalVar.cart.push(cart)
-    this.submitForm(cart)  
+  addItemToCart(item){
+    console.log("Added ",item)
+    this.globalVar.cart.push(item)
+    this.submitForm(item)  
   }
 
   submitForm = (cart) => { 
     dataService.setData(cart);
   } 
+
   clearSession(){
     this.session.name = ""
     this.session.img = ""

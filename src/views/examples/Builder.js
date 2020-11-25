@@ -262,12 +262,12 @@ class Builder extends AppBase {
   handleCanDrawOption(){
     const active = (
       <div style={{display:'flex', height: 30, width: 30, flexDirection: 'column', alignItems: 'bottom', justifyContent: 'center'}}>
-        <div style={{paddingBottom:'-40px', paddingTop:'13px'}}><h3><i class="fa fa-toggle-on" style={{color: '#33AA55'}}></i></h3></div>
+        <div style={{paddingBottom:'-40px', paddingTop:'13px'}}><h3><i className="fa fa-toggle-on" style={{color: '#33AA55'}}></i></h3></div>
       </div>
     )
     const inactive = (
       <div style={{display:'flex', height: 30, width: 30, flexDirection: 'column', alignItems: 'bottom', justifyContent: 'center', transform: 'rotate(180deg)'}}>
-          <div><h3><i class="fa fa-toggle-on" style={{color: '#444444'}}></i></h3></div>
+          <div><h3><i className="fa fa-toggle-on" style={{color: '#444444'}}></i></h3></div>
       </div>
     )
 
@@ -299,7 +299,7 @@ class Builder extends AppBase {
         return(
           <div style={{display: 'flex', maxHeight:'30px', alignItems: 'center', justifyContent: 'space-evenly'}}>
               <div></div>
-              <div>How it looks?</div><div style={{paddingTop: '5px'}}><h3><i class="fa fa-eye" style={{color:'#006600'}}></i></h3></div>
+              <div>How it looks?</div><div style={{paddingTop: '5px'}}><h3><i className="fa fa-eye" style={{color:'#006600'}}></i></h3></div>
               <div></div>
           </div>
         )
@@ -307,7 +307,7 @@ class Builder extends AppBase {
         return(
           <div style={{display: 'flex', maxHeight:'30px', alignItems: 'center', justifyContent: 'space-evenly'}}>
               <div></div>
-              <div>How it looks?</div><div style={{paddingTop: '5px'}}><h3><i class="fa fa-eye-slash" style={{color:'#990000'}}></i></h3></div>
+              <div>How it looks?</div><div style={{paddingTop: '5px'}}><h3><i className="fa fa-eye-slash" style={{color:'#990000'}}></i></h3></div>
               <div></div>
           </div>
         )
@@ -318,14 +318,14 @@ class Builder extends AppBase {
         if(this.state.shareChecked){
             return(
               <div style={{display: 'flex', maxHeight:'40px', alignItems: 'center', justifyContent: 'space-between'}}>
-                <div><h4><i class="fa fa-check-square" style={{color:'#525F7F'}}></i></h4></div><div>Share my design</div>
+                <div><h4><i className="fa fa-check-square" style={{color:'#525F7F'}}></i></h4></div><div>Share my design</div>
               </div>
             )
         }else{
             return(
               <div style={{display: 'flex', maxHeight:'40px', alignItems: 'center', justifyContent: 'space-between'}}>
 
-                <div><h4><i class="fa fa-square" style={{color:'#AAAAAA'}}></i></h4></div><div>Share my design</div></div>)
+                <div><h4><i className="fa fa-square" style={{color:'#AAAAAA'}}></i></h4></div><div>Share my design</div></div>)
         }
   }
 
@@ -422,7 +422,7 @@ class Builder extends AppBase {
                       <Accordion defaultActiveKey="0">
 
                         <Accordion.Toggle as={CardHeader} eventKey="0">
-                        {" "}<i class="fa fa-head-side-mask"></i>{" "}<i className="fa fa-shield"></i> Masks
+                        {" "}<i className="fa fa-head-side-mask"></i>{" "}<i className="fa fa-shield"></i> Masks
                           </Accordion.Toggle>
                         <Accordion.Collapse style={accordionStyle} eventKey="0">
                           <div style={RAM}>
@@ -537,7 +537,7 @@ class Builder extends AppBase {
                               e.preventDefault() 
                               this.handleAddNewImageUser() }}>
                             <div>
-                              <h3 style={{paddingLeft:'4px'}}><font color='EEEEEE'><i class="fa fa-cloud-upload"></i></font></h3>
+                              <h3 style={{paddingLeft:'4px'}}><font color='EEEEEE'><i className="fa fa-cloud-upload"></i></font></h3>
                               <font color='FFFFFF'>Upload</font>
                             </div>
                             </Button>
@@ -751,7 +751,7 @@ class Builder extends AppBase {
 
                   <Col style={{userSelect: 'none'}}>
                   <Accordion>
-                    <Accordion as={CardHeader} eventKey="4">
+                    <Accordion as={CardHeader}>
                       <img alt="" className="text-white" src={require("assets/svg/layer.svg").default}/>{" "} Layers
                     </Accordion>
                     <Card className="card shadow">
@@ -790,7 +790,7 @@ class Builder extends AppBase {
                     <Card>
                       <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height:65 }}>
                         <Button style={btnBuyStyle}>
-                            <i class="fa fa-shopping-cart"></i> Buy
+                            <i className="fa fa-shopping-cart"></i> Buy
                         </Button>
                       </div>
                     </Card>

@@ -10,8 +10,8 @@ const colors= [
 const BrushOptions = ({ value, onChange }) => {
     //<i class="fas fa-paint-brush"></i>
     return (
-        <select name="" id="" value={value} onChange={onChange}>
-            <option value={colors[0]} selected>Black</option>
+        <select name="" id="" onChange={onChange} defaultValue={0}>
+            <option value={colors[0]}>Black</option>
             <option value={colors[1]}>White</option>
             <option value={colors[2]}>Red</option>
             <option value={colors[3]}>Green</option>

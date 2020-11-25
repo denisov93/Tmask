@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Image, Layer } from "react-konva";
-import Konva from 'konva';
+import { Image } from "react-konva";
 import PropTypes from 'prop-types';
 
 class Drawing extends Component {
@@ -22,7 +21,6 @@ class Drawing extends Component {
 
     componentDidUpdate(){
         if(this.props.clearDraw)this.deleteDraw()
-        console.log("[Drawing] CanDraw:"+this.props.canDraw)
     }
 
     handleMouseDown = () => {

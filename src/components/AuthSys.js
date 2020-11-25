@@ -74,8 +74,6 @@ class AuthSys extends AppBase{
     const name = this.getSessionName()+''
     const imgUrl = this.getSessionImg()+''
 
-    console.log("AuthSys: "+name)
-
     if (this.userHasSession()) {
       //user image
       accountimg = <img alt=""

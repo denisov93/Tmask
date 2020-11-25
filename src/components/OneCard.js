@@ -26,15 +26,15 @@ class OneCard extends AppBase{
         });
       };
 
-
-      
-
       addToCart(){
         const cc = this.props.card
+        var cart = this.getCookie('cart')
+        if(cart === null)
+            cart = []
+        cart.push(cc)
+        this.setCookie('cart', cart)
         this.addItemToCart(cc)
-        
         this.toggleModal("exampleModal")
-        
       }
 
     render () {

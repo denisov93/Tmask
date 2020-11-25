@@ -45,11 +45,24 @@ import AppBase from "components/AppBase.js";
 import dataService from "components/dataService.js";
 
 class DemoNavbar extends AppBase {
+
+  state = {
+    collapseClasses: "",
+    collapseOpen: false,
+    itemCount: []
+  };
+
   componentDidMount() {
     let headroom = new Headroom(document.getElementById("navbar-main"));
     // initialise
     headroom.init();
-    
+
+    var cart = this.getCookie('cart')
+    if(cart === null){cart = []}
+    this.setState({
+      itemCount: cart
+    })
+
     dataService.getData().subscribe(message => {
       this.setState({
         itemCount : [...this.state.itemCount,message.value]
@@ -58,16 +71,6 @@ class DemoNavbar extends AppBase {
     });
   }
 
-  
-
-  state = {
-    collapseClasses: "",
-    collapseOpen: false,
-    itemCount: []
-  };
-
-  
-  
   onExiting = () => {
     this.setState({
       collapseClasses: "collapsing-out"

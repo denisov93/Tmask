@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
-import { Stage, Layer, Rect, Text } from 'react-konva';
+import React from 'react';
+import { Stage, Layer } from 'react-konva';
 // eslint-disable-next-line
 import Konva from 'konva';
-// eslint-disable-next-line
-import ColoredRect from 'components/ColoredRect.js';
 import Heart from 'components/editorDecorations/Heart';
 import Star from 'components/editorDecorations/Star';
 import Triangle from 'components/editorDecorations/Triangle';
@@ -12,21 +10,9 @@ import Circle from 'components/editorDecorations/Circle';
 import Xmas from 'components/editorDecorations/XmasTree';
 import URLImage from 'components/URLImage';
 
-import mask from '../assets/img/masks/white.png';
-// eslint-disable-next-line
-import mask1 from 'assets/img/editorResources/editor_mask_cloth.png';
-// eslint-disable-next-line
-import mask2 from 'assets/img/editorResources/editor_mask_cirurgical.png';
-// eslint-disable-next-line
-import mask3 from 'assets/img/editorResources/editor_mask_N95_type2.png';
-// eslint-disable-next-line
-import mask4 from 'assets/img/editorResources/editor_mask_N95.png';
-
 import Transformer from 'components/Transformer';
 import Drawing from 'components/Drawing';
 import BrushOptions from 'components/BrushOptions';
-// eslint-disable-next-line
-import Button from 'components/UniversalButton';
 
 import PropTypes from 'prop-types';
 import ImageLayer from './editorDecorations/ImageLayer';
@@ -43,9 +29,7 @@ class MaskEditor extends React.Component {
 
       componentDidMount() {
         this.checkSize();
-
         window.addEventListener("resize", this.checkSize);
-        console.log("Image Created")
       }
 
       componentWillUnmount() {
@@ -53,7 +37,7 @@ class MaskEditor extends React.Component {
       }
 
       componentDidUpdate(){
-        console.log("[MaskEditor] CanDraw:"+this.props.canDraw)
+        //console.log("[MaskEditor] CanDraw:"+this.props.canDraw)
       }
 
       handleStageMouseDown = e => {
