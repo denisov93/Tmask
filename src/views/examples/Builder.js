@@ -95,6 +95,19 @@ const emptyness={
   display: 'none'
 }
 
+	
+const btnBuyStyle = {	
+    color: '#525F7F',
+    background: "#F4F5F7",
+    borderWidth: '3px',
+    borderStyle: 'solid',
+    width: '120px',
+    height: '50px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  };
+
 const btnOptionStyle = {
   background: "#525F7F",
   border: '0px',
@@ -170,6 +183,7 @@ const trashStyle = {
 
 class Builder extends React.Component {
   state = {
+    shareChecked: false,
     expanded: '',
     selectedLayer:-1,
     decorations: [],
@@ -221,6 +235,12 @@ class Builder extends React.Component {
     })
   }
 
+  toggleShareCheck(){
+        this.setState({
+          shareChecked: !this.state.shareChecked
+        })
+      }
+
   handleViewMode(){
     if(this.state.viewMode){
         return(
@@ -240,6 +260,22 @@ class Builder extends React.Component {
         )
     }
   }
+
+  handleShareChecked(){
+        if(this.state.shareChecked){
+            return(
+              <div style={{display: 'flex', maxHeight:'40px', alignItems: 'center', justifyContent: 'space-between'}}>
+                <div><h4><i class="fa fa-check-square" style={{color:'#525F7F'}}></i></h4></div><div>Share my design</div>
+              </div>
+            )
+        }else{
+            return(
+              <div style={{display: 'flex', maxHeight:'40px', alignItems: 'center', justifyContent: 'space-between'}}>
+
+                <div><h4><i class="fa fa-square" style={{color:'#AAAAAA'}}></i></h4></div><div>Share my design</div></div>)
+        }
+  }
+
 
   handleUndoDecoration = item =>{
     var state = this.state.decorations.filter( (el,index)=>{
@@ -660,14 +696,15 @@ class Builder extends React.Component {
                   </Card>
                 </Col>
 
-                <Col id="rightComponent" className="col-3" style={{zIndex: 0}}>
+                <Col id="rightComponent" className="col-3" style={{zIndex: 0, height:800, maxHeight: 600}}>
+
                   <Col style={{userSelect: 'none'}}>
                   <Accordion>
-                  <Accordion as={CardHeader} eventKey="4">
-                    <img alt="" className="text-white" src={require("assets/svg/layer.svg").default}/>{" "} Layers
-                  </Accordion>
-                    <Card className="card shadow" style={{ height: (800-65), overflowY: 'scroll' }}>
-
+                    <Accordion as={CardHeader} eventKey="4">
+                      <img alt="" className="text-white" src={require("assets/svg/layer.svg").default}/>{" "} Layers
+                    </Accordion>
+                    <Card className="card shadow">
+                      <div style={{ overflowY: 'scroll', height: 518, maxHeight: 518 }}>
                       {this.state.decorations.map((el, index) =>
                         (<div style={simpleLayer} key={index}>
                           <div style={{display: 'flex', backgroundColor:"#AAAAAA", alignItems: 'center', justifyContent: 'center', borderWidth: '1px', borderStyle:'double', width:56, height:42}}>
@@ -680,21 +717,40 @@ class Builder extends React.Component {
                             }
                           </span>
                           <span style={trashStyle}>
-                            {<TrashCan onClick={() => { 
+                            {<TrashCan style={{ color: 'red'}}onClick={() => { 
                               this.handleUndoDecoration(index)
                               this.forceUpdate()
                               }}/>}
                           </span>
                         </div>)
                       )}
+                      </div>
 
+                      <Card>
+                      <Accordion.Toggle as={CardHeader} eventKey="4" onClick={(e)=>{this.toggleShareCheck()}}>
+                            {this.handleShareChecked()}
+                      </Accordion.Toggle>
+                      <Accordion.Collapse eventKey="4">
+                        <div style={{height:65}}>
+                          Image / Tags: + TagField / ShareBtn
+                        </div>
+                      </Accordion.Collapse>
                     </Card>
-                    </Accordion>
-                  </Col>
 
+                    <Card>
+                      <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height:65 }}>
+                        <Button style={btnBuyStyle}>
+                            <i class="fa fa-shopping-cart"></i> Buy
+                        </Button>
+                      </div>
+                    </Card>
+
+                  </Card>
+                  </Accordion>
+                  </Col>
                 </Col>
 
-              </Row>
+            </Row>
               {/* SVG separator */}
               <div className="separator separator-bottom separator-skew">
                 <svg
