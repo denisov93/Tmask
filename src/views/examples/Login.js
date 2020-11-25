@@ -33,8 +33,12 @@ import {
   InputGroup,
   Container,
   Row,
-  Col
+  Col,
+  Modal,
+  ModalBody,
+  ModalFooter,
 } from "reactstrap";
+import dataService from "components/dataService.js";
 
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
@@ -42,6 +46,49 @@ import SimpleFooter from "components/Footers/SimpleFooter.js";
 // eslint-disable-next-line
 import AuthSys from "components/AuthSys.js";
 import AppBase from "components/AppBase.js";
+
+function Popup(){
+  const [modalOpen, setModalOpen] = React.useState(false);
+  
+  dataService.getData().subscribe(message => {
+    if(message.value === 'login_failed'){
+      console.log("Login failed popup")
+      setModalOpen(true)
+    }
+    console.log(message);
+  });
+
+  return (
+    <>
+      <Modal className='modal-dialog-centered' toggle={() => setModalOpen(!modalOpen)} isOpen={modalOpen}>
+        <div className=" modal-header">
+          <h5 className=" modal-title" id="exampleModalLabel">
+          🔐 Authentication Fail
+          </h5>
+        </div>
+        <ModalBody>
+          You entered invalid credentials.<br></br>
+          Try one of the following:<br></br>
+          user: <b>alicia</b> pass: <b>1234</b><br></br>
+          user: <b>jonny</b> pass: <b>2345</b><br></br>
+          user: <b>nahla</b> pass: <b>3456</b><br></br>
+          user: <b>pedro</b> pass: <b>4567</b><br></br>
+        </ModalBody>
+        <ModalFooter>
+          <Button
+            color="secondary"
+            type="button"
+            onClick={() => setModalOpen(!modalOpen)}
+          >
+            Close
+          </Button>
+        </ModalFooter>
+      </Modal>
+    </>
+  );
+}
+
+
 class Login extends AppBase {
 
   constructor(){
@@ -66,7 +113,10 @@ class Login extends AppBase {
   }
 
   pressedSubmit(){
-    this.validateSignIn(this.state.user,this.state.pass)
+    var result = this.validateSignIn(this.state.user,this.state.pass)
+    if(!result){
+      dataService.setData('login_failed')
+    }
   }
 
   render() {
@@ -124,6 +174,7 @@ class Login extends AppBase {
                         </Button>
                       </div>
                     </CardHeader>
+                    <Popup/>
                     <CardBody className="px-lg-5 py-lg-5">
                       <div className="text-center text-muted mb-4">
                         <small>Or sign in with credentials</small>

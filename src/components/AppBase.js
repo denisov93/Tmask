@@ -152,7 +152,7 @@ class AppBase extends React.Component{
     console.log("[Session] User logged in.")
   }
 
-  async validateSignIn(in_user, in_pass){
+  validateSignIn(in_user, in_pass){
     const username = in_user+''
     const password = in_pass+''
     console.log("[SignIn] [User:"+username+"][Pass:"+password+"]");
@@ -178,8 +178,11 @@ class AppBase extends React.Component{
         }
     }
 
-    if(!valid) console.log("[SignIn] Credentials Mismatch");
-
+    if(!valid){
+      //make modal appear
+       console.log("[SignIn] Credentials Mismatch");
+    }
+    return valid
   }
 
    // eslint-disable-next-line

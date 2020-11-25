@@ -64,10 +64,11 @@ class DemoNavbar extends AppBase {
     })
 
     dataService.getData().subscribe(message => {
-      this.setState({
-        itemCount : [...this.state.itemCount,message.value]
-      })
-      console.log(message);
+      if(typeof message.value !== 'string'){
+        this.setState({
+          itemCount : [...this.state.itemCount,message.value]
+        })
+    }
     });
   }
 

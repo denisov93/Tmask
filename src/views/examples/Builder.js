@@ -70,7 +70,7 @@ import {
   // eslint-disable-next-line
   Row,
   // eslint-disable-next-line
-  Col
+  Col,
 } from "reactstrap";
 
 // core components
@@ -775,16 +775,16 @@ class Builder extends AppBase {
                       </div>
 
                       <Card>
-                      <Accordion.Toggle as={CardHeader} eventKey="4" onClick={(e)=>{this.toggleShareCheck()}}>
+                      <Accordion as={CardHeader} onClick={(e)=>{this.toggleShareCheck()}}>
                             {this.handleShareChecked()}
-                      </Accordion.Toggle>
-                      <Accordion.Collapse eventKey="4">
-                        <div style={{height:65}}>
+                      </Accordion>
+                      <Accordion>
+                        <div style={{height:90}}>
                           Image / Tags: + TagField / ShareBtn
 
                           {this.handleIsLoggedIn()}
                         </div>
-                      </Accordion.Collapse>
+                      </Accordion>
                     </Card>
 
                     <Card>
