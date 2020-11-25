@@ -24,6 +24,12 @@ class OneCard extends Component{
         });
       };
 
+      addToCart=()=>{
+        
+        
+        this.toggleModal("exampleModal")
+      }
+
     render () {
         return (
             <Col lg="4">
@@ -109,8 +115,9 @@ class OneCard extends Component{
                 >
                 Close
                 </Button>
-                <Button color="primary" type="button">
-                Save changes
+                <Button color="primary" type="button" onClick={ ()=> this.addToCart()}>
+                <i className="fa fa-shopping-cart" /> 
+                {"  Add to Cart"}
                 </Button>
             </div>
             </Modal>
