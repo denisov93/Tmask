@@ -42,17 +42,32 @@ import {
 import AuthSys from "components/AuthSys";
 import AppBase from "components/AppBase.js";
 
+import dataService from "components/dataService.js";
+
 class DemoNavbar extends AppBase {
   componentDidMount() {
     let headroom = new Headroom(document.getElementById("navbar-main"));
     // initialise
     headroom.init();
+    
+    dataService.getData().subscribe(message => {
+      this.setState({
+        itemCount : [...this.state.itemCount,message.value]
+      })
+      console.log(message);
+    });
   }
+
+  
+
   state = {
     collapseClasses: "",
-    collapseOpen: false
+    collapseOpen: false,
+    itemCount: []
   };
 
+  
+  
   onExiting = () => {
     this.setState({
       collapseClasses: "collapsing-out"
@@ -66,11 +81,10 @@ class DemoNavbar extends AppBase {
   };
 
   render() {
-
-    var itemCount = 0
+  
     let cartPopup;
-
-    if (itemCount > 0) {
+    
+    if (this.state.itemCount.length > 0) {
       cartPopup = "Checkout Your Cart!";
     } else {
       cartPopup = "Your cart is empty.";
@@ -171,7 +185,7 @@ class DemoNavbar extends AppBase {
                       to="/cart" 
                       tag={Link}
                     >
-                      {itemCount}{" "}
+                      {this.state.itemCount.length}{" "}
                       <i className="fa fa-shopping-cart" />
                       <span className="nav-link-inner--text d-lg-none ml-2">
                         Cart

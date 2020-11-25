@@ -26,10 +26,15 @@ class OneCard extends AppBase{
         });
       };
 
-      addToCart=()=>{
-        
+
+      
+
+      addToCart(){
+        const cc = this.props.card
+        this.addItemToCart(cc)
         
         this.toggleModal("exampleModal")
+        
       }
 
     render () {
