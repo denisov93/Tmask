@@ -39,8 +39,10 @@ import {
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
-
-class Login extends React.Component {
+// eslint-disable-next-line
+import AuthSys from "components/AuthSys.js";
+import AppBase from "components/AppBase.js";
+class Login extends AppBase {
 
   constructor(){
     super()
@@ -59,9 +61,13 @@ class Login extends React.Component {
     this.refs.main.scrollTop = 0;
   }
 
-  handleSubmit(event) {
-    console.log("user:"+this.state.user+" pass:"+this.state.pass);
-    event.preventDefault();
+  handleSubmit(e){
+
+  }
+
+  pressedSubmit(){
+    this.validateSignIn(this.state.user,this.state.pass)
+    this.userHasSession()
   }
 
   render() {
@@ -123,7 +129,7 @@ class Login extends React.Component {
                       <div className="text-center text-muted mb-4">
                         <small>Or sign in with credentials</small>
                       </div>
-                      <Form role="form" onSubmit={this.handleSubmit}>
+                      <Form role="form" /*onSubmit={ this.handleSubmit}*/>
                         <FormGroup className="mb-3">
                           <InputGroup className="input-group-alternative">
                             <InputGroupAddon addonType="prepend">
@@ -165,9 +171,11 @@ class Login extends React.Component {
                         </div>
                         <div className="text-center">
                           <br/>
-                          <Button type="submit"
+                          <Button //type="submit"
                               className="my-4"
-                              color="primary">
+                              color="primary"
+                              onClick={()=>{this.pressedSubmit()}}
+                              >
                              SIGN IN
                           </Button>
                         </div>
