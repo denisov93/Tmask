@@ -1,16 +1,16 @@
 import React, { Component } from "react";
-import { Image } from "react-konva";
-
+import { Image, Layer } from "react-konva";
+import Konva from 'konva';
 import PropTypes from 'prop-types';
 
 class Drawing extends Component {
     state = {
         isDrawing: false,
         canDraw: true,
-        
     };
+     
 
-    componentDidMount() {
+    init(){
         const canvas = document.createElement("canvas");
         canvas.width = this.props.width;
         canvas.height = this.props.height;
@@ -22,14 +22,17 @@ class Drawing extends Component {
         canvas.oncontextmenu = function (e) {
             e.preventDefault(); //disable right click
         };
+    }
 
-        document.addEventListener("deleteDrawing", this.deleteDraw);  
+    componentDidMount() {
+        this.init()
     }
 
     componentDidUpdate(){
         if(this.props.clearDraw){
             this.deleteDraw()
         }
+        console.log(this.props)
     }
 
     handleMouseDown = () => {
@@ -42,8 +45,10 @@ class Drawing extends Component {
         this.setState({ isDrawing: false });
     };
 
-    deleteDraw = () => {
+    async deleteDraw(){
         this.image.getLayer().clear()
+        await setTimeout(100)
+        this.init()
     }
 
     handleMouseMove = (e, color) => {

@@ -195,11 +195,17 @@ class Builder extends React.Component {
     clearDraw: false,
   };
 
-  
 
   handleClearDrawing(){
     console.log("Clear Drawing")
     this.setState({ clearDraw: true })
+    
+    this.handleFixClear()
+  }
+
+  async handleFixClear(){
+    await setTimeout(100)
+    this.setState({ clearDraw: false })
   }
 
   handleChangeImageSrc = src =>{
@@ -316,13 +322,11 @@ class Builder extends React.Component {
     fileInput.onchange = function(e){
         const file = fileInput.files[0];
 
-        
         reader.onload = function(e) {    
             img.src = reader.result;     
         }
-        reader.readAsDataURL(file);
-        
-        
+        if(file instanceof Blob)
+          reader.readAsDataURL(file);
     };  
 
     reader.onloadend = ( ) => this.handleImageBB(img);

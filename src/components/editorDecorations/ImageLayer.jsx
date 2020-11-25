@@ -19,7 +19,7 @@ class ImageLayer extends Component {
 
     render() {
         const { name } = this.props;
-        return (<URLImage canChange={true} canDrag={true} opacity={0.7} opacitySwitch={true}
+        return (<URLImage canChange={true} canDrag={true} opacitySwitch={true}
             name={name}
             src={ this.props.imageLayer } 
             x={300}
