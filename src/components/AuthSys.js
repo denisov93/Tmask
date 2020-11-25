@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import {
   Button, NavLink
 } from "reactstrap";
+import AppBase from "components/AppBase.js";
 
 function LoginButton(props) {
   return (
@@ -38,39 +39,39 @@ function LogoutButton(props) {
   );
 }
 
-class AuthSys extends React.Component{
+class AuthSys extends AppBase{
 
   constructor() {
     super()
     this.handleLoginClick = this.handleLoginClick.bind(this);
     this.handleLogoutClick = this.handleLogoutClick.bind(this);
-    this.handleLogoutClick = this.handleLogoutClick.bind(this);
-    this.state = {isLoggedIn: false};
   }
 
   handleLoginClick() {
-    <NavLink
+    return(<NavLink
       to="/login" 
       tag={Link}>
-    </NavLink>
+    </NavLink>)
+  }
+
+  handleSignInClick() {
+    this.doLogin()
   }
 
   handleLogoutClick() {
-    this.setState({isLoggedIn: false});
+    this.doLogout()
   }
 
   hasSession(){
-    return this.state.isLoggedIn
+    return this.userHasSession()
   }
 
   render() {
-
-    const isLoggedIn = this.state.isLoggedIn;
     let components;
     let accountimg;
     let accountdetails;
 
-    if (isLoggedIn) {
+    if (this.userHasSession()) {
       //user image
       accountimg = <img alt=""
       src={require("assets/img/userimage/user_alicia.png").default}
@@ -85,8 +86,6 @@ class AuthSys extends React.Component{
       //login button
       components = <LoginButton onClick={this.handleLoginClick} />;
     }
-
-
 
     return (
       <div style={{display: "flex", flexWrap:"wrap", justifyContent: "center"}}>

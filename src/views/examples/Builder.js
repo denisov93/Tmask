@@ -19,6 +19,7 @@
 import React from "react";
 // nodejs library that concatenates classes
 import MaskEditor from "components/MaskEditor.js"
+import AppBase from "components/AppBase.js";
 import mask from 'assets/img/masks/white.png';
 import mask1 from 'assets/img/editorResources/editor_mask_cloth.png';
 import mask2 from 'assets/img/editorResources/editor_mask_cirurgical.png';
@@ -164,6 +165,7 @@ const simpleLayer = {
   justifyContent: 'space-between',
 }
 
+// eslint-disable-next-line
 const btnDeleteStyle = {
   background: "#ff0000",
   color: "#fff",
@@ -181,7 +183,8 @@ const trashStyle = {
   float: "right",
 };
 
-class Builder extends React.Component {
+class Builder extends AppBase {
+
   state = {
     shareChecked: false,
     expanded: '',
@@ -196,12 +199,19 @@ class Builder extends React.Component {
     canDraw: false
   };
 
+  handleLoad(){
+    
+  }
 
   handleClearDrawing(){
-    console.log("Clear Drawing")
     this.setState({ clearDraw: true })
-    
     this.handleFixClear()
+  }
+
+  handleIsLoggedIn(){
+    const test = this.userHasSession()
+    console.log("isLoggedIn["+test+"]")
+    return (<div>{test}</div>)
   }
 
   async handleFixClear(){
@@ -771,6 +781,8 @@ class Builder extends React.Component {
                       <Accordion.Collapse eventKey="4">
                         <div style={{height:65}}>
                           Image / Tags: + TagField / ShareBtn
+
+                          {this.handleIsLoggedIn()}
                         </div>
                       </Accordion.Collapse>
                     </Card>
