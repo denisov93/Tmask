@@ -575,7 +575,6 @@ class Builder extends React.Component {
                                 onClick={() => {  }}>
                                   Toggle Pen on/off
                               </Button>
-
                               <Button
                                 color="primary"
                                 style={btnOptionStyle}
