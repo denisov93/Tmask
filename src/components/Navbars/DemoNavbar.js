@@ -40,8 +40,9 @@ import {
   UncontrolledTooltip
 } from "reactstrap";
 import AuthSys from "components/AuthSys";
+import AppBase from "components/AppBase.js";
 
-class DemoNavbar extends React.Component {
+class DemoNavbar extends AppBase {
   componentDidMount() {
     let headroom = new Headroom(document.getElementById("navbar-main"));
     // initialise

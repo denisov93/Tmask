@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import AppBase from "components/AppBase.js";
+
 // reactstrap components
 import {
     Badge,
@@ -14,7 +16,7 @@ import {
   import PropTypes from 'prop-types'
 
 
-class OneCard extends Component{
+class OneCard extends AppBase{
     state = {
         exampleModal: false
       };
