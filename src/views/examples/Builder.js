@@ -71,6 +71,10 @@ import {
   Row,
   // eslint-disable-next-line
   Col,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  Form,
 } from "reactstrap";
 
 // core components
@@ -196,7 +200,9 @@ class Builder extends AppBase {
     maskOverlay: mOverlay1,
     viewMode: false, // >>> if maskOverlay is visible in canvas
     clearDraw: false,
-    canDraw: false
+    canDraw: false,
+    modalOpen: false,
+    hasSession:false,
   };
 
   handleLoad(){
@@ -289,10 +295,18 @@ class Builder extends AppBase {
   }
 
   toggleShareCheck(){
-        this.setState({
-          shareChecked: !this.state.shareChecked
-        })
+    this.setState({
+      shareChecked: !this.state.shareChecked
+    })
+    setTimeout(()=>{
+      if(this.state.shareChecked){
+        if(!this.userHasSession()){
+          this.setState({modalOpen: true})
+          
+        }
       }
+    },200);
+  }
 
   handleViewMode(){
     if(this.state.viewMode){
@@ -318,7 +332,7 @@ class Builder extends AppBase {
         if(this.state.shareChecked){
             return(
               <div style={{display: 'flex', maxHeight:'40px', alignItems: 'center', justifyContent: 'space-between'}}>
-                <div><h4><i className="fa fa-check-square" style={{color:'#525F7F'}}></i></h4></div><div>Share my design</div>
+                <div><h4><i className="fa fa-check-square" style={{color:'#525F7F'}}></i></h4></div><div>Write tag and submit!</div>
               </div>
             )
         }else{
@@ -384,12 +398,13 @@ class Builder extends AppBase {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
+    this.setState({hasSession: this.userHasSession()})
   }
 
   
 
 
-  render() {
+  render() {   
     return (
       <>
         <DemoNavbar />
@@ -743,6 +758,169 @@ class Builder extends AppBase {
                       width={825} height={800} canDraw={this.state.canDraw} maskOverlay={this.state.maskOverlay} preExport={this.state.preExport} 
                       decorations={this.state.decorations} maskType={this.state.maskType} clearDraw={this.state.clearDraw} 
                       ref="editor"/>
+
+                    { !this.state.hasSession &&
+                    <Modal className='modal-dialog-centered' toggle={() => {
+                      this.setState({modalOpen: !this.state.modalOpen})
+                      this.setState({shareChecked: !this.state.shareChecked})
+                      }} 
+                      
+                      isOpen={this.state.modalOpen}>
+                      <div className="text-muted text-center mb-3">
+                        <br></br>
+                        <big>you need to be signed in to <strong>share</strong></big>
+                      </div>
+                      <ModalBody>
+                      <div className="text-center text-muted mb-4">
+                        <small>🔐 Sign in with credentials 🔐<br></br>
+                        user: <b>alicia</b> pass: <b>1234</b><br></br>
+                        user: <b>jonny</b> pass: <b>2345</b><br></br>
+                        user: <b>nahla</b> pass: <b>3456</b><br></br>
+                        user: <b>pedro</b> pass: <b>4567</b><br></br>
+                        </small>
+                        </div>
+                        <Form role="form" /*onSubmit={ this.handleSubmit}*/>
+                        <FormGroup className="mb-3">
+                          <InputGroup className="input-group-alternative">
+                            <InputGroupAddon addonType="prepend">
+                              <InputGroupText>
+                                <i className="ni ni-circle-08" />
+                              </InputGroupText>
+                            </InputGroupAddon>
+                            <Input id="id_account" placeholder="Username / Email" type="username" onChange={e=> this.setState({user: e.target.value})} />
+                          </InputGroup>
+                        </FormGroup>
+                        <FormGroup>
+                          <InputGroup className="input-group-alternative">
+                            <InputGroupAddon addonType="prepend">
+                              <InputGroupText>
+                                <i className="ni ni-lock-circle-open" />
+                              </InputGroupText>
+                            </InputGroupAddon>
+                            <Input
+                              id="id_password"
+                              placeholder="Password"
+                              type="password"
+                              autoComplete="off"
+                              onChange={e=> this.setState({pass: e.target.value})}
+                            />
+                          </InputGroup>
+                        </FormGroup>
+                        <div className="custom-control custom-control-alternative custom-checkbox">
+                          <input
+                            className="custom-control-input"
+                            id=" customCheckLogin"
+                            type="checkbox"
+                          />
+                          <label
+                            className="custom-control-label"
+                            htmlFor=" customCheckLogin"
+                          >
+                            <span>Remember me</span>
+                          </label>
+                        </div>
+                      </Form>
+                      </ModalBody>
+                      <ModalFooter>
+                      <div className="text-center">
+                          <Button //type="submit"
+                              className="my-4"
+                              color="primary"
+                              onClick={()=>{ this.setState({hasSession:true }) }}//this.pressedSubmit()}}
+                              >
+                             SIGN IN
+                          </Button>
+                        </div>
+                        <Button
+                          color="secondary"
+                          type="button"
+                          onClick={() => {
+                            this.setState({modalOpen: !this.state.modalOpen})
+                            this.setState({shareChecked: !this.state.shareChecked})
+                          }}
+                        >
+                          Close
+                        </Button>
+                      </ModalFooter>
+                    </Modal>}
+                    { this.state.hasSession &&
+                      <Modal className='modal-dialog-centered' toggle={() => {
+                        this.setState({modalOpen: !this.state.modalOpen})
+                        this.setState({shareChecked: !this.state.shareChecked})
+                        }} 
+                        
+                        isOpen={this.state.modalOpen}>
+                        <div className="text-muted text-center mb-3">
+                          <br></br>
+                          <big><strong>Share!!!!</strong></big>
+                        </div>
+                        <ModalBody>
+                        
+                          <Form role="form" /*onSubmit={ this.handleSubmit}*/>
+                          <FormGroup className="mb-3">
+                            <InputGroup className="input-group-alternative">
+                              <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
+                                  <i className="ni ni-circle-08" />
+                                </InputGroupText>
+                              </InputGroupAddon>
+                              <Input id="id_account" placeholder="Username / Email" type="username" onChange={e=> this.setState({user: e.target.value})} />
+                            </InputGroup>
+                          </FormGroup>
+                          <FormGroup>
+                            <InputGroup className="input-group-alternative">
+                              <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
+                                  <i className="ni ni-lock-circle-open" />
+                                </InputGroupText>
+                              </InputGroupAddon>
+                              <Input
+                                id="id_password"
+                                placeholder="Password"
+                                type="password"
+                                autoComplete="off"
+                                onChange={e=> this.setState({pass: e.target.value})}
+                              />
+                            </InputGroup>
+                          </FormGroup>
+                          <div className="custom-control custom-control-alternative custom-checkbox">
+                            <input
+                              className="custom-control-input"
+                              id=" customCheckLogin"
+                              type="checkbox"
+                            />
+                            <label
+                              className="custom-control-label"
+                              htmlFor=" customCheckLogin"
+                            >
+                              <span>Remember me</span>
+                            </label>
+                          </div>
+                        </Form>
+                        </ModalBody>
+                        <ModalFooter>
+                        <div className="text-center">
+                            <Button //type="submit"
+                                className="my-4"
+                                color="primary"
+                                onClick={()=>{this.pressedSubmit()}}
+                                >
+                               SIGN IN
+                            </Button>
+                          </div>
+                          <Button
+                            color="secondary"
+                            type="button"
+                            onClick={() => {
+                              this.setState({modalOpen: !this.state.modalOpen})
+                              this.setState({shareChecked: !this.state.shareChecked})
+                            }}
+                          >
+                            Close
+                          </Button>
+                        </ModalFooter>
+                      </Modal>
+                    }
 
                   </Card>
                 </Col>
