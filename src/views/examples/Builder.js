@@ -205,9 +205,9 @@ class Builder extends AppBase {
     sessionID:-1,
     user:'',
     pass:'',
-    tags:[],
-    title:[],
-    description:[]
+    tags:'',
+    title:'',
+    description:''
   };
 
   handleLoad(){
@@ -356,7 +356,7 @@ class Builder extends AppBase {
     var description = this.state.description
 
     var data = {
-      id : -1,
+      id : Math.floor(1000 + Math.random() * 9000),
       title: title,
       image: image,
       description: description,
@@ -370,7 +370,7 @@ class Builder extends AppBase {
     }
 
     ms.push(data)
-    
+
     this.setCookie("addedMasks",ms);
   }
 

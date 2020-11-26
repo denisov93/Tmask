@@ -150,17 +150,14 @@ class Catalog extends AppBase {
     this.refs.main.scrollTop = 0;
 
     var addedMasks = this.getCookie('addedMasks')
-    console.log(addedMasks)
+   
     if(addedMasks !== null){
       if(addedMasks !== []){
-      var cards = this.state.cards
-      addedMasks.map(
-        nmask=>{
-          cards.concat(nmask)
-        }
-      )
+      var newCards = this.state.cards.concat(addedMasks)
+    
+      console.log(newCards)
         this.setState({
-          cards : [...this.state.cards,cards]
+          cards : newCards
         })
       
     }

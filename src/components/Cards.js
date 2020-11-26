@@ -4,6 +4,7 @@ import OneCard from 'components/OneCard'
 
 class Cards extends Component{
   render() {
+    //console.log(this.props.cards)
     return this.props.cards.map(
       (card)=>(
       
