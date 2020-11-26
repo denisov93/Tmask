@@ -83,6 +83,13 @@ import CardsFooter from "components/Footers/CardsFooter.js";
 import { ReactComponent as TrashCan } from 'assets/svg/trash.svg';
 import Accordion from 'react-bootstrap/Accordion';
 
+const DRAWER_1 = "Masks"
+const DRAWER_2 = "Materials"
+const DRAWER_3 = "Images"
+const DRAWER_4 = "Painting"
+const DRAWER_5 = "Decorations"
+const DRAWER_LAYERS = "Decoration Layers"
+
 const btnImageStyle = {
   paddingLeft: '1px',
   width: '83px',
@@ -217,12 +224,6 @@ class Builder extends AppBase {
   handleClearDrawing(){
     this.setState({ clearDraw: true })
     this.handleFixClear()
-  }
-
-  handleIsLoggedIn(){
-    const test = this.userHasSession()
-    console.log("isLoggedIn["+test+"]")
-    return (<div>{test}</div>)
   }
 
   async handleFixClear(){
@@ -433,7 +434,7 @@ class Builder extends AppBase {
     if( ss !== null )
       this.setState({sessionID:ss})
     
-    console.log("WTF=>",this.state.sessionID)
+    console.log("Session ID:",this.state.sessionID)
     
   }
 
@@ -474,7 +475,7 @@ class Builder extends AppBase {
                       <Accordion defaultActiveKey="0">
 
                         <Accordion.Toggle as={CardHeader} eventKey="0">
-                        {" "}<i className="fa fa-head-side-mask"></i>{" "}<i className="fa fa-shield"></i> Masks
+                          {" "}<i className="fa fa-head-side-mask"></i>{" "}<i className="fa fa-shield"></i> {DRAWER_1}
                           </Accordion.Toggle>
                         <Accordion.Collapse style={accordionStyle} eventKey="0">
                           <div style={RAM}>
@@ -530,7 +531,7 @@ class Builder extends AppBase {
 
                         <Card>
                           <Accordion.Toggle as={CardHeader} eventKey="1">
-                            <i className="fa fa-cubes"></i> Materials
+                            <i className="fa fa-cubes"></i> {DRAWER_2}
                             </Accordion.Toggle>
                           <Accordion.Collapse style={accordionStyle} eventKey="1">
                             <div style={RAM}>
@@ -576,7 +577,7 @@ class Builder extends AppBase {
                               flexDirection: 'row',
                               justifyContent: 'right',
                             }}>
-                            <i className="fa fa-image"></i> Images
+                            <i className="fa fa-image"></i> {DRAWER_3}
                             </div>
                             </Accordion.Toggle>
                           <Accordion.Collapse style={accordionStyle} eventKey="2">
@@ -697,7 +698,7 @@ class Builder extends AppBase {
                         </Card>
                         <Card>
                           <Accordion.Toggle as={CardHeader} eventKey="3">
-                            <i className="fa fa-paint-brush"></i> Painting
+                            <i className="fa fa-paint-brush"></i> {DRAWER_4}
                             </Accordion.Toggle>
                           <Accordion.Collapse style={accordionStyle} eventKey="3">
                             <div style={RAM}>
@@ -726,7 +727,7 @@ class Builder extends AppBase {
                         </Card>
                         <Card>
                           <Accordion.Toggle as={CardHeader} eventKey="4">
-                            <i className="fa fa-star"></i> Decorations
+                            <i className="fa fa-star"></i> {DRAWER_5}
                             </Accordion.Toggle>
                           <Accordion.Collapse style={accordionStyle} eventKey="4">
                             <div style={RAM}>
@@ -805,7 +806,7 @@ class Builder extends AppBase {
                       isOpen={this.state.modalOpen}>
                       <div className="text-muted text-center mb-3">
                         <br></br>
-                        <big>you need to be signed in to <strong>share</strong></big>
+                        <big>You need to be signed in to <strong>share</strong>.</big>
                       </div>
                       <ModalBody>
                       <div className="text-center text-muted mb-4">
@@ -893,7 +894,7 @@ class Builder extends AppBase {
                         isOpen={this.state.modalOpen}>
                         <div className="text-muted text-center mb-3">
                           <br></br>
-                          <big><strong>Share!!!!</strong></big>
+                          <big><strong>Sharing with the community!</strong></big>
                         </div>
                         <ModalBody>
                         
@@ -905,9 +906,12 @@ class Builder extends AppBase {
                                   Title:
                                 </InputGroupText>
                               </InputGroupAddon>
-                              <Input  placeholder="Write Title" type="text" onChange={
+                              <Input  placeholder="Write the name of your mask" type="text" onChange={
                                 e=>{
-                                  this.setState({title: e.target.value})
+                                  var str = e.target.value; 
+                                  if(str.length < 32){
+                                    this.setState({title: str})
+                                  }
                                 }} />
                             </InputGroup>
                             <InputGroup className="input-group-alternative">
@@ -916,32 +920,39 @@ class Builder extends AppBase {
                                   Description:
                                 </InputGroupText>
                               </InputGroupAddon>
-                              <Input  placeholder="Write Description" type="text" onChange={
+                              <Input  placeholder="Write a description about it." type="text" onChange={
                                 e=>{
-                                  this.setState({description: e.target.value})
+                                  var str = e.target.value; 
+                                  if(str.length < 400){
+                                    this.setState({description: str})
+                                  }
                                 }} />
                             </InputGroup>
                             <InputGroup className="input-group-alternative">
-                              <InputGroupAddon addonType="prepend">
+                              <InputGroupAddon addonType='prepend'>
                                 <InputGroupText>
                                   <i className="fa fa-hashtag" />
                                 </InputGroupText>
                               </InputGroupAddon>
-                              <Input  placeholder="Write Tags" type="text" onChange={
+                              <Input  placeholder="Write Tags so other users can find this content." type="text" onChange={
                                 e=>{
-                                  var str = e.target.value; 
-                                  var res = str.replace(/[, .]/g, (_, m1) => m1 ? "# " : '');
-                                  this.setState({tags: res})
+                                  var str = e.target.value;
+                                  if(str.length < 200){
+                                    var res = str.replace(/[, .]/g, (_, m1) => m1 ? "# " : '');
+                                    this.setState({tags: res})
+                                  }
                                 }} />
                             </InputGroup>
                           </FormGroup>
-                              <big>Mask with {this.state.decorations.length} Decorations will be Shared</big>
+                          <div style={{overflowWrap: 'break-word'}}>
+                              <big>A mask with {this.state.decorations.length} decorations will be Shared.</big>
+                              <br></br><br></br>
+                              <span>🖋️{" "}<b>Title:</b> </span> { this.state.title }
                               <br></br>
-                              <span>Title: </span> { this.state.title }
+                              <span>📃{" "}<b>Description:</b> </span> { this.state.description }
                               <br></br>
-                              <span>Description: </span> { this.state.description }
-                              <br></br>
-                              <span>Tags: </span> { this.state.tags }
+                              <span>🏷️{" "}<b>Tags:</b> </span> { this.state.tags }
+                          </div>
                             
                         </Form>
                         </ModalBody>
@@ -956,7 +967,7 @@ class Builder extends AppBase {
                                   this.setState({shareChecked: !this.state.shareChecked})
                                 }}
                                 >
-                               Submit
+                               Share
                             </Button>
                           </div>
                           <Button
@@ -981,7 +992,7 @@ class Builder extends AppBase {
                   <Col style={{userSelect: 'none'}}>
                   <Accordion>
                     <Accordion as={CardHeader}>
-                      <img alt="" className="text-white" src={require("assets/svg/layer.svg").default}/>{" "} Decorations
+                      <img alt="" className="text-white" src={require("assets/svg/layer.svg").default}/>{" "} {DRAWER_LAYERS}
                     </Accordion>
                     <Card className="card shadow">
                       <div style={{ overflowY: 'scroll', height: 518, maxHeight: 518 }}>
@@ -1006,13 +1017,6 @@ class Builder extends AppBase {
                       <Card>
                       <Accordion as={CardHeader} onClick={(e)=>{this.toggleShareCheck()}}>
                             {this.handleShareChecked()}
-                      </Accordion>
-                      <Accordion>
-                        <div style={{height:65}}>
-                          Image / Tags: + TagField / ShareBtn
-
-                          {this.handleIsLoggedIn()}
-                        </div>
                       </Accordion>
                     </Card>
 

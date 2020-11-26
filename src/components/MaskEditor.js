@@ -18,13 +18,13 @@ import PropTypes from 'prop-types';
 import ImageLayer from './editorDecorations/ImageLayer';
 import ajuda from 'assets/css/ajuda.css'
 
-
 class MaskEditor extends React.Component {
     state = {
         stageWidth: this.props.width,
         stageHeight: this.props.height,
         selectedShapeName: '',
-        brushColor: '#000000'
+        brushColor: '#000000',
+        showTransformer: true
       };
 
       componentDidMount() {
@@ -37,7 +37,7 @@ class MaskEditor extends React.Component {
       }
 
       componentDidUpdate(){
-        //console.log("[MaskEditor] CanDraw:"+this.props.canDraw)
+        
       }
 
       handleStageMouseDown = e => {
@@ -104,8 +104,29 @@ class MaskEditor extends React.Component {
         this.downloadURI(dataURL, "mask.jpg");
       }
     
+      triggerShapeDeselection = () =>{
+        this.setState({
+          selectedShapeName: ''
+        });
+      }
+
       handleExportImage = () =>{
-        return this.stageRef.getStage().toDataURL();
+        this.triggerShapeDeselection()
+        // eslint-disable-next-line
+        this.state.selectedShapeName = ''
+        // eslint-disable-next-line
+        this.state.showTransformer = false
+        this.setState({
+            selectedShapeName: '',
+            showTransformer: false,
+          });
+        return this.prepareExportImage()
+      }
+
+      prepareExportImage(){
+        var stage = this.stageRef.getStage()
+        const dataURL = stage.toDataURL();
+        return dataURL
       }
 
       downloadURI(uri, name) {
@@ -119,9 +140,8 @@ class MaskEditor extends React.Component {
       }
     
       handleBrushColorChoice = (e) => {
-        this.setState({ brushColor: e.target.value })
+          this.setState({ brushColor: e.target.value })
       }
-
 
       checkSize = () => {
         const width = this.container.offsetWidth;
@@ -132,11 +152,18 @@ class MaskEditor extends React.Component {
         });
       };
 
-        render() {
-          
-          // Stage is a div container
-          // Layer is actual canvas element (so you may have several canvases in the stage)
-          // And then we have canvas shapes inside the Layer
+      processTransformerVisibility(){
+        if(this.state.showTransformer){
+          return(<Transformer selectedShapeName={this.state.selectedShapeName}/>)
+        }else{
+          return(<Transformer selectedShapeName={''}/>)
+        }
+      }
+
+      render() {
+
+          let transformer = this.processTransformerVisibility()
+
           return (
             <div style={{
               width: "auto",
@@ -176,9 +203,7 @@ class MaskEditor extends React.Component {
                   )
               })
             }
-            <Transformer
-              selectedShapeName={this.state.selectedShapeName}
-            />
+            {transformer}
             {this.props.preExport && 
             <URLImage src={ this.props.maskOverlay } className={ajuda.ajuda} canChange={false} canDrag={false} opacity={1} opacitySwitch={false} ref={node => { this.maskRef = node }}/>
             }
