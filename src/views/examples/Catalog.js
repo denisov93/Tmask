@@ -41,10 +41,10 @@ import {
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import CardsFooter from "components/Footers/CardsFooter.js";
-
 // index page sections
 //import Download from "../IndexSections/Download.js";
 
+import AppBase from "components/AppBase.js";
 
 
 const cards2 = [
@@ -53,42 +53,42 @@ const cards2 = [
     title: "Goku Mask",
     image: require("assets/img/masks/goku.png").default,
     description: "This Mask is perfect for someone who loves anime",
-    selected: false
+    tags: ["5","tag2","tag3"]
   },
   {
     id : 2,
     title: "Abstract Blue",
     image: require("assets/img/masks/mask_abstract_blue.png").default,
     description: "Made with love",
-    selected: false
+    tags: ["5","tag2","tag3"]
   },
   {
     id : 3,
     title: "Abstract Green",
     image: require("assets/img/masks/mask_abstract_green.png").default,
     description: "You Are Free Spirited",
-    selected: true
+    tags: ["5","tag2","tag3"]
   },
   {
     id : 4,
     title: "Abstract Red",
     image: require("assets/img/masks/mask_abstract_red.png").default,
     description: "Made with Passion",
-    selected: true
+    tags: ["5","tag2","tag3"]
   },
   {
     id : 5,
     title: "Simple Pink",
     image: require("assets/img/masks/mask_simple_pink.png").default,
     description: "Girly Mask",
-    selected: true
+    tags: ["5","tag2","tag3"]
   },
   {
     id : 6,
     title: "The Mask",
     image: require("assets/img/masks/mask_tmask.png").default,
     description: "Great Product, Such WOW",
-    selected: true
+    tags: ["5","tag2","tag3"]
   }
 ]
 
@@ -98,54 +98,74 @@ const cards = [
     title: "Fire",
     image: require("assets/img/masks/fire.png").default,
     description: "Things Are On Fire",
-    selected: false
+    tags: ["5","tag2","tag3"]
   },
   {
     id : 2,
     title: "Fire 2",
     image: require("assets/img/masks/mask_fire.png").default,
     description: "Because Fire is Never enought",
-    selected: false
+    tags: ["5","tag2","tag3"]
   },
   {
     id : 3,
     title: "Artist",
     image: require("assets/img/masks/mask_bob_ross.png").default,
     description: "Big Man, loved his show",
-    selected: true
+    tags: ["5","tag2","tag3"]
   },
   {
     id : 4,
     title: "The Whale",
     image: require("assets/img/masks/mask_whale.png").default,
     description: "Some People paint bunny in their clotes, meawhile i....",
-    selected: true
+    tags: ["5","tag2","tag3"]
   },
   {
     id : 5,
     title: "Matrix",
     image: require("assets/img/masks/mask_matrix.png").default,
     description: "Keanu Our GOD",
-    selected: true
+    tags: ["5","tag2","tag3"]
   },
   {
     id : 6,
     title: "Triangle",
     image: require("assets/img/masks/mask_triangle.png").default,
     description: "Yes, it is triangle... Dont ask...",
-    selected: true
+    tags: ["5","tag2","tag3"]
   }
 ]
 
-class Catalog extends React.Component {
+class Catalog extends AppBase {
 
   state = {
-    flag: false
+    flag: false,
+    cards: cards,
+    cards2: cards2,
   };
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
+
+    var addedMasks = this.getCookie('addedMasks')
+    console.log(addedMasks)
+    if(addedMasks !== null){
+      if(addedMasks !== []){
+      var cards = this.state.cards
+      addedMasks.map(
+        nmask=>{
+          cards.concat(nmask)
+        }
+      )
+        this.setState({
+          cards : [...this.state.cards,cards]
+        })
+      
+    }
+    }
+
   }
   render() {
     const flag =  this.state.flag;
@@ -185,12 +205,12 @@ class Catalog extends React.Component {
 
                 { flag &&
                   <Row className="row-grid align-items-center my-md">
-                      <Cards cards={ cards }/>
+                      <Cards cards={ this.state.cards }/>
                   </Row>
                 }
                 { !flag &&
                   <Row className="row-grid align-items-center my-md">
-                      <Cards cards={ cards2 }/>
+                      <Cards cards={ this.state.cards2 }/>
                   </Row>
                 }
               </Container>

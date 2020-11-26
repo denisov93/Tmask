@@ -205,7 +205,9 @@ class Builder extends AppBase {
     sessionID:-1,
     user:'',
     pass:'',
-    tags:[]
+    tags:[],
+    title:[],
+    description:[]
   };
 
   handleLoad(){
@@ -346,6 +348,31 @@ class Builder extends AppBase {
         }
   }
 
+  addMaskToCollection=()=>{
+    
+    var title = this.state.title
+    var image = this.refs.editor.handleExportImage()
+    var tags = this.state.tags
+    var description = this.state.description
+
+    var data = {
+      id : -1,
+      title: title,
+      image: image,
+      description: description,
+      tags: tags
+    }
+
+    var ms = this.getCookie("addedMasks")
+
+    if(ms === null){
+      ms = []
+    }
+
+    ms.push(data)
+    
+    this.setCookie("addedMasks",ms);
+  }
 
   handleDeleteLayer = item =>{
     var state = this.state.decorations.filter( (el,index)=>{
@@ -872,6 +899,28 @@ class Builder extends AppBase {
                         
                           <Form role="form" /*onSubmit={ this.handleSubmit}*/>
                           <FormGroup className="mb-3">
+                          <InputGroup className="input-group-alternative">
+                              <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
+                                  Title:
+                                </InputGroupText>
+                              </InputGroupAddon>
+                              <Input  placeholder="Write Title" type="text" onChange={
+                                e=>{
+                                  this.setState({title: e.target.value})
+                                }} />
+                            </InputGroup>
+                            <InputGroup className="input-group-alternative">
+                              <InputGroupAddon addonType="prepend">
+                                <InputGroupText>
+                                  Description:
+                                </InputGroupText>
+                              </InputGroupAddon>
+                              <Input  placeholder="Write Description" type="text" onChange={
+                                e=>{
+                                  this.setState({description: e.target.value})
+                                }} />
+                            </InputGroup>
                             <InputGroup className="input-group-alternative">
                               <InputGroupAddon addonType="prepend">
                                 <InputGroupText>
@@ -887,13 +936,12 @@ class Builder extends AppBase {
                             </InputGroup>
                           </FormGroup>
                               <big>Mask with {this.state.decorations.length} Decorations will be Shared</big>
-                                <br></br>
-                              <span>Tags:
-                                <br></br>
-                              {
-                                this.state.tags 
-                              }
-                              </span>
+                              <br></br>
+                              <span>Title: </span> { this.state.title }
+                              <br></br>
+                              <span>Description: </span> { this.state.description }
+                              <br></br>
+                              <span>Tags: </span> { this.state.tags }
                             
                         </Form>
                         </ModalBody>
@@ -903,7 +951,7 @@ class Builder extends AppBase {
                                 className="my-4"
                                 color="primary"
                                 onClick={()=>{
-
+                                  this.addMaskToCollection()
                                   this.setState({modalOpen: !this.state.modalOpen})
                                   this.setState({shareChecked: !this.state.shareChecked})
                                 }}

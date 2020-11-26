@@ -104,6 +104,10 @@ class MaskEditor extends React.Component {
         this.downloadURI(dataURL, "mask.jpg");
       }
     
+      handleExportImage = () =>{
+        return this.stageRef.getStage().toDataURL();
+      }
+
       downloadURI(uri, name) {
         const link = window.document.createElement("a");
         link.download = name;
