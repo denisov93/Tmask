@@ -52,27 +52,25 @@ function Popup(){
   
   dataService.getData().subscribe(message => {
     if(message.value === 'login_failed'){
-      console.log("Login failed popup")
       setModalOpen(true)
     }
-    console.log(message);
   });
 
   return (
     <>
       <Modal className='modal-dialog-centered' toggle={() => setModalOpen(!modalOpen)} isOpen={modalOpen}>
         <div className=" modal-header">
-          <h5 className=" modal-title" id="exampleModalLabel">
+          <h5 className=" modal-title" id="loginPopup">
           🔐 Authentication Fail
           </h5>
         </div>
-        <ModalBody>
+        <ModalBody style={{display:'flex', flexDirection:'column' ,alignItems:'center'}}>
+          <div>
           You entered invalid credentials.<br></br>
-          Try one of the following:<br></br>
-          user: <b>alicia</b> pass: <b>1234</b><br></br>
-          user: <b>jonny</b> pass: <b>2345</b><br></br>
-          user: <b>nahla</b> pass: <b>3456</b><br></br>
-          user: <b>pedro</b> pass: <b>4567</b><br></br>
+          Try one of the following test users:<br></br>
+          <b>alicia</b>, <b>jonny</b>, <b>nahla</b>, <b>pedro</b><br></br>
+          No password required.
+          </div>
         </ModalBody>
         <ModalFooter>
           <Button
@@ -117,6 +115,7 @@ class Login extends AppBase {
     if(!result){
       dataService.setData('login_failed')
     }
+    this.setState({})
   }
 
   render() {
@@ -179,7 +178,7 @@ class Login extends AppBase {
                       <div className="text-center text-muted mb-4">
                         <small>Or sign in with credentials</small>
                       </div>
-                      <Form role="form" /*onSubmit={ this.handleSubmit}*/>
+                      <Form role="form" onSubmit={ this.handleSubmit}>
                         <FormGroup className="mb-3">
                           <InputGroup className="input-group-alternative">
                             <InputGroupAddon addonType="prepend">

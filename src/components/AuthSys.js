@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import {
-  Button, NavLink
-} from "reactstrap";
+import { Button, NavLink } from "reactstrap";
+
 import AppBase from "components/AppBase.js";
+
 
 function LoginButton(props) {
   return (
@@ -39,12 +39,43 @@ function LogoutButton(props) {
   );
 }
 
+const SESSION_ID = 'sessionID'
+const SESSION_NAME = 'sessionNAME'
+const SESSION_IMG = 'sessionIMG'
+
 class AuthSys extends AppBase{
+
+  state = {
+    id: "",
+    name: "",
+    img: ""
+  }
 
   constructor() {
     super()
     this.handleLoginClick = this.handleLoginClick.bind(this);
     this.handleLogoutClick = this.handleLogoutClick.bind(this);
+  }
+
+  componentDidMount() {
+    console.log("AuthSys Mounted")
+    this.state.id = this.getCookie(SESSION_ID)
+    this.state.name = this.getCookie(SESSION_NAME)
+    this.state.img = this.getCookie(SESSION_IMG)
+
+    this.setState({
+    });
+  }
+
+  componentDidUpdate(){
+    console.log("AuthSys Updated")
+    this.state.id = this.getCookie(SESSION_ID)
+    this.state.name = this.getCookie(SESSION_NAME)
+    this.state.img = this.getCookie(SESSION_IMG)
+  }
+
+  handleHasSession(){
+    return (this.state.name !== null && this.state.img !== null)
   }
 
   handleLoginClick() {
@@ -59,11 +90,8 @@ class AuthSys extends AppBase{
   }
 
   handleLogoutClick() {
+    this.clearSession()
     this.doLogout()
-  }
-
-  hasSession(){
-    return this.userHasSession()
   }
 
   render() {
@@ -71,17 +99,24 @@ class AuthSys extends AppBase{
     let accountimg;
     let accountdetails;
 
-    const name = this.getSessionName()+''
-    const imgUrl = this.getSessionImg()+''
+    var image
+    if(this.state.id === 0)
+      image = require("assets/img/userimage/user_alicia.png").default
+    else if(this.state.id === 1)
+      image = require("assets/img/userimage/user_jonny.png").default
+    else if(this.state.id === 2)
+      image = require("assets/img/userimage/user_nahla.png").default
+    else if(this.state.id === 3)
+      image = require("assets/img/userimage/user_pedro.png").default
 
-    if (this.userHasSession()) {
+    if (this.handleHasSession()) {
       //user image
       accountimg = <img alt=""
-      src={imgUrl.default}
+      src={image}
       style={{width: 42, height: 42, borderRadius: 90/2, borderStyle: "solid", borderColor: "white", borderWidth: 2 }}/>
       //user name
       accountdetails = 
-    <div style={{display:"grid", placeItems: "center", paddingInlineStart: 10, paddingInlineEnd: 10 }}><font color="white">{name}</font></div>
+    <div style={{display:"grid", placeItems: "center", paddingInlineStart: 10, paddingInlineEnd: 10 }}><font color="white">{this.state.name}</font></div>
       //logout button
       components = <LogoutButton onClick={this.handleLogoutClick} />;
       //

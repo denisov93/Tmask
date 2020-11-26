@@ -8,10 +8,10 @@ var user1 = [
     name:"alicia"
   },
   {
-    pass:"1234"
+    email:"alicia@email.com"
   },
   {
-    img:"assets/img/userimage/user_alicia.png"
+    pass:"1234"
   },
 ]
 
@@ -21,10 +21,10 @@ var user2 = [
     name:"jonny"
   },
   {
-    pass:"2345"
+    email:"jonny@email.com"
   },
   {
-    img:"assets/img/userimage/user_jonny.png"
+    pass:"2345"
   },
 ]
 
@@ -34,10 +34,10 @@ var user3 = [
     name:"nahla"
   },
   {
-    pass:"3456"
+    email:"nahla@email.com"
   },
   {
-    img:"assets/img/userimage/user_nahla.png"
+    pass:"3456"
   },
 ]
 
@@ -47,12 +47,22 @@ var user4 = [
     name:"pedro"
   },
   {
-    pass:"4567"
+    email:"pedro@email.com"
   },
   {
-    img:"assets/img/userimage/user_pedro.png"
+    pass:"4567"
   },
 ]
+
+const userImages = [
+  "assets/img/userimage/user_alicia.png",
+  "assets/img/userimage/user_jonny.png",
+  "assets/img/userimage/user_nahla.png",
+  "assets/img/userimage/user_pedro.png"]
+
+const SESSION_ID = 'sessionID'
+const SESSION_NAME = 'sessionNAME'
+const SESSION_IMG = 'sessionIMG'
 
 class AppBase extends React.Component{
 
@@ -61,19 +71,27 @@ class AppBase extends React.Component{
     cart:[]
   }
 
-  deleteCookie(){
+  deleteCookies(){
     localStorage.clear()
+  }
+
+  deleteCookie(key){
+    localStorage.removeItem(key)
   }
 
   setCookie(key,value){
     var serialize = JSON.stringify(value)
+    console.log("storing value:")
+    console.log(value)
     localStorage.setItem(key, serialize)
   }
 
   getCookie(key){
     var deserialized = localStorage.getItem(key)
     var value = JSON.parse(deserialized)
-    console.log(value)
+    if(value === null){
+      console.log("Cookie [Key:"+key+"] not found")
+    }else{console.log(value)}
     return value
   }
 
@@ -81,12 +99,6 @@ class AppBase extends React.Component{
     console.log("cart is: ",this.globalVar.cart)
     
     return this.globalVar.cart
-  }
-
-  session = {
-    name: "",
-    img: "",
-    props: []
   }
 
   getUsers(){
@@ -98,27 +110,24 @@ class AppBase extends React.Component{
     alert(text+'')
   }
 
-  appendUserProps(props){
-    this.session.props = props
-  }
-
-  userCreateSession(name,img){
-    console.log("[Session] Signed in "+ name)
-    this.session.name = name
-    this.session.img = img
+  userCreateSession(id,name,img){
+    this.clearSession()
     this.doLogin()
+    this.setCookie(SESSION_ID, id)
+    this.setCookie(SESSION_NAME, name)
+    this.setCookie(SESSION_IMG, this.getUserImage(id))
   }
 
   userList(){
     return this.getUsers()
   }
 
-  getSessionName(){
-    return (this.session.name)
+  getSessionID(){
+    return this.getCookie(SESSION_ID)
   }
 
   getSessionImg(){
-    return (this.session.img)
+    return this.getUserImage(SESSION_IMG)
   }
 
   userHasSession(){
@@ -136,9 +145,9 @@ class AppBase extends React.Component{
   } 
 
   clearSession(){
-    this.session.name = ""
-    this.session.img = ""
-    this.session.props = []
+    this.deleteCookie(SESSION_ID)
+    this.deleteCookie(SESSION_NAME)
+    this.deleteCookie(SESSION_IMG)
   }
 
   doLogout(){
@@ -152,30 +161,33 @@ class AppBase extends React.Component{
     console.log("[Session] User logged in.")
   }
 
+  getUserImage(id){
+    var img = userImages[id]
+    console.log(img)
+    return img
+  }
+
   validateSignIn(in_user, in_pass){
     const username = in_user+''
     const password = in_pass+''
     console.log("[SignIn] [User:"+username+"][Pass:"+password+"]");
 
     var valid = false
-    var img = ""
 
     const users = this.getUsers()
     console.log("Users in system: "+users.length)
 
     for(var i = 0; i < users.length; i++){
       var sUser = users[i]
+      console.log(sUser)
       for(var j = 0; j < sUser.length; j++){
-        var details = sUser[j]
-        if(details.name === username)
-          setTimeout(5)
-          if(details.pass === password){
+        const details = sUser[j]
+        if(details.name === username){
             valid = true
-            img = details.img
-            this.userCreateSession(in_user,img)
+            this.userCreateSession(i,in_user,this.getUserImage(i))
             console.log("[SignIn] Valid Credentials");
-          }
         }
+      }
     }
 
     if(!valid){
