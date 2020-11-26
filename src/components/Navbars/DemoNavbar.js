@@ -87,6 +87,11 @@ class DemoNavbar extends AppBase {
 
   render() {
   
+    let sessionID = this.getCookie("sessionID")
+    if( sessionID !== null )
+      if(this.state.uselessState===false)
+        this.setState({uselessState: !this.state.uselessState})
+    
     let cartPopup;
     
     if (this.state.itemCount.length > 0) {

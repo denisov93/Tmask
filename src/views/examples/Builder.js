@@ -202,7 +202,10 @@ class Builder extends AppBase {
     clearDraw: false,
     canDraw: false,
     modalOpen: false,
-    hasSession:false,
+    sessionID:-1,
+    user:'',
+    pass:'',
+    tags:[]
   };
 
   handleLoad(){
@@ -398,14 +401,21 @@ class Builder extends AppBase {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
-    this.setState({hasSession: this.userHasSession()})
+    
+    let ss = this.getCookie("sessionID")
+    if( ss !== null )
+      this.setState({sessionID:ss})
+    
+    console.log("WTF=>",this.state.sessionID)
+    
   }
 
   
 
 
-  render() {   
-    return (
+  render() {
+    
+      return (
       <>
         <DemoNavbar />
         <main ref="main">
@@ -759,7 +769,7 @@ class Builder extends AppBase {
                       decorations={this.state.decorations} maskType={this.state.maskType} clearDraw={this.state.clearDraw} 
                       ref="editor"/>
 
-                    { !this.state.hasSession &&
+                    { (this.state.sessionID === -1) && //!this.state.hasSession &&
                     <Modal className='modal-dialog-centered' toggle={() => {
                       this.setState({modalOpen: !this.state.modalOpen})
                       this.setState({shareChecked: !this.state.shareChecked})
@@ -772,11 +782,9 @@ class Builder extends AppBase {
                       </div>
                       <ModalBody>
                       <div className="text-center text-muted mb-4">
-                        <small>🔐 Sign in with credentials 🔐<br></br>
-                        user: <b>alicia</b> pass: <b>1234</b><br></br>
-                        user: <b>jonny</b> pass: <b>2345</b><br></br>
-                        user: <b>nahla</b> pass: <b>3456</b><br></br>
-                        user: <b>pedro</b> pass: <b>4567</b><br></br>
+                        <small>Try one of the following test users:<br></br>
+                              <b>alicia</b>, <b>jonny</b>, <b>nahla</b>, <b>pedro</b><br></br>
+                              No password required.
                         </small>
                         </div>
                         <Form role="form" /*onSubmit={ this.handleSubmit}*/>
@@ -826,7 +834,13 @@ class Builder extends AppBase {
                           <Button //type="submit"
                               className="my-4"
                               color="primary"
-                              onClick={()=>{ this.setState({hasSession:true }) }}//this.pressedSubmit()}}
+                              onClick={()=>{ 
+                                let login = this.validateSignIn(this.state.user,this.state.pass)
+                                if(login){
+                                  this.setState({sessionID:0})
+                                }
+                              }
+                              }//this.pressedSubmit()}}
                               >
                              SIGN IN
                           </Button>
@@ -843,7 +857,7 @@ class Builder extends AppBase {
                         </Button>
                       </ModalFooter>
                     </Modal>}
-                    { this.state.hasSession &&
+                    { (this.state.sessionID !== -1) && //this.state.hasSession &&
                       <Modal className='modal-dialog-centered' toggle={() => {
                         this.setState({modalOpen: !this.state.modalOpen})
                         this.setState({shareChecked: !this.state.shareChecked})
@@ -861,41 +875,26 @@ class Builder extends AppBase {
                             <InputGroup className="input-group-alternative">
                               <InputGroupAddon addonType="prepend">
                                 <InputGroupText>
-                                  <i className="ni ni-circle-08" />
+                                  <i className="fa fa-hashtag" />
                                 </InputGroupText>
                               </InputGroupAddon>
-                              <Input id="id_account" placeholder="Username / Email" type="username" onChange={e=> this.setState({user: e.target.value})} />
+                              <Input  placeholder="Write Tags" type="text" onChange={
+                                e=>{
+                                  var str = e.target.value; 
+                                  var res = str.replace(/[, .]/g, (_, m1) => m1 ? "# " : '');
+                                  this.setState({tags: res})
+                                }} />
                             </InputGroup>
                           </FormGroup>
-                          <FormGroup>
-                            <InputGroup className="input-group-alternative">
-                              <InputGroupAddon addonType="prepend">
-                                <InputGroupText>
-                                  <i className="ni ni-lock-circle-open" />
-                                </InputGroupText>
-                              </InputGroupAddon>
-                              <Input
-                                id="id_password"
-                                placeholder="Password"
-                                type="password"
-                                autoComplete="off"
-                                onChange={e=> this.setState({pass: e.target.value})}
-                              />
-                            </InputGroup>
-                          </FormGroup>
-                          <div className="custom-control custom-control-alternative custom-checkbox">
-                            <input
-                              className="custom-control-input"
-                              id=" customCheckLogin"
-                              type="checkbox"
-                            />
-                            <label
-                              className="custom-control-label"
-                              htmlFor=" customCheckLogin"
-                            >
-                              <span>Remember me</span>
-                            </label>
-                          </div>
+                              <big>Mask with {this.state.decorations.length} Decorations will be Shared</big>
+                                <br></br>
+                              <span>Tags:
+                                <br></br>
+                              {
+                                this.state.tags 
+                              }
+                              </span>
+                            
                         </Form>
                         </ModalBody>
                         <ModalFooter>
@@ -903,9 +902,13 @@ class Builder extends AppBase {
                             <Button //type="submit"
                                 className="my-4"
                                 color="primary"
-                                onClick={()=>{this.pressedSubmit()}}
+                                onClick={()=>{
+
+                                  this.setState({modalOpen: !this.state.modalOpen})
+                                  this.setState({shareChecked: !this.state.shareChecked})
+                                }}
                                 >
-                               SIGN IN
+                               Submit
                             </Button>
                           </div>
                           <Button
@@ -930,7 +933,7 @@ class Builder extends AppBase {
                   <Col style={{userSelect: 'none'}}>
                   <Accordion>
                     <Accordion as={CardHeader}>
-                      <img alt="" className="text-white" src={require("assets/svg/layer.svg").default}/>{" "} Layers
+                      <img alt="" className="text-white" src={require("assets/svg/layer.svg").default}/>{" "} Decorations
                     </Accordion>
                     <Card className="card shadow">
                       <div style={{ overflowY: 'scroll', height: 518, maxHeight: 518 }}>
@@ -942,7 +945,7 @@ class Builder extends AppBase {
                           {" "}
                           <span >
                             {
-                            `Layer ${index + 1}: ${ this.nameParser(this.state.decorations[index])}`
+                            `Decoration ${index + 1}: ${ this.nameParser(this.state.decorations[index])}`
                             }
                           </span>
                           <span style={trashStyle}>
@@ -957,7 +960,7 @@ class Builder extends AppBase {
                             {this.handleShareChecked()}
                       </Accordion>
                       <Accordion>
-                        <div style={{height:90}}>
+                        <div style={{height:65}}>
                           Image / Tags: + TagField / ShareBtn
 
                           {this.handleIsLoggedIn()}
