@@ -161,7 +161,7 @@ class Landing extends React.Component {
                             className="mt-4"
                             color="primary"
                             href="/catalog"
-                            onClick={e => e.preventDefault()}
+                            onClick={()=>{}}
                           >
                             view more
                           </Button>
@@ -195,7 +195,7 @@ class Landing extends React.Component {
                             className="mt-4"
                             color="success"
                             href="/catalog"
-                            onClick={e => e.preventDefault()}
+                            onClick={()=>{}}
                           >
                             view more
                           </Button>
@@ -226,7 +226,7 @@ class Landing extends React.Component {
                             className="mt-4"
                             color="warning"
                             href="/catalog"
-                            onClick={e => e.preventDefault()}
+                            onClick={()=>{}}
                           >
                             view more
                           </Button>

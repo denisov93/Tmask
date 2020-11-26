@@ -49,7 +49,8 @@ class DemoNavbar extends AppBase {
   state = {
     collapseClasses: "",
     collapseOpen: false,
-    itemCount: []
+    itemCount: [],
+    uselessState:false
   };
 
   componentDidMount() {
