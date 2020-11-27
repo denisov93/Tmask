@@ -273,6 +273,7 @@ class Builder extends AppBase {
   }
 
   handleMouseClick=(e)=>{
+    try{
     const id = e.target.id
     const className = e.target.className
     const parent = e.target.parentElement
@@ -301,7 +302,7 @@ class Builder extends AppBase {
           })
         }
       }
-    }
+    }}catch{}
   }
 
   toggleColorPicker(){
