@@ -223,10 +223,6 @@ class Builder extends AppBase {
     pickerIsVisible: false
   };
 
-  handleLoad(){
-    
-  }
-
   handleClearDrawing(){
     this.setState({ clearDraw: true })
     this.handleFixClear()
@@ -276,11 +272,44 @@ class Builder extends AppBase {
     })
   }
 
+  handleMouseClick=(e)=>{
+    const id = e.target.id
+    const className = e.target.className
+    const parentId = e.target.parentElement.id
+    const parentClassName = e.target.parentElement.className
+    const parentParentId = e.target.parentElement.parentElement.id
+    const parentParentClassName = e.target.parentElement.parentElement.className
+    const pPPClassName = e.target.parentElement.parentElement.parentElement.className
+    const pPPPClassName = e.target.parentElement.parentElement.parentElement.parentElement.className
+    console.log("[id:"+id+", class:"+className+", parentId:"+ parentId+", parentClassName:"+parentClassName+", parentParentId:"+ parentParentId+", parentParentClassName:"+ parentParentClassName+",pppClassName:"+pPPClassName+"],ppppClassName:"+pPPPClassName+"]")
+
+    if(id !== 'imgColorWheel'){
+      if(className !== 'sketch-picker ' 
+      && className !== 'saturation-white'
+      && className !== 'saturation-black'
+      && className !== 'flexbox-fix'
+      && className !== 'hue-horizontal'
+      && parentClassName !== 'sketch-picker '
+      && parentClassName !== 'flexbox-fix'
+      && parentClassName !== 'saturation-white'
+      && parentClassName !== 'saturation-black'
+      && parentParentClassName !== 'flexbox-fix'
+      && parentParentClassName !== 'hue-horizontal'
+      && pPPClassName !== 'flexbox-fix'
+      && pPPPClassName !== 'flexbox-fix'
+      && !id.includes("rc-editable-input")){
+        if(true){
+          this.setState({
+            pickerIsVisible: false
+          })
+        }
+      }
+    }
+  }
+
   toggleColorPicker(){
     this.setState({
-      pickerIsVisible: !this.state.pickerIsVisible
-    },(e)=>{
-      //changed state
+        pickerIsVisible: !this.state.pickerIsVisible
     })
   }
 
@@ -440,9 +469,6 @@ class Builder extends AppBase {
 
   handleChangeComplete = (color) => {
     this.setState({ background: color.hex });
-    setTimeout(()=>{
-      this.setState({ pickerIsVisible: !this.state.pickerIsVisible })
-    },1000)
   };
 
   setModalOpen = () =>{
@@ -459,7 +485,6 @@ class Builder extends AppBase {
       this.setState({sessionID:ss})
     
     console.log("Session ID:",this.state.sessionID)
-    
   }
 
   displayColorPicker(){
@@ -469,8 +494,9 @@ class Builder extends AppBase {
           const window = document.body.getBoundingClientRect()
           const btnColorWheel = elem.getBoundingClientRect()
           var offset = window.top;
-          return(<div style={{position: 'absolute', zIndex:10, top:btnColorWheel.y-10-offset, left:btnColorWheel.x+25}}>
-                <SketchPicker
+          return(<div onMouseLeave={()=>{this.setState({pickerIsVisible: false})}} style={{position: 'absolute', zIndex:10, top:btnColorWheel.y-10-offset, left:btnColorWheel.x+25}}>
+                <SketchPicker id="colorPicker" ref="colorPicker"
+                    disableAlpha={true}
                     color={ this.state.background }
                     onChangeComplete={ this.handleChangeComplete }/>
                 </div>)
@@ -483,6 +509,7 @@ class Builder extends AppBase {
   render() {
       return (
       <>
+      <div onClick={(e)=>{this.handleMouseClick(e)}}>
         <DemoNavbar />
         <main ref="main">
           <div className="position-relative">
@@ -738,11 +765,11 @@ class Builder extends AppBase {
                           <Accordion.Collapse style={accordionStyle} eventKey="3">
                             <div style={RAM}>
                               <Button
-                                id = "btnColorWheel"
+                                id="btnColorWheel"
                                 color="primary"
                                 style={btnOptionStyle}
                                 onClick={() => {  }}>
-                              <img src={require("assets/img/editorResources/editor_colorwheel.png").default} 
+                              <img id="imgColorWheel" src={require("assets/img/editorResources/editor_colorwheel.png").default} 
                                 style={btnImageStyle} alt="" 
                                 onClick={()=> this.toggleColorPicker() } />
                               </Button>
@@ -1093,6 +1120,7 @@ class Builder extends AppBase {
         </main>
 
         <CardsFooter />
+        </div>
       </>
     );
   }
