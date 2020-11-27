@@ -48,7 +48,7 @@ class OneCard extends AppBase{
 
             if(Array.isArray(input)){
 
-                if(input.length == 0){
+                if(input.length === 0){
                     input = input.split(SEPARATOR)
                 }
 
@@ -56,7 +56,7 @@ class OneCard extends AppBase{
                     if((input[i]).length > MAXTAGSIZE){
                         tags[i] = input[i].substring(0,MAXTAGSIZE) + "..."
                     }else{
-                        tags[i] = input
+                        tags[i] = input[i]
                     }
                 }
 
