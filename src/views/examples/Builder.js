@@ -17,6 +17,9 @@
 
 */
 import React from "react";
+
+import { SketchPicker } from 'react-color';
+
 // nodejs library that concatenates classes
 import MaskEditor from "components/MaskEditor.js"
 import AppBase from "components/AppBase.js";
@@ -214,7 +217,9 @@ class Builder extends AppBase {
     pass:'',
     tags:[],
     title:'',
-    description:''
+    description:'',
+    background: '#fff',
+    modalColorOpen: false,
   };
 
   handleLoad(){
@@ -422,6 +427,14 @@ class Builder extends AppBase {
 
     reader.onloadend = ( ) => this.handleImageBB(img);
     
+  }
+
+  handleChangeComplete = (color) => {
+    this.setState({ background: color.hex });
+  };
+
+  setModalOpen = () =>{
+    this.setState({modalColorOpen: !this.state.modalColorOpen})
   }
 
   componentDidMount() {
@@ -705,9 +718,18 @@ class Builder extends AppBase {
                                 color="primary"
                                 style={btnOptionStyle}
                                 onClick={() => {  }}>
-                              <img src={require("assets/img/editorResources/editor_colorwheel.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                              <img src={require("assets/img/editorResources/editor_colorwheel.png").default} style={btnImageStyle} alt="Triangle" onClick={()=> this.setModalOpen() } />
                               </Button>
+                              <Modal style={{zIndex:"100"}} toggle={() => this.setModalOpen() } isOpen={this.state.modalColorOpen}>
+                                
+                                
+                                <SketchPicker
 
+                                  color={ this.state.background }
+                                  onChangeComplete={ this.handleChangeComplete }
+                                />
+                                
+                              </Modal>
                               <Button
                                 color="primary"
                                 style={btnOptionStyle}
@@ -1061,4 +1083,3 @@ class Builder extends AppBase {
 }
 
 export default Builder;
-
