@@ -450,11 +450,19 @@ class Builder extends AppBase {
     
   }
 
-  
-
+  displayColorPicker(){
+    try{
+    const element = document.getElementById("btnColorWheel")
+    var rect = element.getBoundingClientRect();
+    return(<div style={{position: 'absolute', zIndex:10, top:rect.y-10, left:rect.x+25}}>
+    <SketchPicker
+        color={ this.state.background }
+        onChangeComplete={ this.handleChangeComplete }/>
+    </div>)
+    }catch{/*case where btn isn't visible*/}
+  }
 
   render() {
-    
       return (
       <>
         <DemoNavbar />
@@ -476,16 +484,13 @@ class Builder extends AppBase {
               <br></br>
 
               <Row>
-
-
                 <Col id="leftComponent" className="col-3" style={{zIndex: 0}}>
 
+                {this.displayColorPicker()}
+
                   <Col style={{userSelect: 'none'}}>
-
                     <Card className="card shadow" style={{ height: "800px" }}>
-
                       <Accordion defaultActiveKey="0">
-
                         <Accordion.Toggle as={CardHeader} eventKey="0">
                           {" "}<i className="fa fa-head-side-mask"></i>{" "}<i className="fa fa-shield"></i> {DRAWER_1}
                           </Accordion.Toggle>
@@ -715,21 +720,15 @@ class Builder extends AppBase {
                           <Accordion.Collapse style={accordionStyle} eventKey="3">
                             <div style={RAM}>
                               <Button
+                                id = "btnColorWheel"
                                 color="primary"
                                 style={btnOptionStyle}
                                 onClick={() => {  }}>
-                              <img src={require("assets/img/editorResources/editor_colorwheel.png").default} style={btnImageStyle} alt="Triangle" onClick={()=> this.setModalOpen() } />
+                              <img src={require("assets/img/editorResources/editor_colorwheel.png").default} 
+                                style={btnImageStyle} 
+                                alt="Triangle" 
+                                onClick={()=> this.setModalOpen() } />
                               </Button>
-                              <Modal style={{zIndex:"100"}} toggle={() => this.setModalOpen() } isOpen={this.state.modalColorOpen}>
-                                
-                                
-                                <SketchPicker
-
-                                  color={ this.state.background }
-                                  onChangeComplete={ this.handleChangeComplete }
-                                />
-                                
-                              </Modal>
                               <Button
                                 color="primary"
                                 style={btnOptionStyle}
