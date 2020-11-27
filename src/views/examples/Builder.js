@@ -17,6 +17,9 @@
 
 */
 import React from "react";
+
+import { SketchPicker } from 'react-color';
+
 // nodejs library that concatenates classes
 import MaskEditor from "components/MaskEditor.js"
 import AppBase from "components/AppBase.js";
@@ -214,7 +217,10 @@ class Builder extends AppBase {
     pass:'',
     tags:[],
     title:'',
-    description:''
+    description:'',
+    background: '#fff',
+    modalColorOpen: false,
+    pickerIsVisible: false
   };
 
   handleLoad(){
@@ -268,7 +274,14 @@ class Builder extends AppBase {
     this.setState({
       canDraw: !this.state.canDraw
     })
-    console.log("Builder canDraw:"+this.state.canDraw)
+  }
+
+  toggleColorPicker(){
+    this.setState({
+      pickerIsVisible: !this.state.pickerIsVisible
+    },(e)=>{
+      //changed state
+    })
   }
 
   handleCanDrawOption(){
@@ -425,6 +438,17 @@ class Builder extends AppBase {
     
   }
 
+  handleChangeComplete = (color) => {
+    this.setState({ background: color.hex });
+    setTimeout(()=>{
+      this.setState({ pickerIsVisible: !this.state.pickerIsVisible })
+    },1000)
+  };
+
+  setModalOpen = () =>{
+    this.setState({modalColorOpen: !this.state.modalColorOpen})
+  }
+
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
@@ -438,11 +462,25 @@ class Builder extends AppBase {
     
   }
 
-  
-
+  displayColorPicker(){
+    try{
+      if(this.state.pickerIsVisible){
+          const elem = document.getElementById("btnColorWheel")
+          const window = document.body.getBoundingClientRect()
+          const btnColorWheel = elem.getBoundingClientRect()
+          var offset = window.top;
+          return(<div style={{position: 'absolute', zIndex:10, top:btnColorWheel.y-10-offset, left:btnColorWheel.x+25}}>
+                <SketchPicker
+                    color={ this.state.background }
+                    onChangeComplete={ this.handleChangeComplete }/>
+                </div>)
+      }else{
+        return(<div></div>)
+      }
+    }catch{/*case where btn isn't visible*/}
+  }
 
   render() {
-    
       return (
       <>
         <DemoNavbar />
@@ -464,16 +502,13 @@ class Builder extends AppBase {
               <br></br>
 
               <Row>
-
-
                 <Col id="leftComponent" className="col-3" style={{zIndex: 0}}>
 
+                {this.displayColorPicker()}
+
                   <Col style={{userSelect: 'none'}}>
-
                     <Card className="card shadow" style={{ height: "800px" }}>
-
                       <Accordion defaultActiveKey="0">
-
                         <Accordion.Toggle as={CardHeader} eventKey="0">
                           {" "}<i className="fa fa-head-side-mask"></i>{" "}<i className="fa fa-shield"></i> {DRAWER_1}
                           </Accordion.Toggle>
@@ -703,12 +738,14 @@ class Builder extends AppBase {
                           <Accordion.Collapse style={accordionStyle} eventKey="3">
                             <div style={RAM}>
                               <Button
+                                id = "btnColorWheel"
                                 color="primary"
                                 style={btnOptionStyle}
                                 onClick={() => {  }}>
-                              <img src={require("assets/img/editorResources/editor_colorwheel.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                              <img src={require("assets/img/editorResources/editor_colorwheel.png").default} 
+                                style={btnImageStyle} alt="" 
+                                onClick={()=> this.toggleColorPicker() } />
                               </Button>
-
                               <Button
                                 color="primary"
                                 style={btnOptionStyle}
@@ -1062,4 +1099,3 @@ class Builder extends AppBase {
 }
 
 export default Builder;
-

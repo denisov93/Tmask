@@ -71,6 +71,12 @@ class DemoNavbar extends AppBase {
         })
     }
     });
+
+    let sessionID = this.getCookie("sessionID")
+    if( sessionID !== null )
+      if(this.state.uselessState===false)
+        this.setState({uselessState: !this.state.uselessState})
+
   }
 
   onExiting = () => {
@@ -87,10 +93,6 @@ class DemoNavbar extends AppBase {
 
   render() {
   
-    let sessionID = this.getCookie("sessionID")
-    if( sessionID !== null )
-      if(this.state.uselessState===false)
-        this.setState({uselessState: !this.state.uselessState})
     
     let cartPopup;
     

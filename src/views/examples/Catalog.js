@@ -53,42 +53,42 @@ const cards2 = [
     title: "Goku Mask",
     image: require("assets/img/masks/goku.png").default,
     description: "This Mask is perfect for someone who loves anime",
-    tags: ["5","tag2","tag3"]
+    tags: ["TVShow","Anime","Goku","DDZ","Blue"]
   },
   {
     id : 2,
     title: "Abstract Blue",
     image: require("assets/img/masks/mask_abstract_blue.png").default,
     description: "Made with love",
-    tags: ["5","tag2","tag3"]
+    tags: ["Abstract","Blue"]
   },
   {
     id : 3,
     title: "Abstract Green",
     image: require("assets/img/masks/mask_abstract_green.png").default,
     description: "You Are Free Spirited",
-    tags: ["5","tag2","tag3"]
+    tags: ["Abstract","Green"]
   },
   {
     id : 4,
     title: "Abstract Red",
     image: require("assets/img/masks/mask_abstract_red.png").default,
     description: "Made with Passion",
-    tags: ["5","tag2","tag3"]
+    tags: ["Abstract","Red"]
   },
   {
     id : 5,
     title: "Simple Pink",
     image: require("assets/img/masks/mask_simple_pink.png").default,
     description: "Girly Mask",
-    tags: ["5","tag2","tag3"]
+    tags: ["Simple","Pink"]
   },
   {
     id : 6,
     title: "The Mask",
     image: require("assets/img/masks/mask_tmask.png").default,
     description: "Great Product, Such WOW",
-    tags: ["5","tag2","tag3"]
+    tags: ["TMASK","Black","Grey"]
   }
 ]
 
@@ -98,42 +98,42 @@ const cards = [
     title: "Fire",
     image: require("assets/img/masks/fire.png").default,
     description: "Things Are On Fire",
-    tags: ["5","tag2","tag3"]
+    tags: ["Fire","Red","Black"]
   },
   {
     id : 2,
     title: "Fire 2",
     image: require("assets/img/masks/mask_fire.png").default,
     description: "Because Fire is Never enought",
-    tags: ["5","tag2","tag3"]
+    tags: ["Fire","Red","Black"]
   },
   {
     id : 3,
     title: "Artist",
     image: require("assets/img/masks/mask_bob_ross.png").default,
     description: "Big Man, loved his show",
-    tags: ["5","tag2","tag3"]
+    tags: ["Bob","Ross","Painting","Nature","Blue"]
   },
   {
     id : 4,
     title: "The Whale",
     image: require("assets/img/masks/mask_whale.png").default,
     description: "Some People paint bunny in their clotes, meawhile i....",
-    tags: ["5","tag2","tag3"]
+    tags: ["Whale","Ocean","Blue","Nature"]
   },
   {
     id : 5,
     title: "Matrix",
     image: require("assets/img/masks/mask_matrix.png").default,
     description: "Keanu Our GOD",
-    tags: ["5","tag2","tag3"]
+    tags: ["Matrix","WB","Keanu Reeves","Black","Green","Sci-fi","Action"]
   },
   {
     id : 6,
     title: "Triangle",
     image: require("assets/img/masks/mask_triangle.png").default,
     description: "Yes, it is triangle... Dont ask...",
-    tags: ["5","tag2","tag3"]
+    tags: ["Geometric","Triangle","White","Black"]
   }
 ]
 
@@ -155,7 +155,7 @@ class Catalog extends AppBase {
       if(addedMasks !== []){
       var newCards = this.state.cards.concat(addedMasks)
     
-      console.log(newCards)
+      //console.log(newCards)
         this.setState({
           cards : newCards
         })
