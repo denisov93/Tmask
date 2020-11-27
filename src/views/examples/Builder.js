@@ -218,7 +218,7 @@ class Builder extends AppBase {
     tags:[],
     title:'',
     description:'',
-    background: '#fff',
+    paintColor: '#fff',
     modalColorOpen: false,
     pickerIsVisible: false
   };
@@ -466,7 +466,7 @@ class Builder extends AppBase {
   }
 
   handleChangeComplete = (color) => {
-    this.setState({ background: color.hex });
+    this.setState({ paintColor: color.hex });
   };
 
   setModalOpen = () =>{
@@ -495,7 +495,7 @@ class Builder extends AppBase {
           return(<div onMouseLeave={()=>{this.setState({pickerIsVisible: false})}} style={{position: 'absolute', zIndex:10, top:btnColorWheel.y-10-offset, left:btnColorWheel.x+25}}>
                 <SketchPicker id="colorPicker" ref="colorPicker"
                     disableAlpha={true}
-                    color={ this.state.background }
+                    color={ this.state.paintColor }
                     onChangeComplete={ this.handleChangeComplete }/>
                 </div>)
       }else{
@@ -854,7 +854,7 @@ class Builder extends AppBase {
                 <Col id="middleComponent" className="col-6" style={{ zIndex: 1, display: 'flex', justifyContent: 'space-between', position: 'relative'}} >
                   <Card id="editor" className="card shadow" style={{ height: "800px", maxWidth: "825px", position: 'absolute', left: '50%', transform: 'translateX(-50%)'}}>
 
-                    <MaskEditor 
+                    <MaskEditor paintColor={this.state.paintColor}
                       width={825} height={800} canDraw={this.state.canDraw} maskOverlay={this.state.maskOverlay} preExport={this.state.preExport} 
                       decorations={this.state.decorations} maskType={this.state.maskType} clearDraw={this.state.clearDraw} 
                       ref="editor"/>
