@@ -126,6 +126,11 @@ class MaskEditor extends React.Component {
       prepareExportImage(){
         var stage = this.stageRef.getStage()
         const dataURL = stage.toDataURL();
+        this.state.showTransformer = true
+        this.setState({
+            selectedShapeName: '',
+            showTransformer: true,
+          });
         return dataURL
       }
 

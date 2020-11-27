@@ -987,7 +987,7 @@ class Builder extends AppBase {
                   </Card>
                 </Col>
 
-                <Col id="rightComponent" className="col-3" style={{zIndex: 0, height:800, maxHeight: 600}}>
+                <Col id="rightComponent" className="col-3" style={{zIndex: 0}}>
 
                   <Col style={{userSelect: 'none'}}>
                   <Accordion>
@@ -995,7 +995,7 @@ class Builder extends AppBase {
                       <img alt="" className="text-white" src={require("assets/svg/layer.svg").default}/>{" "} {DRAWER_LAYERS}
                     </Accordion>
                     <Card className="card shadow">
-                      <div style={{ overflowY: 'scroll', height: 518, maxHeight: 518 }}>
+                      <div style={{ overflowY: 'scroll', height: 583, maxHeight: 583 }}>
                       {this.state.decorations.map((el, index) =>
                         (<div style={simpleLayer} key={index}>
                           <div style={{display: 'flex', backgroundColor:"#AAAAAA", alignItems: 'center', justifyContent: 'center', borderWidth: '1px', borderStyle:'double', width:56, height:42}}>
