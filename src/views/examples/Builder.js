@@ -220,6 +220,7 @@ class Builder extends AppBase {
     description:'',
     background: '#fff',
     modalColorOpen: false,
+    pickerIsVisible: false
   };
 
   handleLoad(){
@@ -272,6 +273,14 @@ class Builder extends AppBase {
   toggleCanDraw(){
     this.setState({
       canDraw: !this.state.canDraw
+    })
+  }
+
+  toggleColorPicker(){
+    this.setState({
+      pickerIsVisible: !this.state.pickerIsVisible
+    },(e)=>{
+      //changed state
     })
   }
 
@@ -452,6 +461,7 @@ class Builder extends AppBase {
 
   displayColorPicker(){
     try{
+      if(this.state.pickerIsVisible){
     const element = document.getElementById("btnColorWheel")
     var rect = element.getBoundingClientRect();
     return(<div style={{position: 'absolute', zIndex:10, top:rect.y-10, left:rect.x+25}}>
@@ -459,6 +469,9 @@ class Builder extends AppBase {
         color={ this.state.background }
         onChangeComplete={ this.handleChangeComplete }/>
     </div>)
+      }else{
+        return(<div></div>)
+      }
     }catch{/*case where btn isn't visible*/}
   }
 
@@ -725,9 +738,8 @@ class Builder extends AppBase {
                                 style={btnOptionStyle}
                                 onClick={() => {  }}>
                               <img src={require("assets/img/editorResources/editor_colorwheel.png").default} 
-                                style={btnImageStyle} 
-                                alt="Triangle" 
-                                onClick={()=> this.setModalOpen() } />
+                                style={btnImageStyle} alt="" 
+                                onClick={()=> this.toggleColorPicker() } />
                               </Button>
                               <Button
                                 color="primary"
