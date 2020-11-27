@@ -275,13 +275,14 @@ class Builder extends AppBase {
   handleMouseClick=(e)=>{
     const id = e.target.id
     const className = e.target.className
-    const parentId = e.target.parentElement.id
-    const parentClassName = e.target.parentElement.className
-    const parentParentId = e.target.parentElement.parentElement.id
-    const parentParentClassName = e.target.parentElement.parentElement.className
-    const pPPClassName = e.target.parentElement.parentElement.parentElement.className
-    const pPPPClassName = e.target.parentElement.parentElement.parentElement.parentElement.className
-    console.log("[id:"+id+", class:"+className+", parentId:"+ parentId+", parentClassName:"+parentClassName+", parentParentId:"+ parentParentId+", parentParentClassName:"+ parentParentClassName+",pppClassName:"+pPPClassName+"],ppppClassName:"+pPPPClassName+"]")
+    const parent = e.target.parentElement
+    const pParent = parent.parentElement
+    const pPParent = pParent.parentElement
+    const pPPParent = pPParent.parentElement
+    const pClassName = parent.className
+    const pPClassName = pParent.className
+    const pPPClassName = pPParent.className
+    const pPPPClassName = pPPParent.className
 
     if(id !== 'imgColorWheel'){
       if(className !== 'sketch-picker ' 
@@ -289,12 +290,8 @@ class Builder extends AppBase {
       && className !== 'saturation-black'
       && className !== 'flexbox-fix'
       && className !== 'hue-horizontal'
-      && parentClassName !== 'sketch-picker '
-      && parentClassName !== 'flexbox-fix'
-      && parentClassName !== 'saturation-white'
-      && parentClassName !== 'saturation-black'
-      && parentParentClassName !== 'flexbox-fix'
-      && parentParentClassName !== 'hue-horizontal'
+      && pClassName !== 'flexbox-fix'
+      && pPClassName !== 'flexbox-fix'
       && pPPClassName !== 'flexbox-fix'
       && pPPPClassName !== 'flexbox-fix'
       && !id.includes("rc-editable-input")){
