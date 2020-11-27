@@ -244,7 +244,7 @@ class Landing extends React.Component {
                 <Col className="order-md-2" md="8">
                 <iframe title="Intentionally blank" aria-hidden="true" id="ytplayer" type="text/html" width="640" height="360"
                   src="http://www.youtube.com/embed/oBYRBx43eR0?autoplay=1&loop=1&controls=0&showinfo=0"
-                  frameborder="0"/>
+                  frameBorder="0"/>
                 </Col>
                 <Col className="order-md-1" md="4">
                   <div className="pr-md-5">

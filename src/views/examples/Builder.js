@@ -268,7 +268,6 @@ class Builder extends AppBase {
     this.setState({
       canDraw: !this.state.canDraw
     })
-    console.log("Builder canDraw:"+this.state.canDraw)
   }
 
   handleCanDrawOption(){
