@@ -205,7 +205,7 @@ class Builder extends AppBase {
     sessionID:-1,
     user:'',
     pass:'',
-    tags:'',
+    tags:[],
     title:'',
     description:''
   };
@@ -352,7 +352,7 @@ class Builder extends AppBase {
     
     var title = this.state.title
     var image = this.refs.editor.handleExportImage()
-    var tags = this.state.tags
+    var tags = []
     var description = this.state.description
 
     var data = {
@@ -360,7 +360,7 @@ class Builder extends AppBase {
       title: title,
       image: image,
       description: description,
-      tags: tags
+      tags: tags.concat(this.state.tags)
     }
 
     var ms = this.getCookie("addedMasks")

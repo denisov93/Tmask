@@ -51,15 +51,16 @@ class OneCard extends AppBase{
                     top
                     />
                     <div>
-                    <Badge color="primary" pill className="mr-1">
-                        design
-                    </Badge>
-                    <Badge color="primary" pill className="mr-1">
-                        system
-                    </Badge>
-                    <Badge color="primary" pill className="mr-1">
-                        creative
-                    </Badge>
+                        { console.log(this.props.card.tags),
+                            this.props.card.tags.map(
+                                (tag)=>(
+                                    <Badge color="primary" pill className="mr-1">
+                                        {tag}
+                                    </Badge>
+                                )
+                            )
+                        }
+                    
                     </div>
                     <Button
                     className="mt-4"
@@ -101,15 +102,18 @@ class OneCard extends AppBase{
                     <p>
                         {this.props.card.description}   
                     </p>    
-                    <Badge color="primary" pill className="mr-1">
-                        design
-                    </Badge>
-                    <Badge color="primary" pill className="mr-1">
-                        system
-                    </Badge>
-                    <Badge color="primary" pill className="mr-1">
-                        creative
-                    </Badge>
+                    <div>
+                        { console.log(this.props.card.tags),
+                            this.props.card.tags.map(
+                                (tag)=>(
+                                    <Badge color="primary" pill className="mr-1">
+                                        {tag}
+                                    </Badge>
+                                )
+                            )
+                        }
+                    
+                    </div>
                     </div>
                
             </div>
