@@ -462,13 +462,16 @@ class Builder extends AppBase {
   displayColorPicker(){
     try{
       if(this.state.pickerIsVisible){
-    const element = document.getElementById("btnColorWheel")
-    var rect = element.getBoundingClientRect();
-    return(<div style={{position: 'absolute', zIndex:10, top:rect.y-10, left:rect.x+25}}>
-    <SketchPicker
-        color={ this.state.background }
-        onChangeComplete={ this.handleChangeComplete }/>
-    </div>)
+          const elem = document.getElementById("btnColorWheel")
+          const window = document.body.getBoundingClientRect()
+          const btnColorWheel = elem.getBoundingClientRect()
+          var offset = window.top;
+          console.log("Offset: "+offset)
+          return(<div style={{position: 'absolute', zIndex:10, top:btnColorWheel.y-10-offset, left:btnColorWheel.x+25}}>
+                <SketchPicker
+                    color={ this.state.background }
+                    onChangeComplete={ this.handleChangeComplete }/>
+                </div>)
       }else{
         return(<div></div>)
       }
