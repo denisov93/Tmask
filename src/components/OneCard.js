@@ -79,7 +79,7 @@ class OneCard extends AppBase{
             isOpen={this.state.exampleModal}
             toggle={() => this.toggleModal("exampleModal")}
             >
-            <div className="modal-header" as={CardHeader}>
+            <div className="modal-header" as={'CardHeader'}>
                 <h5 className="modal-title" id="exampleModalLabel">
                 {this.props.card.title}
                 </h5>
@@ -90,7 +90,7 @@ class OneCard extends AppBase{
                 type="button"
                 onClick={() => this.toggleModal("exampleModal")}
                 >
-                <span aria-hidden={true}><i class="fa fa-window-close"></i></span>
+                <span aria-hidden={true}><i className="fa fa-window-close"></i></span>
                 </button>
             </div>
             <div className="modal-body" style={{display: 'flex', flexDirection: 'column'}}>
