@@ -52,18 +52,18 @@ class OneCard extends AppBase{
                     src={this.props.card.image}
                     top
                     />
-                    <div>
+                    
                         { //console.log(this.props.card.tags),
                             this.props.card.tags.map(
-                                (tag)=>(
-                                    <Badge color="light" pill className="mr-1">
+                                (tag,index)=>(
+                                    <Badge key={index} color="light" pill className="mr-1">
                                         {tag}
                                     </Badge>
                                 )
                             )
                         }
                     
-                    </div>
+                    
                     <Button
                     className="mt-4"
                     color="primary"
@@ -104,8 +104,8 @@ class OneCard extends AppBase{
                     <div style={{display: 'flex', alignContent:'flex-start'}}>
                         { 
                             this.props.card.tags.map(
-                            (tag)=>(
-                                    <Badge color="light" pill className="mr-1">
+                            (tag,index)=>(
+                                    <Badge key={index} color="light" pill className="mr-1">
                                         {tag}
                                     </Badge>))
                         }
