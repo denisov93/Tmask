@@ -52,7 +52,7 @@ class OneCard extends AppBase{
                     src={this.props.card.image}
                     top
                     />
-                    
+                    <div>
                         { //console.log(this.props.card.tags),
                             this.props.card.tags.map(
                                 (tag,index)=>(
@@ -62,8 +62,8 @@ class OneCard extends AppBase{
                                 )
                             )
                         }
-                    
-                    
+                    </div>
+                    <div>
                     <Button
                     className="mt-4"
                     color="primary"
@@ -72,6 +72,7 @@ class OneCard extends AppBase{
                     >
                     Learn more
                     </Button>
+                    </div>
                </CardBody>
             </Card>
             <Modal
