@@ -53,7 +53,7 @@ const cards2 = [
     title: "Goku Mask",
     image: require("assets/img/masks/goku.png").default,
     description: "This Mask is perfect for someone who loves anime",
-    tags: ["Anime","Goku","DDZ","Blue"]
+    tags: ["TVShow","Anime","Goku","DDZ","Blue"]
   },
   {
     id : 2,

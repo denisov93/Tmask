@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import AppBase from "components/AppBase.js";
 
 // reactstrap components
@@ -10,6 +10,8 @@ import {
     CardImg,
     //Container,
     Col,
+    // eslint-disable-next-line
+    CardHeader,
     //Row,
     Modal
   } from "reactstrap";
@@ -42,7 +44,7 @@ class OneCard extends AppBase{
             <Col lg="4">
             <Card className="card-lift--hover shadow border-0">
                 <CardBody className="py-5">        
-                    <h6 className="text-primary text-uppercase">
+                    <h6 className="text-dark text-uppercase">
                     {this.props.card.title}
                     </h6>
                     <CardImg
@@ -54,7 +56,7 @@ class OneCard extends AppBase{
                         { //console.log(this.props.card.tags),
                             this.props.card.tags.map(
                                 (tag)=>(
-                                    <Badge color="primary" pill className="mr-1">
+                                    <Badge color="light" pill className="mr-1">
                                         {tag}
                                     </Badge>
                                 )
@@ -77,7 +79,7 @@ class OneCard extends AppBase{
             isOpen={this.state.exampleModal}
             toggle={() => this.toggleModal("exampleModal")}
             >
-            <div className="modal-header">
+            <div className="modal-header" as={CardHeader}>
                 <h5 className="modal-title" id="exampleModalLabel">
                 {this.props.card.title}
                 </h5>
@@ -88,34 +90,27 @@ class OneCard extends AppBase{
                 type="button"
                 onClick={() => this.toggleModal("exampleModal")}
                 >
-                <span aria-hidden={true}>×</span>
+                <span aria-hidden={true}><i class="fa fa-window-close"></i></span>
                 </button>
             </div>
-            <div className="modal-body">
-                    <img
-                        width="100%"
-                        alt="..."
-                        src={this.props.card.image}
-                        top
-                    />
-                    <div>
+            <div className="modal-body" style={{display: 'flex', flexDirection: 'column'}}>
+                    <div style={{display:'flex', justifyContent:'center'}}>
+                        <img width="90%" height="90%" alt="" src={this.props.card.image}/>
+                    </div>
+                    <div style={{overflowWrap: 'break-word'}}>
                     <p>
-                        {this.props.card.description}   
+                    📃{" "}{this.props.card.description}   
                     </p>    
-                    <div>
-                        { //console.log(this.props.card.tags),
+                    <div style={{display: 'flex', alignContent:'flex-start'}}>
+                        { 
                             this.props.card.tags.map(
-                                (tag)=>(
-                                    <Badge color="primary" pill className="mr-1">
+                            (tag)=>(
+                                    <Badge color="light" pill className="mr-1">
                                         {tag}
-                                    </Badge>
-                                )
-                            )
+                                    </Badge>))
                         }
-                    
                     </div>
-                    </div>
-               
+                </div>
             </div>
             <div className="modal-footer">
                 <Button
