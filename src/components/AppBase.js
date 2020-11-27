@@ -81,17 +81,19 @@ class AppBase extends React.Component{
 
   setCookie(key,value){
     var serialize = JSON.stringify(value)
-    console.log("storing value:")
-    console.log(value)
-    localStorage.setItem(key, serialize)
+    try{
+      localStorage.setItem(key, serialize)
+    }catch{
+      alert("Cannot continue, clear browser cache, or type \"localStorage.clear()\" in console.")
+    }
   }
 
   getCookie(key){
     var deserialized = localStorage.getItem(key)
     var value = JSON.parse(deserialized)
     if(value === null){
-      console.log("Cookie [Key:"+key+"] not found")
-    }else{console.log(value)}
+      //console.log("Cookie [Key:"+key+"] not found")
+    }else{/*console.log(value)*/}
     return value
   }
 
@@ -175,7 +177,7 @@ class AppBase extends React.Component{
     var valid = false
 
     const users = this.getUsers()
-    console.log("Users in system: "+users.length)
+    //console.log("Users in system: "+users.length)
 
     for(var i = 0; i < users.length; i++){
       var sUser = users[i]

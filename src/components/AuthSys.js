@@ -58,7 +58,6 @@ class AuthSys extends AppBase{
   }
 
   componentDidMount() {
-    console.log("AuthSys Mounted")
     this.state.id = this.getCookie(SESSION_ID)
     this.state.name = this.getCookie(SESSION_NAME)
     this.state.img = this.getCookie(SESSION_IMG)
@@ -68,7 +67,6 @@ class AuthSys extends AppBase{
   }
 
   componentDidUpdate(){
-    console.log("AuthSys Updated")
     this.state.id = this.getCookie(SESSION_ID)
     this.state.name = this.getCookie(SESSION_NAME)
     this.state.img = this.getCookie(SESSION_IMG)

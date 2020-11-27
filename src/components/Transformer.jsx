@@ -8,6 +8,16 @@ class TransformerComponent extends Component {
     componentDidUpdate() {
         this.checkNode();
     }
+
+    self(){
+        return this
+    }
+
+    detach(){
+        this.transformer.detach();
+        this.transformer.getLayer().batchDraw();
+    }
+
     checkNode() {
         // here we need to manually attach or detach Transformer node
         const stage = this.transformer.getStage();
@@ -26,14 +36,9 @@ class TransformerComponent extends Component {
         }
         this.transformer.getLayer().batchDraw();
     }
+    
     render() {
-        return (
-            <Transformer
-                ref={node => {
-                    this.transformer = node;
-                }}
-            />
-        );
+        return (<Transformer ref={node => {this.transformer = node;}}/>);
     }
 }
 
