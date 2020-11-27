@@ -48,17 +48,18 @@ class OneCard extends AppBase{
 
             if(Array.isArray(input)){
 
-                if(input.length === 0){
-                    input = input.split(SEPARATOR)
-                }
+                if(input.length === 1){
+                    input = input.pop().split(SEPARATOR)
 
-                for(var i = 0; i < input.length; i++){
-                    if((input[i]).length > MAXTAGSIZE){
-                        tags[i] = input[i].substring(0,MAXTAGSIZE) + "..."
-                    }else{
-                        tags[i] = input[i]
+                    for(var i = 0; i < input.length; i++){
+                        if((input[i]).length > MAXTAGSIZE){
+                            tags[i] = input[i].substring(0,MAXTAGSIZE) + "..."
+                        }else{
+                            tags[i] = input[i]
+                        }
                     }
-                }
+
+                }else return input
 
             }
             return tags
