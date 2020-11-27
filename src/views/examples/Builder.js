@@ -466,7 +466,6 @@ class Builder extends AppBase {
           const window = document.body.getBoundingClientRect()
           const btnColorWheel = elem.getBoundingClientRect()
           var offset = window.top;
-          console.log("Offset: "+offset)
           return(<div style={{position: 'absolute', zIndex:10, top:btnColorWheel.y-10-offset, left:btnColorWheel.x+25}}>
                 <SketchPicker
                     color={ this.state.background }
