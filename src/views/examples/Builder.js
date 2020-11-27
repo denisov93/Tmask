@@ -440,6 +440,9 @@ class Builder extends AppBase {
 
   handleChangeComplete = (color) => {
     this.setState({ background: color.hex });
+    setTimeout(()=>{
+      this.setState({ pickerIsVisible: !this.state.pickerIsVisible })
+    },1000)
   };
 
   setModalOpen = () =>{
