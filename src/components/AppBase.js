@@ -64,11 +64,33 @@ const SESSION_ID = 'sessionID'
 const SESSION_NAME = 'sessionNAME'
 const SESSION_IMG = 'sessionIMG'
 
+const features = [
+  {
+    title: "Alicia",
+    type: "oval",
+    xaxis: 26,
+    yaxis: 7,
+  },
+  {
+    title: "Mom",
+    type: "oval",
+    xaxis: 26,
+    yaxis: 7,
+  },
+  {
+    title: "Dad",
+    type: "oval",
+    xaxis: 26,
+    yaxis: 7,
+  },
+]
+
 class AppBase extends React.Component{
 
   globalVar = {
     isLoggedIn: false,
-    cart:[]
+    cart:[],
+    features: features
   }
 
   deleteCookies(){
@@ -197,6 +219,18 @@ class AppBase extends React.Component{
        console.log("[SignIn] Credentials Mismatch");
     }
     return valid
+  }
+
+  getFeatures() {
+    return this.globalVar.features
+  }
+
+  addFeature(element) {
+    this.globalVar.features.push(element)
+  }
+
+  removeFeature(index) {
+    this.globalVar.features.splice(index, 1)
   }
 
    // eslint-disable-next-line
