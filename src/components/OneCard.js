@@ -51,7 +51,7 @@ class OneCard extends AppBase{
                     top
                     />
                     <div>
-                        { console.log(this.props.card.tags),
+                        { //console.log(this.props.card.tags),
                             this.props.card.tags.map(
                                 (tag)=>(
                                     <Badge color="primary" pill className="mr-1">
@@ -103,7 +103,7 @@ class OneCard extends AppBase{
                         {this.props.card.description}   
                     </p>    
                     <div>
-                        { console.log(this.props.card.tags),
+                        { //console.log(this.props.card.tags),
                             this.props.card.tags.map(
                                 (tag)=>(
                                     <Badge color="primary" pill className="mr-1">

@@ -155,7 +155,7 @@ class Catalog extends AppBase {
       if(addedMasks !== []){
       var newCards = this.state.cards.concat(addedMasks)
     
-      console.log(newCards)
+      //console.log(newCards)
         this.setState({
           cards : newCards
         })
