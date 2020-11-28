@@ -225,7 +225,7 @@ class Builder extends AppBase {
     tags:[],
     title:'',
     description:'',
-    paintColor: '#fff',
+    paintColor: '#444444',
     modalColorOpen: false,
     pickerIsVisible: false,
     selectedShapeName: '',
@@ -297,7 +297,7 @@ class Builder extends AppBase {
     const pppClassName = ppparent.className
     const ppppClassName = pppparent.className
 
-      console.log("1"+className, "2"+pClassName, "3"+ppClassName, "4"+pppClassName, "5"+pppClassName)
+    //console.log("1"+className, "2"+pClassName, "3"+ppClassName, "4"+pppClassName, "5"+pppClassName)
 
     if(id !== 'imgColorWheel'){
       if(className !== 'sketch-picker ' 
@@ -335,7 +335,7 @@ class Builder extends AppBase {
         }
         return input
     }catch{
-        return ["Ups","UpsX2"]
+        return ["",""]
     }   
   }
 
@@ -540,6 +540,7 @@ class Builder extends AppBase {
      console.log(this.refs.editor.stageRef.children[2].children[0].colorKey = this.state.paintColor)
     }
 
+    this.setCookie("editorPickedColor", color.hex)
   };
 
   setModalOpen = () =>{
@@ -550,12 +551,13 @@ class Builder extends AppBase {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
+    this.setCookie("editorPickedColor", "#444444")
     
     let ss = this.getCookie("sessionID")
     if( ss !== null )
       this.setState({sessionID:ss})
     
-    console.log("Session ID:",this.state.sessionID)
+    //console.log("Session ID:",this.state.sessionID)
   }
 
   selectedShapeNameFunction = data =>{

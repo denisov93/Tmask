@@ -12,7 +12,6 @@ class Drawing extends Component {
         const canvas = document.createElement("canvas");
         canvas.width = this.props.width;
         canvas.height = this.props.height;
-        console.log("Canvas Created["+ this.props.width + "w," + this.props.height+"h]")
         const context = canvas.getContext("2d");
         this.setState({ canvas, context });
     }

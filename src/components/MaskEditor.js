@@ -12,6 +12,7 @@ import URLImage from 'components/URLImage';
 
 import Transformer from 'components/Transformer';
 import Drawing from 'components/Drawing';
+// eslint-disable-next-line
 import BrushOptions from 'components/BrushOptions';
 
 import PropTypes from 'prop-types';
@@ -23,7 +24,7 @@ class MaskEditor extends React.Component {
         stageWidth: this.props.width,
         stageHeight: this.props.height,
         selectedShapeName: '',
-        brushColor: '#000000',
+        brushColor: '#444444',
         showTransformer: true
       };
 
@@ -44,7 +45,8 @@ class MaskEditor extends React.Component {
         // clicked on stage - clear selection
         if (e.target === e.target.getStage()) {
           this.setState({
-            selectedShapeName: ''
+            selectedShapeName: '',
+            brushColor: this.props.paintColor
           });
           return;
         }
@@ -61,39 +63,39 @@ class MaskEditor extends React.Component {
         this.props.selectedShapeName(name)
 
         if (name === `heart${e.target.index}`) {
-          console.log("Selected Shape: " + name)
           this.setState({
-            selectedShapeName: name
+            selectedShapeName: name,
+            brushColor: this.props.paintColor,
           });
         } else if (name === `star${e.target.index}`) {
-          console.log("Selected Shape: " + name)
           this.setState({
-            selectedShapeName: name
+            selectedShapeName: name,
+            brushColor: this.props.paintColor,
           });
         } else if (name === `triangle${e.target.index}`) {
-          console.log("Selected Shape: " + name)
           this.setState({
-            selectedShapeName: name
+            selectedShapeName: name,
+            brushColor: this.props.paintColor,
           });
         } else if (name === `circle${e.target.index}`) {
-          console.log("Selected Shape: " + name)
           this.setState({
-            selectedShapeName: name
+            selectedShapeName: name,
+            brushColor: this.props.paintColor,
           });
         } else if (name === `square${e.target.index}`) {
-          console.log("Selected Shape: " + name)
           this.setState({
-            selectedShapeName: name
+            selectedShapeName: name,
+            brushColor: this.props.paintColor,
           });
         } else if (name === `xmas${e.target.index}`) {
-          console.log("Selected Shape: " + name)
           this.setState({
-            selectedShapeName: name
+            selectedShapeName: name,
+            brushColor: this.props.paintColor,
           });
         } else if (name === `image${e.target.index}`) {
-          console.log("Selected Image: " + name)
           this.setState({
-            selectedShapeName: name
+            selectedShapeName: name,
+            brushColor: this.props.paintColor,
           });
         } else {
           this.setState({
@@ -129,6 +131,7 @@ class MaskEditor extends React.Component {
       prepareExportImage(){
         var stage = this.stageRef.getStage()
         const dataURL = stage.toDataURL();
+        // eslint-disable-next-line
         this.state.showTransformer = true
         this.setState({
             selectedShapeName: '',
@@ -194,17 +197,17 @@ class MaskEditor extends React.Component {
               (el, index) => 
               {
                 if(el === "heart"){
-                  return (<Heart key={index} id={`heart${index}`} ref={`heart${index}`} color={this.state.value} name={`heart${index}`}></Heart>)
+                  return (<Heart key={index} color={this.props.paintColor} name={`heart${index}`}></Heart>)
                 }else if(el === "star"){
-                  return (<Star key={index} id={`star${index}`} ref={`star${index}`} color={this.state.value} name={`star${index}`}></Star>)
+                  return (<Star key={index} color={this.props.paintColor} name={`star${index}`}></Star>)
                 }else if(el === "triangle"){
-                  return (<Triangle key={index} id={`triangle${index}`} ref={`triangle${index}`} color={this.state.value} name={`triangle${index}`}></Triangle>)
+                  return (<Triangle key={index} color={this.props.paintColor} name={`triangle${index}`}></Triangle>)
                 }else if(el === "circle"){
-                  return (<Circle key={index} id={`triangle${index}`} ref={`triangle${index}`} color={this.state.value} name={`circle${index}`}></Circle>)
+                  return (<Circle key={index} color={this.props.paintColor} name={`circle${index}`}></Circle>)
                 }else if(el === "square"){
-                  return (<Square key={index} id={`square${index}`} ref={`square${index}`} color={this.state.value} name={`square${index}`}></Square>)
+                  return (<Square key={index} color={this.props.paintColor} name={`square${index}`}></Square>)
                 }else if(el === "xmas"){
-                  return (<Xmas key={index} id={`xmas${index}`} ref={`xmas${index}`} color={this.state.value} name={`xmas${index}`}></Xmas>)
+                  return (<Xmas key={index} color={this.props.paintColor} name={`xmas${index}`}></Xmas>)
                 }else
                   return (
                   <ImageLayer key={index} id={`image${index}`} name={`image${index}`} imageLayer={el} canChange={true} canDrag={true} opacity={0.7} opacitySwitch={true}></ImageLayer>
