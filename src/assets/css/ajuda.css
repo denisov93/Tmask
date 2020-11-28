@@ -7,6 +7,10 @@
   border: 0.3rem;
 }
 
+.mt--450 {
+  margin-top: -450px !important;
+}
+
 .margin-tl {
   margin-top: 0.45rem !important;
   margin-left: 1rem !important;
@@ -14,6 +18,14 @@
 
 .margin-tr {
   margin-top: 0.45rem !important;
+  margin-right: 1rem !important;
+}
+
+.margin-l {
+  margin-left: 1rem !important;
+}
+
+.margin-r {
   margin-right: 1rem !important;
 }
 
