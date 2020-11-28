@@ -18,8 +18,6 @@
 */
 import React from "react";
 //import { Link } from "react-router-dom";
-
-// reactstrap components
 import {
   Button,
   Card,
@@ -37,6 +35,7 @@ import {
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import AppBase from "components/AppBase";
+import doc from "assets/docs/measuring_tool.pdf"
 
 function BottomButton(props) {
   return (
@@ -72,7 +71,7 @@ class NewFacialFeatures extends AppBase {
         return (
           <div>
             <h6 className="margin-b">Distance (in cm)</h6>
-            <Row className="row-cols-3" style={{
+            <Row className="row-cols-3 margin-b" style={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -84,7 +83,7 @@ class NewFacialFeatures extends AppBase {
                       <i className="fa fa-arrows-v" />
                     </InputGroupText>
                   </InputGroupAddon>
-                  <Input id="id_account" placeholder="From the nose bridge to under the chin" type="number" min="1" max="50" step="0.25" onChange={e => this.setState({ xaxis: e.target.value })} />
+                  <Input id="id_account" placeholder="From the nose bridge to under the chin" type="number" min="1" max="25" step="0.25" onChange={e => this.setState({ xaxis: e.target.value })} />
                 </InputGroup>
               </FormGroup>
               <FormGroup className="mb-3 margin-l">
@@ -98,6 +97,16 @@ class NewFacialFeatures extends AppBase {
                 </InputGroup>
               </FormGroup>
             </Row>
+            <Button
+              className="btn-neutral btn-icon btn-std-case"
+              color="default">
+              <span className="btn-inner--icon">
+                <i className="fa fa-file-pdf-o mr-2" />
+              </span>
+              <span className="nav-link-inner--text ml-1">
+                <a href = {doc} target = "_blank" rel="noreferrer" >Get out measurement tool!</a>
+              </span>
+            </Button>
           </div>
         );
       default:
