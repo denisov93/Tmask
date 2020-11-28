@@ -277,13 +277,15 @@ class Builder extends AppBase {
     const id = e.target.id
     const className = e.target.className
     const parent = e.target.parentElement
-    const pParent = parent.parentElement
-    const pPParent = pParent.parentElement
-    const pPPParent = pPParent.parentElement
+    const pparent = parent.parentElement
+    const ppparent = pparent.parentElement
+    const pppparent = ppparent.parentElement
     const pClassName = parent.className
-    const pPClassName = pParent.className
-    const pPPClassName = pPParent.className
-    const pPPPClassName = pPPParent.className
+    const ppClassName = pparent.className
+    const pppClassName = ppparent.className
+    const ppppClassName = pppparent.className
+
+      console.log("1"+className, "2"+pClassName, "3"+ppClassName, "4"+pppClassName, "5"+pppClassName)
 
     if(id !== 'imgColorWheel'){
       if(className !== 'sketch-picker ' 
@@ -292,9 +294,13 @@ class Builder extends AppBase {
       && className !== 'flexbox-fix'
       && className !== 'hue-horizontal'
       && pClassName !== 'flexbox-fix'
-      && pPClassName !== 'flexbox-fix'
-      && pPPClassName !== 'flexbox-fix'
-      && pPPPClassName !== 'flexbox-fix'
+      && pClassName !== 'saturation-white'
+      && pClassName !== 'hue-horizontal'
+      && ppClassName !== 'flexbox-fix'
+      && ppClassName !== 'saturation-white'
+      && ppClassName !== 'hue-horizontal'
+      && pppClassName !== 'flexbox-fix'
+      && ppppClassName !== 'flexbox-fix'
       && !id.includes("rc-editable-input")){
         if(true){
           this.setState({
@@ -1125,7 +1131,7 @@ class Builder extends AppBase {
                           {" "}
                           <span >
                             {
-                            `Decoration ${index + 1}: ${ this.nameParser(this.state.decorations[index])}`
+                            `${ this.nameParser(this.state.decorations[index])}`
                             }
                           </span>
                           <span style={trashStyle}>
