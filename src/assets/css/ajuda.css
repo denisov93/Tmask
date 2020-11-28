@@ -17,6 +17,14 @@
   margin-right: 1rem !important;
 }
 
+.margin-l {
+  margin-left: 1rem !important;
+}
+
+.margin-r {
+  margin-right: 1rem !important;
+}
+
 .margin-b {
   margin-bottom: 1.5rem !important;
 }

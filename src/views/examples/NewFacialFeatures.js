@@ -20,23 +20,122 @@ import React from "react";
 //import { Link } from "react-router-dom";
 
 // reactstrap components
-import { Card, Container } from "reactstrap";
+import {
+  Button,
+  Card,
+  Container,
+  Form,
+  FormGroup,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Row,
+} from "reactstrap";
 
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import AppBase from "components/AppBase";
 
+function BottomButton(props) {
+  return (
+    <Button
+      className="my-4 btn-std-case"
+      color="primary"
+      onClick={props.onClick}
+      style={{ width: 105 }}
+    >
+      {props.text}
+    </Button>
+  );
+}
 class NewFacialFeatures extends AppBase {
 
   state = {
-
+    index: 1,
+    xaxis: 0,
+    yaxis: 0,
   }
 
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
+  }
+
+  renderSwitch() {
+    switch (this.state.index) {
+      case 0:
+        return this.state.index;
+      case 1:
+        return (
+          <div>
+            <h6 className="margin-b">Distance (in cm)</h6>
+            <Row className="row-cols-3" style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              <FormGroup className="mb-3 margin-r">
+                <InputGroup className="input-group-alternative">
+                  <InputGroupAddon addonType="prepend">
+                    <InputGroupText>
+                      <i className="fa fa-arrows-v" />
+                    </InputGroupText>
+                  </InputGroupAddon>
+                  <Input id="id_account" placeholder="From the nose bridge to under the chin" type="number" min="1" max="50" step="0.25" onChange={e => this.setState({ xaxis: e.target.value })} />
+                </InputGroup>
+              </FormGroup>
+              <FormGroup className="mb-3 margin-l">
+                <InputGroup className="input-group-alternative">
+                  <InputGroupAddon addonType="prepend">
+                    <InputGroupText>
+                      <i className="fa fa-arrows-h" />
+                    </InputGroupText>
+                  </InputGroupAddon>
+                  <Input id="id_account" placeholder="Between the ears across the chin" type="number" min="1" max="50" step="0.25" onChange={e => this.setState({ yaxis: e.target.value })} />
+                </InputGroup>
+              </FormGroup>
+            </Row>
+          </div>
+        );
+      default:
+        return this.state.index;
+    }
+  }
+
+  renderBottomButtons() {
+    switch (this.state.index) {
+      case 0:
+        return (
+          <BottomButton text="Next"
+            onClick={() => { this.setState({ index: this.state.index + 1 }); }}
+          />
+        )
+      case 5: //TODO: last index
+        return (
+          <div>
+            <BottomButton text="Previous"
+              onClick={() => { this.setState({ index: this.state.index - 1 }); }}
+            />
+            <BottomButton text="SAVE"
+              onClick={() => { this.pressedSubmit(); }}
+            />
+          </div>
+        )
+      default:
+        return (
+          <div>
+            <BottomButton text="Previous"
+              onClick={() => { this.setState({ index: this.state.index - 1 }); }}
+            />
+            <BottomButton text="Next"
+              onClick={() => { this.setState({ index: this.state.index + 1 }); }}
+            />
+          </div>
+        )
+    }
   }
 
   render() {
@@ -82,7 +181,16 @@ class NewFacialFeatures extends AppBase {
                     </h3>
                   </div>
                   <div className="mt-5 py-5 border-top text-center">
-                    
+                    <Form role="form" onSubmit={this.handleSubmit}>
+                      {this.renderSwitch()}
+                      <Row style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
+                        {this.renderBottomButtons()}
+                      </Row>
+                    </Form>
                   </div>
                 </div>
               </Card>
