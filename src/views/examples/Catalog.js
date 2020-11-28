@@ -24,18 +24,19 @@ import Cards from "components/Cards.js";
 // reactstrap components
 import {
  //Badge,
+ Form,
   Button,
-  /* Card,
-  CardBody,
-  CardImg,
+  //Card,
+  //CardBody,
+  //CardImg,
   FormGroup,
   Input,
   InputGroupAddon,
   InputGroupText,
-  InputGroup,*/
+  InputGroup,
   Container,
   Row,
- // Col
+  Col
 } from "reactstrap";
 
 // core components
@@ -140,9 +141,10 @@ const cards = [
 class Catalog extends AppBase {
 
   state = {
-    flag: false,
+    allcards: cards2,
     cards: cards,
     cards2: cards2,
+    masksFilter:''
   };
   componentDidMount() {
     document.documentElement.scrollTop = 0;
@@ -164,8 +166,53 @@ class Catalog extends AppBase {
     }
 
   }
+
+
+  filterExec = () =>{
+    var filtered = this.state.cards2
+    
+    let keyw = this.state.masksFilter
+    var res = []
+    filtered = filtered.concat(this.state.cards).map(
+      (ml)=>{
+        
+        let values = ml.tags
+        values = values.map(
+          (a)=>{ 
+            let peq = a.trim().toUpperCase()            
+            if(peq === keyw.toUpperCase()){
+              res.push(ml)
+            }
+          }
+        )
+      }
+    )
+    if(res.length > 0){
+      this.setState({
+        allcards : res
+      })
+    }else{
+      this.setState({
+        allcards : cards2
+      })
+    }
+  }
+
+
+  handleChange = (e) =>{
+    this.setState({
+      masksFilter: e.target.value
+    })
+
+    this.filterExec()
+
+   //console.log(  )
+
+  }
+
+
   render() {
-    const flag =  this.state.flag;
+  
     return (
       <>
         <DemoNavbar />
@@ -185,31 +232,47 @@ class Catalog extends AppBase {
                 <span />
               </div>
               <Container>
+              
               <Button 
               color="secondary" 
               type="button"
-              onClick={() =>{this.setState({flag: false});}}
+              onClick={() =>{this.setState({allcards: this.state.cards2});}}
               >
                 Made By TMask Team
               </Button>
               <Button 
               color="secondary" 
               type="button"
-              onClick={() =>{this.setState({flag: true});}}
+              onClick={() =>{this.setState({allcards: this.state.cards});}}
               >
                 Made By Customers
               </Button>
-
-                { flag &&
+              <div >
+              <Form style={{minWidth:'400px' ,maxWidth:'400px', position:"absolute", top:0, right:10}}>
+                <FormGroup>
+                  <InputGroup className="input-group-alternative mb-4">
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>
+                        <i className="ni ni-zoom-split-in" />
+                      </InputGroupText>
+                    </InputGroupAddon>
+                    <Input 
+                      className="form-control-alternative"
+                      placeholder="Search"
+                      type="text"
+                      id="filter" 
+                      value={this.state.masksFilter} 
+                      onChange={this.handleChange}
+                    />
+                  </InputGroup>
+                </FormGroup>
+              </Form>
+              </div>
+              
                   <Row className="row-grid align-items-center my-md">
-                      <Cards cards={ this.state.cards }/>
+                      <Cards cards={ this.state.allcards }/>
                   </Row>
-                }
-                { !flag &&
-                  <Row className="row-grid align-items-center my-md">
-                      <Cards cards={ this.state.cards2 }/>
-                  </Row>
-                }
+                
               </Container>
               {/* SVG separator */}
               <div className="separator separator-bottom separator-skew">
