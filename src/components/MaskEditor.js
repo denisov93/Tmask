@@ -183,7 +183,7 @@ class MaskEditor extends React.Component {
             <URLImage src={ this.props.maskType } canChange={false} canDrag={false} opacity={1} opacitySwitch={false} ref={node => { this.maskRef = node }}/>
           </Layer>
           <Layer>
-            <Drawing clearDraw={this.props.clearDraw} canDraw={this.props.canDraw} width={this.state.stageWidth} height={this.state.stageHeight} color={this.state.brushColor} />
+            <Drawing clearDraw={this.props.clearDraw} canDraw={this.props.canDraw} width={this.state.stageWidth} height={this.state.stageHeight} color={this.props.paintColor} />
           </Layer>
           <Layer>
             {
@@ -217,7 +217,7 @@ class MaskEditor extends React.Component {
           
         </Stage>
         
-        <BrushOptions value={this.state.brushColor} onChange={this.handleBrushColorChoice} />
+       
             
             </div>
           );
@@ -230,6 +230,7 @@ MaskEditor.propTypes ={
   preExport: PropTypes.bool.isRequired,
   maskOverlay: PropTypes.string.isRequired,
   clearDraw: PropTypes.bool.isRequired,
+  paintColor: PropTypes.string.isRequired,
 }
 
 export default MaskEditor

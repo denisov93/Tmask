@@ -218,14 +218,10 @@ class Builder extends AppBase {
     tags:[],
     title:'',
     description:'',
-    background: '#fff',
+    paintColor: '#fff',
     modalColorOpen: false,
     pickerIsVisible: false
   };
-
-  handleLoad(){
-    
-  }
 
   handleClearDrawing(){
     this.setState({ clearDraw: true })
@@ -276,11 +272,42 @@ class Builder extends AppBase {
     })
   }
 
+  handleMouseClick=(e)=>{
+    try{
+    const id = e.target.id
+    const className = e.target.className
+    const parent = e.target.parentElement
+    const pParent = parent.parentElement
+    const pPParent = pParent.parentElement
+    const pPPParent = pPParent.parentElement
+    const pClassName = parent.className
+    const pPClassName = pParent.className
+    const pPPClassName = pPParent.className
+    const pPPPClassName = pPPParent.className
+
+    if(id !== 'imgColorWheel'){
+      if(className !== 'sketch-picker ' 
+      && className !== 'saturation-white'
+      && className !== 'saturation-black'
+      && className !== 'flexbox-fix'
+      && className !== 'hue-horizontal'
+      && pClassName !== 'flexbox-fix'
+      && pPClassName !== 'flexbox-fix'
+      && pPPClassName !== 'flexbox-fix'
+      && pPPPClassName !== 'flexbox-fix'
+      && !id.includes("rc-editable-input")){
+        if(true){
+          this.setState({
+            pickerIsVisible: false
+          })
+        }
+      }
+    }}catch{}
+  }
+
   toggleColorPicker(){
     this.setState({
-      pickerIsVisible: !this.state.pickerIsVisible
-    },(e)=>{
-      //changed state
+        pickerIsVisible: !this.state.pickerIsVisible
     })
   }
 
@@ -439,10 +466,7 @@ class Builder extends AppBase {
   }
 
   handleChangeComplete = (color) => {
-    this.setState({ background: color.hex });
-    setTimeout(()=>{
-      this.setState({ pickerIsVisible: !this.state.pickerIsVisible })
-    },1000)
+    this.setState({ paintColor: color.hex });
   };
 
   setModalOpen = () =>{
@@ -459,7 +483,6 @@ class Builder extends AppBase {
       this.setState({sessionID:ss})
     
     console.log("Session ID:",this.state.sessionID)
-    
   }
 
   displayColorPicker(){
@@ -469,9 +492,10 @@ class Builder extends AppBase {
           const window = document.body.getBoundingClientRect()
           const btnColorWheel = elem.getBoundingClientRect()
           var offset = window.top;
-          return(<div style={{position: 'absolute', zIndex:10, top:btnColorWheel.y-10-offset, left:btnColorWheel.x+25}}>
-                <SketchPicker
-                    color={ this.state.background }
+          return(<div onMouseLeave={()=>{this.setState({pickerIsVisible: false})}} style={{position: 'absolute', zIndex:10, top:btnColorWheel.y-10-offset, left:btnColorWheel.x+25}}>
+                <SketchPicker id="colorPicker" ref="colorPicker"
+                    disableAlpha={true}
+                    color={ this.state.paintColor }
                     onChangeComplete={ this.handleChangeComplete }/>
                 </div>)
       }else{
@@ -483,6 +507,7 @@ class Builder extends AppBase {
   render() {
       return (
       <>
+      <div onClick={(e)=>{this.handleMouseClick(e)}}>
         <DemoNavbar />
         <main ref="main">
           <div className="position-relative">
@@ -738,11 +763,11 @@ class Builder extends AppBase {
                           <Accordion.Collapse style={accordionStyle} eventKey="3">
                             <div style={RAM}>
                               <Button
-                                id = "btnColorWheel"
+                                id="btnColorWheel"
                                 color="primary"
                                 style={btnOptionStyle}
                                 onClick={() => {  }}>
-                              <img src={require("assets/img/editorResources/editor_colorwheel.png").default} 
+                              <img id="imgColorWheel" src={require("assets/img/editorResources/editor_colorwheel.png").default} 
                                 style={btnImageStyle} alt="" 
                                 onClick={()=> this.toggleColorPicker() } />
                               </Button>
@@ -829,7 +854,7 @@ class Builder extends AppBase {
                 <Col id="middleComponent" className="col-6" style={{ zIndex: 1, display: 'flex', justifyContent: 'space-between', position: 'relative'}} >
                   <Card id="editor" className="card shadow" style={{ height: "800px", maxWidth: "825px", position: 'absolute', left: '50%', transform: 'translateX(-50%)'}}>
 
-                    <MaskEditor 
+                    <MaskEditor paintColor={this.state.paintColor}
                       width={825} height={800} canDraw={this.state.canDraw} maskOverlay={this.state.maskOverlay} preExport={this.state.preExport} 
                       decorations={this.state.decorations} maskType={this.state.maskType} clearDraw={this.state.clearDraw} 
                       ref="editor"/>
@@ -1093,6 +1118,7 @@ class Builder extends AppBase {
         </main>
 
         <CardsFooter />
+        </div>
       </>
     );
   }

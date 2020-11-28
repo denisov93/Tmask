@@ -39,6 +39,35 @@ class OneCard extends AppBase{
         this.toggleModal("exampleModal")
       }
 
+      tagParser(input){
+        try{
+            const MAXTAGSIZE = 15
+            const SEPARATOR = ' '
+            var tags = []
+            console.log("input:"+input)
+
+            if(Array.isArray(input)){
+
+                if(input.length === 1){
+                    input = input.pop().split(SEPARATOR)
+
+                    for(var i = 0; i < input.length; i++){
+                        if((input[i]).length > MAXTAGSIZE){
+                            tags[i] = input[i].substring(0,MAXTAGSIZE) + "..."
+                        }else{
+                            tags[i] = input[i]
+                        }
+                    }
+
+                }else return input
+
+            }
+            return tags
+        }catch{
+            return [""]
+        }
+      }
+
     render () {
         return (
             <Col lg="4">
@@ -54,7 +83,7 @@ class OneCard extends AppBase{
                     />
                     <div>
                         { //console.log(this.props.card.tags),
-                            this.props.card.tags.map(
+                            this.tagParser(this.props.card.tags).map(
                                 (tag,index)=>(
                                     <Badge key={index} color="light" pill className="mr-1">
                                         {tag}
