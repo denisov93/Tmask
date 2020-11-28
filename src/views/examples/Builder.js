@@ -1117,11 +1117,11 @@ class Builder extends AppBase {
                       {this.state.decorations.map((el, index) =>
                         (<div style={simpleLayer} key={index}>
                           <div style={{display: 'flex', backgroundColor:"#AAAAAA", alignItems: 'center', justifyContent: 'center', borderWidth: '1px', borderStyle:'double', width:56, height:42}}>
-                            {el==="heart" && "💖"}
+                            {el==="heart" && "❤️"}
                             {el==="star" && "⭐"}
-                            {el==="triangle" && "🛆"}
-                            {el==="circle" && "⭕"}
-                            {el==="square" && "🔳"}
+                            {el==="triangle" && "▲"}
+                            {el==="circle" && "⬤"}
+                            {el==="square" && "⬛"}
                             {el==="xmas" && "🎄"}
                             {
                               <img alt="" src={el} style={{ maxWidth:54, maxHeight:40, preserveAspectRatio: true}}></img>
