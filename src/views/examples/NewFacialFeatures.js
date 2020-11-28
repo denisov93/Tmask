@@ -36,7 +36,7 @@ import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import AppBase from "components/AppBase";
 
-import doc from "assets/docs/measuring_tool.pdf"
+import doc from "assets/docs/ruler_30cm.pdf"
 import oval from "assets/img/faceType/oval.png"
 import square from "assets/img/faceType/square.png"
 import round from "assets/img/faceType/round.png"
@@ -75,8 +75,8 @@ class NewFacialFeatures extends AppBase {
   state = {
     index: 0,
     face: "",
-    xaxis: 0,
-    yaxis: 0,
+    xaxis: 20,
+    yaxis: 10,
   }
 
   componentDidMount() {
@@ -145,9 +145,9 @@ class NewFacialFeatures extends AppBase {
                         <i className="fa fa-arrows-v" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input id="id_xaxis"
-                      type="number" value={this.state.xaxis} min="1" max="25" step="0.25"
-                      onChange={e => this.setState({ xaxis: e.target.value })} />
+                    <Input id="id_yaxis"
+                      type="number" value={this.state.yaxis} min="1" max="25" step="0.25"
+                      onChange={e => this.setState({ yaxis: e.target.value })} />
                     <InputGroupAddon addonType="append">
                       <InputGroupText>centimeters</InputGroupText>
                     </InputGroupAddon>
@@ -160,9 +160,9 @@ class NewFacialFeatures extends AppBase {
                         <i className="fa fa-arrows-h" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input id="id_yaxis" placeholder="Between the ears across the chin"
-                      type="number" value={this.state.yaxis} min="1" max="50" step="0.25"
-                      onChange={e => this.setState({ yaxis: e.target.value })} />
+                    <Input id="id_xaxis" placeholder="Between the ears across the chin"
+                      type="number" value={this.state.xaxis} min="1" max="50" step="0.25"
+                      onChange={e => this.setState({ xaxis: e.target.value })} />
                     <InputGroupAddon addonType="append">
                       <InputGroupText>centimeters</InputGroupText>
                     </InputGroupAddon>
@@ -176,7 +176,7 @@ class NewFacialFeatures extends AppBase {
                   <i className="fa fa-file-pdf-o mr-2" />
                 </span>
                 <span className="nav-link-inner--text ml-1">
-                  <a href={doc} target="_blank" rel="noreferrer" >Get out measurement tool!</a>
+                  <a href={doc} target="_blank" rel="noreferrer" >Print your own ruler!</a>
                 </span>
               </Button>
             </Col>
@@ -221,7 +221,6 @@ class NewFacialFeatures extends AppBase {
   }
 
   render() {
-    console.log("xaxis", this.state.xaxis)
     return (
       <>
         <DemoNavbar />
