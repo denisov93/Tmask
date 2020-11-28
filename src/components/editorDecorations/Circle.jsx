@@ -1,19 +1,23 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Path } from 'react-konva';
-import Konva from 'konva';
+import Shape from 'components/editorDecorations/Shape.jsx';
 
-class Circle extends Component {
+class Circle extends Shape {
 
-    state = {
-        color: 'grey'
-    }
-
-    handleClick = () => {
-        console.log(this)
+    handleClick = (e) => {
+        var color = this.getCookie("editorPickedColor")
         this.setState({
-            color: Konva.Util.getRandomColor()
+            color: color
         });
     };
+
+    onDragMove = (e) => {
+
+    }
+
+    onDragEnd = (e) => {
+        
+    }
 
     render() {
         const { name } = this.props;
@@ -27,7 +31,9 @@ class Circle extends Component {
             fill={this.state.color}
             name={name}
             onClick={this.handleClick}
-            draggable
+            onDragMove={this.onDragMove}
+            onDragEnd={this.onDragEnd}
+            draggable={true}
         />)
     }
 }

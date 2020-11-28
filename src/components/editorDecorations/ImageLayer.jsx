@@ -17,6 +17,14 @@ class ImageLayer extends Component {
         console.log("Pressed an image")
     };
 
+    onDragMove = (e) => {
+
+    }
+
+    onDragEnd = (e) => {
+        
+    }
+
     render() {
         const { name } = this.props;
         return (<URLImage canChange={true} canDrag={true} opacitySwitch={true}
@@ -28,6 +36,8 @@ class ImageLayer extends Component {
             draggable={true}
             opacity={this.state.opacity}
             onClick={this.handleClick}
+            onDragMove={this.onDragMove}
+            onDragEnd={this.onDragEnd}
             />)
     }
 }
