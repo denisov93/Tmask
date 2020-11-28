@@ -9,7 +9,7 @@ import AppBase from "components/AppBase.js";
 class Shape extends AppBase {
 
     state = {
-        color: this.getCookie("editorPickedColor")
+        color: "#444444"
     }
 
     handleClick = (e) => {

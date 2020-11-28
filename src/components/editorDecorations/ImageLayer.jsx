@@ -30,8 +30,8 @@ class ImageLayer extends Component {
         return (<URLImage canChange={true} canDrag={true} opacitySwitch={true}
             name={name}
             src={ this.props.imageLayer } 
-            x={300}
-            y={300}
+            x={75}
+            y={75}
             scaling={true}
             draggable={true}
             opacity={this.state.opacity}

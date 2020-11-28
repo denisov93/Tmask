@@ -22,8 +22,8 @@ class Star extends Shape {
     render() {
         const { name } = this.props;
         return (<Path
-            x={300}
-            y={300}
+            x={75}
+            y={75}
             scaling={true}
             scaleX={2.2}
             scaleY={2.2}
