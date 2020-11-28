@@ -1,7 +1,8 @@
 {
+  "homepage": "http://denisov93.github.io/Tmask",
   "name": "argon-design-system-react",
   "version": "1.1.0",
-  "description": "React version of Argon Design System by Creative Tim",
+  "description": "TMask - A React System by TacticalDesign",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -20,15 +21,20 @@
     "react-kit",
     "argon-design-system",
     "argon-design-system-react",
-    "design-system-react"
+    "design-system-react",
+    "TMask",
+    "TacticalDesign",
+    "Mask",
+    "Editor"
   ],
-  "author": "Creative Tim",
+  "author": "Template by Creative Tim, project by Tactical Design",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/creativetimofficial/argon-design-system-react/issues"
   },
-  "homepage": "https://demos.creative-tim.com/argon-design-system-react/",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build && gulp licenses",
     "test": "react-scripts test",
@@ -78,6 +84,7 @@
     "@types/markerclustererplus": "2.1.33",
     "@types/react": "16.9.19",
     "eslint-plugin-flowtype": "3.13.0",
+    "gh-pages": "^3.1.0",
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.8",
     "jquery": "^3.5.1",
