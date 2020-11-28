@@ -559,25 +559,10 @@ class Builder extends AppBase {
     this.setState({modalColorOpen: !this.state.modalColorOpen})
   }
 
-  componentDidMount() {
-    document.documentElement.scrollTop = 0;
-    document.scrollingElement.scrollTop = 0;
-    this.refs.main.scrollTop = 0;
-    this.setCookie("editorPickedColor", "#444444")
-    
-    let ss = this.getCookie("sessionID")
-    if( ss !== null )
-      this.setState({sessionID:ss})
-    
-    //console.log("Session ID:",this.state.sessionID)
-  }
-
   selectedShapeNameFunction = data =>{
     this.setState({
       selectedShapeName: data
     })
-
-    
   }
 
   displayColorPicker(){
