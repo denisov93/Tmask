@@ -7,6 +7,10 @@
   border: 0.3rem;
 }
 
+.mt--450 {
+  margin-top: -450px !important;
+}
+
 .margin-tl {
   margin-top: 0.45rem !important;
   margin-left: 1rem !important;
