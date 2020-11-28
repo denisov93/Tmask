@@ -15,6 +15,12 @@ class Heart extends Component {
         });
     };
 
+    handleColorChange(color){
+        this.setState({
+            color: color
+        });
+    }
+
     render() {
         const { name } = this.props;
         return (<Path

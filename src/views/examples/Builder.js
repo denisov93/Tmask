@@ -227,7 +227,8 @@ class Builder extends AppBase {
     description:'',
     paintColor: '#fff',
     modalColorOpen: false,
-    pickerIsVisible: false
+    pickerIsVisible: false,
+    selectedShapeName: '',
   };
 
   getPaintColor(){
@@ -534,6 +535,11 @@ class Builder extends AppBase {
 
   handleChangeComplete = (color) => {
     this.setState({ paintColor: color.hex });
+
+    if(this.state.selectedShapeName!==""){
+     console.log(this.refs.editor.stageRef.children[2].children[0].colorKey = this.state.paintColor)
+    }
+
   };
 
   setModalOpen = () =>{
@@ -550,6 +556,14 @@ class Builder extends AppBase {
       this.setState({sessionID:ss})
     
     console.log("Session ID:",this.state.sessionID)
+  }
+
+  selectedShapeNameFunction = data =>{
+    this.setState({
+      selectedShapeName: data
+    })
+
+    
   }
 
   displayColorPicker(){
@@ -928,7 +942,7 @@ class Builder extends AppBase {
                 <Col id="middleComponent" className="col-6" style={{ zIndex: 1, display: 'flex', justifyContent: 'space-between', position: 'relative'}} >
                   <Card id="editor" className="card shadow" style={{ height: "800px", maxWidth: "825px", position: 'absolute', left: '50%', transform: 'translateX(-50%)'}}>
 
-                    <MaskEditor paintColor={this.state.paintColor}
+                    <MaskEditor paintColor={this.state.paintColor} selectedShapeName={this.selectedShapeNameFunction}
                       width={825} height={800} canDraw={this.state.canDraw} maskOverlay={this.state.maskOverlay} preExport={this.state.preExport} 
                       decorations={this.state.decorations} maskType={this.state.maskType} clearDraw={this.state.clearDraw} 
                       ref="editor"/>
@@ -1135,18 +1149,28 @@ class Builder extends AppBase {
                       {this.state.decorations.map((el, index) =>
                         (<div style={simpleLayer} key={index}>
                           <div style={{display: 'flex', backgroundColor:"#AAAAAA", alignItems: 'center', justifyContent: 'center', borderWidth: '1px', borderStyle:'double', width:56, height:42}}>
+                          
+                  
                             {el==="heart" && "❤️"}
                             {el==="star" && "⭐"}
                             {el==="triangle" && "▲"}
                             {el==="circle" && "⬤"}
-                            {el==="square" && "⬛"}
+                            {el==="square" && "⬛"} 
                             {el==="xmas" && "🎄"}
                             {
                               <img alt="" src={el} style={{ maxWidth:54, maxHeight:40, preserveAspectRatio: true}}></img>
-                            }         
+                            }
+                                     
                           </div>
                           {" "}
                           <span >
+                              {this.state.selectedShapeName === `heart${index}` && "▷ "}
+                              {this.state.selectedShapeName === `star${index}` && "▷ "}
+                              {this.state.selectedShapeName === `triangle${index}` && "▷ "}
+                              {this.state.selectedShapeName === `circle${index}` && "▷ "}
+                              {this.state.selectedShapeName === `square${index}` && "▷ "}
+                              {this.state.selectedShapeName === `xmas${index}` && "▷ "}
+
                             {
                             `${ this.nameParser(this.state.decorations[index])}`
                             }
