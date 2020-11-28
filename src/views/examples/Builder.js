@@ -535,13 +535,25 @@ class Builder extends AppBase {
 
   handleChangeComplete = (color) => {
     this.setState({ paintColor: color.hex });
-
-    if(this.state.selectedShapeName!==""){
-     console.log(this.refs.editor.stageRef.children[2].children[0].colorKey = this.state.paintColor)
-    }
-
     this.setCookie("editorPickedColor", color.hex)
   };
+
+  setModalOpen = () =>{
+    this.setState({modalColorOpen: !this.state.modalColorOpen})
+  }
+
+  componentDidMount() {
+    document.documentElement.scrollTop = 0;
+    document.scrollingElement.scrollTop = 0;
+    this.refs.main.scrollTop = 0;
+    this.setCookie("editorPickedColor", "#444444")
+
+    let ss = this.getCookie("sessionID")
+    if( ss !== null )
+      this.setState({sessionID:ss})
+
+    //console.log("Session ID:",this.state.sessionID)
+  }
 
   setModalOpen = () =>{
     this.setState({modalColorOpen: !this.state.modalColorOpen})
