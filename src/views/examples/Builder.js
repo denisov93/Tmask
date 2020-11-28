@@ -305,6 +305,62 @@ class Builder extends AppBase {
     }}catch{}
   }
 
+  tagOrder(input){
+    try{
+        for(var i = 0; i < input.length; i++){
+            const value = input[i]
+            console.log(value)
+            if(value === ' ' || value === 'undefined' || value === null){
+                input.splice(i, 1);
+                console.log(input)
+            }
+        }
+        return input
+    }catch{
+        return ["Ups","UpsX2"]
+    }   
+  }
+
+  tagParser(input){
+    try{
+        const MAXTAGSIZE = 13
+        const SEPARATOR = ' '
+        var tags = []
+
+        if(Array.isArray(input)){
+            if(input.length === 1){
+                input = input.pop()
+
+                var pattern = '#',
+                re = new RegExp(pattern, "g");
+
+                input = input.replace(re,'')
+                input = input.split(SEPARATOR)
+                for(var i = 0; i < input.length; i++){
+                    if((input[i]).length > MAXTAGSIZE){
+                        tags[i] = input[i].substring(0,MAXTAGSIZE) + "..."
+                    }else{
+                        tags[i] = input[i]
+                    }
+                }
+                var filtered = tags.filter(function (el) {
+                  return el !== "";
+                });
+
+                filtered.sort(function(a, b){
+                  return a.length - b.length;
+                });
+
+            }else{
+                return input
+            }
+        }
+        return filtered
+    }catch{
+        return [""]
+    }
+  }
+
   toggleColorPicker(){
     this.setState({
         pickerIsVisible: !this.state.pickerIsVisible
@@ -390,28 +446,22 @@ class Builder extends AppBase {
   }
 
   addMaskToCollection=()=>{
-    
     var title = this.state.title
     var image = this.refs.editor.handleExportImage()
     var tags = []
     var description = this.state.description
-
     var data = {
       id : Math.floor(1000 + Math.random() * 9000),
       title: title,
       image: image,
       description: description,
-      tags: tags.concat(this.state.tags)
+      tags: this.tagParser(tags.concat(this.state.tags))
     }
-
     var ms = this.getCookie("addedMasks")
-
     if(ms === null){
       ms = []
     }
-
     ms.push(data)
-
     this.setCookie("addedMasks",ms);
   }
 

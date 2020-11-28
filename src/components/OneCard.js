@@ -17,7 +17,6 @@ import {
   } from "reactstrap";
   import PropTypes from 'prop-types'
 
-
 class OneCard extends AppBase{
     state = {
         exampleModal: false
@@ -39,33 +38,17 @@ class OneCard extends AppBase{
         this.toggleModal("exampleModal")
       }
 
-      tagParser(input){
-        try{
-            const MAXTAGSIZE = 15
-            const SEPARATOR = ' '
-            var tags = []
-            console.log("input:"+input)
+      tagLimitation(input){
 
-            if(Array.isArray(input)){
+        input.sort(function(a, b){
+            return a.length - b.length;
+          });
 
-                if(input.length === 1){
-                    input = input.pop().split(SEPARATOR)
-
-                    for(var i = 0; i < input.length; i++){
-                        if((input[i]).length > MAXTAGSIZE){
-                            tags[i] = input[i].substring(0,MAXTAGSIZE) + "..."
-                        }else{
-                            tags[i] = input[i]
-                        }
-                    }
-
-                }else return input
-
-            }
-            return tags
-        }catch{
-            return [""]
-        }
+          var tags =[]
+          for(var i=0;i<6;i++){
+                tags[i] = input[i]
+          }
+          return tags
       }
 
     render () {
@@ -81,9 +64,9 @@ class OneCard extends AppBase{
                     src={this.props.card.image}
                     top
                     />
-                    <div>
+                    <div style={{minHeight: '48px', maxHeight: '48px', display:'flex', alignItems:'center', flexWrap: 'wrap'}}>
                         { //console.log(this.props.card.tags),
-                            this.tagParser(this.props.card.tags).map(
+                            this.tagLimitation(this.props.card.tags).map(
                                 (tag,index)=>(
                                     <Badge key={index} color="light" pill className="mr-1">
                                         {tag}
@@ -131,11 +114,11 @@ class OneCard extends AppBase{
                     <p>
                     📃{" "}{this.props.card.description}   
                     </p>    
-                    <div style={{display: 'flex', alignContent:'flex-start'}}>
+                    <div style={{display: 'flex', alignContent:'flex-start', flexWrap: 'wrap'}}>
                         { 
                             this.props.card.tags.map(
                             (tag,index)=>(
-                                    <Badge key={index} color="light" pill className="mr-1">
+                                    <Badge style={{marginBottom:3}} key={index} color="light" pill className="mr-1">
                                         {tag}
                                     </Badge>))
                         }
