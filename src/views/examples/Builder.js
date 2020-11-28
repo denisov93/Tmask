@@ -94,9 +94,16 @@ const DRAWER_5 = "Decorations"
 const DRAWER_LAYERS = "Decoration Layers"
 
 const btnImageStyle = {
-  paddingLeft: '1px',
-  width: '83px',
-  height: '82px',
+  marginRight: '-1px',
+  width: '84px',
+  height: '84px',
+  borderRadius: '14px',
+}
+
+const btnColorWheelStyle = {
+  marginRight: '10px',
+  width: '81px',
+  height: '80px',
   borderRadius: '14px',
 }
 
@@ -223,6 +230,10 @@ class Builder extends AppBase {
     pickerIsVisible: false
   };
 
+  getPaintColor(){
+    return this.state.paintColor
+  }
+
   handleClearDrawing(){
     this.setState({ clearDraw: true })
     this.handleFixClear()
@@ -277,13 +288,15 @@ class Builder extends AppBase {
     const id = e.target.id
     const className = e.target.className
     const parent = e.target.parentElement
-    const pParent = parent.parentElement
-    const pPParent = pParent.parentElement
-    const pPPParent = pPParent.parentElement
+    const pparent = parent.parentElement
+    const ppparent = pparent.parentElement
+    const pppparent = ppparent.parentElement
     const pClassName = parent.className
-    const pPClassName = pParent.className
-    const pPPClassName = pPParent.className
-    const pPPPClassName = pPPParent.className
+    const ppClassName = pparent.className
+    const pppClassName = ppparent.className
+    const ppppClassName = pppparent.className
+
+      console.log("1"+className, "2"+pClassName, "3"+ppClassName, "4"+pppClassName, "5"+pppClassName)
 
     if(id !== 'imgColorWheel'){
       if(className !== 'sketch-picker ' 
@@ -292,9 +305,13 @@ class Builder extends AppBase {
       && className !== 'flexbox-fix'
       && className !== 'hue-horizontal'
       && pClassName !== 'flexbox-fix'
-      && pPClassName !== 'flexbox-fix'
-      && pPPClassName !== 'flexbox-fix'
-      && pPPPClassName !== 'flexbox-fix'
+      && pClassName !== 'saturation-white'
+      && pClassName !== 'hue-horizontal'
+      && ppClassName !== 'flexbox-fix'
+      && ppClassName !== 'saturation-white'
+      && ppClassName !== 'hue-horizontal'
+      && pppClassName !== 'flexbox-fix'
+      && ppppClassName !== 'flexbox-fix'
       && !id.includes("rc-editable-input")){
         if(true){
           this.setState({
@@ -303,6 +320,62 @@ class Builder extends AppBase {
         }
       }
     }}catch{}
+  }
+
+  tagOrder(input){
+    try{
+        for(var i = 0; i < input.length; i++){
+            const value = input[i]
+            console.log(value)
+            if(value === ' ' || value === 'undefined' || value === null){
+                input.splice(i, 1);
+                console.log(input)
+            }
+        }
+        return input
+    }catch{
+        return ["Ups","UpsX2"]
+    }   
+  }
+
+  tagParser(input){
+    try{
+        const MAXTAGSIZE = 13
+        const SEPARATOR = ' '
+        var tags = []
+
+        if(Array.isArray(input)){
+            if(input.length === 1){
+                input = input.pop()
+
+                var pattern = '#',
+                re = new RegExp(pattern, "g");
+
+                input = input.replace(re,'')
+                input = input.split(SEPARATOR)
+                for(var i = 0; i < input.length; i++){
+                    if((input[i]).length > MAXTAGSIZE){
+                        tags[i] = input[i].substring(0,MAXTAGSIZE) + "..."
+                    }else{
+                        tags[i] = input[i]
+                    }
+                }
+                var filtered = tags.filter(function (el) {
+                  return el !== "";
+                });
+
+                filtered.sort(function(a, b){
+                  return a.length - b.length;
+                });
+
+            }else{
+                return input
+            }
+        }
+        return filtered
+    }catch{
+        return [""]
+    }
   }
 
   toggleColorPicker(){
@@ -390,28 +463,22 @@ class Builder extends AppBase {
   }
 
   addMaskToCollection=()=>{
-    
     var title = this.state.title
     var image = this.refs.editor.handleExportImage()
     var tags = []
     var description = this.state.description
-
     var data = {
       id : Math.floor(1000 + Math.random() * 9000),
       title: title,
       image: image,
       description: description,
-      tags: tags.concat(this.state.tags)
+      tags: this.tagParser(tags.concat(this.state.tags))
     }
-
     var ms = this.getCookie("addedMasks")
-
     if(ms === null){
       ms = []
     }
-
     ms.push(data)
-
     this.setCookie("addedMasks",ms);
   }
 
@@ -766,10 +833,17 @@ class Builder extends AppBase {
                                 id="btnColorWheel"
                                 color="primary"
                                 style={btnOptionStyle}
-                                onClick={() => {  }}>
-                              <img id="imgColorWheel" src={require("assets/img/editorResources/editor_colorwheel.png").default} 
-                                style={btnImageStyle} alt="" 
-                                onClick={()=> this.toggleColorPicker() } />
+                                onClick={()=>this.toggleColorPicker()}>
+                                <div style={{width: '90px', height: '90px'}}>
+                                  <img id="imgColorWheel" 
+                                    src={require("assets/img/editorResources/editor_colorwheel.png").default} 
+                                    style={btnColorWheelStyle} alt="" onClick={()=>this.toggleColorPicker()}/>
+                                </div>
+                                <div style={
+                                    {position:'absolute',bottom:0, right:0, margin:5,
+                                     minWidth: 32, minHeight: 32, maxWidth: 32, maxHeight: 32, 
+                                     background:this.getPaintColor(), border: '2px solid #444444', borderRadius: '50%'}}>
+                                </div>
                               </Button>
                               <Button
                                 color="primary"
@@ -1061,12 +1135,20 @@ class Builder extends AppBase {
                       {this.state.decorations.map((el, index) =>
                         (<div style={simpleLayer} key={index}>
                           <div style={{display: 'flex', backgroundColor:"#AAAAAA", alignItems: 'center', justifyContent: 'center', borderWidth: '1px', borderStyle:'double', width:56, height:42}}>
-                            <img alt="" src={el} style={{ maxWidth:54, maxHeight:40, preserveAspectRatio: true}}></img>
+                            {el==="heart" && "❤️"}
+                            {el==="star" && "⭐"}
+                            {el==="triangle" && "▲"}
+                            {el==="circle" && "⬤"}
+                            {el==="square" && "⬛"}
+                            {el==="xmas" && "🎄"}
+                            {
+                              <img alt="" src={el} style={{ maxWidth:54, maxHeight:40, preserveAspectRatio: true}}></img>
+                            }         
                           </div>
                           {" "}
                           <span >
                             {
-                            `Decoration ${index + 1}: ${ this.nameParser(this.state.decorations[index])}`
+                            `${ this.nameParser(this.state.decorations[index])}`
                             }
                           </span>
                           <span style={trashStyle}>
