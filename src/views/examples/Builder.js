@@ -94,9 +94,16 @@ const DRAWER_5 = "Decorations"
 const DRAWER_LAYERS = "Decoration Layers"
 
 const btnImageStyle = {
-  paddingLeft: '1px',
-  width: '83px',
-  height: '82px',
+  marginRight: '-1px',
+  width: '84px',
+  height: '84px',
+  borderRadius: '14px',
+}
+
+const btnColorWheelStyle = {
+  marginRight: '10px',
+  width: '81px',
+  height: '80px',
   borderRadius: '14px',
 }
 
@@ -222,6 +229,10 @@ class Builder extends AppBase {
     modalColorOpen: false,
     pickerIsVisible: false
   };
+
+  getPaintColor(){
+    return this.state.paintColor
+  }
 
   handleClearDrawing(){
     this.setState({ clearDraw: true })
@@ -822,10 +833,17 @@ class Builder extends AppBase {
                                 id="btnColorWheel"
                                 color="primary"
                                 style={btnOptionStyle}
-                                onClick={() => {  }}>
-                              <img id="imgColorWheel" src={require("assets/img/editorResources/editor_colorwheel.png").default} 
-                                style={btnImageStyle} alt="" 
-                                onClick={()=> this.toggleColorPicker() } />
+                                onClick={()=>this.toggleColorPicker()}>
+                                <div style={{width: '90px', height: '90px'}}>
+                                  <img id="imgColorWheel" 
+                                    src={require("assets/img/editorResources/editor_colorwheel.png").default} 
+                                    style={btnColorWheelStyle} alt="" onClick={()=>this.toggleColorPicker()}/>
+                                </div>
+                                <div style={
+                                    {position:'absolute',bottom:0, right:0, margin:5,
+                                     minWidth: 32, minHeight: 32, maxWidth: 32, maxHeight: 32, 
+                                     background:this.getPaintColor(), border: '2px solid #444444', borderRadius: '50%'}}>
+                                </div>
                               </Button>
                               <Button
                                 color="primary"
@@ -1125,8 +1143,7 @@ class Builder extends AppBase {
                             {el==="xmas" && "🎄"}
                             {
                               <img alt="" src={el} style={{ maxWidth:54, maxHeight:40, preserveAspectRatio: true}}></img>
-                            }
-                            
+                            }         
                           </div>
                           {" "}
                           <span >
