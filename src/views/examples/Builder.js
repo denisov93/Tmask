@@ -1163,12 +1163,13 @@ class Builder extends AppBase {
                           </div>
                           {" "}
                           <span >
-                              {this.state.selectedShapeName === `heart${index}` && "▷ "}
-                              {this.state.selectedShapeName === `star${index}` && "▷ "}
-                              {this.state.selectedShapeName === `triangle${index}` && "▷ "}
-                              {this.state.selectedShapeName === `circle${index}` && "▷ "}
-                              {this.state.selectedShapeName === `square${index}` && "▷ "}
-                              {this.state.selectedShapeName === `xmas${index}` && "▷ "}
+                              {this.state.selectedShapeName === `heart${index}` && <b>➜ </b>}
+                              {this.state.selectedShapeName === `star${index}` && <b>➜ </b>}
+                              {this.state.selectedShapeName === `triangle${index}` && <b>➜ </b>}
+                              {this.state.selectedShapeName === `circle${index}` && <b>➜ </b>}
+                              {this.state.selectedShapeName === `square${index}` && <b>➜ </b>}
+                              {this.state.selectedShapeName === `xmas${index}` && <b>➜ </b>}
+                              {this.state.selectedShapeName === `image${index}` && <b>➜ </b>}
 
                             {
                             `${ this.nameParser(this.state.decorations[index])}`
