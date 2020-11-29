@@ -36,7 +36,7 @@ import {
   Row,
   Col
 } from "reactstrap";
-
+import { Link } from "react-router-dom";
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import CardsFooter from "components/Footers/CardsFooter.js";
@@ -88,6 +88,7 @@ class Landing extends React.Component {
                           className="btn-icon mb-3 mb-sm-0"
                           color="info"
                           to="/catalog"
+                          tag={Link}
                         >
                           <span className="btn-inner--icon mr-1">
                             <img alt=".." className="text-white" src={require("assets/img/icons/common/head-side-mask-solid.svg").default}/>
@@ -98,6 +99,7 @@ class Landing extends React.Component {
                           className="btn-icon mb-3 mb-sm-0"
                           color="info"
                           to="/builder"
+                          tag={Link}
                         >
                           <span className="btn-inner--icon mr-1">
                             <i className="ni ni-palette" />
@@ -161,7 +163,7 @@ class Landing extends React.Component {
                             className="mt-4"
                             color="primary"
                             to="/catalog"
-                            
+                            tag={Link}
                           >
                             view more
                           </Button>
@@ -195,7 +197,7 @@ class Landing extends React.Component {
                             className="mt-4"
                             color="success"
                             to="/catalog"
-                           
+                            tag={Link}
                           >
                             view more
                           </Button>
@@ -226,7 +228,7 @@ class Landing extends React.Component {
                             className="mt-4"
                             color="warning"
                             to="/catalog"
-                            
+                            tag={Link}
                           >
                             view more
                           </Button>
