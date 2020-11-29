@@ -106,7 +106,7 @@ function TextButton(props) {
 class NewFacialFeatures extends AppBase {
 
   state = {
-    index: 1,
+    index: 0,
     face: "",
     xaxis: 20,
     yaxis: 10,
@@ -306,7 +306,7 @@ class NewFacialFeatures extends AppBase {
               }
 
               return (<p style={{ cursor: "pointer", }} onClick={() => { this.setState({ index: i }); }}>
-                {' '} <span style={{ color: "red", textDecoration: "underline", }}>{text}</span>
+                <span style={{ color: "red", textDecoration: "underline", }}>{text}</span>
                 {' '} <i className="fa fa-arrow-circle-right mr-2" />
               </p>)
             })}
