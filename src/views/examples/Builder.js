@@ -40,7 +40,7 @@ import image3 from "assets/img/editorResources/editor_image_3.png"
 import image4 from "assets/img/editorResources/editor_image_4.jpg" 
 import image5 from "assets/img/editorResources/editor_image_5.jpg" 
 import image6 from "assets/img/editorResources/editor_image_6.png" 
-import image7 from "assets/img/editorResources/editor_image_7.png" 
+import image7 from "assets/img/editorResources/editor_image_7.png"
 
 // reactstrap components
 import {
@@ -207,6 +207,8 @@ const trashStyle = {
 class Builder extends AppBase {
 
   state = {
+    popupTitle: '',
+    alertPopup: false,
     shareChecked: false,
     expanded: '',
     selectedLayer:-1,
@@ -481,6 +483,9 @@ class Builder extends AppBase {
     }
     ms.push(data)
     this.setCookie("addedMasks",ms);
+    this.setState({
+      title: '', description:'', tags:[]
+    })
   }
 
   handleDeleteLayer = item =>{
@@ -582,6 +587,19 @@ class Builder extends AppBase {
         return(<div></div>)
       }
     }catch{/*case where btn isn't visible*/}
+  }
+
+  shareMaskTrigger = () =>{
+      this.addMaskToCollection()
+      this.setState({modalOpen: !this.state.modalOpen})
+      this.setState({shareChecked: !this.state.shareChecked})
+      setTimeout(() => {
+        this.setState({
+          popupTitle: "🎉 Congratulations!",
+          popupDescription: "You have shared your mask design with the TMASK community!",
+          alertPopup: true
+        })
+      }, 1000);
   }
 
   render() {
@@ -941,6 +959,8 @@ class Builder extends AppBase {
                 <Col id="middleComponent" className="col-6" style={{ zIndex: 1, display: 'flex', justifyContent: 'space-between', position: 'relative'}} >
                   <Card id="editor" className="card shadow" style={{ height: "800px", maxWidth: "825px", position: 'absolute', left: '50%', transform: 'translateX(-50%)'}}>
 
+                    {this.popup(this.state.popupTitle,this.state.popupDescription,"Close",this.state.alertPopup)}
+
                     <MaskEditor paintColor={this.state.paintColor} selectedShapeName={this.selectedShapeNameFunction}
                       width={825} height={800} canDraw={this.state.canDraw} maskOverlay={this.state.maskOverlay} preExport={this.state.preExport} 
                       decorations={this.state.decorations} maskType={this.state.maskType} clearDraw={this.state.clearDraw} 
@@ -1083,7 +1103,7 @@ class Builder extends AppBase {
                                   <i className="fa fa-hashtag" />
                                 </InputGroupText>
                               </InputGroupAddon>
-                              <Input  placeholder="Write Tags so other users can find this content." type="text" onChange={
+                              <Input  placeholder="Write Tags so other users can find this mask." type="text" onChange={
                                 e=>{
                                   var str = e.target.value;
                                   if(str.length < 200){
@@ -1102,8 +1122,7 @@ class Builder extends AppBase {
                               <br></br>
                               <span>🏷️{" "}<b>Tags:</b> </span> { this.state.tags }
                           </div>
-                            
-                        </Form>
+                          </Form>
                         </ModalBody>
                         <ModalFooter>
                         <div className="text-center">
@@ -1111,9 +1130,35 @@ class Builder extends AppBase {
                                 className="my-4"
                                 color="primary"
                                 onClick={()=>{
-                                  this.addMaskToCollection()
-                                  this.setState({modalOpen: !this.state.modalOpen})
-                                  this.setState({shareChecked: !this.state.shareChecked})
+                                  if(this.state.title === ''){
+                                    this.setState({
+                                      popupTitle: "⚠️ Can't share blank information!",
+                                      popupDescription: "Please provide a name for your mask design.",
+                                      alertPopup: true
+                                    })
+                                    return
+                                  }
+                                  
+                                  if(this.state.description === ''){
+                                    this.setState({
+                                      popupTitle: "⚠️ Can't share blank information!",
+                                      popupDescription:"Please provide a description about your mask.",
+                                      alertPopup: true
+                                    })
+                                    return
+                                  }
+
+                                  if(this.state.tags.length === 0){
+                                    this.setState({
+                                      popupTitle: "⚠️ Can't share blank information!",
+                                      popupDescription:"Please provide Tags so other users can find this mask.",
+                                      alertPopup: true
+                                    })
+                                    return
+                                  }
+
+                                  if(this.state.title !== '' && this.state.description !== '' && this.state.tags !== '')
+                                    {this.shareMaskTrigger()}
                                 }}
                                 >
                                Share

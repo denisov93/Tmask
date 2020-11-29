@@ -1,5 +1,45 @@
 import React from 'react';
 import dataService from 'components/dataService.js'
+import { 
+  // eslint-disable-next-line
+  Component} from 'react';
+  import {
+    // eslint-disable-next-line
+    Badge,
+    // eslint-disable-next-line
+    Button,
+    // eslint-disable-next-line
+    Card,
+    // eslint-disable-next-line
+    CardHeader,
+    // eslint-disable-next-line
+    CardTitle,
+    // eslint-disable-next-line
+    CardBody,
+    // eslint-disable-next-line
+    CardImg,
+    // eslint-disable-next-line
+    FormGroup,
+    // eslint-disable-next-line
+    Input,
+    // eslint-disable-next-line
+    InputGroupAddon,
+    // eslint-disable-next-line
+    InputGroupText,
+    // eslint-disable-next-line
+    InputGroup,
+    // eslint-disable-next-line
+    Container,
+    // eslint-disable-next-line
+    Row,
+    // eslint-disable-next-line
+    Col,
+    Modal,
+    ModalBody,
+    ModalFooter,
+    // eslint-disable-next-line
+    Form,
+  } from "reactstrap";
 
 
 var user1 = [
@@ -86,6 +126,10 @@ const features = [
 ]
 
 class AppBase extends React.Component{
+
+  state = {
+    basePopupOpen: false
+  }
 
   globalVar = {
     isLoggedIn: false,
@@ -215,7 +259,6 @@ class AppBase extends React.Component{
     }
 
     if(!valid){
-      //make modal appear
        console.log("[SignIn] Credentials Mismatch");
     }
     return valid
@@ -231,6 +274,40 @@ class AppBase extends React.Component{
 
   removeFeature(index) {
     this.globalVar.features.splice(index, 1)
+  }
+
+  popup(title, body, btnText, flag){
+
+    // eslint-disable-next-line
+    this.state.basePopupOpen = flag
+
+    const components = (
+      <Modal className='modal-dialog-centered' style={{maxWidth:390}} toggle={() => {
+        this.setState({basePopupOpen: !this.state.basePopupOpen})}} 
+        isOpen={this.state.basePopupOpen}>
+        <div className="text-muted text-center mb-3">
+          <br></br>
+          <big><strong>{title}</strong></big>
+        </div>
+        <div>
+        <ModalBody>
+         {body}
+        </ModalBody>
+        </div>
+        <ModalFooter>
+          <Button
+            color="secondary"
+            type="button"
+            onClick={() => {
+              this.setState({basePopupOpen: !this.state.basePopupOpen})
+              this.setState({alertPopup: false})
+              }}>
+            {btnText}
+          </Button>
+        </ModalFooter>
+      </Modal>
+    )
+    return(components)
   }
 
    // eslint-disable-next-line
