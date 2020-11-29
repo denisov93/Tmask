@@ -87,7 +87,7 @@ class Landing extends React.Component {
                         <Button
                           className="btn-icon mb-3 mb-sm-0"
                           color="info"
-                          href="/catalog"
+                          to="/catalog"
                         >
                           <span className="btn-inner--icon mr-1">
                             <img alt=".." className="text-white" src={require("assets/img/icons/common/head-side-mask-solid.svg").default}/>
@@ -97,7 +97,7 @@ class Landing extends React.Component {
                         <Button
                           className="btn-icon mb-3 mb-sm-0"
                           color="info"
-                          href="/builder"
+                          to="/builder"
                         >
                           <span className="btn-inner--icon mr-1">
                             <i className="ni ni-palette" />
@@ -160,8 +160,8 @@ class Landing extends React.Component {
                           <Button
                             className="mt-4"
                             color="primary"
-                            href="/catalog"
-                            onClick={()=>{}}
+                            to="/catalog"
+                            
                           >
                             view more
                           </Button>
@@ -194,8 +194,8 @@ class Landing extends React.Component {
                           <Button
                             className="mt-4"
                             color="success"
-                            href="/catalog"
-                            onClick={()=>{}}
+                            to="/catalog"
+                           
                           >
                             view more
                           </Button>
@@ -225,8 +225,8 @@ class Landing extends React.Component {
                           <Button
                             className="mt-4"
                             color="warning"
-                            href="/catalog"
-                            onClick={()=>{}}
+                            to="/catalog"
+                            
                           >
                             view more
                           </Button>
