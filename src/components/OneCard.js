@@ -75,14 +75,14 @@ class OneCard extends AppBase{
                             )
                         }
                     </div>
-                    <div>
+                    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
                     <Button
                     className="mt-4"
-                    color="primary"
+                    color="secondary"
                     type="button"
                     onClick={() => this.toggleModal("exampleModal")}
                     >
-                    Learn more
+                    More details
                     </Button>
                     </div>
                </CardBody>
