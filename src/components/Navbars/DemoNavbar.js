@@ -210,8 +210,9 @@ class DemoNavbar extends AppBase {
                   <NavItem>
                     <NavLink
                       className="nav-link-icon"
-                      href=""
+                      to="/"
                       id="tooltip112445449"
+                      tag={Link}
                       //target="_blank"
                     >
                       <i className="fa fa-question-circle" />

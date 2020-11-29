@@ -52,8 +52,13 @@ class Landing extends React.Component {
     this.refs.main.scrollTop = 0;
   }
   render() {
+    var time = new Date().getTime();
+    var date = new Date(time);
+    const datestr = date.toString();
+
     return (
       <>
+        <div tag={"BuildTime: "+datestr}></div>
         <DemoNavbar />
         <main ref="main">
           <div className="position-relative">
