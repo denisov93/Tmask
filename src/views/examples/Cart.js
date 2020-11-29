@@ -19,6 +19,7 @@
 import React from "react";
 // nodejs library that concatenates classes
 // eslint-disable-next-line
+import CartItem from 'components/CartItem'
 import classnames from "classnames";
 
 // reactstrap components
@@ -85,14 +86,27 @@ class Cart extends React.Component {
                 <span />
                 <span />
               </div>
+              <h2 style={{marginLeft:"15%", marginBottom:30, color:"white"}}>Your Cart:</h2>
+              
               <Container className="py-lg-md d-flex">
-                <div className="col px-0">
-
-
+                
+                
+                
+                
+                <div className="col px-0" >
+                
+                <CartItem name="ABC" image={require("assets/img/masks/fire.png").default} price='5'></CartItem>
+                <CartItem name="Fire" image={require("assets/img/masks/fire.png").default} price='5'></CartItem>
+                <CartItem name="Goku" image={require("assets/img/masks/goku.png").default} price='5'></CartItem>
+                <CartItem name="Nameisjusttoodamnlongitshouldntfit" image={require("assets/img/masks/fire.png").default} price='5'></CartItem>
+                <div style={{marginTop:"20px"}}>
+                <Button>Checkout</Button>
+                </div>
                 </div>
               </Container>
               {/* SVG separator */}
               <div className="separator separator-bottom separator-skew">
+                
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   preserveAspectRatio="none"
@@ -106,8 +120,11 @@ class Cart extends React.Component {
                     points="2560 0 2560 100 0 100"
                   />
                 </svg>
+                
+                
               </div>
             </section>
+            
           </div>
         </main>
         <CardsFooter />
