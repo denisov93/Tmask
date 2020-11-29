@@ -17,9 +17,6 @@
 
 */
 import React from "react";
-import { Link } from "react-router-dom";
-
-// reactstrap components
 import { Button, Card, Container, Row, Col } from "reactstrap";
 
 // core components
@@ -33,9 +30,7 @@ function SmallButton(props) {
     <Button
       className="btn-neutral btn-icon btn-sm"
       onClick={props.onClick}
-      color="default"
-      to={props.route}
-      tag={Link}>
+      color="default">
       <i className={props.icon} />
     </Button>
   );
@@ -160,7 +155,7 @@ class FacialFeatures extends AppBase {
           </section>
           <section className="section">
             <Container>
-              <Card className="card-profile shadow mt--450">
+              <Card className="card-profile shadow mt--300">
                 <div className="px-4">
                   <div className="text-center mt-5">
                     <h3>

@@ -16,11 +16,21 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+
+/*
+  TODO:
+    - field for name at the end if completed
+    - remove the save button if not completed
+    - save the facial profile
+    - better display for review
+*/
+
 import React from "react";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Button,
   Card,
+  Col,
   Container,
   Form,
   FormGroup,
@@ -31,19 +41,21 @@ import {
   Row,
 } from "reactstrap";
 
-// core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import AppBase from "components/AppBase";
 
 import doc from "assets/docs/ruler_30cm.pdf"
-import oval from "assets/img/faceType/oval.png"
-import square from "assets/img/faceType/square.png"
-import round from "assets/img/faceType/round.png"
-import heart from "assets/img/faceType/heart.png"
-import oblong from "assets/img/faceType/oblong.png"
-import diamond from "assets/img/faceType/diamond.png"
-import Col from "reactstrap/lib/Col";
+import oval from "assets/img/faceShape/oval.png"
+import square from "assets/img/faceShape/square.png"
+import round from "assets/img/faceShape/round.png"
+import heart from "assets/img/faceShape/heart.png"
+import oblong from "assets/img/faceShape/oblong.png"
+import diamond from "assets/img/faceShape/diamond.png"
+import mask1 from "assets/img/editorResources/editor_mask_cirurgical.png"
+import mask2 from "assets/img/editorResources/editor_mask_cloth.png"
+import mask3 from "assets/img/editorResources/editor_mask_N95.png"
+import mask4 from "assets/img/editorResources/editor_mask_N95_type2.png"
 
 const rowStyle = {
   display: 'flex',
@@ -51,13 +63,35 @@ const rowStyle = {
   justifyContent: 'center',
 }
 
-const legendStyle = {
+const labelStyle = {
   width: 140,
   margin: 10,
   fontSize: 18
 }
 
-function BottomButton(props) {
+const labelStyle2 = {
+  width: 140,
+  margin: 10,
+  marginLeft: 70,
+  marginRight: 70,
+  fontSize: 18
+}
+
+function IconButton(props) {
+  return (
+    <Button
+      className="my-4"
+      color="primary"
+      onClick={() => document.location.reload()}
+      to={props.route}
+      tag={Link}
+    >
+      <i className={props.icon} />
+    </Button>
+  );
+}
+
+function TextButton(props) {
   return (
     <Button
       className="my-4 btn-std-case"
@@ -77,6 +111,8 @@ class NewFacialFeatures extends AppBase {
     face: "",
     xaxis: 20,
     yaxis: 10,
+    mask: "",
+    layers: 1,
   }
 
   componentDidMount() {
@@ -85,15 +121,28 @@ class NewFacialFeatures extends AppBase {
     this.refs.main.scrollTop = 0;
   }
 
-  faceButton(img, i) {
-    let isSelected = i === this.state.face ? "double" : "none"
+  faceButton(img, label) {
+    let isSelected = label === this.state.face ? "double" : "none"
 
     return (
       <Button
         color="primary"
         style={{ background: "white", borderStyle: isSelected, }}
-        onClick={() => this.setState({ face: i })}>
+        onClick={() => this.setState({ face: label })}>
         <img src={img} alt="" />
+      </Button>
+    );
+  }
+
+  maskButton(img, i) {
+    let isSelected = i === this.state.mask ? "double" : "none"
+
+    return (
+      <Button
+        color="primary"
+        style={{ background: "white", borderStyle: isSelected, marginLeft: 20, marginRight: 20, }}
+        onClick={() => this.setState({ mask: i })}>
+        <img src={img} alt="" style={{ width: 200, height: "auto", }} />
       </Button>
     );
   }
@@ -102,8 +151,8 @@ class NewFacialFeatures extends AppBase {
     switch (this.state.index) {
       case 0:
         return (
-          <div>
-            <h4 className="py-5">Face Shape</h4>
+          <>
+            <h4 className="py-4">Face Shape</h4>
             <Col>
               <Row style={rowStyle}>
                 {this.faceButton(oval, "oval")}
@@ -111,9 +160,9 @@ class NewFacialFeatures extends AppBase {
                 {this.faceButton(round, "round")}
               </Row>
               <Row style={rowStyle}>
-                <p style={legendStyle}>Oval</p>
-                <p style={legendStyle}>Square</p>
-                <p style={legendStyle}>Round</p>
+                <p style={labelStyle}>Oval</p>
+                <p style={labelStyle}>Square</p>
+                <p style={labelStyle}>Round</p>
               </Row>
               <Row style={rowStyle}>
                 {this.faceButton(heart, "heart")}
@@ -121,17 +170,17 @@ class NewFacialFeatures extends AppBase {
                 {this.faceButton(diamond, "diamond")}
               </Row>
               <Row style={rowStyle}>
-                <p style={legendStyle}>Heart</p>
-                <p style={legendStyle}>Oblong</p>
-                <p style={legendStyle}>Diamond</p>
+                <p style={labelStyle}>Heart</p>
+                <p style={labelStyle}>Oblong</p>
+                <p style={labelStyle}>Diamond</p>
               </Row>
             </Col>
-          </div>
+          </>
         )
       case 1:
         return (
-          <div>
-            <h4 className="py-5">Distances</h4>
+          <>
+            <h4 className="py-4">Distances</h4>
             <Col>
               <Row style={rowStyle} className="row-cols-3">
                 <p style={{ marginRight: 16, marginBottom: 10, }}>From the nose bridge to under the chin</p>
@@ -145,8 +194,8 @@ class NewFacialFeatures extends AppBase {
                         <i className="fa fa-arrows-v" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input id="id_yaxis"
-                      type="number" value={this.state.yaxis} min="1" max="25" step="0.25"
+                    <Input id="id_yaxis" type="number"
+                      value={this.state.yaxis} min="1" max="25" step="0.25"
                       onChange={e => this.setState({ yaxis: e.target.value })} />
                     <InputGroupAddon addonType="append">
                       <InputGroupText>centimeters</InputGroupText>
@@ -154,14 +203,14 @@ class NewFacialFeatures extends AppBase {
                   </InputGroup>
                 </FormGroup>
                 <FormGroup className="mb-3 margin-l">
-                <InputGroup className="input-group-alternative">
+                  <InputGroup className="input-group-alternative">
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
                         <i className="fa fa-arrows-h" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input id="id_xaxis" placeholder="Between the ears across the chin"
-                      type="number" value={this.state.xaxis} min="1" max="50" step="0.25"
+                    <Input id="id_xaxis" type="number"
+                      value={this.state.xaxis} min="1" max="50" step="0.25"
                       onChange={e => this.setState({ xaxis: e.target.value })} />
                     <InputGroupAddon addonType="append">
                       <InputGroupText>centimeters</InputGroupText>
@@ -180,8 +229,76 @@ class NewFacialFeatures extends AppBase {
                 </span>
               </Button>
             </Col>
-          </div>
+          </>
         );
+      case 2:
+        let layersForm = this.state.mask !== "" ?
+          <Form>
+            <FormGroup style={rowStyle} className="mb-3 row-cols-5 mb-5">
+              <InputGroup className="input-group-alternative">
+                <InputGroupAddon addonType="prepend">
+                  <InputGroupText>Number of layers:</InputGroupText>
+                </InputGroupAddon>
+                <Input id="id_layers" type="number"
+                  value={this.state.layers} min="1" max="5" step="1"
+                  onChange={e => this.setState({ layers: e.target.value })} />
+              </InputGroup>
+            </FormGroup>
+          </Form> : <></>
+        return (
+          <>
+            <h4 className="py-4">Mask Preference</h4>
+            {layersForm}
+            <Col>
+              <Row style={rowStyle}>
+                {this.maskButton(mask1, "cirurgical")}
+                {this.maskButton(mask2, "cloth")}
+              </Row>
+              <Row style={rowStyle}>
+                <p style={labelStyle2}>Cirurgical</p>
+                <p style={labelStyle2}>Cloth</p>
+              </Row>
+              <Row style={rowStyle}>
+                {this.maskButton(mask3, "N95")}
+                {this.maskButton(mask4, "N95 type 2")}
+              </Row>
+              <Row style={rowStyle}>
+                <p style={labelStyle2}>N95</p>
+                <p style={labelStyle2}>N95 type 2</p>
+              </Row>
+            </Col>
+          </>
+        )
+      case 3:
+        let toComplete = []
+
+        if (this.state.face === "")
+          toComplete.push("- face shape")
+        if (this.state.mask === "")
+          toComplete.push("- mask preference")
+
+        let l = this.state.layers === 1 ? "layer" : "layers"
+
+        let text = toComplete.length === 0
+          ? <div className="text-center">
+            <p className="text-center">The shape of your face is <strong>{this.state.face}</strong></p>
+            <p>You have <strong>{this.state.xaxis}</strong> centimeters between the ears</p>
+            <p>And <strong>{this.state.yaxis}</strong> centimeters from the nose to the chin</p>
+            <p>Your preffered mask is <strong>{this.state.mask}</strong> with <strong>{this.state.layers}</strong> {l}</p>
+          </div>
+          : <div className="text-center">
+            <p>Please fill the following items to continue:</p>
+            {toComplete.map((text, i) => {
+              return (<p style={{color: "red"}}>{text}</p>)
+            })}
+          </div>
+
+        return (
+          <>
+            <h4 className="py-4">Review</h4>
+            {text}
+          </>
+        )
       default:
         return this.state.index;
     }
@@ -191,31 +308,31 @@ class NewFacialFeatures extends AppBase {
     switch (this.state.index) {
       case 0:
         return (
-          <BottomButton text="Next"
+          <TextButton text="Next"
             onClick={() => { this.setState({ index: this.state.index + 1 }); }}
           />
         )
-      case 5: //TODO: last index
+      case 3:
         return (
-          <div>
-            <BottomButton text="Previous"
+          <>
+            <TextButton text="Previous"
               onClick={() => { this.setState({ index: this.state.index - 1 }); }}
             />
-            <BottomButton text="SAVE"
+            <TextButton text="SAVE"
               onClick={() => { this.pressedSubmit(); }}
             />
-          </div>
+          </>
         )
       default:
         return (
-          <div>
-            <BottomButton text="Previous"
+          <>
+            <TextButton text="Previous"
               onClick={() => { this.setState({ index: this.state.index - 1 }); }}
             />
-            <BottomButton text="Next"
+            <TextButton text="Next"
               onClick={() => { this.setState({ index: this.state.index + 1 }); }}
             />
-          </div>
+          </>
         )
     }
   }
@@ -257,7 +374,9 @@ class NewFacialFeatures extends AppBase {
             <Container>
               <Card className="card-profile shadow mt--450">
                 <div className="px-4">
-                  <div className="text-center mt-5">
+                  <IconButton icon="fa fa-angle-left" route="/facial-features"
+                  />
+                  <div className="text-center mt-5 mt--45">
                     <h3>
                       <i className="fa fa-id-card" />{" "}New facial feature
                     </h3>

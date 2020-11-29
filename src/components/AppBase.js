@@ -110,18 +110,24 @@ const features = [
     type: "oval",
     xaxis: 26,
     yaxis: 7,
+    mask: "cloth",
+    layers: 3,
   },
   {
     title: "Mom",
     type: "oval",
     xaxis: 26,
     yaxis: 7,
+    mask: "cloth",
+    layers: 3,
   },
   {
     title: "Dad",
     type: "oval",
     xaxis: 26,
     yaxis: 7,
+    mask: "cloth",
+    layers: 3,
   },
 ]
 

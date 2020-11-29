@@ -7,6 +7,10 @@
   border: 0.3rem;
 }
 
+.mt--45 {
+  margin-top: -45px !important;
+}
+
 .mt--450 {
   margin-top: -450px !important;
 }
