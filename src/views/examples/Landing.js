@@ -243,7 +243,7 @@ class Landing extends React.Component {
               <Row className="row-grid align-items-center">
                 <Col className="order-md-2" md="8">
                 <iframe title="Intentionally blank" aria-hidden="true" id="ytplayer" type="text/html" width="640" height="360"
-                  src="http://www.youtube.com/embed/oBYRBx43eR0?autoplay=1&loop=1&controls=0&showinfo=0"
+                  src="https://www.youtube.com/embed/oBYRBx43eR0?autoplay=1&loop=1&controls=0&showinfo=0"
                   frameBorder="0"/>
                 </Col>
                 <Col className="order-md-1" md="4">
