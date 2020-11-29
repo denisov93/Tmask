@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/Tmask/static/css/main.1493cebc.chunk.css",
-    "main.js": "/Tmask/static/js/main.b9958c18.chunk.js",
-    "main.js.map": "/Tmask/static/js/main.b9958c18.chunk.js.map",
+    "main.js": "/Tmask/static/js/main.94c4498b.chunk.js",
+    "main.js.map": "/Tmask/static/js/main.94c4498b.chunk.js.map",
     "runtime-main.js": "/Tmask/static/js/runtime-main.a1b06534.js",
     "runtime-main.js.map": "/Tmask/static/js/runtime-main.a1b06534.js.map",
-    "static/js/2.db168caa.chunk.js": "/Tmask/static/js/2.db168caa.chunk.js",
-    "static/js/2.db168caa.chunk.js.map": "/Tmask/static/js/2.db168caa.chunk.js.map",
+    "static/js/2.48c1a3a0.chunk.js": "/Tmask/static/js/2.48c1a3a0.chunk.js",
+    "static/js/2.48c1a3a0.chunk.js.map": "/Tmask/static/js/2.48c1a3a0.chunk.js.map",
     "index.html": "/Tmask/index.html",
     "static/css/main.1493cebc.chunk.css.map": "/Tmask/static/css/main.1493cebc.chunk.css.map",
-    "static/js/2.db168caa.chunk.js.LICENSE.txt": "/Tmask/static/js/2.db168caa.chunk.js.LICENSE.txt",
-    "static/js/main.b9958c18.chunk.js.LICENSE.txt": "/Tmask/static/js/main.b9958c18.chunk.js.LICENSE.txt",
+    "static/js/2.48c1a3a0.chunk.js.LICENSE.txt": "/Tmask/static/js/2.48c1a3a0.chunk.js.LICENSE.txt",
+    "static/js/main.94c4498b.chunk.js.LICENSE.txt": "/Tmask/static/js/main.94c4498b.chunk.js.LICENSE.txt",
     "static/media/TMASK_mask.png": "/Tmask/static/media/TMASK_mask.1fba033e.png",
     "static/media/diamond.02c63cc6.png": "/Tmask/static/media/diamond.02c63cc6.png",
     "static/media/editor_colorwheel.png": "/Tmask/static/media/editor_colorwheel.6cdd660d.png",
@@ -53,6 +53,7 @@
     "static/media/round.07a9857d.png": "/Tmask/static/media/round.07a9857d.png",
     "static/media/ruler_30cm.dac0e334.pdf": "/Tmask/static/media/ruler_30cm.dac0e334.pdf",
     "static/media/square.5f82a1cf.png": "/Tmask/static/media/square.5f82a1cf.png",
+    "static/media/trash-can_icon.png": "/Tmask/static/media/trash-can_icon.61e22baa.png",
     "static/media/trash.3ecbd843.svg": "/Tmask/static/media/trash.3ecbd843.svg",
     "static/media/user_alicia.png": "/Tmask/static/media/user_alicia.8232b33c.png",
     "static/media/user_jonny.png": "/Tmask/static/media/user_jonny.2526b104.png",
@@ -63,8 +64,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.a1b06534.js",
-    "static/js/2.db168caa.chunk.js",
+    "static/js/2.48c1a3a0.chunk.js",
     "static/css/main.1493cebc.chunk.css",
-    "static/js/main.b9958c18.chunk.js"
+    "static/js/main.94c4498b.chunk.js"
   ]
 }
