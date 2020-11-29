@@ -68,16 +68,16 @@ class CartItem extends AppBase{
                      </div>
                      <div class="column"style={{width:130, height:42,marginLeft:15}}>
                          <div class="row" style={{alignItems:"center",marginLeft:15}}>
-                         <button onClick={this.decreaseAmount}
+                         <button style={{border:"none", outline:"none"}} onClick={this.decreaseAmount}
                          ><img src={require("assets/img/icons/common/minus_icon.png").default} width="25" height="30"></img></button>
                             
                             <b style={{fontSize:"20px",marginLeft:5,marginRight:5 }}>{this.state.amountOfItems}</b> 
-                            <button onClick={this.increaseAmount} height="30" width="30"
+                            <button style={{border:"none", outline:"none"}} onClick={this.increaseAmount} height="30" width="30"
                          ><img src={require("assets/img/icons/common/plus_icon.png").default} width="25" height="30"></img></button>
                          </div>
                      </div>
                      <div class="column" style ={{height:48}}>
-                         <button style={{outline:"none"}}><img src={require("assets/img/icons/common/trash-can_icon.png").default} width="40"></img></button>
+                         <button style={{border:"none", outline:"none"}}><img src={require("assets/img/icons/common/trash-can_icon.png").default} width="40"></img></button>
                      </div>
                     </div>
                     
