@@ -36,7 +36,7 @@ import {
   Row,
   Col
 } from "reactstrap";
-
+import { Link } from "react-router-dom";
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import CardsFooter from "components/Footers/CardsFooter.js";
@@ -52,8 +52,13 @@ class Landing extends React.Component {
     this.refs.main.scrollTop = 0;
   }
   render() {
+    var time = new Date().getTime();
+    var date = new Date(time);
+    const datestr = date.toString();
+
     return (
       <>
+        <div tag={"BuildTime: "+datestr}></div>
         <DemoNavbar />
         <main ref="main">
           <div className="position-relative">
@@ -87,7 +92,8 @@ class Landing extends React.Component {
                         <Button
                           className="btn-icon mb-3 mb-sm-0"
                           color="info"
-                          href="/catalog"
+                          to="/catalog"
+                          tag={Link}
                         >
                           <span className="btn-inner--icon mr-1">
                             <img alt=".." className="text-white" src={require("assets/img/icons/common/head-side-mask-solid.svg").default}/>
@@ -97,7 +103,8 @@ class Landing extends React.Component {
                         <Button
                           className="btn-icon mb-3 mb-sm-0"
                           color="info"
-                          href="/builder"
+                          to="/builder"
+                          tag={Link}
                         >
                           <span className="btn-inner--icon mr-1">
                             <i className="ni ni-palette" />
@@ -160,8 +167,8 @@ class Landing extends React.Component {
                           <Button
                             className="mt-4"
                             color="primary"
-                            href="/catalog"
-                            onClick={()=>{}}
+                            to="/catalog"
+                            tag={Link}
                           >
                             view more
                           </Button>
@@ -194,8 +201,8 @@ class Landing extends React.Component {
                           <Button
                             className="mt-4"
                             color="success"
-                            href="/catalog"
-                            onClick={()=>{}}
+                            to="/catalog"
+                            tag={Link}
                           >
                             view more
                           </Button>
@@ -225,8 +232,8 @@ class Landing extends React.Component {
                           <Button
                             className="mt-4"
                             color="warning"
-                            href="/catalog"
-                            onClick={()=>{}}
+                            to="/catalog"
+                            tag={Link}
                           >
                             view more
                           </Button>
@@ -243,8 +250,8 @@ class Landing extends React.Component {
               <Row className="row-grid align-items-center">
                 <Col className="order-md-2" md="8">
                 <iframe title="Intentionally blank" aria-hidden="true" id="ytplayer" type="text/html" width="640" height="360"
-                  src="http://www.youtube.com/embed/oBYRBx43eR0?autoplay=1&loop=1&controls=0&showinfo=0"
-                  frameborder="0"/>
+                  src="https://www.youtube.com/embed/oBYRBx43eR0?autoplay=1&loop=1&controls=0&showinfo=0"
+                  frameBorder="0"/>
                 </Col>
                 <Col className="order-md-1" md="4">
                   <div className="pr-md-5">

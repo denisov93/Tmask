@@ -1,3 +1,42 @@
-.ajuda{
-    pointer-events: none;
+.ajuda {
+  pointer-events: none;
+}
+
+.dropdown-menu-md {
+  min-width: 12.5rem;
+  border: 0.3rem;
+}
+
+.mt--450 {
+  margin-top: -450px !important;
+}
+
+.margin-tl {
+  margin-top: 0.45rem !important;
+  margin-left: 1rem !important;
+}
+
+.margin-tr {
+  margin-top: 0.45rem !important;
+  margin-right: 1rem !important;
+}
+
+.margin-l {
+  margin-left: 1rem !important;
+}
+
+.margin-r {
+  margin-right: 1rem !important;
+}
+
+.margin-b {
+  margin-bottom: 1.5rem !important;
+}
+
+.btn-std-case {
+  text-transform: unset !important;
+}
+
+.btn-sm {
+  height: auto;
 }

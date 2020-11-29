@@ -17,6 +17,9 @@
 
 */
 import React from "react";
+
+import { SketchPicker } from 'react-color';
+
 // nodejs library that concatenates classes
 import MaskEditor from "components/MaskEditor.js"
 import AppBase from "components/AppBase.js";
@@ -32,12 +35,12 @@ import mOverlay3 from 'assets/img/editorResources/editor_mask_N95_type2_overlay.
 import mOverlay4 from 'assets/img/editorResources/editor_mask_N95_overlay.png';
 //images
 import image1 from "assets/img/editorResources/editor_image_1.png"
-import image2 from "assets/img/editorResources/editor_image_2.png" 
-import image3 from "assets/img/editorResources/editor_image_3.png" 
-import image4 from "assets/img/editorResources/editor_image_4.jpg" 
-import image5 from "assets/img/editorResources/editor_image_5.jpg" 
-import image6 from "assets/img/editorResources/editor_image_6.png" 
-import image7 from "assets/img/editorResources/editor_image_7.png" 
+import image2 from "assets/img/editorResources/editor_image_2.png"
+import image3 from "assets/img/editorResources/editor_image_3.png"
+import image4 from "assets/img/editorResources/editor_image_4.jpg"
+import image5 from "assets/img/editorResources/editor_image_5.jpg"
+import image6 from "assets/img/editorResources/editor_image_6.png"
+import image7 from "assets/img/editorResources/editor_image_7.png"
 
 // reactstrap components
 import {
@@ -91,9 +94,16 @@ const DRAWER_5 = "Decorations"
 const DRAWER_LAYERS = "Decoration Layers"
 
 const btnImageStyle = {
-  paddingLeft: '1px',
-  width: '83px',
-  height: '82px',
+  marginRight: '-1px',
+  width: '84px',
+  height: '84px',
+  borderRadius: '14px',
+}
+
+const btnColorWheelStyle = {
+  marginRight: '10px',
+  width: '81px',
+  height: '80px',
   borderRadius: '14px',
 }
 
@@ -103,22 +113,22 @@ const accordionStyle = {
   overflowX: 'hidden',
 }
 
-const emptyness={
+const emptyness = {
   display: 'none'
 }
 
-	
-const btnBuyStyle = {	
-    color: '#525F7F',
-    background: "#F4F5F7",
-    borderWidth: '3px',
-    borderStyle: 'solid',
-    width: '120px',
-    height: '50px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-  };
+
+const btnBuyStyle = {
+  color: '#525F7F',
+  background: "#F4F5F7",
+  borderWidth: '3px',
+  borderStyle: 'solid',
+  width: '120px',
+  height: '50px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-around',
+};
 
 const btnOptionStyle = {
   background: "#525F7F",
@@ -197,188 +207,292 @@ const trashStyle = {
 class Builder extends AppBase {
 
   state = {
+    popupTitle: '',
+    alertPopup: false,
     shareChecked: false,
     expanded: '',
-    selectedLayer:-1,
+    selectedLayer: -1,
     decorations: [],
     maskType: mask,
-    maskBB:[],
-    preExport : false,
+    maskBB: [],
+    preExport: false,
     maskOverlay: mOverlay1,
     viewMode: false, // >>> if maskOverlay is visible in canvas
     clearDraw: false,
     canDraw: false,
     modalOpen: false,
-    sessionID:-1,
-    user:'',
-    pass:'',
-    tags:'',
-    title:'',
-    description:''
+    sessionID: -1,
+    user: '',
+    pass: '',
+    tags: [],
+    title: '',
+    description: '',
+    paintColor: '#444444',
+    modalColorOpen: false,
+    pickerIsVisible: false,
+    selectedShapeName: '',
   };
 
-  handleLoad(){
-    
+  getPaintColor() {
+    return this.state.paintColor
   }
 
-  handleClearDrawing(){
+  handleClearDrawing() {
     this.setState({ clearDraw: true })
     this.handleFixClear()
   }
 
-  async handleFixClear(){
+  async handleFixClear() {
     await setTimeout(25)
     this.setState({ clearDraw: false })
   }
 
-  handleChangeImageSrc = src =>{
+  handleChangeImageSrc = src => {
     this.setState({
       maskType: src
     })
   }
-  handleChangeImageOverlay = over =>{
+  handleChangeImageOverlay = over => {
     this.setState({
       maskOverlay: over
     })
   }
 
-  handleAddImageLayer(name,lr){
+  handleAddImageLayer(name, lr) {
     this.setState({
-      decorations: [...this.state.decorations, (name,lr)]
+      decorations: [...this.state.decorations, (name, lr)]
     })
   }
 
-  nameParser(string){
-    return (string.split('/').splice(-1)+'').split('.').splice(0,1)
+  nameParser(string) {
+    return (string.split('/').splice(-1) + '').split('.').splice(0, 1)
   }
 
-  handleAddShape(element){
+  handleAddShape(element) {
     this.setState({
       decorations: [...this.state.decorations, element]
     })
   }
 
-  toggleViewMode(){
+  toggleViewMode() {
     this.setState({
       viewMode: !this.state.viewMode
     })
   }
 
-  toggleCanDraw(){
+  toggleCanDraw() {
     this.setState({
       canDraw: !this.state.canDraw
     })
-    console.log("Builder canDraw:"+this.state.canDraw)
   }
 
-  handleCanDrawOption(){
+  handleMouseClick = (e) => {
+    try {
+      const id = e.target.id
+      const className = e.target.className
+      const parent = e.target.parentElement
+      const pparent = parent.parentElement
+      const ppparent = pparent.parentElement
+      const pppparent = ppparent.parentElement
+      const pClassName = parent.className
+      const ppClassName = pparent.className
+      const pppClassName = ppparent.className
+      const ppppClassName = pppparent.className
+
+      //console.log("1"+className, "2"+pClassName, "3"+ppClassName, "4"+pppClassName, "5"+pppClassName)
+
+      if (id !== 'imgColorWheel') {
+        if (className !== 'sketch-picker '
+          && className !== 'saturation-white'
+          && className !== 'saturation-black'
+          && className !== 'flexbox-fix'
+          && className !== 'hue-horizontal'
+          && pClassName !== 'flexbox-fix'
+          && pClassName !== 'saturation-white'
+          && pClassName !== 'hue-horizontal'
+          && ppClassName !== 'flexbox-fix'
+          && ppClassName !== 'saturation-white'
+          && ppClassName !== 'hue-horizontal'
+          && pppClassName !== 'flexbox-fix'
+          && ppppClassName !== 'flexbox-fix'
+          && !id.includes("rc-editable-input")) {
+          if (true) {
+            this.setState({
+              pickerIsVisible: false
+            })
+          }
+        }
+      }
+    } catch { }
+  }
+
+  tagOrder(input) {
+    try {
+      for (var i = 0; i < input.length; i++) {
+        const value = input[i]
+        console.log(value)
+        if (value === ' ' || value === 'undefined' || value === null) {
+          input.splice(i, 1);
+          console.log(input)
+        }
+      }
+      return input
+    } catch {
+      return ["", ""]
+    }
+  }
+
+  tagParser(input) {
+    try {
+      const MAXTAGSIZE = 13
+      const SEPARATOR = ' '
+      var tags = []
+
+      if (Array.isArray(input)) {
+        if (input.length === 1) {
+          input = input.pop()
+
+          var pattern = '#',
+            re = new RegExp(pattern, "g");
+
+          input = input.replace(re, '')
+          input = input.split(SEPARATOR)
+          for (var i = 0; i < input.length; i++) {
+            if ((input[i]).length > MAXTAGSIZE) {
+              tags[i] = input[i].substring(0, MAXTAGSIZE) + "..."
+            } else {
+              tags[i] = input[i]
+            }
+          }
+          var filtered = tags.filter(function (el) {
+            return el !== "";
+          });
+
+          filtered.sort(function (a, b) {
+            return a.length - b.length;
+          });
+
+        } else {
+          return input
+        }
+      }
+      return filtered
+    } catch {
+      return [""]
+    }
+  }
+
+  toggleColorPicker() {
+    this.setState({
+      pickerIsVisible: !this.state.pickerIsVisible
+    })
+  }
+
+  handleCanDrawOption() {
     const active = (
-      <div style={{display:'flex', height: 30, width: 30, flexDirection: 'column', alignItems: 'bottom', justifyContent: 'center'}}>
-        <div style={{paddingBottom:'-40px', paddingTop:'13px'}}><h3><i className="fa fa-toggle-on" style={{color: '#33AA55'}}></i></h3></div>
+      <div style={{ display: 'flex', height: 30, width: 30, flexDirection: 'column', alignItems: 'bottom', justifyContent: 'center' }}>
+        <div style={{ paddingBottom: '-40px', paddingTop: '13px' }}><h3><i className="fa fa-toggle-on" style={{ color: '#33AA55' }}></i></h3></div>
       </div>
     )
     const inactive = (
-      <div style={{display:'flex', height: 30, width: 30, flexDirection: 'column', alignItems: 'bottom', justifyContent: 'center', transform: 'rotate(180deg)'}}>
-          <div><h3><i className="fa fa-toggle-on" style={{color: '#444444'}}></i></h3></div>
+      <div style={{ display: 'flex', height: 30, width: 30, flexDirection: 'column', alignItems: 'bottom', justifyContent: 'center', transform: 'rotate(180deg)' }}>
+        <div><h3><i className="fa fa-toggle-on" style={{ color: '#444444' }}></i></h3></div>
       </div>
     )
 
-    if(this.state.canDraw){
-      return(
-        <div style={{display:'flex', flexDirection: 'column', alignItems: 'center'}}>
+    if (this.state.canDraw) {
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <div>Pen</div>
-            {active}
+          {active}
         </div>
       )
-    }else{
-        return(
-          <div style={{display:'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <div>Pen</div>
-              {inactive}
-          </div>
-        )
+    } else {
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <div>Pen</div>
+          {inactive}
+        </div>
+      )
     }
   }
 
-  toggleShareCheck(){
+  toggleShareCheck() {
     this.setState({
       shareChecked: !this.state.shareChecked
     })
-    setTimeout(()=>{
-      if(this.state.shareChecked){
-        if(!this.userHasSession()){
-          this.setState({modalOpen: true})
-          
+    setTimeout(() => {
+      if (this.state.shareChecked) {
+        if (!this.userHasSession()) {
+          this.setState({ modalOpen: true })
+
         }
       }
-    },200);
+    }, 200);
   }
 
-  handleViewMode(){
-    if(this.state.viewMode){
-        return(
-          <div style={{display: 'flex', maxHeight:'30px', alignItems: 'center', justifyContent: 'space-evenly'}}>
-              <div></div>
-              <div>How it looks?</div><div style={{paddingTop: '5px'}}><h3><i className="fa fa-eye" style={{color:'#006600'}}></i></h3></div>
-              <div></div>
-          </div>
-        )
-    }else{
-        return(
-          <div style={{display: 'flex', maxHeight:'30px', alignItems: 'center', justifyContent: 'space-evenly'}}>
-              <div></div>
-              <div>How it looks?</div><div style={{paddingTop: '5px'}}><h3><i className="fa fa-eye-slash" style={{color:'#990000'}}></i></h3></div>
-              <div></div>
-          </div>
-        )
+  handleViewMode() {
+    if (this.state.viewMode) {
+      return (
+        <div style={{ display: 'flex', maxHeight: '30px', alignItems: 'center', justifyContent: 'space-evenly' }}>
+          <div></div>
+          <div>How it looks?</div><div style={{ paddingTop: '5px' }}><h3><i className="fa fa-eye" style={{ color: '#006600' }}></i></h3></div>
+          <div></div>
+        </div>
+      )
+    } else {
+      return (
+        <div style={{ display: 'flex', maxHeight: '30px', alignItems: 'center', justifyContent: 'space-evenly' }}>
+          <div></div>
+          <div>How it looks?</div><div style={{ paddingTop: '5px' }}><h3><i className="fa fa-eye-slash" style={{ color: '#990000' }}></i></h3></div>
+          <div></div>
+        </div>
+      )
     }
   }
 
-  handleShareChecked(){
-        if(this.state.shareChecked){
-            return(
-              <div style={{display: 'flex', maxHeight:'40px', alignItems: 'center', justifyContent: 'space-between'}}>
-                <div><h4><i className="fa fa-check-square" style={{color:'#525F7F'}}></i></h4></div><div>Write tag and submit!</div>
-              </div>
-            )
-        }else{
-            return(
-              <div style={{display: 'flex', maxHeight:'40px', alignItems: 'center', justifyContent: 'space-between'}}>
+  handleShareChecked() {
+    if (this.state.shareChecked) {
+      return (
+        <div style={{ display: 'flex', maxHeight: '40px', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div><h4><i className="fa fa-check-square" style={{ color: '#525F7F' }}></i></h4></div><div>Write tag and submit!</div>
+        </div>
+      )
+    } else {
+      return (
+        <div style={{ display: 'flex', maxHeight: '40px', alignItems: 'center', justifyContent: 'space-between' }}>
 
-                <div><h4><i className="fa fa-square" style={{color:'#AAAAAA'}}></i></h4></div><div>Share my design</div></div>)
-        }
+          <div><h4><i className="fa fa-square" style={{ color: '#AAAAAA' }}></i></h4></div><div>Share my design</div></div>)
+    }
   }
 
-  addMaskToCollection=()=>{
-    
+  addMaskToCollection = () => {
     var title = this.state.title
     var image = this.refs.editor.handleExportImage()
-    var tags = this.state.tags
+    var tags = []
     var description = this.state.description
-
     var data = {
-      id : Math.floor(1000 + Math.random() * 9000),
+      id: Math.floor(1000 + Math.random() * 9000),
       title: title,
       image: image,
       description: description,
-      tags: tags
+      tags: this.tagParser(tags.concat(this.state.tags))
     }
-
     var ms = this.getCookie("addedMasks")
-
-    if(ms === null){
+    if (ms === null) {
       ms = []
     }
-
     ms.push(data)
-
-    this.setCookie("addedMasks",ms);
+    this.setCookie("addedMasks", ms);
+    this.setState({
+      title: '', description: '', tags: []
+    })
   }
 
-  handleDeleteLayer = item =>{
-    var state = this.state.decorations.filter( (el,index)=>{
+  handleDeleteLayer = item => {
+    var state = this.state.decorations.filter((el, index) => {
       return index !== item
-    },{})
+    }, {})
     this.setState({
       decorations: state
     })
@@ -386,7 +500,7 @@ class Builder extends AppBase {
 
   download = () => {
     this.setState({
-      preExport : !this.state.preExport
+      preExport: !this.state.preExport
     })
     //this.refs.editor.handleExportClick()
   }
@@ -399,667 +513,766 @@ class Builder extends AppBase {
     this.setExpanded(newExpanded ? panel : false);
   };
 
-  handleImageBB = img =>{
+  handleImageBB = img => {
     this.setState({
-      maskBB : [...this.state.maskBB, img]
+      maskBB: [...this.state.maskBB, img]
     })
   }
 
-  handleAddNewImageUser = () =>{  
+  handleAddNewImageUser = () => {
     var fileInput = document.getElementById('file-input');
     var img = new Image();
     var reader = new FileReader();
     fileInput.click();
 
-    fileInput.onchange = function(e){
-        const file = fileInput.files[0];
+    fileInput.onchange = function (e) {
+      const file = fileInput.files[0];
 
-        reader.onload = function(e) {    
-            img.src = reader.result;     
-        }
-        if(file instanceof Blob)
-          reader.readAsDataURL(file);
-    };  
+      reader.onload = function (e) {
+        img.src = reader.result;
+      }
+      if (file instanceof Blob)
+        reader.readAsDataURL(file);
+    };
 
-    reader.onloadend = ( ) => this.handleImageBB(img);
-    
+    reader.onloadend = () => this.handleImageBB(img);
+
+  }
+
+  handleChangeComplete = (color) => {
+    this.setState({ paintColor: color.hex });
+    this.setCookie("editorPickedColor", color.hex)
+  };
+
+  setModalOpen = () => {
+    this.setState({ modalColorOpen: !this.state.modalColorOpen })
   }
 
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
-    
+    this.setCookie("editorPickedColor", "#444444")
+
     let ss = this.getCookie("sessionID")
-    if( ss !== null )
-      this.setState({sessionID:ss})
-    
-    console.log("Session ID:",this.state.sessionID)
-    
+    if (ss !== null)
+      this.setState({ sessionID: ss })
+
+    //console.log("Session ID:",this.state.sessionID)
   }
 
-  
+  setModalOpen = () => {
+    this.setState({ modalColorOpen: !this.state.modalColorOpen })
+  }
 
+  selectedShapeNameFunction = data => {
+    this.setState({
+      selectedShapeName: data
+    })
+  }
+
+  displayColorPicker() {
+    try {
+      if (this.state.pickerIsVisible) {
+        const elem = document.getElementById("btnColorWheel")
+        const window = document.body.getBoundingClientRect()
+        const btnColorWheel = elem.getBoundingClientRect()
+        var offset = window.top;
+        return (<div onMouseLeave={() => { this.setState({ pickerIsVisible: false }) }} style={{ position: 'absolute', zIndex: 10, top: btnColorWheel.y - 10 - offset, left: btnColorWheel.x + 25 }}>
+          <SketchPicker id="colorPicker" ref="colorPicker"
+            disableAlpha={true}
+            color={this.state.paintColor}
+            onChangeComplete={this.handleChangeComplete} />
+        </div>)
+      } else {
+        return (<div></div>)
+      }
+    } catch {/*case where btn isn't visible*/ }
+  }
+
+  shareMaskTrigger = () => {
+    this.addMaskToCollection()
+    this.setState({ modalOpen: !this.state.modalOpen })
+    this.setState({ shareChecked: !this.state.shareChecked })
+    setTimeout(() => {
+      this.setState({
+        popupTitle: "🎉 Congratulations!",
+        popupDescription: "You have shared your mask design with the TMASK community!",
+        alertPopup: true
+      })
+    }, 600);
+  }
 
   render() {
-    
-      return (
+    return (
       <>
-        <DemoNavbar />
-        <main ref="main">
-          <div className="position-relative">
-            {/* shape Hero */}
-            <section className="section section-lg section-shaped pb-250">
-              <div className="shape shape-style-1 shape-default">
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-              </div>
-              <br></br>
-
-              <Row>
-
-
-                <Col id="leftComponent" className="col-3" style={{zIndex: 0}}>
-
-                  <Col style={{userSelect: 'none'}}>
-
-                    <Card className="card shadow" style={{ height: "800px" }}>
-
-                      <Accordion defaultActiveKey="0">
-
-                        <Accordion.Toggle as={CardHeader} eventKey="0">
-                          {" "}<i className="fa fa-head-side-mask"></i>{" "}<i className="fa fa-shield"></i> {DRAWER_1}
+        <div onClick={(e) => { this.handleMouseClick(e) }}>
+          <DemoNavbar />
+          <main ref="main">
+            <div className="position-relative">
+              {/* shape Hero */}
+              <section className="section section-lg section-shaped pb-250">
+                <div className="shape shape-style-1 shape-default">
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                </div>
+                <br></br>
+                <Row>
+                  <Col id="leftComponent" className="col-3" style={{ zIndex: 0 }}>
+                    {this.displayColorPicker()}
+                    <Col style={{ userSelect: 'none' }}>
+                      <Card className="card shadow" style={{ height: "800px" }}>
+                        <Accordion defaultActiveKey="0">
+                          <Accordion.Toggle as={CardHeader} eventKey="0">
+                            {" "}<i className="fa fa-head-side-mask"></i>{" "}<i className="fa fa-shield"></i> {DRAWER_1}
                           </Accordion.Toggle>
-                        <Accordion.Collapse style={accordionStyle} eventKey="0">
-                          <div style={RAM}>
-                          <Button
-                              color="primary"
-                              style={btnStyle}
-                              onClick={() => { /* change background image of mask */ }}>
-                          <img src={require("assets/img/editorResources/editor_mask_cloth.png").default} style={btnImageStyle} alt="Triangle" 
-                          onClick={ (e)=>{
-                            e.preventDefault()
-                            this.handleChangeImageSrc(mask1)
-                            this.handleChangeImageOverlay(mOverlay1)
-                          }} />
-                          </Button>
-
-                          <Button
-                              color="primary"
-                              style={btnStyle}
-                              onClick={() => { /* change background image of mask */ }}>
-                          <img src={require("assets/img/editorResources/editor_mask_cirurgical.png").default} style={btnImageStyle} alt="Triangle" 
-                            onClick={ (e)=>{
-                            e.preventDefault()
-                            this.handleChangeImageSrc(mask2)
-                            this.handleChangeImageOverlay(mOverlay2)
-                          }} /> </Button>
-
-                          <Button
-                              color="primary"
-                              style={btnStyle}
-                              onClick={() => { /* change background image of mask */ }}>
-                          <img src={require("assets/img/editorResources/editor_mask_N95_type2.png").default} style={btnImageStyle} alt="Triangle" 
-                            onClick={ (e)=>{
-                              e.preventDefault()
-                              this.handleChangeImageSrc(mask3)
-                              this.handleChangeImageOverlay(mOverlay3)
-                            }} />                          
-                          </Button>
-
-                          <Button
-                              color="primary"
-                              style={btnStyle}
-                              onClick={() => { /* change background image of mask */ }}>
-                          <img src={require("assets/img/editorResources/editor_mask_N95.png").default} style={btnImageStyle} alt="Triangle" 
-                          onClick={ (e)=>{
-                            e.preventDefault()
-                            this.handleChangeImageSrc(mask4)
-                            this.handleChangeImageOverlay(mOverlay4)
-                          }} />
-                          </Button>
-
-                          </div>
-                        </Accordion.Collapse>
-
-                        <Card>
-                          <Accordion.Toggle as={CardHeader} eventKey="1">
-                            <i className="fa fa-cubes"></i> {DRAWER_2}
-                            </Accordion.Toggle>
-                          <Accordion.Collapse style={accordionStyle} eventKey="1">
+                          <Accordion.Collapse style={accordionStyle} eventKey="0">
                             <div style={RAM}>
                               <Button
                                 color="primary"
                                 style={btnStyle}
-                                onClick={() => { }}
-                              >
-                                Cloth
-                                </Button>
-
-                              <Button
-                                color="primary"
-                                style={btnStyle}
-                                onClick={() => {  }}
-                              >
-                                Plastic
-                                </Button>
-
-                              <Button
-                                color="primary"
-                                style={btnStyle}
-                                onClick={() => { }}
-                              >
-                                100% Cotton
+                                onClick={() => { /* change background image of mask */ }}>
+                                <img src={require("assets/img/editorResources/editor_mask_cloth.png").default} style={btnImageStyle} alt="Triangle"
+                                  onClick={(e) => {
+                                    e.preventDefault()
+                                    this.handleChangeImageSrc(mask1)
+                                    this.handleChangeImageOverlay(mOverlay1)
+                                  }} />
                               </Button>
 
                               <Button
                                 color="primary"
                                 style={btnStyle}
-                                onClick={() => { }}
-                              >
-                                Poly-propylene
+                                onClick={() => { /* change background image of mask */ }}>
+                                <img src={require("assets/img/editorResources/editor_mask_cirurgical.png").default} style={btnImageStyle} alt="Triangle"
+                                  onClick={(e) => {
+                                    e.preventDefault()
+                                    this.handleChangeImageSrc(mask2)
+                                    this.handleChangeImageOverlay(mOverlay2)
+                                  }} /> </Button>
+
+                              <Button
+                                color="primary"
+                                style={btnStyle}
+                                onClick={() => { /* change background image of mask */ }}>
+                                <img src={require("assets/img/editorResources/editor_mask_N95_type2.png").default} style={btnImageStyle} alt="Triangle"
+                                  onClick={(e) => {
+                                    e.preventDefault()
+                                    this.handleChangeImageSrc(mask3)
+                                    this.handleChangeImageOverlay(mOverlay3)
+                                  }} />
+                              </Button>
+
+                              <Button
+                                color="primary"
+                                style={btnStyle}
+                                onClick={() => { /* change background image of mask */ }}>
+                                <img src={require("assets/img/editorResources/editor_mask_N95.png").default} style={btnImageStyle} alt="Triangle"
+                                  onClick={(e) => {
+                                    e.preventDefault()
+                                    this.handleChangeImageSrc(mask4)
+                                    this.handleChangeImageOverlay(mOverlay4)
+                                  }} />
                               </Button>
 
                             </div>
                           </Accordion.Collapse>
-                        </Card>
-                        <Card>
-                          <Accordion.Toggle as={CardHeader} eventKey="2">
-                            <div style={{
-                              flex: 1,
-                              flexDirection: 'row',
-                              justifyContent: 'right',
-                            }}>
-                            <i className="fa fa-image"></i> {DRAWER_3}
-                            </div>
+
+                          <Card>
+                            <Accordion.Toggle as={CardHeader} eventKey="1">
+                              <i className="fa fa-cubes"></i> {DRAWER_2}
                             </Accordion.Toggle>
-                          <Accordion.Collapse style={accordionStyle} eventKey="2">
-                            <div style={RAM}>
-                            <input id="file-input" type="file" name="name" style={emptyness} />
-                            <Button
-                            color="primary"
-                            style={btnCloudStyle}
-                            onClick={ (e)=>{
-                              e.preventDefault() 
-                              this.handleAddNewImageUser() }}>
-                            <div>
-                              <h3 style={{paddingLeft:'4px'}}><font color='EEEEEE'><i className="fa fa-cloud-upload"></i></font></h3>
-                              <font color='FFFFFF'>Upload</font>
-                            </div>
-                            </Button>
-                              {this.state.maskBB.map((el,index)=>
-                                (<div key={index}>
-                                  <Button
-                                    color="primary"
-                                    style={btnStyle}
-                                    onClick={() => { }}>
-                                    <img src={el.src} style={btnImageStyle} alt="Not Bob Ross" 
-                                      onClick={(e)=>{
+                            <Accordion.Collapse style={accordionStyle} eventKey="1">
+                              <div style={RAM}>
+                                <Button
+                                  color="primary"
+                                  style={btnStyle}
+                                  onClick={() => { }}
+                                >
+                                  Cloth
+                                </Button>
+
+                                <Button
+                                  color="primary"
+                                  style={btnStyle}
+                                  onClick={() => { }}
+                                >
+                                  Plastic
+                                </Button>
+
+                                <Button
+                                  color="primary"
+                                  style={btnStyle}
+                                  onClick={() => { }}
+                                >
+                                  100% Cotton
+                              </Button>
+
+                                <Button
+                                  color="primary"
+                                  style={btnStyle}
+                                  onClick={() => { }}
+                                >
+                                  Poly-propylene
+                              </Button>
+
+                              </div>
+                            </Accordion.Collapse>
+                          </Card>
+                          <Card>
+                            <Accordion.Toggle as={CardHeader} eventKey="2">
+                              <div style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                                justifyContent: 'right',
+                              }}>
+                                <i className="fa fa-image"></i> {DRAWER_3}
+                              </div>
+                            </Accordion.Toggle>
+                            <Accordion.Collapse style={accordionStyle} eventKey="2">
+                              <div style={RAM}>
+                                <input id="file-input" type="file" name="name" style={emptyness} />
+                                <Button
+                                  color="primary"
+                                  style={btnCloudStyle}
+                                  onClick={(e) => {
+                                    e.preventDefault()
+                                    this.handleAddNewImageUser()
+                                  }}>
+                                  <div>
+                                    <h3 style={{ paddingLeft: '4px' }}><font color='EEEEEE'><i className="fa fa-cloud-upload"></i></font></h3>
+                                    <font color='FFFFFF'>Upload</font>
+                                  </div>
+                                </Button>
+                                {this.state.maskBB.map((el, index) =>
+                                  (<div key={index}>
+                                    <Button
+                                      color="primary"
+                                      style={btnStyle}
+                                      onClick={() => { }}>
+                                      <img src={el.src} style={btnImageStyle} alt="Not Bob Ross"
+                                        onClick={(e) => {
+                                          e.preventDefault()
+                                          this.handleAddImageLayer("editor_image_1", el.src)
+                                        }} />
+                                    </Button>
+                                  </div>)
+                                )}
+
+                                <Button
+                                  color="primary"
+                                  style={btnStyle}
+                                  onClick={() => { }}>
+                                  <img src={require("assets/img/editorResources/editor_image_1.png").default} style={btnImageStyle} alt="Bob Ross"
+                                    onClick={(e) => {
                                       e.preventDefault()
-                                      this.handleAddImageLayer("editor_image_1", el.src)
-                                    }}/>
-                                 </Button>
-                                </div>)
-                              )}
 
-                              <Button
-                                color="primary"
-                                style={btnStyle}
-                                onClick={() => { }}>
-                              <img src={require("assets/img/editorResources/editor_image_1.png").default} style={btnImageStyle} alt="Bob Ross" 
-                                onClick={(e)=>{
-                                e.preventDefault()
-                                
-                                this.handleAddImageLayer("editor_image_1", image1)
-                                }}/>
-                              </Button>
+                                      this.handleAddImageLayer("editor_image_1", image1)
+                                    }} />
+                                </Button>
 
-                              <Button
-                                color="primary"
-                                style={btnStyle}
-                                onClick={() => {  }}>
-                              <img src={require("assets/img/editorResources/editor_image_2.png").default} style={btnImageStyle} alt="Triangle" 
-                                onClick={(e)=>{
-                                e.preventDefault()
-                                
-                                this.handleAddImageLayer("editor_image_2", image2)
-                                }}/>
-                              </Button>
+                                <Button
+                                  color="primary"
+                                  style={btnStyle}
+                                  onClick={() => { }}>
+                                  <img src={require("assets/img/editorResources/editor_image_2.png").default} style={btnImageStyle} alt="Triangle"
+                                    onClick={(e) => {
+                                      e.preventDefault()
 
-                              <Button
-                                color="primary"
-                                style={btnStyle}
-                                onClick={() => { }}>
-                              <img src={require("assets/img/editorResources/editor_image_3.png").default} style={btnImageStyle} alt="Triangle" 
-                                onClick={(e)=>{
-                                e.preventDefault()
-                                
-                                this.handleAddImageLayer("editor_image_3", image3)
-                                }}/>
-                              </Button>
+                                      this.handleAddImageLayer("editor_image_2", image2)
+                                    }} />
+                                </Button>
 
-                              <Button
-                                color="primary"
-                                style={btnStyle}
-                                onClick={() => { }}>
-                              <img src={require("assets/img/editorResources/editor_image_4.jpg").default} style={btnImageStyle} alt="Triangle" 
-                                onClick={(e)=>{
-                                e.preventDefault()
-                                
-                                this.handleAddImageLayer("editor_image_4", image4)
-                                }}/>
-                              </Button>
+                                <Button
+                                  color="primary"
+                                  style={btnStyle}
+                                  onClick={() => { }}>
+                                  <img src={require("assets/img/editorResources/editor_image_3.png").default} style={btnImageStyle} alt="Triangle"
+                                    onClick={(e) => {
+                                      e.preventDefault()
 
-                              <Button
-                                color="primary"
-                                style={btnStyle}
-                                onClick={() => { }}>
-                              <img src={require("assets/img/editorResources/editor_image_5.jpg").default} style={btnImageStyle} alt="Triangle" 
-                                onClick={(e)=>{
-                                e.preventDefault()
-                                
-                                this.handleAddImageLayer("editor_image_5", image5)
-                                }}/>
-                              </Button>
+                                      this.handleAddImageLayer("editor_image_3", image3)
+                                    }} />
+                                </Button>
 
-                              <Button
-                                color="primary"
-                                style={btnStyle}
-                                onClick={() => { }}>
-                              <img src={require("assets/img/editorResources/editor_image_6.png").default} style={btnImageStyle} alt="Triangle" 
-                                onClick={(e)=>{
-                                e.preventDefault()
-                                
-                                this.handleAddImageLayer("editor_image_6", image6)
-                                }}/>
-                              </Button>
+                                <Button
+                                  color="primary"
+                                  style={btnStyle}
+                                  onClick={() => { }}>
+                                  <img src={require("assets/img/editorResources/editor_image_4.jpg").default} style={btnImageStyle} alt="Triangle"
+                                    onClick={(e) => {
+                                      e.preventDefault()
 
-                              <Button
-                                color="primary"
-                                style={btnStyle}
-                                onClick={() => { }}>
-                              <img src={require("assets/img/editorResources/editor_image_7.png").default} style={btnImageStyle} alt="Triangle" 
-                                onClick={(e)=>{
-                                e.preventDefault()
-                                
-                                this.handleAddImageLayer("editor_image_7", image7)
-                                }}/>
-                              </Button>
+                                      this.handleAddImageLayer("editor_image_4", image4)
+                                    }} />
+                                </Button>
 
-                            </div>
-                          </Accordion.Collapse>
-                        </Card>
-                        <Card>
-                          <Accordion.Toggle as={CardHeader} eventKey="3">
-                            <i className="fa fa-paint-brush"></i> {DRAWER_4}
+                                <Button
+                                  color="primary"
+                                  style={btnStyle}
+                                  onClick={() => { }}>
+                                  <img src={require("assets/img/editorResources/editor_image_5.jpg").default} style={btnImageStyle} alt="Triangle"
+                                    onClick={(e) => {
+                                      e.preventDefault()
+
+                                      this.handleAddImageLayer("editor_image_5", image5)
+                                    }} />
+                                </Button>
+
+                                <Button
+                                  color="primary"
+                                  style={btnStyle}
+                                  onClick={() => { }}>
+                                  <img src={require("assets/img/editorResources/editor_image_6.png").default} style={btnImageStyle} alt="Triangle"
+                                    onClick={(e) => {
+                                      e.preventDefault()
+
+                                      this.handleAddImageLayer("editor_image_6", image6)
+                                    }} />
+                                </Button>
+
+                                <Button
+                                  color="primary"
+                                  style={btnStyle}
+                                  onClick={() => { }}>
+                                  <img src={require("assets/img/editorResources/editor_image_7.png").default} style={btnImageStyle} alt="Triangle"
+                                    onClick={(e) => {
+                                      e.preventDefault()
+
+                                      this.handleAddImageLayer("editor_image_7", image7)
+                                    }} />
+                                </Button>
+
+                              </div>
+                            </Accordion.Collapse>
+                          </Card>
+                          <Card>
+                            <Accordion.Toggle as={CardHeader} eventKey="3">
+                              <i className="fa fa-paint-brush"></i> {DRAWER_4}
                             </Accordion.Toggle>
-                          <Accordion.Collapse style={accordionStyle} eventKey="3">
-                            <div style={RAM}>
-                              <Button
-                                color="primary"
-                                style={btnOptionStyle}
-                                onClick={() => {  }}>
-                              <img src={require("assets/img/editorResources/editor_colorwheel.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
-                              </Button>
-
-                              <Button
-                                color="primary"
-                                style={btnOptionStyle}
-                                onClick={() => { this.toggleCanDraw() }}>
+                            <Accordion.Collapse style={accordionStyle} eventKey="3">
+                              <div style={RAM}>
+                                <Button
+                                  id="btnColorWheel"
+                                  color="primary"
+                                  style={btnOptionStyle}
+                                  onClick={() => this.toggleColorPicker()}>
+                                  <div style={{ width: '90px', height: '90px' }}>
+                                    <img id="imgColorWheel"
+                                      src={require("assets/img/editorResources/editor_colorwheel.png").default}
+                                      style={btnColorWheelStyle} alt="" onClick={() => this.toggleColorPicker()} />
+                                  </div>
+                                  <div style={
+                                    {
+                                      position: 'absolute', bottom: 0, right: 0, margin: 5,
+                                      minWidth: 32, minHeight: 32, maxWidth: 32, maxHeight: 32,
+                                      background: this.getPaintColor(), border: '2px solid #444444', borderRadius: '50%'
+                                    }}>
+                                  </div>
+                                </Button>
+                                <Button
+                                  color="primary"
+                                  style={btnOptionStyle}
+                                  onClick={() => { this.toggleCanDraw() }}>
                                   {this.handleCanDrawOption()}
-                              </Button>
-                              <Button
-                                color="primary"
-                                style={btnOptionStyle}
-                                onClick={() => {this.handleClearDrawing() }}>
+                                </Button>
+                                <Button
+                                  color="primary"
+                                  style={btnOptionStyle}
+                                  onClick={() => { this.handleClearDrawing() }}>
                                   Clear Drawing
                               </Button>
 
-                            </div>
-                          </Accordion.Collapse>
-                        </Card>
-                        <Card>
-                          <Accordion.Toggle as={CardHeader} eventKey="4">
-                            <i className="fa fa-star"></i> {DRAWER_5}
+                              </div>
+                            </Accordion.Collapse>
+                          </Card>
+                          <Card>
+                            <Accordion.Toggle as={CardHeader} eventKey="4">
+                              <i className="fa fa-star"></i> {DRAWER_5}
                             </Accordion.Toggle>
-                          <Accordion.Collapse style={accordionStyle} eventKey="4">
-                            <div style={RAM}>
+                            <Accordion.Collapse style={accordionStyle} eventKey="4">
+                              <div style={RAM}>
 
-                              <Button
-                                color="primary"
-                                style={btnStyle}
-                                onClick={() => { this.handleAddShape("heart") }}>
-                              <img src={require("assets/img/editorResources/editor_heart.png").default} style={btnImageStyle} alt="Heart" onClick={this.myfunction} />
-                              </Button>
+                                <Button
+                                  color="primary"
+                                  style={btnStyle}
+                                  onClick={() => { this.handleAddShape("heart") }}>
+                                  <img src={require("assets/img/editorResources/editor_heart.png").default} style={btnImageStyle} alt="Heart" onClick={this.myfunction} />
+                                </Button>
 
-                              <Button
-                                color="primary"
-                                style={btnStyle}
-                                onClick={() => { this.handleAddShape("star") }}>
-                              <img src={require("assets/img/editorResources/editor_star.png").default} style={btnImageStyle} alt="Star" onClick={this.myfunction} />
-                              </Button>
+                                <Button
+                                  color="primary"
+                                  style={btnStyle}
+                                  onClick={() => { this.handleAddShape("star") }}>
+                                  <img src={require("assets/img/editorResources/editor_star.png").default} style={btnImageStyle} alt="Star" onClick={this.myfunction} />
+                                </Button>
 
-                              <Button
-                                color="primary"
-                                style={btnStyle}
-                                onClick={() => { this.handleAddShape("triangle") }}>
-                              <img src={require("assets/img/editorResources/editor_triangle.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
-                              </Button>
+                                <Button
+                                  color="primary"
+                                  style={btnStyle}
+                                  onClick={() => { this.handleAddShape("triangle") }}>
+                                  <img src={require("assets/img/editorResources/editor_triangle.png").default} style={btnImageStyle} alt="Triangle" onClick={this.myfunction} />
+                                </Button>
 
-                              <Button
-                                color="primary"
-                                style={btnStyle}
-                                onClick={() => { this.handleAddShape("circle") }}>
-                              <img src={require("assets/img/editorResources/editor_circle.png").default} style={btnImageStyle} alt="Circle" onClick={this.myfunction} />
-                              </Button>
+                                <Button
+                                  color="primary"
+                                  style={btnStyle}
+                                  onClick={() => { this.handleAddShape("circle") }}>
+                                  <img src={require("assets/img/editorResources/editor_circle.png").default} style={btnImageStyle} alt="Circle" onClick={this.myfunction} />
+                                </Button>
 
-                              <Button
-                                color="primary"
-                                style={btnStyle}
-                                onClick={() => { this.handleAddShape("square") }}>
-                              <img src={require("assets/img/editorResources/editor_square.png").default} style={btnImageStyle} alt="Square" onClick={this.myfunction} />
-                              </Button>
+                                <Button
+                                  color="primary"
+                                  style={btnStyle}
+                                  onClick={() => { this.handleAddShape("square") }}>
+                                  <img src={require("assets/img/editorResources/editor_square.png").default} style={btnImageStyle} alt="Square" onClick={this.myfunction} />
+                                </Button>
 
-                              <Button
-                                color="primary"
-                                style={btnStyle}
-                                onClick={() => { this.handleAddShape("xmas") }}>
-                              <img src={require("assets/img/editorResources/editor_xmas.png").default} style={btnImageStyle} alt="XmasTree" onClick={this.myfunction} />
-                              </Button>
+                                <Button
+                                  color="primary"
+                                  style={btnStyle}
+                                  onClick={() => { this.handleAddShape("xmas") }}>
+                                  <img src={require("assets/img/editorResources/editor_xmas.png").default} style={btnImageStyle} alt="XmasTree" onClick={this.myfunction} />
+                                </Button>
 
-                            </div>
-                          </Accordion.Collapse>
-                        </Card>
+                              </div>
+                            </Accordion.Collapse>
+                          </Card>
 
-                      </Accordion>
-                      <Button onClick={
-                        (e)=>{
-                          this.toggleViewMode()
-                          e.preventDefault()
-                        this.download()
-                      }}>{this.handleViewMode()} </Button>
-                    </Card>
+                        </Accordion>
+                        <Button onClick={
+                          (e) => {
+                            this.toggleViewMode()
+                            e.preventDefault()
+                            this.download()
+                          }}>{this.handleViewMode()} </Button>
+                      </Card>
+                    </Col>
                   </Col>
-                </Col>
 
-                <Col id="middleComponent" className="col-6" style={{ zIndex: 1, display: 'flex', justifyContent: 'space-between', position: 'relative'}} >
-                  <Card id="editor" className="card shadow" style={{ height: "800px", maxWidth: "825px", position: 'absolute', left: '50%', transform: 'translateX(-50%)'}}>
+                  <Col id="middleComponent" className="col-6" style={{ zIndex: 1, display: 'flex', justifyContent: 'space-between', position: 'relative' }} >
+                    <Card id="editor" className="card shadow" style={{ height: "800px", maxWidth: "825px", position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
 
-                    <MaskEditor 
-                      width={825} height={800} canDraw={this.state.canDraw} maskOverlay={this.state.maskOverlay} preExport={this.state.preExport} 
-                      decorations={this.state.decorations} maskType={this.state.maskType} clearDraw={this.state.clearDraw} 
-                      ref="editor"/>
+                      {this.popup(this.state.popupTitle, this.state.popupDescription, "Close", this.state.alertPopup)}
 
-                    { (this.state.sessionID === -1) && //!this.state.hasSession &&
-                    <Modal className='modal-dialog-centered' toggle={() => {
-                      this.setState({modalOpen: !this.state.modalOpen})
-                      this.setState({shareChecked: !this.state.shareChecked})
-                      }} 
-                      
-                      isOpen={this.state.modalOpen}>
-                      <div className="text-muted text-center mb-3">
-                        <br></br>
-                        <big>You need to be signed in to <strong>share</strong>.</big>
-                      </div>
-                      <ModalBody>
-                      <div className="text-center text-muted mb-4">
-                        <small>Try one of the following test users:<br></br>
-                              <b>alicia</b>, <b>jonny</b>, <b>nahla</b>, <b>pedro</b><br></br>
+                      <MaskEditor paintColor={this.state.paintColor} selectedShapeName={this.selectedShapeNameFunction}
+                        width={825} height={800} canDraw={this.state.canDraw} maskOverlay={this.state.maskOverlay} preExport={this.state.preExport}
+                        decorations={this.state.decorations} maskType={this.state.maskType} clearDraw={this.state.clearDraw}
+                        ref="editor" />
+
+                      {(this.state.sessionID === -1) && //!this.state.hasSession &&
+                        <Modal className='modal-dialog-centered' toggle={() => {
+                          this.setState({ modalOpen: !this.state.modalOpen })
+                          this.setState({ shareChecked: !this.state.shareChecked })
+                        }}
+
+                          isOpen={this.state.modalOpen}>
+                          <div className="text-muted text-center mb-3">
+                            <br></br>
+                            <big>You need to be signed in to <strong>share</strong>.</big>
+                          </div>
+                          <ModalBody>
+                            <div className="text-center text-muted mb-4">
+                              <small>Try one of the following test users:<br></br>
+                                <b>alicia</b>, <b>jonny</b>, <b>nahla</b>, <b>pedro</b><br></br>
                               No password required.
                         </small>
-                        </div>
-                        <Form role="form" /*onSubmit={ this.handleSubmit}*/>
-                        <FormGroup className="mb-3">
-                          <InputGroup className="input-group-alternative">
-                            <InputGroupAddon addonType="prepend">
-                              <InputGroupText>
-                                <i className="ni ni-circle-08" />
-                              </InputGroupText>
-                            </InputGroupAddon>
-                            <Input id="id_account" placeholder="Username / Email" type="username" onChange={e=> this.setState({user: e.target.value})} />
-                          </InputGroup>
-                        </FormGroup>
-                        <FormGroup>
-                          <InputGroup className="input-group-alternative">
-                            <InputGroupAddon addonType="prepend">
-                              <InputGroupText>
-                                <i className="ni ni-lock-circle-open" />
-                              </InputGroupText>
-                            </InputGroupAddon>
-                            <Input
-                              id="id_password"
-                              placeholder="Password"
-                              type="password"
-                              autoComplete="off"
-                              onChange={e=> this.setState({pass: e.target.value})}
-                            />
-                          </InputGroup>
-                        </FormGroup>
-                        <div className="custom-control custom-control-alternative custom-checkbox">
-                          <input
-                            className="custom-control-input"
-                            id=" customCheckLogin"
-                            type="checkbox"
-                          />
-                          <label
-                            className="custom-control-label"
-                            htmlFor=" customCheckLogin"
-                          >
-                            <span>Remember me</span>
-                          </label>
-                        </div>
-                      </Form>
-                      </ModalBody>
-                      <ModalFooter>
-                      <div className="text-center">
-                          <Button //type="submit"
-                              className="my-4"
-                              color="primary"
-                              onClick={()=>{ 
-                                let login = this.validateSignIn(this.state.user,this.state.pass)
-                                if(login){
-                                  this.setState({sessionID:0})
-                                }
-                              }
-                              }//this.pressedSubmit()}}
-                              >
-                             SIGN IN
-                          </Button>
-                        </div>
-                        <Button
-                          color="secondary"
-                          type="button"
-                          onClick={() => {
-                            this.setState({modalOpen: !this.state.modalOpen})
-                            this.setState({shareChecked: !this.state.shareChecked})
-                          }}
-                        >
-                          Close
-                        </Button>
-                      </ModalFooter>
-                    </Modal>}
-                    { (this.state.sessionID !== -1) && //this.state.hasSession &&
-                      <Modal className='modal-dialog-centered' toggle={() => {
-                        this.setState({modalOpen: !this.state.modalOpen})
-                        this.setState({shareChecked: !this.state.shareChecked})
-                        }} 
-                        
-                        isOpen={this.state.modalOpen}>
-                        <div className="text-muted text-center mb-3">
-                          <br></br>
-                          <big><strong>Sharing with the community!</strong></big>
-                        </div>
-                        <ModalBody>
-                        
-                          <Form role="form" /*onSubmit={ this.handleSubmit}*/>
-                          <FormGroup className="mb-3">
-                          <InputGroup className="input-group-alternative">
-                              <InputGroupAddon addonType="prepend">
-                                <InputGroupText>
-                                  Title:
-                                </InputGroupText>
-                              </InputGroupAddon>
-                              <Input  placeholder="Write the name of your mask" type="text" onChange={
-                                e=>{
-                                  var str = e.target.value; 
-                                  if(str.length < 32){
-                                    this.setState({title: str})
-                                  }
-                                }} />
-                            </InputGroup>
-                            <InputGroup className="input-group-alternative">
-                              <InputGroupAddon addonType="prepend">
-                                <InputGroupText>
-                                  Description:
-                                </InputGroupText>
-                              </InputGroupAddon>
-                              <Input  placeholder="Write a description about it." type="text" onChange={
-                                e=>{
-                                  var str = e.target.value; 
-                                  if(str.length < 400){
-                                    this.setState({description: str})
-                                  }
-                                }} />
-                            </InputGroup>
-                            <InputGroup className="input-group-alternative">
-                              <InputGroupAddon addonType='prepend'>
-                                <InputGroupText>
-                                  <i className="fa fa-hashtag" />
-                                </InputGroupText>
-                              </InputGroupAddon>
-                              <Input  placeholder="Write Tags so other users can find this content." type="text" onChange={
-                                e=>{
-                                  var str = e.target.value;
-                                  if(str.length < 200){
-                                    var res = str.replace(/[, .]/g, (_, m1) => m1 ? "# " : '');
-                                    this.setState({tags: res})
-                                  }
-                                }} />
-                            </InputGroup>
-                          </FormGroup>
-                          <div style={{overflowWrap: 'break-word'}}>
-                              <big>A mask with {this.state.decorations.length} decorations will be Shared.</big>
-                              <br></br><br></br>
-                              <span>🖋️{" "}<b>Title:</b> </span> { this.state.title }
-                              <br></br>
-                              <span>📃{" "}<b>Description:</b> </span> { this.state.description }
-                              <br></br>
-                              <span>🏷️{" "}<b>Tags:</b> </span> { this.state.tags }
-                          </div>
-                            
-                        </Form>
-                        </ModalBody>
-                        <ModalFooter>
-                        <div className="text-center">
-                            <Button //type="submit"
+                            </div>
+                            <Form role="form" /*onSubmit={ this.handleSubmit}*/>
+                              <FormGroup className="mb-3">
+                                <InputGroup className="input-group-alternative">
+                                  <InputGroupAddon addonType="prepend">
+                                    <InputGroupText>
+                                      <i className="ni ni-circle-08" />
+                                    </InputGroupText>
+                                  </InputGroupAddon>
+                                  <Input id="id_account" placeholder="Username / Email" type="username" onChange={e => this.setState({ user: e.target.value })} />
+                                </InputGroup>
+                              </FormGroup>
+                              <FormGroup>
+                                <InputGroup className="input-group-alternative">
+                                  <InputGroupAddon addonType="prepend">
+                                    <InputGroupText>
+                                      <i className="ni ni-lock-circle-open" />
+                                    </InputGroupText>
+                                  </InputGroupAddon>
+                                  <Input
+                                    id="id_password"
+                                    placeholder="Password"
+                                    type="password"
+                                    autoComplete="off"
+                                    onChange={e => this.setState({ pass: e.target.value })}
+                                  />
+                                </InputGroup>
+                              </FormGroup>
+                              <div className="custom-control custom-control-alternative custom-checkbox">
+                                <input
+                                  className="custom-control-input"
+                                  id=" customCheckLogin"
+                                  type="checkbox"
+                                />
+                                <label
+                                  className="custom-control-label"
+                                  htmlFor=" customCheckLogin"
+                                >
+                                  <span>Remember me</span>
+                                </label>
+                              </div>
+                            </Form>
+                          </ModalBody>
+                          <ModalFooter>
+                            <div className="text-center">
+                              <Button //type="submit"
                                 className="my-4"
                                 color="primary"
-                                onClick={()=>{
-                                  this.addMaskToCollection()
-                                  this.setState({modalOpen: !this.state.modalOpen})
-                                  this.setState({shareChecked: !this.state.shareChecked})
-                                }}
-                                >
-                               Share
-                            </Button>
-                          </div>
-                          <Button
-                            color="secondary"
-                            type="button"
-                            onClick={() => {
-                              this.setState({modalOpen: !this.state.modalOpen})
-                              this.setState({shareChecked: !this.state.shareChecked})
-                            }}
-                          >
-                            Close
+                                onClick={() => {
+                                  let login = this.validateSignIn(this.state.user, this.state.pass)
+                                  if (login) {
+                                    this.setState({ sessionID: 0 })
+                                  }
+                                }
+                                }//this.pressedSubmit()}}
+                              >
+                                SIGN IN
                           </Button>
-                        </ModalFooter>
-                      </Modal>
-                    }
-
-                  </Card>
-                </Col>
-
-                <Col id="rightComponent" className="col-3" style={{zIndex: 0, height:800, maxHeight: 600}}>
-
-                  <Col style={{userSelect: 'none'}}>
-                  <Accordion>
-                    <Accordion as={CardHeader}>
-                      <img alt="" className="text-white" src={require("assets/svg/layer.svg").default}/>{" "} {DRAWER_LAYERS}
-                    </Accordion>
-                    <Card className="card shadow">
-                      <div style={{ overflowY: 'scroll', height: 518, maxHeight: 518 }}>
-                      {this.state.decorations.map((el, index) =>
-                        (<div style={simpleLayer} key={index}>
-                          <div style={{display: 'flex', backgroundColor:"#AAAAAA", alignItems: 'center', justifyContent: 'center', borderWidth: '1px', borderStyle:'double', width:56, height:42}}>
-                            <img alt="" src={el} style={{ maxWidth:54, maxHeight:40, preserveAspectRatio: true}}></img>
-                          </div>
-                          {" "}
-                          <span >
-                            {
-                            `Decoration ${index + 1}: ${ this.nameParser(this.state.decorations[index])}`
-                            }
-                          </span>
-                          <span style={trashStyle}>
-                            {<TrashCan onClick={() => {this.handleDeleteLayer(index)}}/>}
-                          </span>
-                        </div>)
-                      )}
-                      </div>
-
-                      <Card>
-                      <Accordion as={CardHeader} onClick={(e)=>{this.toggleShareCheck()}}>
-                            {this.handleShareChecked()}
-                      </Accordion>
-                    </Card>
-
-                    <Card>
-                      <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height:65 }}>
-                        <Button style={btnBuyStyle}>
-                            <i className="fa fa-shopping-cart"></i> Buy
+                            </div>
+                            <Button
+                              color="secondary"
+                              type="button"
+                              onClick={() => {
+                                this.setState({ modalOpen: !this.state.modalOpen })
+                                this.setState({ shareChecked: !this.state.shareChecked })
+                              }}
+                            >
+                              Close
                         </Button>
-                      </div>
+                          </ModalFooter>
+                        </Modal>}
+                      {(this.state.sessionID !== -1) && //this.state.hasSession &&
+                        <Modal className='modal-dialog-centered' toggle={() => {
+                          this.setState({ modalOpen: !this.state.modalOpen })
+                          this.setState({ shareChecked: !this.state.shareChecked })
+                        }}
+
+                          isOpen={this.state.modalOpen}>
+                          <div className="text-muted text-center mb-3" style={{userSelect:'none'}}>
+                            <br></br>
+                            <big><strong>Sharing with the community!</strong></big>
+                          </div>
+                          <ModalBody>
+
+                            <Form role="form" /*onSubmit={ this.handleSubmit}*/>
+                              <FormGroup className="mb-3">
+                                <InputGroup className="input-group-alternative">
+                                  <InputGroupAddon addonType="prepend">
+                                    <InputGroupText style={{userSelect:'none'}}>
+                                      Title:
+                                </InputGroupText>
+                                  </InputGroupAddon>
+                                  <Input placeholder="Write the name of your mask" type="text" onChange={
+                                    e => {
+                                      var str = e.target.value;
+                                      if (str.length < 32) {
+                                        this.setState({ title: str })
+                                      }
+                                    }} />
+                                </InputGroup>
+                                <InputGroup className="input-group-alternative">
+                                  <InputGroupAddon addonType="prepend">
+                                    <InputGroupText style={{userSelect:'none'}}>
+                                      Description:
+                                </InputGroupText>
+                                  </InputGroupAddon>
+                                  <Input placeholder="Write a description about it." type="text" onChange={
+                                    e => {
+                                      var str = e.target.value;
+                                      if (str.length < 400) {
+                                        this.setState({ description: str })
+                                      }
+                                    }} />
+                                </InputGroup>
+                                <InputGroup className="input-group-alternative">
+                                  <InputGroupAddon addonType='prepend'>
+                                    <InputGroupText>
+                                      <i className="fa fa-hashtag" />
+                                    </InputGroupText>
+                                  </InputGroupAddon>
+                                  <Input placeholder="Write Tags so other users can find this mask." type="text" onChange={
+                                    e => {
+                                      var str = e.target.value;
+                                      if (str.length < 200) {
+                                        var res = str.replace(/[, .]/g, (_, m1) => m1 ? "# " : '');
+                                        this.setState({ tags: res })
+                                      }
+                                    }} />
+                                </InputGroup>
+                              </FormGroup>
+                              <div style={{ overflowWrap: 'break-word', userSelect:'none' }}>
+                                <big>A mask with {this.state.decorations.length} decorations will be Shared.</big>
+                                <br></br><br></br>
+                                <span>🖋️{" "}<b>Title:</b> </span> {this.state.title}
+                                <br></br>
+                                <span>📃{" "}<b>Description:</b> </span> {this.state.description}
+                                <br></br>
+                                <span>🏷️{" "}<b>Tags:</b> </span> {this.state.tags}
+                              </div>
+                            </Form>
+                          </ModalBody>
+                          <ModalFooter>
+                            <div className="text-center">
+                              <Button //type="submit"
+                                className="my-4"
+                                color="primary"
+                                onClick={() => {
+                                  if (this.state.title === '') {
+                                    this.setState({
+                                      popupTitle: "⚠️ Can't share blank information!",
+                                      popupDescription: "Please provide a name for your mask design.",
+                                      alertPopup: true
+                                    })
+                                    return
+                                  }
+
+                                  if (this.state.description === '') {
+                                    this.setState({
+                                      popupTitle: "⚠️ Can't share blank information!",
+                                      popupDescription: "Please provide a description about your mask.",
+                                      alertPopup: true
+                                    })
+                                    return
+                                  }
+
+                                  if (this.state.tags.length === 0) {
+                                    this.setState({
+                                      popupTitle: "⚠️ Can't share blank information!",
+                                      popupDescription: "Please provide Tags so other users can find this mask.",
+                                      alertPopup: true
+                                    })
+                                    return
+                                  }
+
+                                  if (this.state.title !== '' && this.state.description !== '' && this.state.tags !== '') { this.shareMaskTrigger() }
+                                }}
+                              >
+                                Share
+                            </Button>
+                            </div>
+                            <Button
+                              color="secondary"
+                              type="button"
+                              onClick={() => {
+                                this.setState({ modalOpen: !this.state.modalOpen })
+                                this.setState({ shareChecked: !this.state.shareChecked })
+                              }}
+                            >
+                              Close
+                          </Button>
+                          </ModalFooter>
+                        </Modal>
+                      }
+
                     </Card>
-
-                  </Card>
-                  </Accordion>
                   </Col>
-                </Col>
 
-            </Row>
-              {/* SVG separator */}
-              <div className="separator separator-bottom separator-skew">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  preserveAspectRatio="none"
-                  version="1.1"
-                  viewBox="0 0 2560 100"
-                  x="0"
-                  y="0"
-                >
-                  <polygon
-                    className="fill-white"
-                    points="2560 0 2560 100 0 100"
-                  />
-                </svg>
-              </div>
-            </section>
-            {/* 1st Hero Variation */}
-          </div>
-        </main>
+                  <Col id="rightComponent" className="col-3" style={{ zIndex: 0 }}>
 
-        <CardsFooter />
+                    <Col style={{ userSelect: 'none' }}>
+                      <Accordion>
+                        <Accordion as={CardHeader}>
+                          <img alt="" className="text-white" src={require("assets/svg/layer.svg").default} />{" "} {DRAWER_LAYERS}
+                        </Accordion>
+                        <Card className="card shadow">
+                          <div style={{ overflowY: 'scroll', height: 583, maxHeight: 583 }}>
+                            {this.state.decorations.map((el, index) =>
+                              (<div style={simpleLayer} key={index}>
+                                <div style={{ display: 'flex', backgroundColor: "#AAAAAA", alignItems: 'center', justifyContent: 'center', borderWidth: '1px', borderStyle: 'double', width: 56, height: 42 }}>
+
+
+                                  {el === "heart" && "❤️"}
+                                  {el === "star" && "⭐"}
+                                  {el === "triangle" && "▲"}
+                                  {el === "circle" && "⬤"}
+                                  {el === "square" && "⬛"}
+                                  {el === "xmas" && "🎄"}
+                                  {
+                                    <img alt="" src={el} style={{ maxWidth: 54, maxHeight: 40, preserveAspectRatio: true }}></img>
+                                  }
+
+                                </div>
+                                {" "}
+                                <span >
+                                  {this.state.selectedShapeName === `heart${index}` && <b>➜ </b>}
+                                  {this.state.selectedShapeName === `star${index}` && <b>➜ </b>}
+                                  {this.state.selectedShapeName === `triangle${index}` && <b>➜ </b>}
+                                  {this.state.selectedShapeName === `circle${index}` && <b>➜ </b>}
+                                  {this.state.selectedShapeName === `square${index}` && <b>➜ </b>}
+                                  {this.state.selectedShapeName === `xmas${index}` && <b>➜ </b>}
+                                  {this.state.selectedShapeName === `image${index}` && <b>➜ </b>}
+
+                                  {
+                                    `${this.nameParser(this.state.decorations[index])}`
+                                  }
+                                </span>
+                                <span style={trashStyle}>
+                                  {<TrashCan onClick={() => { this.handleDeleteLayer(index) }} />}
+                                </span>
+                              </div>)
+                            )}
+                          </div>
+
+                          <Card>
+                            <Accordion as={CardHeader} onClick={(e) => { this.toggleShareCheck() }}>
+                              {this.handleShareChecked()}
+                            </Accordion>
+                          </Card>
+
+                          <Card>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: 65 }}>
+                              <Button style={btnBuyStyle}>
+                                <i className="fa fa-shopping-cart"></i> Buy
+                        </Button>
+                            </div>
+                          </Card>
+
+                        </Card>
+                      </Accordion>
+                    </Col>
+                  </Col>
+
+                </Row>
+                {/* SVG separator */}
+                <div className="separator separator-bottom separator-skew">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    preserveAspectRatio="none"
+                    version="1.1"
+                    viewBox="0 0 2560 100"
+                    x="0"
+                    y="0"
+                  >
+                    <polygon
+                      className="fill-white"
+                      points="2560 0 2560 100 0 100"
+                    />
+                  </svg>
+                </div>
+              </section>
+              {/* 1st Hero Variation */}
+            </div>
+          </main>
+
+          <CardsFooter />
+        </div>
       </>
     );
   }
 }
 
 export default Builder;
-

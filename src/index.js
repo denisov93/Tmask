@@ -32,43 +32,22 @@ import Register from "views/examples/Register.js";
 import Catalog from "views/examples/Catalog.js";
 import Builder from "views/examples/Builder.js";
 import Cart from "views/examples/Cart.js";
+import FacialFeatures from "views/examples/FacialFeatures.js";
+import NewFacialFeatures from "views/examples/NewFacialFeatures.js";
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      <Route path="/" exact render={props => <Landing {...props} />} />
-      <Route
-        path="/landing-page"
-        exact
-        render={props => <Landing {...props} />}
-      />
+      <Route path="/Tmask" exact render={props => <Landing {...props} />} />
       <Route path="/login-page" exact render={props => <Login {...props} />} />
-      <Route
-        path="/profile-page"
-        exact
-        render={props => <Profile {...props} />}
-      />
-      <Route
-        path="/register-page"
-        exact
-        render={props => <Register {...props} />}
-      />
-      <Route
-        path="/catalog"
-        exact
-        render={props => <Catalog {...props} />}
-      />
-      <Route
-        path="/builder"
-        exact
-        render={props => <Builder {...props} />}
-      />
-      <Route
-        path="/cart"
-        exact
-        render={props => <Cart {...props} />}
-      />
-      <Redirect to="/" />
+      <Route path="/profile-page" exact render={props => <Profile {...props} />} />
+      <Route path="/register-page" exact render={props => <Register {...props} />} />
+      <Route path="/catalog" exact render={props => <Catalog {...props} />} />
+      <Route path="/builder" exact render={props => <Builder {...props} />} />
+      <Route path="/cart" exact render={props => <Cart {...props} />} />
+      <Route path="/facial-features" exact render={props => <FacialFeatures {...props} />} />
+      <Route path="/facial-features/new" exact render={props => <NewFacialFeatures {...props} />} />
+      <Redirect to="/Tmask" />
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")

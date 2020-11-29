@@ -22,7 +22,6 @@ class URLImage extends Component {
         this.image.removeEventListener('load', this.handleLoad);
     }
     handleClick = () => {
-        console.log("Pressed an image")
         if(this.state.canChange){
             if(this.state.opacitySwitch){
                 this.setState({

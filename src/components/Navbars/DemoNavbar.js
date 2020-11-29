@@ -71,6 +71,12 @@ class DemoNavbar extends AppBase {
         })
     }
     });
+
+    let sessionID = this.getCookie("sessionID")
+    if( sessionID !== null )
+      if(this.state.uselessState===false)
+        this.setState({uselessState: !this.state.uselessState})
+
   }
 
   onExiting = () => {
@@ -87,10 +93,6 @@ class DemoNavbar extends AppBase {
 
   render() {
   
-    let sessionID = this.getCookie("sessionID")
-    if( sessionID !== null )
-      if(this.state.uselessState===false)
-        this.setState({uselessState: !this.state.uselessState})
     
     let cartPopup;
     
@@ -103,7 +105,7 @@ class DemoNavbar extends AppBase {
     return (
       <>
         <header className="header-global">
-          <Navbar
+          <Navbar style={{userSelect:'none'}}
             className="navbar-main navbar-transparent navbar-light headroom"
             expand="lg"
             id="navbar-main"
@@ -208,8 +210,9 @@ class DemoNavbar extends AppBase {
                   <NavItem>
                     <NavLink
                       className="nav-link-icon"
-                      href=""
+                      to="/"
                       id="tooltip112445449"
+                      tag={Link}
                       //target="_blank"
                     >
                       <i className="fa fa-question-circle" />
