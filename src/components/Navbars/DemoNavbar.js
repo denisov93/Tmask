@@ -105,7 +105,7 @@ class DemoNavbar extends AppBase {
     return (
       <>
         <header className="header-global">
-          <Navbar
+          <Navbar style={{userSelect:'none'}}
             className="navbar-main navbar-transparent navbar-light headroom"
             expand="lg"
             id="navbar-main"

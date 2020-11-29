@@ -282,7 +282,7 @@ class AppBase extends React.Component{
     this.state.basePopupOpen = flag
 
     const components = (
-      <Modal className='modal-dialog-centered' style={{maxWidth:390}} toggle={() => {
+      <Modal className='modal-dialog-centered' style={{maxWidth:390, userSelect:'none'}} toggle={() => {
         this.setState({basePopupOpen: !this.state.basePopupOpen})}} 
         isOpen={this.state.basePopupOpen}>
         <div className="text-muted text-center mb-3">

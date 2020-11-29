@@ -47,11 +47,11 @@ import SimpleFooter from "components/Footers/SimpleFooter.js";
 import AuthSys from "components/AuthSys.js";
 import AppBase from "components/AppBase.js";
 
-function Popup(){
+function Popup() {
   const [modalOpen, setModalOpen] = React.useState(false);
-  
+
   dataService.getData().subscribe(message => {
-    if(message.value === 'login_failed'){
+    if (message.value === 'login_failed') {
       setModalOpen(true)
     }
   });
@@ -60,15 +60,15 @@ function Popup(){
     <>
       <Modal className='modal-dialog-centered' toggle={() => setModalOpen(!modalOpen)} isOpen={modalOpen}>
         <div className=" modal-header">
-          <h5 className=" modal-title" id="loginPopup">
-          🔐 Authentication Fail
+          <h5 className=" modal-title" id="loginPopup" style={{ userSelect: 'none' }}>
+            🔐 Authentication Fail
           </h5>
         </div>
-        <ModalBody style={{display:'flex', flexDirection:'column' ,alignItems:'center'}}>
+        <ModalBody style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <div>
-          You entered invalid credentials.<br></br>
+            You entered invalid credentials.<br></br>
           Try one of the following test users:<br></br>
-          <b>alicia</b>, <b>jonny</b>, <b>nahla</b>, <b>pedro</b><br></br>
+            <b>alicia</b>, <b>jonny</b>, <b>nahla</b>, <b>pedro</b><br></br>
           No password required.
           </div>
         </ModalBody>
@@ -89,12 +89,12 @@ function Popup(){
 
 class Login extends AppBase {
 
-  constructor(){
+  constructor() {
     super()
-    
+
     this.state = {
-      user : "",
-      pass : ""
+      user: "",
+      pass: ""
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -106,19 +106,61 @@ class Login extends AppBase {
     this.refs.main.scrollTop = 0;
   }
 
-  handleSubmit(e){
+  handleSubmit(e) {
 
   }
 
-  pressedSubmit(){
-    var result = this.validateSignIn(this.state.user,this.state.pass)
-    if(!result){
+  pressedSubmit() {
+    var result = this.validateSignIn(this.state.user, this.state.pass)
+    if (!result) {
       dataService.setData('login_failed')
     }
-    if(result){
+    if (result) {
       window.location.assign("profile-page")
     }
     this.setState({})
+  }
+
+  loginAuthNetworks() {
+    let SHOW = false
+    if (SHOW) {
+      return (<CardHeader className="bg-white pb-5">
+        <div className="text-muted text-center mb-3">
+          <small>Sign in with</small></div>
+        <div className="btn-wrapper text-center">
+
+          <Button
+            className="btn-neutral btn-icon"
+            color="default"
+            href="#pablo"
+            onClick={e => e.preventDefault()}
+          >
+            <span className="btn-inner--icon mr-1">
+              <img
+                alt="..."
+                src={require("assets/img/icons/common/github.svg").default}
+              />
+            </span>
+            <span className="btn-inner--text">Github</span>
+          </Button>
+          <Button
+            className="btn-neutral btn-icon ml-1"
+            color="default"
+            href="#pablo"
+            onClick={e => e.preventDefault()}
+          >
+            <span className="btn-inner--icon mr-1">
+              <img
+                alt="..."
+                src={require("assets/img/icons/common/google.svg").default}
+              />
+            </span>
+            <span className="btn-inner--text">Google</span>
+          </Button>
+        </div>
+      </CardHeader>
+      )
+    }
   }
 
   render() {
@@ -141,47 +183,13 @@ class Login extends AppBase {
               <Row className="justify-content-center">
                 <Col lg="5">
                   <Card className="bg-secondary shadow border-0">
-                    <CardHeader className="bg-white pb-5">
-                      <div className="text-muted text-center mb-3">
-                        <small>Sign in with</small>
-                      </div>
-                      <div className="btn-wrapper text-center">
-                        <Button
-                          className="btn-neutral btn-icon"
-                          color="default"
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          <span className="btn-inner--icon mr-1">
-                            <img
-                              alt="..."
-                              src={require("assets/img/icons/common/github.svg").default}
-                            />
-                          </span>
-                          <span className="btn-inner--text">Github</span>
-                        </Button>
-                        <Button
-                          className="btn-neutral btn-icon ml-1"
-                          color="default"
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
-                          <span className="btn-inner--icon mr-1">
-                            <img
-                              alt="..."
-                              src={require("assets/img/icons/common/google.svg").default}
-                            />
-                          </span>
-                          <span className="btn-inner--text">Google</span>
-                        </Button>
-                      </div>
-                    </CardHeader>
-                    <Popup/>
+                      {this.loginAuthNetworks()}
+                    <Popup />
                     <CardBody className="px-lg-5 py-lg-5">
                       <div className="text-center text-muted mb-4">
-                        <small>Or sign in with credentials</small>
+                        <small>Sign in with credentials</small>
                       </div>
-                      <Form role="form" onSubmit={ this.handleSubmit}>
+                      <Form role="form" onSubmit={this.handleSubmit}>
                         <FormGroup className="mb-3">
                           <InputGroup className="input-group-alternative">
                             <InputGroupAddon addonType="prepend">
@@ -189,7 +197,7 @@ class Login extends AppBase {
                                 <i className="ni ni-circle-08" />
                               </InputGroupText>
                             </InputGroupAddon>
-                            <Input id="id_account" placeholder="Username / Email" type="username" onChange={e=> this.setState({user: e.target.value})} />
+                            <Input id="id_account" placeholder="Username / Email" type="username" onChange={e => this.setState({ user: e.target.value })} />
                           </InputGroup>
                         </FormGroup>
                         <FormGroup>
@@ -204,7 +212,7 @@ class Login extends AppBase {
                               placeholder="Password"
                               type="password"
                               autoComplete="off"
-                              onChange={e=> this.setState({pass: e.target.value})}
+                              onChange={e => this.setState({ pass: e.target.value })}
                             />
                           </InputGroup>
                         </FormGroup>
@@ -222,13 +230,13 @@ class Login extends AppBase {
                           </label>
                         </div>
                         <div className="text-center">
-                          <br/>
+                          <br />
                           <Button //type="submit"
-                              className="my-4"
-                              color="primary"
-                              onClick={()=>{this.pressedSubmit()}}
-                              >
-                             SIGN IN
+                            className="my-4"
+                            color="primary"
+                            onClick={() => { this.pressedSubmit() }}
+                          >
+                            SIGN IN
                           </Button>
                         </div>
                       </Form>
@@ -259,19 +267,19 @@ class Login extends AppBase {
             </Container>
             {/* SVG separator */}
             <div className="separator separator-bottom separator-skew">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  preserveAspectRatio="none"
-                  version="1.1"
-                  viewBox="0 0 2560 100"
-                  x="0"
-                  y="0"
-                >
-                  <polygon
-                    className="fill-white"
-                    points="2560 0 2560 100 0 100"
-                  />
-                </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="none"
+                version="1.1"
+                viewBox="0 0 2560 100"
+                x="0"
+                y="0"
+              >
+                <polygon
+                  className="fill-white"
+                  points="2560 0 2560 100 0 100"
+                />
+              </svg>
             </div>
           </section>
         </main>
