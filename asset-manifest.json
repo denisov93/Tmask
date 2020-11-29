@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Tmask/static/css/main.1493cebc.chunk.css",
-    "main.js": "/Tmask/static/js/main.fe56adfd.chunk.js",
-    "main.js.map": "/Tmask/static/js/main.fe56adfd.chunk.js.map",
+    "main.js": "/Tmask/static/js/main.22001136.chunk.js",
+    "main.js.map": "/Tmask/static/js/main.22001136.chunk.js.map",
     "runtime-main.js": "/Tmask/static/js/runtime-main.a1b06534.js",
     "runtime-main.js.map": "/Tmask/static/js/runtime-main.a1b06534.js.map",
     "static/js/2.0757845f.chunk.js": "/Tmask/static/js/2.0757845f.chunk.js",
@@ -10,7 +10,7 @@
     "index.html": "/Tmask/index.html",
     "static/css/main.1493cebc.chunk.css.map": "/Tmask/static/css/main.1493cebc.chunk.css.map",
     "static/js/2.0757845f.chunk.js.LICENSE.txt": "/Tmask/static/js/2.0757845f.chunk.js.LICENSE.txt",
-    "static/js/main.fe56adfd.chunk.js.LICENSE.txt": "/Tmask/static/js/main.fe56adfd.chunk.js.LICENSE.txt",
+    "static/js/main.22001136.chunk.js.LICENSE.txt": "/Tmask/static/js/main.22001136.chunk.js.LICENSE.txt",
     "static/media/TMASK_mask.png": "/Tmask/static/media/TMASK_mask.1fba033e.png",
     "static/media/diamond.02c63cc6.png": "/Tmask/static/media/diamond.02c63cc6.png",
     "static/media/editor_colorwheel.png": "/Tmask/static/media/editor_colorwheel.6cdd660d.png",
@@ -65,6 +65,6 @@
     "static/js/runtime-main.a1b06534.js",
     "static/js/2.0757845f.chunk.js",
     "static/css/main.1493cebc.chunk.css",
-    "static/js/main.fe56adfd.chunk.js"
+    "static/js/main.22001136.chunk.js"
   ]
 }
