@@ -129,7 +129,7 @@ class AuthSys extends AppBase {
                 >
                   <i className="fa fa-user-circle fa-lg" />
 
-                  <Media body className="margin-tl">
+                  <Media body className="mt-2 ml-2">
                     <h6 className="text-primary mb-md-1">
                       My Profile
                     </h6>
@@ -142,7 +142,7 @@ class AuthSys extends AppBase {
                 >
                   <i className="fa fa-id-card fa-lg" />
 
-                  <Media body className="margin-tl">
+                  <Media body className="mt-2 ml-2">
                     <h6 className="text-primary mb-md-1">
                       Facial Features
                     </h6>
@@ -155,7 +155,7 @@ class AuthSys extends AppBase {
                 >
                   <i className="fa fa-sign-out fa-lg" />
 
-                  <Media body className="margin-tl" onClick={this.handleLogoutClick} >
+                  <Media body className="mt-2 ml-2" onClick={this.handleLogoutClick} >
                     <h6 className="text-primary mb-md-1">
                       Log Out
                     </h6>

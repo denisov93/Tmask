@@ -30,8 +30,11 @@ function SmallButton(props) {
     <Button
       className="btn-neutral btn-icon btn-sm"
       onClick={props.onClick}
-      color="default">
-      <i className={props.icon} />
+      color="default"
+    >
+      <span className="fs-11">
+        <i className={props.icon} />
+      </span>
     </Button>
   );
 }
@@ -51,7 +54,7 @@ function BigButton(props) {
         <span className="btn-inner--icon">
           <i className={props.icon} />
         </span>
-        <h6 className="margin-tl">
+        <h6 className="mt-2 ml-2">
           {props.text}
         </h6>
       </Row>
@@ -66,12 +69,12 @@ function FeatureItem(props) {
       alignItems: 'center',
       justifyContent: 'center',
     }}>
-      <h5 className="margin-tr">
+      <h5 className="mt-2 mr-3">
         {props.item.title}
       </h5>
       <SmallButton icon="fa fa-pencil" />
       <SmallButton icon="fa fa-files-o" />
-      <SmallButton to="facial-features-page" icon="fa fa-times" />
+      <SmallButton icon="fa fa-times" />
     </Row>
   );
 }
@@ -98,7 +101,7 @@ class FacialFeatures extends AppBase {
 
   generateComponent() {
     let col =
-      <Col className="margin-b">
+      <Col>
         <BigButton icon="fa fa-plus" text="Create a new facial feature" onClick={() => this.setState({ new: true })} />
       </Col>
 

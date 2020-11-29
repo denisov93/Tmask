@@ -20,7 +20,6 @@
 /*
   TODO:
     - field for name at the end if completed
-    - remove the save button if not completed
     - save the facial profile
     - better display for review
 */
@@ -107,7 +106,7 @@ function TextButton(props) {
 class NewFacialFeatures extends AppBase {
 
   state = {
-    index: 0,
+    index: 1,
     face: "",
     xaxis: 20,
     yaxis: 10,
@@ -186,8 +185,8 @@ class NewFacialFeatures extends AppBase {
                 <p style={{ marginRight: 16, marginBottom: 10, }}>From the nose bridge to under the chin</p>
                 <p style={{ marginLeft: 16, marginBottom: 10, }}>Between the ears across the chin</p>
               </Row>
-              <Row style={rowStyle} className="row-cols-3 margin-b">
-                <FormGroup className="mb-3 margin-r">
+              <Row style={rowStyle} className="row-cols-3 mb-3">
+                <FormGroup className="mb-3 mr-3">
                   <InputGroup className="input-group-alternative">
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
@@ -202,7 +201,7 @@ class NewFacialFeatures extends AppBase {
                     </InputGroupAddon>
                   </InputGroup>
                 </FormGroup>
-                <FormGroup className="mb-3 margin-l">
+                <FormGroup className="mb-3 ml-3">
                   <InputGroup className="input-group-alternative">
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
@@ -232,23 +231,21 @@ class NewFacialFeatures extends AppBase {
           </>
         );
       case 2:
-        let layersForm = this.state.mask !== "" ?
-          <Form>
-            <FormGroup style={rowStyle} className="mb-3 row-cols-5 mb-5">
-              <InputGroup className="input-group-alternative">
-                <InputGroupAddon addonType="prepend">
-                  <InputGroupText>Number of layers:</InputGroupText>
-                </InputGroupAddon>
-                <Input id="id_layers" type="number"
-                  value={this.state.layers} min="1" max="5" step="1"
-                  onChange={e => this.setState({ layers: e.target.value })} />
-              </InputGroup>
-            </FormGroup>
-          </Form> : <></>
+        let layersForm = this.state.mask !== ""
+          ? <FormGroup style={rowStyle} className="row-cols-5 mt-4 mb-4">
+            <InputGroup className="input-group-alternative">
+              <InputGroupAddon addonType="prepend">
+                <InputGroupText>Number of layers:</InputGroupText>
+              </InputGroupAddon>
+              <Input id="id_layers" type="number"
+                value={this.state.layers} min="1" max="5" step="1"
+                onChange={e => this.setState({ layers: e.target.value })} />
+            </InputGroup>
+          </FormGroup>
+          : <></>
         return (
           <>
             <h4 className="py-4">Mask Preference</h4>
-            {layersForm}
             <Col>
               <Row style={rowStyle}>
                 {this.maskButton(mask1, "cirurgical")}
@@ -267,36 +264,62 @@ class NewFacialFeatures extends AppBase {
                 <p style={labelStyle2}>N95 type 2</p>
               </Row>
             </Col>
+            {layersForm}
           </>
         )
       case 3:
         let toComplete = []
 
         if (this.state.face === "")
-          toComplete.push("- face shape")
+          toComplete.push("face shape")
         if (this.state.mask === "")
-          toComplete.push("- mask preference")
+          toComplete.push("mask preference")
 
         let l = this.state.layers === 1 ? "layer" : "layers"
 
-        let text = toComplete.length === 0
+        let block = toComplete.length === 0
           ? <div className="text-center">
             <p className="text-center">The shape of your face is <strong>{this.state.face}</strong></p>
             <p>You have <strong>{this.state.xaxis}</strong> centimeters between the ears</p>
             <p>And <strong>{this.state.yaxis}</strong> centimeters from the nose to the chin</p>
-            <p>Your preffered mask is <strong>{this.state.mask}</strong> with <strong>{this.state.layers}</strong> {l}</p>
+            <p>Your preferred mask is <strong>{this.state.mask}</strong> with <strong>{this.state.layers}</strong> {l}</p>
+
+            <TextButton text="Previous"
+              onClick={() => { this.setState({ index: this.state.index - 1 }); }}
+            />
+            <TextButton text="SAVE"
+              onClick={() => { this.pressedSubmit(); }}
+            />
           </div>
           : <div className="text-center">
             <p>Please fill the following items to continue:</p>
             {toComplete.map((text, i) => {
-              return (<p style={{color: "red"}}>{text}</p>)
+              switch (text) {
+                case "face shape":
+                  i = 0;
+                  break;
+                case "mask preference":
+                  i = 2;
+                  break;
+                default:
+                  break;
+              }
+
+              return (<p style={{ cursor: "pointer", }} onClick={() => { this.setState({ index: i }); }}>
+                {' '} <span style={{ color: "red", textDecoration: "underline", }}>{text}</span>
+                {' '} <i className="fa fa-arrow-circle-right mr-2" />
+              </p>)
             })}
+
+            <TextButton text="Previous"
+              onClick={() => { this.setState({ index: this.state.index - 1 }); }}
+            />
           </div>
 
         return (
           <>
             <h4 className="py-4">Review</h4>
-            {text}
+            {block}
           </>
         )
       default:
@@ -315,12 +338,6 @@ class NewFacialFeatures extends AppBase {
       case 3:
         return (
           <>
-            <TextButton text="Previous"
-              onClick={() => { this.setState({ index: this.state.index - 1 }); }}
-            />
-            <TextButton text="SAVE"
-              onClick={() => { this.pressedSubmit(); }}
-            />
           </>
         )
       default:
@@ -376,12 +393,12 @@ class NewFacialFeatures extends AppBase {
                 <div className="px-4">
                   <IconButton icon="fa fa-angle-left" route="/facial-features"
                   />
-                  <div className="text-center mt-5 mt--45">
+                  <div className="text-center mt--45">
                     <h3>
                       <i className="fa fa-id-card" />{" "}New facial feature
                     </h3>
                   </div>
-                  <div className="mt-5 border-top text-center">
+                  <div className="border-top text-center mt-5 mb-2">
                     <Form role="form" onSubmit={this.handleSubmit}>
                       {this.renderSwitch()}
                       {this.renderBottomButtons()}
