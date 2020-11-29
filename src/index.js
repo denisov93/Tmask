@@ -38,7 +38,7 @@ import NewFacialFeatures from "views/examples/NewFacialFeatures.js";
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      <Route path="/" exact render={props => <Landing {...props} />} />
+      <Route path="/Tmask" exact render={props => <Landing {...props} />} />
       <Route path="/login-page" exact render={props => <Login {...props} />} />
       <Route path="/profile-page" exact render={props => <Profile {...props} />} />
       <Route path="/register-page" exact render={props => <Register {...props} />} />
@@ -47,7 +47,7 @@ ReactDOM.render(
       <Route path="/cart" exact render={props => <Cart {...props} />} />
       <Route path="/facial-features" exact render={props => <FacialFeatures {...props} />} />
       <Route path="/facial-features/new" exact render={props => <NewFacialFeatures {...props} />} />
-      <Redirect to="/" />
+      <Redirect to="/Tmask" />
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")
