@@ -26,6 +26,7 @@ import { Button, Card, Container, Row, Col } from "reactstrap";
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import AppBase from "components/AppBase";
+import NewFacialFeatures from "./NewFacialFeatures";
 
 function SmallButton(props) {
   return (
@@ -45,9 +46,7 @@ function BigButton(props) {
     <Button
       className="btn-neutral btn-icon btn-std-case"
       onClick={props.onClick}
-      color="default"
-      to={props.route}
-      tag={Link}>
+      color="default">
       <Row style={{
         display: 'flex',
         alignItems: 'center',
@@ -84,6 +83,10 @@ function FeatureItem(props) {
 
 class FacialFeatures extends AppBase {
 
+  state = {
+    new: false,
+  }
+
   getElements() {
     return this.getFeatures()
   }
@@ -101,7 +104,7 @@ class FacialFeatures extends AppBase {
   generateComponent() {
     let col =
       <Col className="margin-b">
-        <BigButton route="/facial-features/new" icon="fa fa-plus" text="Create a new facial feature" />
+        <BigButton icon="fa fa-plus" text="Create a new facial feature" onClick={() => this.setState({ new: true })} />
       </Col>
 
     if (this.getElements().length > 0) {
@@ -123,7 +126,7 @@ class FacialFeatures extends AppBase {
   }
 
   render() {
-    return (
+    return this.state.new ? <NewFacialFeatures /> : (
       <>
         <DemoNavbar />
         <main className="/facial-features" ref="main">
@@ -157,7 +160,7 @@ class FacialFeatures extends AppBase {
           </section>
           <section className="section">
             <Container>
-              <Card className="card-profile shadow mt--300">
+              <Card className="card-profile shadow mt--450">
                 <div className="px-4">
                   <div className="text-center mt-5">
                     <h3>
