@@ -217,7 +217,11 @@ class Catalog extends AppBase {
   }
 
   
-
+  handleKeyPress = (e) =>{
+    if(e.key === 'Enter'){
+      e.preventDefault() 
+    }
+  }
 
   render() {
   
@@ -271,6 +275,7 @@ class Catalog extends AppBase {
                       id="filter" 
                       value={this.state.masksFilter} 
                       onChange={this.handleChange}
+                      onKeyPress={this.handleKeyPress}
                     />
                   </InputGroup>
                 </FormGroup>
