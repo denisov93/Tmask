@@ -31,7 +31,7 @@ const SESSION_ID = 'sessionID'
 class Profile extends AppBase {
   state = {
     wait: true,
-    id: "",
+    id: -1,
     name: "",
     img: ""
   }
@@ -40,11 +40,11 @@ class Profile extends AppBase {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
 
-    this.state.id = this.getCookie(SESSION_ID)
-    this.state.wait = false
-
-    this.setState({
-    });
+    let id = this.getCookie(SESSION_ID)
+    if (id != null) {
+      this.setState({ id: id })
+    }
+    this.setState({ wait: false })
   }
 
   componentDidUpdate() {

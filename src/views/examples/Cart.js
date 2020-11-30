@@ -85,11 +85,11 @@ class Cart extends AppBase {
       }) 
     }
     if(sessionID!=null){
-      var newFeatures = this.getFeatures(sessionID)
+      var newFeatures = this.getSessionFeatures()
       if(newFeatures!=null)
-      this.setState({
-        facialFeatures: newFeatures
-      })
+        this.setState({
+          facialFeatures: newFeatures
+        })
     }
     
   }

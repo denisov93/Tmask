@@ -129,7 +129,8 @@ const SESSION_FF = 'sessionFF'
 class AppBase extends React.Component {
 
   state = {
-    basePopupOpen: false
+    basePopupOpen: false,
+    featureFlag: false,
   }
 
   globalVar = {
@@ -187,6 +188,9 @@ class AppBase extends React.Component {
     this.clearSession()
     this.doLogin()
     this.setCookie(SESSION_ID, id)
+
+    let user = this.getUser(id)
+    this.setSessionFeatures(user.features)
   }
 
   getSessionID() {

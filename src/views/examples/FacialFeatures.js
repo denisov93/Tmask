@@ -84,7 +84,6 @@ function FeatureItem(props) {
 class FacialFeatures extends AppBase {
 
   state = {
-    new: false,
     features: []
   }
 
@@ -95,18 +94,16 @@ class FacialFeatures extends AppBase {
 
     let id = this.getCookie(SESSION_ID)
     if (id != null) {
-      let newFeatures = this.getFeatures(id)
+      let newFeatures = this.getSessionFeatures()
       if (newFeatures != null)
-        this.setState({
-          features: newFeatures
-        })
+        this.setState({ features: newFeatures })
     }
   }
 
   generateComponent() {
     let col =
       <Col>
-        <BigButton icon="fa fa-plus" text="Create a new facial feature" onClick={() => this.setState({ new: true })} />
+        <BigButton icon="fa fa-plus" text="Create a new facial feature" onClick={() => this.setState({ featureFlag: true })} />
       </Col>
 
     if (this.state.features.length > 0) {
@@ -128,7 +125,7 @@ class FacialFeatures extends AppBase {
   }
 
   render() {
-    return this.state.new ? <NewFacialFeatures /> : (
+    return this.state.featureFlag ? <NewFacialFeatures /> : (
       <>
         <DemoNavbar />
         <main className="/facial-features" ref="main">
