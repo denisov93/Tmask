@@ -192,7 +192,7 @@ class Profile extends AppBase {
                   <div className="mt-5 py-5 border-top text-center">
                     <Row className="justify-content-center">
                       <Col lg="9">
-                        <p>//An idea would be list masks shared and bought (Not part of the prototype)</p>
+                        <p>{'>'} An idea would be to list masks shared and bought (Not part of the prototype)</p>
                       </Col>
                     </Row>
                   </div>
