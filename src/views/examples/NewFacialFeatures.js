@@ -53,6 +53,7 @@ import mask1 from "assets/img/editorResources/editor_mask_cirurgical.png"
 import mask2 from "assets/img/editorResources/editor_mask_cloth.png"
 import mask3 from "assets/img/editorResources/editor_mask_N95.png"
 import mask4 from "assets/img/editorResources/editor_mask_N95_type2.png"
+import { Link } from "react-router-dom";
 
 const rowStyle = {
   display: 'flex',
@@ -79,7 +80,8 @@ function IconButton(props) {
     <Button
       className="my-4"
       color="primary"
-      onClick={props.onClick}
+      to={props.route}
+      tag={Link}
     >
       <i className={props.icon} />
     </Button>
@@ -132,7 +134,7 @@ class NewFacialFeatures extends AppBase {
     }
 
     this.addFeature(feature)
-    document.location.reload()
+    this.props.history.push("/facial-features")
   }
 
   faceButton(img, label) {
@@ -410,7 +412,7 @@ class NewFacialFeatures extends AppBase {
             <Container>
               <Card className="card-profile shadow mt--450 mb-3">
                 <div className="px-4">
-                  <IconButton icon="fa fa-angle-left" onClick={() => document.location.reload()} />
+                  <IconButton icon="fa fa-angle-left" route="/facial-features" />
                   <div className="text-center mt--43">
                     <h3>
                       <i className="fa fa-id-card" />{" "}New facial feature

@@ -130,7 +130,6 @@ class AppBase extends React.Component {
 
   state = {
     basePopupOpen: false,
-    featureFlag: false,
   }
 
   globalVar = {
