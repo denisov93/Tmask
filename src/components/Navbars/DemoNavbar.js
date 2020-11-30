@@ -54,6 +54,7 @@ class DemoNavbar extends AppBase {
   };
 
   componentDidMount() {
+    try{
     let headroom = new Headroom(document.getElementById("navbar-main"));
     // initialise
     headroom.init();
@@ -72,29 +73,32 @@ class DemoNavbar extends AppBase {
     }
     });
     
-
     let sessionID = this.getCookie("sessionID")
-    if( sessionID !== null )
-      if(this.state.uselessState===false)
-        this.setState({uselessState: !this.state.uselessState})
-
+    if( sessionID !== null ){
+      if(this.state.uselessState===false){
+          this.setState({uselessState: !this.state.uselessState})
+      }
+    }
+    }catch{console.log("[DemoNavBar] Detected some issues.")}
   }
 
   onExiting = () => {
-    this.setState({
-      collapseClasses: "collapsing-out"
-    });
+    try{
+      this.setState({
+        collapseClasses: "collapsing-out"
+      });
+    }catch{}
   };
 
   onExited = () => {
-    this.setState({
-      collapseClasses: ""
-    });
+    try{
+      this.setState({
+        collapseClasses: ""
+      });
+    }catch{}
   };
 
   render() {
-  
-    
     let cartPopup;
     
     if (this.state.itemCount.length > 0) {
