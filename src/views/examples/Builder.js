@@ -631,7 +631,7 @@ class Builder extends AppBase {
     cart.push(cc)
     this.setCookie('cart', cart)
     this.addItemToCart(cc)
-    this.triggerPopup("Success!","The mask you edited was sent to shopping cart.","Close")
+    this.triggerPopup("Success!","The mask you edited was sent to shopping cart.")
   }
 
   triggerPopup(title,description){
