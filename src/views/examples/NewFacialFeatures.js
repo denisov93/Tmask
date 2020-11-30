@@ -96,7 +96,7 @@ function TextButton(props) {
       className="my-4 btn-std-case"
       color="primary"
       onClick={props.onClick}
-      style={{ width: 105 }}
+      style={{ width: 105, }}
     >
       {props.text}
     </Button>
@@ -107,6 +107,7 @@ class NewFacialFeatures extends AppBase {
 
   state = {
     index: 0,
+    name: "a", //TODO: change
     face: "",
     xaxis: 20,
     yaxis: 10,
@@ -133,14 +134,14 @@ class NewFacialFeatures extends AppBase {
     );
   }
 
-  maskButton(img, i) {
-    let isSelected = i === this.state.mask ? "double" : "none"
+  maskButton(img, label) {
+    let isSelected = label === this.state.mask ? "double" : "none"
 
     return (
       <Button
         color="primary"
         style={{ background: "white", borderStyle: isSelected, marginLeft: 20, marginRight: 20, }}
-        onClick={() => this.setState({ mask: i })}>
+        onClick={() => this.setState({ mask: label })}>
         <img src={img} alt="" style={{ width: 200, height: "auto", }} />
       </Button>
     );
@@ -181,19 +182,16 @@ class NewFacialFeatures extends AppBase {
           <>
             <h4 className="py-4">Distances</h4>
             <Col>
-              <Row style={rowStyle} className="row-cols-3">
-                <p style={{ marginRight: 16, marginBottom: 10, }}>From the nose bridge to under the chin</p>
-                <p style={{ marginLeft: 16, marginBottom: 10, }}>Between the ears across the chin</p>
-              </Row>
-              <Row style={rowStyle} className="row-cols-3 mb-3">
-                <FormGroup className="mb-3 mr-3">
+              <Row style={rowStyle} className="mt-2 ml-2">
+                <p className="mr-3">From the nose bridge to under the chin</p>
+                <FormGroup>
                   <InputGroup className="input-group-alternative">
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
                         <i className="fa fa-arrows-v" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input id="id_yaxis" type="number"
+                    <Input id="id_yaxis" style={{ width: 58, }} type="number"
                       value={this.state.yaxis} min="1" max="25" step="0.25"
                       onChange={e => this.setState({ yaxis: e.target.value })} />
                     <InputGroupAddon addonType="append">
@@ -201,14 +199,17 @@ class NewFacialFeatures extends AppBase {
                     </InputGroupAddon>
                   </InputGroup>
                 </FormGroup>
-                <FormGroup className="mb-3 ml-3">
+              </Row>
+              <Row style={rowStyle} className="mt-2">
+                <p className="mr-3">Between the ears passing through the chin</p>
+                <FormGroup>
                   <InputGroup className="input-group-alternative">
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
                         <i className="fa fa-arrows-h" />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input id="id_xaxis" type="number"
+                    <Input id="id_xaxis" style={{ width: 50, }} type="number"
                       value={this.state.xaxis} min="1" max="50" step="0.25"
                       onChange={e => this.setState({ xaxis: e.target.value })} />
                     <InputGroupAddon addonType="append">
@@ -218,7 +219,7 @@ class NewFacialFeatures extends AppBase {
                 </FormGroup>
               </Row>
               <Button
-                className="btn-neutral btn-icon btn-std-case"
+                className="btn-neutral btn-icon btn-std-case mt-4 mb-3"
                 color="default">
                 <span className="btn-inner--icon">
                   <i className="fa fa-file-pdf-o mr-2" />
@@ -232,16 +233,14 @@ class NewFacialFeatures extends AppBase {
         );
       case 2:
         let layersForm = this.state.mask !== ""
-          ? <FormGroup style={rowStyle} className="row-cols-5 mt-4 mb-4">
-            <InputGroup className="input-group-alternative">
-              <InputGroupAddon addonType="prepend">
-                <InputGroupText>Number of layers:</InputGroupText>
-              </InputGroupAddon>
+          ? <Row style={rowStyle} className="mt-5 mb-2">
+            <h4>Number of layers:</h4>
+            <FormGroup style={{ width: 75 }} className="mt-2 ml-3">
               <Input id="id_layers" type="number"
                 value={this.state.layers} min="1" max="5" step="1"
                 onChange={e => this.setState({ layers: e.target.value })} />
-            </InputGroup>
-          </FormGroup>
+            </FormGroup>
+          </Row>
           : <></>
         return (
           <>
@@ -283,13 +282,6 @@ class NewFacialFeatures extends AppBase {
             <p>You have <strong>{this.state.xaxis}</strong> centimeters between the ears</p>
             <p>And <strong>{this.state.yaxis}</strong> centimeters from the nose to the chin</p>
             <p>Your preferred mask is <strong>{this.state.mask}</strong> with <strong>{this.state.layers}</strong> {l}</p>
-
-            <TextButton text="Previous"
-              onClick={() => { this.setState({ index: this.state.index - 1 }); }}
-            />
-            <TextButton text="SAVE"
-              onClick={() => { this.pressedSubmit(); }}
-            />
           </div>
           : <div className="text-center">
             <p>Please fill the following items to continue:</p>
@@ -310,10 +302,6 @@ class NewFacialFeatures extends AppBase {
                 {' '} <i className="fa fa-arrow-circle-right mr-2" />
               </p>)
             })}
-
-            <TextButton text="Previous"
-              onClick={() => { this.setState({ index: this.state.index - 1 }); }}
-            />
           </div>
 
         return (
@@ -336,10 +324,18 @@ class NewFacialFeatures extends AppBase {
           />
         )
       case 3:
-        return (
-          <>
+        return (this.state.face === "" || this.state.mask === "" || this.state.name === "")
+          ? <TextButton text="Previous"
+            onClick={() => { this.setState({ index: this.state.index - 1 }); }}
+          />
+          : <>
+            <TextButton text="Previous"
+              onClick={() => { this.setState({ index: this.state.index - 1 }); }}
+            />
+            <TextButton text="SAVE"
+              onClick={() => { this.pressedSubmit(); }}
+            />
           </>
-        )
       default:
         return (
           <>
@@ -393,7 +389,7 @@ class NewFacialFeatures extends AppBase {
                 <div className="px-4">
                   <IconButton icon="fa fa-angle-left" route="/facial-features"
                   />
-                  <div className="text-center mt--45">
+                  <div className="text-center mt--43">
                     <h3>
                       <i className="fa fa-id-card" />{" "}New facial feature
                     </h3>
