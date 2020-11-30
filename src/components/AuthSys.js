@@ -40,7 +40,7 @@ class AuthSys extends AppBase {
 
   state = {
     id: "",
-    name: "",
+    username: "",
     img: ""
   }
 
@@ -52,7 +52,7 @@ class AuthSys extends AppBase {
 
   componentDidMount() {
     this.state.id = this.getCookie(SESSION_ID)
-    this.state.name = this.getCookie(SESSION_NAME)
+    this.state.username = this.getCookie(SESSION_NAME)
     this.state.img = this.getCookie(SESSION_IMG)
 
     this.setState({
@@ -61,12 +61,12 @@ class AuthSys extends AppBase {
 
   componentDidUpdate() {
     this.state.id = this.getCookie(SESSION_ID)
-    this.state.name = this.getCookie(SESSION_NAME)
+    this.state.username = this.getCookie(SESSION_NAME)
     this.state.img = this.getCookie(SESSION_IMG)
   }
 
   handleHasSession() {
-    return (this.state.name !== null && this.state.img !== null)
+    return (this.state.username !== null && this.state.img !== null)
   }
 
   handleLoginClick() {
@@ -90,15 +90,28 @@ class AuthSys extends AppBase {
     let accountimg;
     let accountdetails;
 
-    var image
-    if (this.state.id === 0)
-      image = require("assets/img/userimage/user_alicia.png").default
-    else if (this.state.id === 1)
-      image = require("assets/img/userimage/user_jonny.png").default
-    else if (this.state.id === 2)
-      image = require("assets/img/userimage/user_nahla.png").default
-    else if (this.state.id === 3)
-      image = require("assets/img/userimage/user_pedro.png").default
+    let name;
+    let image;
+    switch (this.state.id) {
+      case 0:
+        name = "Alicia Carter"
+        image = require("assets/img/userimage/user_alicia.png").default
+        break;
+      case 1:
+        name = "Jonny Evans"
+        image = require("assets/img/userimage/user_jonny.png").default
+        break;
+      case 2:
+        name = "Nahla Jones"
+        image = require("assets/img/userimage/user_nahla.png").default
+        break;
+      case 3:
+        name = "Peter Wood"
+        image = require("assets/img/userimage/user_pedro.png").default
+        break;
+      default:
+        break;
+    }
 
     if (this.handleHasSession()) {
       accountimg =
@@ -108,7 +121,7 @@ class AuthSys extends AppBase {
         />
       accountdetails =
         <div style={{ display: "grid", placeItems: "center", paddingInlineStart: 10, paddingInlineEnd: 10 }}>
-          <font color="white">{this.state.name}</font>
+          <font color="white">{name}</font>
         </div>
 
       components =

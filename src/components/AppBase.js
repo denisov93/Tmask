@@ -45,7 +45,10 @@ import {
 var user1 = [
   {id: 0},
   {
-    name:"alicia"
+    username:"alicia"
+  },
+  {
+    name:"Alicia Carter"
   },
   {
     email:"alicia@email.com"
@@ -58,7 +61,10 @@ var user1 = [
 var user2 = [
   {id: 1},
   {
-    name:"jonny"
+    username:"jonny"
+  },
+  {
+    name:"Jonny Evans"
   },
   {
     email:"jonny@email.com"
@@ -71,7 +77,10 @@ var user2 = [
 var user3 = [
   {id: 2},
   {
-    name:"nahla"
+    username:"nahla"
+  },
+  {
+    name:"Nahla Jones"
   },
   {
     email:"nahla@email.com"
@@ -84,7 +93,10 @@ var user3 = [
 var user4 = [
   {id: 3},
   {
-    name:"pedro"
+    username:"pedro"
+  },
+  {
+    name:"Peter Wood"
   },
   {
     email:"pedro@email.com"
@@ -184,7 +196,7 @@ class AppBase extends React.Component{
     alert(text+'')
   }
 
-  userCreateSession(id,name,img){
+  userCreateSession(id, name){
     this.clearSession()
     this.doLogin()
     this.setCookie(SESSION_ID, id)
@@ -256,9 +268,9 @@ class AppBase extends React.Component{
       console.log(sUser)
       for(var j = 0; j < sUser.length; j++){
         const details = sUser[j]
-        if(details.name === username){
+        if(details.username === username){
             valid = true
-            this.userCreateSession(i,in_user,this.getUserImage(i))
+            this.userCreateSession(i, in_user)
             console.log("[SignIn] Valid Credentials");
         }
       }
