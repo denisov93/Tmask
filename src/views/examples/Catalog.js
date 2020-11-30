@@ -210,17 +210,13 @@ class Catalog extends AppBase {
     }
   }
 
-
   handleChange = (e) =>{
     this.setState({
       masksFilter: e.target.value
-    })
-
-    this.filterExec()
-
-   //console.log(  )
-
+    },()=>{this.filterExec()})
   }
+
+  
 
 
   render() {
