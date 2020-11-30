@@ -7,28 +7,57 @@ import {
   import AppBase from "components/AppBase.js";
 
 
-class CartItem extends Component{
+class CartItem extends AppBase{
 
     
     state = {
-      amountOfItems : 1,
-      id: this.props.id
+      amountOfItems : -1    ,
+      itemID: -1
     };
-    increaseAmount = () =>{
+
+    componentDidMount() {
         this.setState({
-            amountOfItems: this.state["amountOfItems"]+1
+            itemID: this.props.itemID
+        });
+        this.setState({
+            amountOfItems: this.props.amount
+        })
+    }
+    
+    increaseAmount = () =>{
+       
+        var newAmount = this.state.amountOfItems+1;
+        this.setState({
+            amountOfItems: newAmount
           });
+          var newCart = this.getCookie('cart');
+          newCart[this.state.itemID].amount = newAmount;
+          this.setCookie('cart',newCart);
+
          
         
     }
     decreaseAmount = () =>{
         if(this.state.amountOfItems>1){
-            this.setState({
-                amountOfItems: this.state["amountOfItems"]-1
-              });
-        
+        var newAmount = this.state.amountOfItems-1;
+        this.setState({
+            amountOfItems: newAmount
+          });
+          var newCart = this.getCookie('cart');
+          newCart[this.state.itemID].amount = newAmount;
+          this.setCookie('cart',newCart);
         }
         
+        
+    }
+    handleChange = (e) =>{
+        var newAmount = e.target.value
+        this.setState({
+            amountOfItems: newAmount
+          })
+          var newCart = this.getCookie('cart');
+          newCart[this.state.itemID].amount = newAmount;
+          this.setCookie('cart',newCart);
     }
     getFacialSelector(){
         if(this.props.facial.length==0) return(<div></div>)
@@ -46,7 +75,7 @@ class CartItem extends Component{
                 )}
             </select>)
     }
-  
+    
 
     
     render(){
@@ -72,19 +101,12 @@ class CartItem extends Component{
                      <div  style={{width:160, height:40,marginLeft:15}}>
                         {this.getFacialSelector()}
                      </div>
-                     <div style={{width:130, height:42,marginLeft:10}}>
-                         <div className="row" style={{alignItems:"center",marginLeft:15}}>
-                         <button style={{border:"none", outline:"none"}} onClick={this.decreaseAmount}
-                         ><img src={require("assets/img/icons/common/minus_icon.png").default} alt="..." width="25" height="30"></img></button>
-                            
-                            <b style={{fontSize:"20px",marginLeft:5,marginRight:5 }}>{this.state.amountOfItems}</b> 
-                            <button style={{border:"none", outline:"none"}} onClick={this.increaseAmount} height="30" width="30"
-                         ><img src={require("assets/img/icons/common/plus_icon.png").default} width="25" height="30" alt="..."></img></button>
+                     <div style={{width:10, height:30,marginLeft:10}}>
+                         <input onChange={this.handleChange}type="number" defaultValue={this.props.amount} min="1" step="1" style={{width:40,height:30, fontSize:15}}></input>
                          </div>
                      </div>
                     
-                    </div>
-                    
+                          
                     </Badge>
                     
             

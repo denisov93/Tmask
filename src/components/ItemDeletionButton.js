@@ -26,7 +26,7 @@ class ItemDeletionButton extends AppBase{
     this.setState({
       exampleModal: !this.state.exampleModal
     });
-    console.log("MODAL",this.state.exampleModal)
+    
   };
 
  componentDidMount() {
