@@ -476,7 +476,8 @@ class Builder extends AppBase {
       title: title,
       image: image,
       description: description,
-      tags: this.tagParser(tags.concat(this.state.tags))
+      tags: this.tagParser(tags.concat(this.state.tags)),
+      price: 5
     }
     var ms = this.getCookie("addedMasks")
     if (ms === null) {

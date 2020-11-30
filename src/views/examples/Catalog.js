@@ -54,42 +54,48 @@ const cards2 = [
     title: "Goku Mask",
     image: require("assets/img/masks/goku.png").default,
     description: "This Mask is perfect for someone who loves anime",
-    tags: ["TVShow","Anime","Goku","DDZ","Blue"]
+    tags: ["TVShow","Anime","Goku","DDZ","Blue"],
+    price: 4.99
   },
   {
     id : 2,
     title: "Abstract Blue",
     image: require("assets/img/masks/mask_abstract_blue.png").default,
     description: "Made with love",
-    tags: ["Abstract","Blue"]
+    tags: ["Abstract","Blue"],
+    price: 4.99
   },
   {
     id : 3,
     title: "Abstract Green",
     image: require("assets/img/masks/mask_abstract_green.png").default,
     description: "You Are Free Spirited",
-    tags: ["Abstract","Green"]
+    tags: ["Abstract","Green"],
+    price: 4.99
   },
   {
     id : 4,
     title: "Abstract Red",
     image: require("assets/img/masks/mask_abstract_red.png").default,
     description: "Made with Passion",
-    tags: ["Abstract","Red"]
+    tags: ["Abstract","Red"],
+    price: 4.99
   },
   {
     id : 5,
     title: "Simple Pink",
     image: require("assets/img/masks/mask_simple_pink.png").default,
     description: "Girly Mask",
-    tags: ["Simple","Pink"]
+    tags: ["Simple","Pink"],
+    price: 4.99
   },
   {
     id : 6,
     title: "The Mask",
     image: require("assets/img/masks/mask_tmask.png").default,
     description: "Great Product, Such WOW",
-    tags: ["TMASK","Black","Grey"]
+    tags: ["TMASK","Black","Grey"],
+    price: 4.99
   }
 ]
 
@@ -99,42 +105,48 @@ const cards = [
     title: "Fire",
     image: require("assets/img/masks/fire.png").default,
     description: "Things Are On Fire",
-    tags: ["Fire","Red","Black"]
+    tags: ["Fire","Red","Black"],
+    price: 5
   },
   {
     id : 2,
     title: "Fire 2",
     image: require("assets/img/masks/mask_fire.png").default,
     description: "Because Fire is Never enought",
-    tags: ["Fire","Red","Black"]
+    tags: ["Fire","Red","Black"],
+    price: 5
   },
   {
     id : 3,
     title: "Artist",
     image: require("assets/img/masks/mask_bob_ross.png").default,
     description: "Big Man, loved his show",
-    tags: ["Bob","Ross","Painting","Nature","Blue"]
+    tags: ["Bob","Ross","Painting","Nature","Blue"],
+    price: 5
   },
   {
     id : 4,
     title: "The Whale",
     image: require("assets/img/masks/mask_whale.png").default,
     description: "Some People paint bunny in their clotes, meawhile i....",
-    tags: ["Whale","Ocean","Blue","Nature"]
+    tags: ["Whale","Ocean","Blue","Nature"],
+    price: 5
   },
   {
     id : 5,
     title: "Matrix",
     image: require("assets/img/masks/mask_matrix.png").default,
     description: "Keanu Our GOD",
-    tags: ["Matrix","WB","Keanu Reeves","Black","Green","Sci-fi","Action"]
+    tags: ["Matrix","WB","Keanu Reeves","Black","Green","Sci-fi","Action"],
+    price: 5
   },
   {
     id : 6,
     title: "Triangle",
     image: require("assets/img/masks/mask_triangle.png").default,
     description: "Yes, it is triangle... Dont ask...",
-    tags: ["Geometric","Triangle","White","Black"]
+    tags: ["Geometric","Triangle","White","Black"],
+    price: 5
   }
 ]
 

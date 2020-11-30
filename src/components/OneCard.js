@@ -75,7 +75,8 @@ class OneCard extends AppBase{
                             )
                         }
                     </div>
-                    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
+                    <div style={{display: 'flex', flexDirection: 'column',flexFlow: "row wrap",justifyContent: "space-around", alignItems: 'flex-end'}}>
+                    <big>{this.props.card.price} €</big>
                     <Button
                     className="mt-4"
                     color="secondary"
