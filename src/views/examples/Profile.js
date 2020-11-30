@@ -111,7 +111,7 @@ class Profile extends AppBase {
     return (
       <>
         <DemoNavbar />
-        <main className="profile-page" ref="main">
+        <main className="profile-page" ref="main" style={{userSelect: 'none'}}>
           <section className="section-profile-cover section-shaped my-0">
             {/* Circles background */}
             <div className="shape shape-style-1 shape-default alpha-4">
@@ -147,13 +147,13 @@ class Profile extends AppBase {
                   <Row className="justify-content-center">
                     <Col className="order-lg-2" lg="3">
                       <div className="card-profile-image">
-                        <a href="#pablo" onClick={e => e.preventDefault()}>
-                          <img
+                        
+                          <img style={{border: 6, borderStyle: 'solid', borderColor: 'white'}}
                             alt="..."
                             className="rounded-circle"
                             src={image}
                           />
-                        </a>
+                        
                       </div>
                     </Col>
                     <Col
@@ -163,18 +163,18 @@ class Profile extends AppBase {
                       {socialButtons}
                     </Col>
                     <Col className="order-lg-1" lg="4">
-                      <div className="card-profile-stats d-flex justify-content-center">
+                      <div className="card-profile-stats d-flex justify-content-center" style={{backgroundColor:"#FFFFFFAA"}}>
                         <div>
-                          <span className="heading">12</span>
-                          <span className="description">Masks</span>
+                          <span className="heading" style={{color:'#32325D'}}>12</span>
+                          <span className="description" style={{color:'#32325D'}}><b>Masks</b></span>
                         </div>
                         <div>
-                          <span className="heading">7</span>
-                          <span className="description">Photos</span>
+                          <span className="heading" style={{color:'#32325D'}}>7</span>
+                          <span className="description" style={{color:'#32325D'}}><b>Photos</b></span>
                         </div>
                         <div>
-                          <span className="heading">31</span>
-                          <span className="description"><i className="ni ni-chat-round" />{" "}Comments</span>
+                          <span className="heading" style={{color:'#32325D'}}>31</span>
+                          <span className="description" style={{color:'#32325D'}}><b>Comments</b></span>
                         </div>
                       </div>
                     </Col>
@@ -192,7 +192,7 @@ class Profile extends AppBase {
                   <div className="mt-5 py-5 border-top text-center">
                     <Row className="justify-content-center">
                       <Col lg="9">
-                        <p>//An idea would be list masks shared and bought (Not part of the prototype)</p>
+                        <p>{'>'} An idea would be to list masks shared and bought (Not part of the prototype)</p>
                       </Col>
                     </Row>
                   </div>
