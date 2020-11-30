@@ -124,7 +124,7 @@ class Cart extends AppBase {
                       <div className="row">
                       <CartItem name={item.title} image={item.image} price='5'id={counter++}/>
                       <div style = {{marginLeft:20, marginTop:20}}>
-                      <ItemDeletionButton id={counter}></ItemDeletionButton>
+                      <ItemDeletionButton id={counter} name={item.title} image={item.image}></ItemDeletionButton>
                       </div>
                       </div>
                       )
