@@ -83,7 +83,7 @@ function IconButton(props) {
       to={props.route}
       tag={Link}
     >
-      <i className={props.icon} />
+      <span><i className={props.icon} /></span>
     </Button>
   );
 }
@@ -413,7 +413,7 @@ class NewFacialFeatures extends AppBase {
               <Card className="card-profile shadow mt--450 mb-3">
                 <div className="px-4">
                   <IconButton icon="fa fa-angle-left" route="/facial-features" />
-                  <div className="text-center mt--43">
+                  <div className="text-center ajuda mt--43">
                     <h3>
                       <i className="fa fa-id-card" />{" "}New facial feature
                     </h3>
