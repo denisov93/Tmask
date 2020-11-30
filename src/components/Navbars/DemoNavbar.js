@@ -46,61 +46,69 @@ import dataService from "components/dataService.js";
 
 class DemoNavbar extends AppBase {
 
+  message = null;
+
   state = {
     collapseClasses: "",
     collapseOpen: false,
     itemCount: [],
-    uselessState:false
+    uselessState: false
   };
 
-  componentDidMount() {
+  componentWillUnmount() {
     try{
-    let headroom = new Headroom(document.getElementById("navbar-main"));
-    // initialise
-    headroom.init();
-
-    var cart = this.getCookie('cart')
-    if(cart === null){cart = []}
-    this.setState({
-      itemCount: cart
-    })
-
-    dataService.getData().subscribe(message => {
-      if(typeof message.value !== 'string'){
-        this.setState({
-          itemCount : [...this.state.itemCount,message.value]
-        })
-    }
-    });
-    
-    let sessionID = this.getCookie("sessionID")
-    if( sessionID !== null ){
-      if(this.state.uselessState===false){
-          this.setState({uselessState: !this.state.uselessState})
-      }
-    }
+      dataService.getData().unsubscribe();
     }catch{console.log("[DemoNavBar] Detected some issues.")}
   }
 
+  componentDidMount() {
+    try {
+      let headroom = new Headroom(document.getElementById("navbar-main"));
+      // initialise
+      headroom.init();
+
+      var cart = this.getCookie('cart')
+      if (cart === null) { cart = [] }
+      this.setState({
+        itemCount: cart
+      })
+
+      dataService.getData().subscribe(message => {
+        if (typeof message.value !== 'string') {
+          this.setState({
+            itemCount: [...this.state.itemCount, message.value]
+          })
+        }
+      });
+
+      let sessionID = this.getCookie("sessionID")
+      if (sessionID !== null) {
+        if (this.state.uselessState === false) {
+          this.setState({ uselessState: !this.state.uselessState })
+        }
+      }
+    } catch { console.log("[DemoNavBar] Detected some issues.") }
+  }
+
   onExiting = () => {
-    try{
+    try {
       this.setState({
         collapseClasses: "collapsing-out"
       });
-    }catch{}
+    } catch { }
   };
 
   onExited = () => {
-    try{
+    try {
       this.setState({
         collapseClasses: ""
       });
-    }catch{}
+    } catch { }
   };
 
   render() {
     let cartPopup;
-    
+
     if (this.state.itemCount.length > 0) {
       cartPopup = "Checkout Your Cart!";
     } else {
@@ -110,7 +118,7 @@ class DemoNavbar extends AppBase {
     return (
       <>
         <header className="header-global">
-          <Navbar style={{userSelect:'none'}}
+          <Navbar style={{ userSelect: 'none' }}
             className="navbar-main navbar-transparent navbar-light headroom"
             expand="lg"
             id="navbar-main"
@@ -159,11 +167,11 @@ class DemoNavbar extends AppBase {
                       <div className="dropdown-menu-inner">
                         <Media
                           className="d-flex align-items-center"
-                          to="/catalog" 
+                          to="/catalog"
                           tag={Link}
                         >
-                          <img alt=".." className="icon icon-shape bg-gradient-primary rounded-circle text-white" src={require("assets/img/icons/common/head-side-mask-solid.svg").default}/>
-                          
+                          <img alt=".." className="icon icon-shape bg-gradient-primary rounded-circle text-white" src={require("assets/img/icons/common/head-side-mask-solid.svg").default} />
+
                           <Media body className="ml-3">
                             <h6 className="heading text-primary mb-md-1">
                               Catalog
@@ -175,7 +183,7 @@ class DemoNavbar extends AppBase {
                         </Media>
                         <Media
                           className="d-flex align-items-center"
-                          to="/builder" 
+                          to="/builder"
                           tag={Link}
                         >
                           <div className="icon icon-shape bg-gradient-success rounded-circle text-white">
@@ -199,7 +207,7 @@ class DemoNavbar extends AppBase {
                     <NavLink
                       className="nav-link-icon"
                       id="tooltip184698705"
-                      to="/cart" 
+                      to="/cart"
                       tag={Link}
                     >
                       {this.state.itemCount.length}{" "}
@@ -209,7 +217,7 @@ class DemoNavbar extends AppBase {
                       </span>
                     </NavLink>
                     <UncontrolledTooltip delay={0} target="tooltip184698705">
-                        {cartPopup}
+                      {cartPopup}
                     </UncontrolledTooltip>
                   </NavItem>
                   <NavItem>
@@ -218,7 +226,7 @@ class DemoNavbar extends AppBase {
                       to="/"
                       id="tooltip112445449"
                       tag={Link}
-                      //target="_blank"
+                    //target="_blank"
                     >
                       <i className="fa fa-question-circle" />
                       <span className="nav-link-inner--text d-lg-none ml-2">
@@ -228,12 +236,12 @@ class DemoNavbar extends AppBase {
                     <UncontrolledTooltip delay={0} target="tooltip112445449">
                       Any Questions?
                     </UncontrolledTooltip>
-                    
+
                   </NavItem>
-                  <div style={{display: 'flex', alignItems:'left'}}>
-                    <AuthSys/>
+                  <div style={{ display: 'flex', alignItems: 'left' }}>
+                    <AuthSys />
                   </div>
-                  
+
                 </Nav>
               </UncontrolledCollapse>
             </Container>
