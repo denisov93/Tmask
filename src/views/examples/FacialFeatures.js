@@ -25,6 +25,8 @@ import SimpleFooter from "components/Footers/SimpleFooter.js";
 import AppBase from "components/AppBase";
 import NewFacialFeatures from "./NewFacialFeatures";
 
+const SESSION_ID = 'sessionID'
+
 function SmallButton(props) {
   return (
     <Button
@@ -83,20 +85,27 @@ class FacialFeatures extends AppBase {
 
   state = {
     new: false,
-  }
-
-  getElements() {
-    return this.getFeatures()
-  }
-
-  removeAtIndex(index) {
-    this.removeFeature(index)
+    wait: true,
+    features: []
   }
 
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
+
+    let id = this.getCookie(SESSION_ID)
+    if (id != null) {
+      let newFeatures = this.getFeatures(id)
+      if (newFeatures != null)
+        this.setState({
+          features: newFeatures
+        })
+    }
+  }
+
+  removeAtIndex(index) {
+    this.removeFeature(index)
   }
 
   generateComponent() {
@@ -105,11 +114,11 @@ class FacialFeatures extends AppBase {
         <BigButton icon="fa fa-plus" text="Create a new facial feature" onClick={() => this.setState({ new: true })} />
       </Col>
 
-    if (this.getElements().length > 0) {
+    if (this.state.features.length > 0) {
       return (
         <Row>
           <Col>
-            {this.getElements().map((feature, i) => {
+            {this.state.features.map((feature, i) => {
               return (<FeatureItem key={i} item={feature} />)
             })}
           </Col>

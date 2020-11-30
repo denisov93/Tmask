@@ -50,6 +50,32 @@ var user1 = {
   email: "alicia@email.com",
   pass: "1234",
   age: "21",
+  features: [
+    {
+      title: "Alicia",
+      type: "oval",
+      xaxis: 26,
+      yaxis: 7,
+      mask: "cloth",
+      layers: 3,
+    },
+    {
+      title: "Mom",
+      type: "oval",
+      xaxis: 26,
+      yaxis: 7,
+      mask: "cloth",
+      layers: 3,
+    },
+    {
+      title: "Dad",
+      type: "oval",
+      xaxis: 26,
+      yaxis: 7,
+      mask: "cloth",
+      layers: 3,
+    },
+  ],
 }
 
 var user2 = {
@@ -59,6 +85,16 @@ var user2 = {
   email: "jonny@email.com",
   pass: "2345",
   age: "21",
+  features: [
+    {
+      title: "Me",
+      type: "oval",
+      xaxis: 26,
+      yaxis: 7,
+      mask: "cloth",
+      layers: 3,
+    },
+  ],
 }
 
 var user3 = {
@@ -67,6 +103,7 @@ var user3 = {
   email: "nahla@email.com",
   pass: "3456",
   age: "21",
+  features: [],
 }
 
 var user4 = {
@@ -76,6 +113,7 @@ var user4 = {
   email: "pedro@email.com",
   pass: "4567",
   age: "21",
+  features: [],
 }
 
 const userImages = [
@@ -86,33 +124,6 @@ const userImages = [
 
 const SESSION_ID = 'sessionID'
 
-const features = [
-  {
-    title: "Alicia",
-    type: "oval",
-    xaxis: 26,
-    yaxis: 7,
-    mask: "cloth",
-    layers: 3,
-  },
-  {
-    title: "Mom",
-    type: "oval",
-    xaxis: 26,
-    yaxis: 7,
-    mask: "cloth",
-    layers: 3,
-  },
-  {
-    title: "Dad",
-    type: "oval",
-    xaxis: 26,
-    yaxis: 7,
-    mask: "cloth",
-    layers: 3,
-  },
-]
-
 class AppBase extends React.Component {
 
   state = {
@@ -122,7 +133,6 @@ class AppBase extends React.Component {
   globalVar = {
     isLoggedIn: false,
     cart: [],
-    features: features
   }
 
   deleteCookies() {
@@ -190,7 +200,7 @@ class AppBase extends React.Component {
     this.globalVar.cart.push(item)
     this.submitForm(item)
   }
-  
+
 
   submitForm = (cart) => {
     dataService.setData(cart);
@@ -243,16 +253,19 @@ class AppBase extends React.Component {
     return valid
   }
 
-  getFeatures() {
-    return this.globalVar.features
+  getFeatures(id) {
+    let user = this.getUser(id)
+    return user.features
   }
 
-  addFeature(element) {
-    this.globalVar.features.push(element)
+  addFeature(id, element) {
+    let user = this.getUser(id)
+    user.features.push(element)
   }
 
-  removeFeature(index) {
-    this.globalVar.features.splice(index, 1)
+  removeFeature(id, index) {
+    let user = this.getUser(id)
+    user.features.splice(index, 1)
   }
 
   popup(title, body, btnText, flag) {

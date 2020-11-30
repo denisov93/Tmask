@@ -78,14 +78,15 @@ class Cart extends AppBase {
     
     
     var newItemList = this.getCookie('cart')
-    var newFeatures = this.getFeatures()
     var sessionID = this.getCookie('sessionID')
     if(newItemList!=null){
       this.setState({
         itemList: newItemList
       }) 
     }
-    if(newFeatures!=null && sessionID!=null){
+    if(sessionID!=null){
+      var newFeatures = this.getFeatures(sessionID)
+      if(newFeatures!=null)
       this.setState({
         facialFeatures: newFeatures
       })
