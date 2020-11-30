@@ -27,20 +27,6 @@ import NewFacialFeatures from "./NewFacialFeatures";
 
 const SESSION_ID = 'sessionID'
 
-function SmallButton(props) {
-  return (
-    <Button
-      className="btn-neutral btn-icon btn-sm"
-      onClick={props.onClick}
-      color="default"
-    >
-      <span className="fs-11">
-        <i className={props.icon} />
-      </span>
-    </Button>
-  );
-}
-
 function BigButton(props) {
   return (
     <Button
@@ -60,6 +46,20 @@ function BigButton(props) {
           {props.text}
         </h6>
       </Row>
+    </Button>
+  );
+}
+
+function SmallButton(props) {
+  return (
+    <Button
+      className="btn-neutral btn-icon btn-sm"
+      onClick={props.onClick}
+      color="default"
+    >
+      <span className="fs-11">
+        <i className={props.icon} />
+      </span>
     </Button>
   );
 }
@@ -85,7 +85,6 @@ class FacialFeatures extends AppBase {
 
   state = {
     new: false,
-    wait: true,
     features: []
   }
 
@@ -102,10 +101,6 @@ class FacialFeatures extends AppBase {
           features: newFeatures
         })
     }
-  }
-
-  removeAtIndex(index) {
-    this.removeFeature(index)
   }
 
   generateComponent() {

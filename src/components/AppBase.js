@@ -98,6 +98,7 @@ var user2 = {
 }
 
 var user3 = {
+  id: 2,
   username: "nahla",
   name: "Nahla Jones",
   email: "nahla@email.com",
@@ -123,6 +124,7 @@ const userImages = [
   "assets/img/userimage/user_pedro.png"]
 
 const SESSION_ID = 'sessionID'
+const SESSION_FF = 'sessionFF'
 
 class AppBase extends React.Component {
 
@@ -181,7 +183,7 @@ class AppBase extends React.Component {
     alert(text + '')
   }
 
-  userCreateSession(id, name) {
+  userCreateSession(id) {
     this.clearSession()
     this.doLogin()
     this.setCookie(SESSION_ID, id)
@@ -189,6 +191,14 @@ class AppBase extends React.Component {
 
   getSessionID() {
     return this.getCookie(SESSION_ID)
+  }
+
+  getSessionFeatures() {
+    return this.getCookie(SESSION_FF)
+  }
+
+  setSessionFeatures(features) {
+    return this.setCookie(SESSION_FF, features)
   }
 
   userHasSession() {
@@ -208,6 +218,7 @@ class AppBase extends React.Component {
 
   clearSession() {
     this.deleteCookie(SESSION_ID)
+    this.deleteCookie(SESSION_FF)
   }
 
   doLogout() {
@@ -242,7 +253,7 @@ class AppBase extends React.Component {
       console.log(user)
       if (user.username === username) {
         valid = true
-        this.userCreateSession(i, in_user)
+        this.userCreateSession(i)
         console.log("[SignIn] Valid Credentials");
       }
     }
@@ -261,6 +272,7 @@ class AppBase extends React.Component {
   addFeature(id, element) {
     let user = this.getUser(id)
     user.features.push(element)
+    this.setSessionFeatures(user.features)
   }
 
   removeFeature(id, index) {
