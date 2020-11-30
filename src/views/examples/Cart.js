@@ -74,7 +74,8 @@ class Cart extends AppBase {
     itemList: [],
     facialFeatures: [],
     finalCost: 0,
-    popup: false
+    popup: false,
+    popup2:false
   };
 
   componentDidMount() {
@@ -151,7 +152,7 @@ class Cart extends AppBase {
       return(<div>
         <Button onClick={this.togglePopup} >Checkout</Button>
         <Modal className="modal-dialog-centered"
-            isOpen={this.state.popup}>
+            isOpen={this.state.popup1}>
               <Badge style={{height:250}}>
                 <h2>Complete purchase?</h2>
                 <div style={{marginTop:30}}>
@@ -164,13 +165,25 @@ class Cart extends AppBase {
               
               
                </Modal>
+               <Modal className="modal-dialog-centered"
+            isOpen={this.state.popup2}>
+              <Badge style={{height:200}}>
+                <h2>Purchsed with success</h2>
+                <div style={{marginTop:30}}>
+                <b style={{fontSize:20}}>Total: {this.state.finalCost.toFixed(2)}€</b></div>
+                <div className="row" style={{marginTop:50}}>
+                    <Button onClick={this.emptyCart} color="primary" style={{marginLeft:200, height:45}}>OK</Button>
+                    
+                </div>
+              </Badge>
+              
+              
+               </Modal>
 
       </div>)
     }
   }
-
-
-  togglePopup=()=>{
+  updateState(){
     console.log("1F:",this.state.finalCost)
         
     var newItemList = this.getCookie('cart')
@@ -196,14 +209,32 @@ class Cart extends AppBase {
     })
     console.log("5F:",this.state.finalCost)
     console.log("6TP:",totalPrice)
-    this.setState({
-      popup: !this.state.popup
-    })
+
   }
 
-  cartCheckout(){
-    if(this.hasItems()){
 
+  togglePopup=()=>{
+    this.updateState();
+    
+    this.setState({
+      popup1: !this.state.popup1
+    })
+  }
+  emptyCart=()=>{
+    var newCart = []
+    this.setCookie('cart',newCart);
+    window.location.reload(false)
+
+  }
+
+  cartCheckout=()=>{
+    if(this.hasItems()){
+      this.setState({
+        popup1: !this.state.popup1
+      })
+      this.setState({
+        popup2: !this.state.popup2
+      })
     }
   }
  
