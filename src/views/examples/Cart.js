@@ -67,7 +67,8 @@ import ItemDeletionButton from "components/ItemDeletionButton.js";
 
 class Cart extends AppBase {
   state = {
-    itemList:[]
+    itemList:[],
+    facialFeatures:[]
   };
   
   componentDidMount() {
@@ -77,13 +78,17 @@ class Cart extends AppBase {
     
     
     var newItemList = this.getCookie('cart')
-    console.log("cart is: ",newItemList)
+    var newFeatures = this.getFeatures()
+    var sessionID = this.getCookie('sessionID')
     if(newItemList!=null){
       this.setState({
         itemList: newItemList
+      }) 
+    }
+    if(newFeatures!=null && sessionID!=null){
+      this.setState({
+        facialFeatures: newFeatures
       })
-    
-      
     }
     
   }
@@ -122,7 +127,7 @@ class Cart extends AppBase {
                 this.state.itemList.map(
                     (item)=>(
                       <div className="row">
-                      <CartItem name={item.title} image={item.image} price='5'id={counter++}/>
+                      <CartItem name={item.title} image={item.image} price='5'id={counter++} facial={this.state.facialFeatures}/>
                       <div style = {{marginLeft:20, marginTop:20}}>
                       <ItemDeletionButton id={counter} name={item.title} image={item.image}></ItemDeletionButton>
                       </div>

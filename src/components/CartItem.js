@@ -30,6 +30,22 @@ class CartItem extends Component{
         }
         
     }
+    getFacialSelector(){
+        if(this.props.facial.length==0) return(<div></div>)
+       console.log("FACE", this.props.facial)
+        return(
+             <select style={{width:"90%", height:"90%", fontSize:"15px",fontFamily:"verdana", textTransform:"uppercase"}}> 
+                {this.props.facial.map(
+                    (face)=>(
+                        <option>
+                            {face.title}
+                        </option>
+                    )
+
+                    
+                )}
+            </select>)
+    }
   
 
     
@@ -38,7 +54,7 @@ class CartItem extends Component{
 
 
             
-            <Badge style={{width:600, height:110, marginBottom:20}}>
+            <Badge style={{width:620, height:110, marginBottom:20}}>
                     <div className="row" style={{alignItems:'center'} }>
                      <div style={{marginLeft:20}}>
                          <img width="90"
@@ -53,13 +69,10 @@ class CartItem extends Component{
                      <div  style={{width:30,height:23,marginLeft:15}}>
                         <b style={{width:20, fontSize:"18px"}}>{this.props.price}{"€"}</b>
                      </div>
-                     <div  style={{width:130, height:40,marginLeft:15}}>
-                        <select style={{width:"90%", height:"90%", fontSize:"15px",fontFamily:"verdana", textTransform:"uppercase"}}> 
-                            <option>Profile</option>
-                            <option>Profile2</option>
-                        </select>
+                     <div  style={{width:160, height:40,marginLeft:15}}>
+                        {this.getFacialSelector()}
                      </div>
-                     <div style={{width:130, height:42,marginLeft:15}}>
+                     <div style={{width:130, height:42,marginLeft:10}}>
                          <div className="row" style={{alignItems:"center",marginLeft:15}}>
                          <button style={{border:"none", outline:"none"}} onClick={this.decreaseAmount}
                          ><img src={require("assets/img/icons/common/minus_icon.png").default} alt="..." width="25" height="30"></img></button>
