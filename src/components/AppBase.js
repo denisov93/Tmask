@@ -273,10 +273,10 @@ class AppBase extends React.Component {
     return user.features
   }
 
-  addFeature(id, element) {
-    let user = this.getUser(id)
-    user.features.push(element)
-    this.setSessionFeatures(user.features)
+  addFeature(element) {
+    let features = this.getSessionFeatures()
+    features.push(element)
+    this.setSessionFeatures(features)
   }
 
   removeFeature(id, index) {

@@ -131,7 +131,7 @@ class NewFacialFeatures extends AppBase {
       layers: this.state.layers,
     }
 
-    this.addFeature(2, feature)
+    this.addFeature(feature)
     document.location.reload()
   }
 
