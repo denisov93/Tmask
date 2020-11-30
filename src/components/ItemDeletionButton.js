@@ -33,6 +33,7 @@ class ItemDeletionButton extends AppBase{
      var cart = this.getCookie('cart')
      cart.splice(thisId,1);
      this.setCookie('cart',cart)
+     window.location.reload(false)
  }
 
  render(){
