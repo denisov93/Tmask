@@ -324,7 +324,7 @@ class NewFacialFeatures extends AppBase {
 
               return (<p style={{ cursor: "pointer", }} onClick={() => { this.setState({ index: i }); }}>
                 <span style={{ color: "red", textDecoration: "underline", }}>{text}</span>
-                {" "} <i className="fa fa-arrow-circle-right mr-2" />
+                &nbsp; <i className="fa fa-arrow-circle-right mr-2" />
               </p>)
             })}
           </div>
@@ -415,7 +415,7 @@ class NewFacialFeatures extends AppBase {
                   <IconButton icon="fa fa-angle-left" route="/facial-features" />
                   <div className="text-center ajuda mt--43">
                     <h3>
-                      <i className="fa fa-id-card" />{" "}New facial feature
+                      <i className="fa fa-id-card" />&nbsp;&nbsp;New facial feature
                     </h3>
                   </div>
                   <div className="border-top text-center mt-5 mb-2">

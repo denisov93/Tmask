@@ -181,7 +181,7 @@ class Profile extends AppBase {
                   </Row>
                   <div className="text-center mt-5">
                     <h3>
-                      <i className="ni ni-badge" />{" "}{name}{""}
+                      <i className="ni ni-badge" />&nbsp;{name}{""}
                       <span className="font-weight-light">, {age}</span>
                     </h3>
                     <div>

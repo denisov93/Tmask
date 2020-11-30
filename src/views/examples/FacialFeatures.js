@@ -166,7 +166,7 @@ class FacialFeatures extends AppBase {
                 <div className="px-4">
                   <div className="text-center mt-5">
                     <h3>
-                      <i className="fa fa-id-card" />{" "}Facial Features
+                      <i className="fa fa-id-card" />&nbsp;&nbsp;Facial Features
                     </h3>
                   </div>
                   <div className="mt-5 py-5 border-top text-center">
