@@ -604,6 +604,43 @@ class Builder extends AppBase {
     }, 600);
   }
 
+  buildMask(){
+    var title = "YourDesign"
+    var image = this.refs.editor.handleExportImage()
+    var description = "Your edited mask"
+    var mask = {
+      id: Math.floor(10000 + Math.random() * 90000),
+      title: title,
+      image: image,
+      description: description,
+      tags: ["YourMask","FromEditor"],
+      price: 5
+    }
+    return mask
+  }
+
+  handleBuyEditedMask(){
+    this.buyTheMask()
+  }
+
+  buyTheMask(){
+    const cc = this.buildMask()
+    var cart = this.getCookie('cart')
+    if(cart === null)
+        cart = []
+    cart.push(cc)
+    this.setCookie('cart', cart)
+    this.addItemToCart(cc)
+    this.triggerPopup("Success!","The mask you edited was sent to shopping cart.")
+  }
+
+  triggerPopup(title,description){
+    this.setState({
+      popupTitle: title,
+      popupDescription: description,
+      alertPopup: true
+    })}
+
   render() {
     return (
       <>
@@ -1236,9 +1273,9 @@ class Builder extends AppBase {
 
                           <Card>
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: 65 }}>
-                              <Button style={btnBuyStyle}>
+                              <Button style={btnBuyStyle} onClick={()=> this.handleBuyEditedMask()}>
                                 <i className="fa fa-shopping-cart"></i> Buy
-                        </Button>
+                              </Button>
                             </div>
                           </Card>
 

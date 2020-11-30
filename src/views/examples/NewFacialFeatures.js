@@ -19,8 +19,8 @@
 
 /*
   TODO:
-    - save the facial profile
     - better display for review
+    - no need to reload to return to FacialFeatures
 */
 
 import React from "react";
@@ -53,6 +53,7 @@ import mask1 from "assets/img/editorResources/editor_mask_cirurgical.png"
 import mask2 from "assets/img/editorResources/editor_mask_cloth.png"
 import mask3 from "assets/img/editorResources/editor_mask_N95.png"
 import mask4 from "assets/img/editorResources/editor_mask_N95_type2.png"
+import { Link } from "react-router-dom";
 
 const rowStyle = {
   display: 'flex',
@@ -79,9 +80,10 @@ function IconButton(props) {
     <Button
       className="my-4"
       color="primary"
-      onClick={() => document.location.reload()}
+      to={props.route}
+      tag={Link}
     >
-      <i className={props.icon} />
+      <span><i className={props.icon} /></span>
     </Button>
   );
 }
@@ -119,6 +121,20 @@ class NewFacialFeatures extends AppBase {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
+  }
+
+  pressedSave() {
+    let feature = {
+      title: this.state.name,
+      type: this.state.face,
+      xaxis: this.state.xaxis,
+      yaxis: this.state.yaxis,
+      mask: this.state.mask,
+      layers: this.state.layers,
+    }
+
+    this.addFeature(feature)
+    this.props.history.push("/facial-features")
   }
 
   faceButton(img, label) {
@@ -195,7 +211,7 @@ class NewFacialFeatures extends AppBase {
                       value={this.state.yaxis} min="1" max="25" step="0.25"
                       onChange={e => this.setState({ yaxis: e.target.value })} />
                     <InputGroupAddon addonType="append">
-                      <InputGroupText>centimeters</InputGroupText>
+                      <InputGroupText>centimetres</InputGroupText>
                     </InputGroupAddon>
                   </InputGroup>
                 </FormGroup>
@@ -213,7 +229,7 @@ class NewFacialFeatures extends AppBase {
                       value={this.state.xaxis} min="1" max="50" step="0.25"
                       onChange={e => this.setState({ xaxis: e.target.value })} />
                     <InputGroupAddon addonType="append">
-                      <InputGroupText>centimeters</InputGroupText>
+                      <InputGroupText>centimetres</InputGroupText>
                     </InputGroupAddon>
                   </InputGroup>
                 </FormGroup>
@@ -281,13 +297,13 @@ class NewFacialFeatures extends AppBase {
         let block = toComplete.length === 0
           ? <div className="text-center">
             <p className="text-center">The shape of your face is <strong>{this.state.face}</strong></p>
-            <p>You have <strong>{this.state.xaxis}</strong> centimeters between the ears</p>
-            <p>And <strong>{this.state.yaxis}</strong> centimeters from the nose to the chin</p>
+            <p>You have <strong>{this.state.xaxis}</strong> centimetres between the ears</p>
+            <p>And <strong>{this.state.yaxis}</strong> centimetres from the nose to the chin</p>
             <p>Your preferred mask is <strong>{this.state.mask}</strong> with <strong>{this.state.layers}</strong> {l}</p>
             <Row style={rowStyle} className="mt-5 mb-2">
               <h4>Save as:</h4>
               <FormGroup style={{ width: 250 }} className="mt-2 ml-3">
-                <Input id="id_name" type="text" placeHolder="Choose an appropriate name"
+                <Input id="id_name" type="text" placeholder="Choose an appropriate name"
                   onChange={e => this.setState({ name: e.target.value })} />
               </FormGroup>
             </Row>
@@ -308,7 +324,7 @@ class NewFacialFeatures extends AppBase {
 
               return (<p style={{ cursor: "pointer", }} onClick={() => { this.setState({ index: i }); }}>
                 <span style={{ color: "red", textDecoration: "underline", }}>{text}</span>
-                {" "} <i className="fa fa-arrow-circle-right mr-2" />
+                &nbsp; <i className="fa fa-arrow-circle-right mr-2" />
               </p>)
             })}
           </div>
@@ -342,7 +358,7 @@ class NewFacialFeatures extends AppBase {
               onClick={() => { this.setState({ index: this.state.index - 1 }); }}
             />
             <IconTextButton text="SAVE" icon="fa fa-floppy-o"
-              onClick={() => { this.pressedSubmit(); }}
+              onClick={() => { this.pressedSave(); }}
             />
           </>
       default:
@@ -396,10 +412,10 @@ class NewFacialFeatures extends AppBase {
             <Container>
               <Card className="card-profile shadow mt--450 mb-3">
                 <div className="px-4">
-                  <IconButton icon="fa fa-angle-left" />
-                  <div className="text-center mt--43">
+                  <IconButton icon="fa fa-angle-left" route="/facial-features" />
+                  <div className="text-center ajuda mt--43">
                     <h3>
-                      <i className="fa fa-id-card" />{" "}New facial feature
+                      <i className="fa fa-id-card" />&nbsp;&nbsp;New facial feature
                     </h3>
                   </div>
                   <div className="border-top text-center mt-5 mb-2">

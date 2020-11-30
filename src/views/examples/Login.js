@@ -115,7 +115,7 @@ class Login extends AppBase {
       dataService.setData('login_failed')
     }
     if (result) {
-      window.location.assign("profile-page")
+      this.props.history.push("profile-page")
     }
     this.setState({})
   }

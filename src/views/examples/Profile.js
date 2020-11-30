@@ -31,24 +31,53 @@ const SESSION_ID = 'sessionID'
 class Profile extends AppBase {
   state = {
     wait: true,
-    id: "",
+    id: -1,
     name: "",
-    img: ""
+    img: "",
+    displaySocialButtons: false
   }
 
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
 
-    this.state.id = this.getCookie(SESSION_ID)
-    this.state.wait = false
-
-    this.setState({
-    });
+    let id = this.getCookie(SESSION_ID)
+    if (id != null) {
+      this.setState({ id: id })
+    }
+    this.setState({ wait: false })
   }
 
   componentDidUpdate() {
     this.state.id = this.getCookie(SESSION_ID)
+  }
+
+  renderSocialButtons() {
+    if(this.state.displaySocialButtons){
+    return (
+      <div className="card-profile-actions py-4 mt-lg-0">
+        <Button
+          className="mr-4"
+          color="info"
+          href="#user"
+          onClick={e => e.preventDefault()}
+          size="sm"
+        >
+          Send Friend Request
+  </Button>
+        <Button
+          className="float-right"
+          color="default"
+          href="#user"
+          onClick={e => e.preventDefault()}
+          size="sm"
+        >
+          Message
+  </Button>
+      </div>)
+    }else{
+      return(<div></div>)
+    }
   }
 
   render() {
@@ -58,8 +87,8 @@ class Profile extends AppBase {
     let user = this.getUser(this.state.id)
     let name = user.name
     let age = user.age
-
     let image
+
     switch (this.state.id) {
       case 0:
         image = require("assets/img/userimage/user_alicia.png").default
@@ -77,10 +106,12 @@ class Profile extends AppBase {
         break;
     }
 
+    const socialButtons = this.renderSocialButtons()
+
     return (
       <>
         <DemoNavbar />
-        <main className="profile-page" ref="main">
+        <main className="profile-page" ref="main" style={{userSelect: 'none'}}>
           <section className="section-profile-cover section-shaped my-0">
             {/* Circles background */}
             <div className="shape shape-style-1 shape-default alpha-4">
@@ -116,60 +147,41 @@ class Profile extends AppBase {
                   <Row className="justify-content-center">
                     <Col className="order-lg-2" lg="3">
                       <div className="card-profile-image">
-                        <a href="#pablo" onClick={e => e.preventDefault()}>
-                          <img
+                        
+                          <img style={{border: 6, borderStyle: 'solid', borderColor: 'white'}}
                             alt="..."
                             className="rounded-circle"
                             src={image}
                           />
-                        </a>
+                        
                       </div>
                     </Col>
                     <Col
                       className="order-lg-3 text-lg-right align-self-lg-center"
                       lg="4"
                     >
-                      <div className="card-profile-actions py-4 mt-lg-0">
-                        <Button
-                          className="mr-4"
-                          color="info"
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                          size="sm"
-                        >
-                          Connect
-                        </Button>
-                        <Button
-                          className="float-right"
-                          color="default"
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                          size="sm"
-                        >
-                          Message
-                        </Button>
-                      </div>
+                      {socialButtons}
                     </Col>
                     <Col className="order-lg-1" lg="4">
-                      <div className="card-profile-stats d-flex justify-content-center">
+                      <div className="card-profile-stats d-flex justify-content-center" style={{backgroundColor:"#FFFFFFAA"}}>
                         <div>
-                          <span className="heading">12</span>
-                          <span className="description">Masks</span>
+                          <span className="heading" style={{color:'#32325D'}}>12</span>
+                          <span className="description" style={{color:'#32325D'}}><b>Masks</b></span>
                         </div>
                         <div>
-                          <span className="heading">7</span>
-                          <span className="description">Photos</span>
+                          <span className="heading" style={{color:'#32325D'}}>7</span>
+                          <span className="description" style={{color:'#32325D'}}><b>Photos</b></span>
                         </div>
                         <div>
-                          <span className="heading">31</span>
-                          <span className="description"><i className="ni ni-chat-round" />{" "}Comments</span>
+                          <span className="heading" style={{color:'#32325D'}}>31</span>
+                          <span className="description" style={{color:'#32325D'}}><b>Comments</b></span>
                         </div>
                       </div>
                     </Col>
                   </Row>
                   <div className="text-center mt-5">
                     <h3>
-                      <i className="ni ni-badge" />{" "}{name}{""}
+                      <i className="ni ni-badge" />&nbsp;{name}{""}
                       <span className="font-weight-light">, {age}</span>
                     </h3>
                     <div>
@@ -180,13 +192,7 @@ class Profile extends AppBase {
                   <div className="mt-5 py-5 border-top text-center">
                     <Row className="justify-content-center">
                       <Col lg="9">
-                        <p>
-                          An artist of considerable range, Ryan — the name taken
-                          by Melbourne-raised, Brooklyn-based Nick Murphy —
-                          writes, performs and records all of his own music,
-                          giving it a warm, intimate feel with a solid groove
-                          structure. An artist of considerable range.
-                        </p>
+                        <p>{'>'} An idea would be to list masks shared and bought (Not part of the prototype)</p>
                       </Col>
                     </Row>
                   </div>

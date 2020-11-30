@@ -17,22 +17,25 @@
 
 */
 import React from "react";
+import { Link } from "react-router-dom";
 import { Button, Card, Container, Row, Col } from "reactstrap";
 
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import AppBase from "components/AppBase";
-import NewFacialFeatures from "./NewFacialFeatures";
 
 const SESSION_ID = 'sessionID'
 
 function BigButton(props) {
   return (
     <Button
-      className="btn-neutral btn-icon btn-std-case"
+      className="btn-neutral btn-icon btn-std-case mb-2"
       onClick={props.onClick}
-      color="default">
+      color="default"
+      to={props.route}
+      tag={Link}
+    >
       <Row style={{
         display: 'flex',
         alignItems: 'center',
@@ -84,7 +87,6 @@ function FeatureItem(props) {
 class FacialFeatures extends AppBase {
 
   state = {
-    new: false,
     features: []
   }
 
@@ -95,18 +97,16 @@ class FacialFeatures extends AppBase {
 
     let id = this.getCookie(SESSION_ID)
     if (id != null) {
-      let newFeatures = this.getFeatures(id)
+      let newFeatures = this.getSessionFeatures()
       if (newFeatures != null)
-        this.setState({
-          features: newFeatures
-        })
+        this.setState({ features: newFeatures })
     }
   }
 
   generateComponent() {
     let col =
       <Col>
-        <BigButton icon="fa fa-plus" text="Create a new facial feature" onClick={() => this.setState({ new: true })} />
+        <BigButton icon="fa fa-plus" text="Create a new facial feature" route="/facial-features/new" />
       </Col>
 
     if (this.state.features.length > 0) {
@@ -128,7 +128,7 @@ class FacialFeatures extends AppBase {
   }
 
   render() {
-    return this.state.new ? <NewFacialFeatures /> : (
+    return (
       <>
         <DemoNavbar />
         <main className="/facial-features" ref="main">
@@ -162,11 +162,11 @@ class FacialFeatures extends AppBase {
           </section>
           <section className="section">
             <Container>
-              <Card className="card-profile shadow mt--300">
+              <Card className="card-profile shadow mt--300 mb-6">
                 <div className="px-4">
                   <div className="text-center mt-5">
                     <h3>
-                      <i className="fa fa-id-card" />{" "}Facial Features
+                      <i className="fa fa-id-card" />&nbsp;&nbsp;Facial Features
                     </h3>
                   </div>
                   <div className="mt-5 py-5 border-top text-center">

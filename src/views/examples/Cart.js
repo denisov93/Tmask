@@ -90,93 +90,11 @@ class Cart extends AppBase {
         itemList: newItemList
       })
     }
-    if (sessionID != null) {
+    if(sessionID!=null){
       var newFeatures = this.getFeatures(sessionID)
-      if (newFeatures != null)
-        this.setState({
-          facialFeatures: newFeatures
-        })
-    }
-
-  }
-  hasItems() {
-    return (this.state.itemList.length > 0)
-  }
-
-  
-
-  cartHeader() {
-    if (this.hasItems())
-      return (
-        <h2 style={{ marginLeft: "15%", marginBottom: 30, color: "white" }}>Your Cart:</h2>
-      )
-    else return (
-      <>
-        <h2 style={{ textAlign: "center", marginBottom: 30, color: "white" }}>Your Cart Is Empty!</h2>
-        <div className="row" style={{ alignItems: "center" }}>
-          <Button style={{ marginLeft: "33%" }}
-            className="btn-icon mb-3 mb-sm-0"
-            color="info"
-            to="/catalog"
-            tag={Link}
-          >
-            <span className="btn-inner--icon mr-1">
-              <img alt=".." className="text-white" src={require("assets/img/icons/common/head-side-mask-solid.svg").default} />
-            </span>
-            <span className="btn-inner--text">view mask Catalog</span>
-          </Button>
-          <b style={{ marginRight: 10 }}>OR</b>
-          <Button
-            className="btn-icon mb-3 mb-sm-0"
-            color="info"
-            to="/builder"
-            tag={Link}
-          >
-            <span className="btn-inner--icon mr-1">
-              <i className="ni ni-palette" />
-            </span>
-            <span className="btn-inner--text"> Go to Builder</span>
-          </Button>
-        </div>
-      </>
-    )
-
-  }
- 
-
-  loadCheckoutSection(){
-    if(this.hasItems()){
-        
-
-      return(<div>
-        <Button onClick={this.togglePopup} >Checkout</Button>
-        <Modal className="modal-dialog-centered"
-            isOpen={this.state.popup}>
-              <Badge style={{height:250}}>
-                <h2>Complete purchase?</h2>
-                <div style={{marginTop:30}}>
-                <b style={{fontSize:20}}>Total: {this.state.finalCost.toFixed(2)}€</b></div>
-                <div className="row" style={{marginTop:50}}>
-                    <Button onClick={this.cartCheckout} color="primary" style={{marginLeft:155, height:45}}>PAY</Button>
-                    <Button onClick={this.togglePopup} color="light" style={{marginLeft:50, height:45}}>BACK</Button>
-                </div>
-              </Badge>
-              
-              
-               </Modal>
-
-      </div>)
-    }
-  }
-
-
-  togglePopup=()=>{
-    console.log("1F:",this.state.finalCost)
-        
-    var newItemList = this.getCookie('cart')
-    if (newItemList != null) {
+      if(newFeatures!=null)
       this.setState({
-        itemList: newItemList
+        facialFeatures: newFeatures
       })
     }
     console.log("2F:",this.state.finalCost)
