@@ -27,11 +27,10 @@ import SimpleFooter from "components/Footers/SimpleFooter.js";
 import AppBase from "components/AppBase";
 
 const SESSION_ID = 'sessionID'
-const SESSION_NAME = 'sessionNAME'
-const SESSION_IMG = 'sessionIMG'
 
 class Profile extends AppBase {
   state = {
+    wait: true,
     id: "",
     name: "",
     img: ""
@@ -40,11 +39,9 @@ class Profile extends AppBase {
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
-    this.refs.main.scrollTop = 0;
 
     this.state.id = this.getCookie(SESSION_ID)
-    this.state.name = this.getCookie(SESSION_NAME)
-    this.state.img = this.getCookie(SESSION_IMG)
+    this.state.wait = false
 
     this.setState({
     });
@@ -52,29 +49,28 @@ class Profile extends AppBase {
 
   componentDidUpdate() {
     this.state.id = this.getCookie(SESSION_ID)
-    this.state.name = this.getCookie(SESSION_NAME)
-    this.state.img = this.getCookie(SESSION_IMG)
   }
 
   render() {
-    let name;
-    let image;
+    if (this.state.wait)
+      return (<></>)
 
+    let user = this.getUser(this.state.id)
+    let name = user.name
+    let age = user.age
+
+    let image
     switch (this.state.id) {
       case 0:
-        name = "Alicia Carter"
         image = require("assets/img/userimage/user_alicia.png").default
         break;
       case 1:
-        name = "Jonny Evans"
         image = require("assets/img/userimage/user_jonny.png").default
         break;
       case 2:
-        name = "Nahla Jones"
         image = require("assets/img/userimage/user_nahla.png").default
         break;
       case 3:
-        name = "Peter Wood"
         image = require("assets/img/userimage/user_pedro.png").default
         break;
       default:
@@ -124,10 +120,10 @@ class Profile extends AppBase {
                           <img
                             alt="..."
                             className="rounded-circle"
-                        src={image}
-                      />
-                    </a>
-                  </div>
+                            src={image}
+                          />
+                        </a>
+                      </div>
                     </Col>
                     <Col
                       className="order-lg-3 text-lg-right align-self-lg-center"
@@ -166,15 +162,15 @@ class Profile extends AppBase {
                         </div>
                         <div>
                           <span className="heading">31</span>
-                          <span className="description"><i className="ni ni-chat-round"/>{" "}Comments</span>
+                          <span className="description"><i className="ni ni-chat-round" />{" "}Comments</span>
                         </div>
                       </div>
                     </Col>
                   </Row>
                   <div className="text-center mt-5">
                     <h3>
-                    <i className="ni ni-badge"/>{" "}{name}{""}
-                      <span className="font-weight-light">, 19</span>
+                      <i className="ni ni-badge" />{" "}{name}{""}
+                      <span className="font-weight-light">, {age}</span>
                     </h3>
                     <div>
                       <i className="ni education_hat mr-2" />

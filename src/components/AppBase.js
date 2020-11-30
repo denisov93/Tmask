@@ -1,110 +1,82 @@
 import React from 'react';
 import dataService from 'components/dataService.js'
-import { 
+import {
   // eslint-disable-next-line
-  Component} from 'react';
-  import {
-    // eslint-disable-next-line
-    Badge,
-    // eslint-disable-next-line
-    Button,
-    // eslint-disable-next-line
-    Card,
-    // eslint-disable-next-line
-    CardHeader,
-    // eslint-disable-next-line
-    CardTitle,
-    // eslint-disable-next-line
-    CardBody,
-    // eslint-disable-next-line
-    CardImg,
-    // eslint-disable-next-line
-    FormGroup,
-    // eslint-disable-next-line
-    Input,
-    // eslint-disable-next-line
-    InputGroupAddon,
-    // eslint-disable-next-line
-    InputGroupText,
-    // eslint-disable-next-line
-    InputGroup,
-    // eslint-disable-next-line
-    Container,
-    // eslint-disable-next-line
-    Row,
-    // eslint-disable-next-line
-    Col,
-    Modal,
-    ModalBody,
-    ModalFooter,
-    // eslint-disable-next-line
-    Form,
-  } from "reactstrap";
+  Component
+} from 'react';
+import {
+  // eslint-disable-next-line
+  Badge,
+  // eslint-disable-next-line
+  Button,
+  // eslint-disable-next-line
+  Card,
+  // eslint-disable-next-line
+  CardHeader,
+  // eslint-disable-next-line
+  CardTitle,
+  // eslint-disable-next-line
+  CardBody,
+  // eslint-disable-next-line
+  CardImg,
+  // eslint-disable-next-line
+  FormGroup,
+  // eslint-disable-next-line
+  Input,
+  // eslint-disable-next-line
+  InputGroupAddon,
+  // eslint-disable-next-line
+  InputGroupText,
+  // eslint-disable-next-line
+  InputGroup,
+  // eslint-disable-next-line
+  Container,
+  // eslint-disable-next-line
+  Row,
+  // eslint-disable-next-line
+  Col,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  // eslint-disable-next-line
+  Form,
+} from "reactstrap";
 
 
-var user1 = [
-  {id: 0},
-  {
-    username:"alicia"
-  },
-  {
-    name:"Alicia Carter"
-  },
-  {
-    email:"alicia@email.com"
-  },
-  {
-    pass:"1234"
-  },
-]
+var user1 = {
+  id: 0,
+  username: "alicia",
+  name: "Alicia Carter",
+  email: "alicia@email.com",
+  pass: "1234",
+  age: "21",
+}
 
-var user2 = [
-  {id: 1},
-  {
-    username:"jonny"
-  },
-  {
-    name:"Jonny Evans"
-  },
-  {
-    email:"jonny@email.com"
-  },
-  {
-    pass:"2345"
-  },
-]
+var user2 = {
+  id: 1,
+  username: "jonny",
+  name: "Jonny Evans",
+  email: "jonny@email.com",
+  pass: "2345",
+  age: "21",
+}
 
-var user3 = [
-  {id: 2},
-  {
-    username:"nahla"
-  },
-  {
-    name:"Nahla Jones"
-  },
-  {
-    email:"nahla@email.com"
-  },
-  {
-    pass:"3456"
-  },
-]
+var user3 = {
+  username: "nahla",
+  name: "Nahla Jones",
+  email: "nahla@email.com",
+  pass: "3456",
+  age: "21",
+}
 
-var user4 = [
-  {id: 3},
-  {
-    username:"pedro"
-  },
-  {
-    name:"Peter Wood"
-  },
-  {
-    email:"pedro@email.com"
-  },
-  {
-    pass:"4567"
-  },
-]
+var user4 = {
+  id: 3,
+  username: "pedro",
+  name: "Peter Wood",
+  email: "pedro@email.com",
+  pass: "4567",
+  age: "21",
+}
 
 const userImages = [
   "assets/img/userimage/user_alicia.png",
@@ -143,7 +115,7 @@ const features = [
   },
 ]
 
-class AppBase extends React.Component{
+class AppBase extends React.Component {
 
   state = {
     basePopupOpen: false
@@ -151,52 +123,57 @@ class AppBase extends React.Component{
 
   globalVar = {
     isLoggedIn: false,
-    cart:[],
+    cart: [],
     features: features
   }
 
-  deleteCookies(){
+  deleteCookies() {
     localStorage.clear()
   }
 
-  deleteCookie(key){
+  deleteCookie(key) {
     localStorage.removeItem(key)
   }
 
-  setCookie(key,value){
+  setCookie(key, value) {
     var serialize = JSON.stringify(value)
-    try{
+    try {
       localStorage.setItem(key, serialize)
-    }catch{
+    } catch {
       alert("Cannot continue, clear browser cache, or type \"localStorage.clear()\" in console.")
     }
   }
 
-  getCookie(key){
+  getCookie(key) {
     var deserialized = localStorage.getItem(key)
     var value = JSON.parse(deserialized)
-    if(value === null){
+    if (value === null) {
       //console.log("Cookie [Key:"+key+"] not found")
-    }else{/*console.log(value)*/}
+    } else {/*console.log(value)*/ }
     return value
   }
 
-  getMyCart(){
-    console.log("cart is: ",this.globalVar.cart)
-    
+  getMyCart() {
+    console.log("cart is: ", this.globalVar.cart)
+
     return this.globalVar.cart
   }
 
-  getUsers(){
-    return[user1,user2,user3,user4]
+  getUsers() {
+    return [user1, user2, user3, user4]
   }
 
-  displayAlert(text){
-    console.log(text+'')
-    alert(text+'')
+  getUser(id) {
+    let users = this.getUsers()
+    return users[id]
   }
 
-  userCreateSession(id, name){
+  displayAlert(text) {
+    console.log(text + '')
+    alert(text + '')
+  }
+
+  userCreateSession(id, name) {
     this.clearSession()
     this.doLogin()
     this.setCookie(SESSION_ID, id)
@@ -204,80 +181,73 @@ class AppBase extends React.Component{
     this.setCookie(SESSION_IMG, this.getUserImage(id))
   }
 
-  userList(){
-    return this.getUsers()
-  }
-
-  getSessionID(){
+  getSessionID() {
     return this.getCookie(SESSION_ID)
   }
 
-  getSessionImg(){
+  getSessionImg() {
     return this.getUserImage(SESSION_IMG)
   }
 
-  userHasSession(){
+  userHasSession() {
     return this.globalVar.isLoggedIn
   }
 
-  addItemToCart(item){
-    console.log("Added ",item)
+  addItemToCart(item) {
+    console.log("Added ", item)
     this.globalVar.cart.push(item)
-    this.submitForm(item)  
+    this.submitForm(item)
   }
 
-  submitForm = (cart) => { 
+  submitForm = (cart) => {
     dataService.setData(cart);
-  } 
+  }
 
-  clearSession(){
+  clearSession() {
     this.deleteCookie(SESSION_ID)
     this.deleteCookie(SESSION_NAME)
     this.deleteCookie(SESSION_IMG)
   }
 
-  doLogout(){
+  doLogout() {
     this.clearSession()
     this.globalVar.isLoggedIn = false
     console.log("[Session] User logged out.")
   }
 
-  doLogin(){
+  doLogin() {
     this.globalVar.isLoggedIn = true
     console.log("[Session] User logged in.")
   }
 
-  getUserImage(id){
+  getUserImage(id) {
     var img = userImages[id]
     console.log(img)
     return img
   }
 
-  validateSignIn(in_user, in_pass){
-    const username = in_user+''
-    const password = in_pass+''
-    console.log("[SignIn] [User:"+username+"][Pass:"+password+"]");
+  validateSignIn(in_user, in_pass) {
+    const username = in_user + ''
+    const password = in_pass + ''
+    console.log("[SignIn] [User:" + username + "][Pass:" + password + "]");
 
     var valid = false
 
     const users = this.getUsers()
     //console.log("Users in system: "+users.length)
 
-    for(var i = 0; i < users.length; i++){
-      var sUser = users[i]
-      console.log(sUser)
-      for(var j = 0; j < sUser.length; j++){
-        const details = sUser[j]
-        if(details.username === username){
-            valid = true
-            this.userCreateSession(i, in_user)
-            console.log("[SignIn] Valid Credentials");
-        }
+    for (var i = 0; i < users.length; i++) {
+      var user = users[i]
+      console.log(user)
+      if (user.username === username) {
+        valid = true
+        this.userCreateSession(i, in_user)
+        console.log("[SignIn] Valid Credentials");
       }
     }
 
-    if(!valid){
-       console.log("[SignIn] Credentials Mismatch");
+    if (!valid) {
+      console.log("[SignIn] Credentials Mismatch");
     }
     return valid
   }
@@ -294,42 +264,43 @@ class AppBase extends React.Component{
     this.globalVar.features.splice(index, 1)
   }
 
-  popup(title, body, btnText, flag){
+  popup(title, body, btnText, flag) {
 
     // eslint-disable-next-line
     this.state.basePopupOpen = flag
 
     const components = (
-      <Modal className='modal-dialog-centered' style={{maxWidth:390, userSelect:'none'}} toggle={() => {
-        this.setState({basePopupOpen: !this.state.basePopupOpen})}} 
+      <Modal className='modal-dialog-centered' style={{ maxWidth: 390, userSelect: 'none' }} toggle={() => {
+        this.setState({ basePopupOpen: !this.state.basePopupOpen })
+      }}
         isOpen={this.state.basePopupOpen}>
         <div className="text-muted text-center mb-3">
           <br></br>
           <big><strong>{title}</strong></big>
         </div>
         <div>
-        <ModalBody>
-         {body}
-        </ModalBody>
+          <ModalBody>
+            {body}
+          </ModalBody>
         </div>
         <ModalFooter>
           <Button
             color="secondary"
             type="button"
             onClick={() => {
-              this.setState({basePopupOpen: !this.state.basePopupOpen})
-              this.setState({alertPopup: false})
-              }}>
+              this.setState({ basePopupOpen: !this.state.basePopupOpen })
+              this.setState({ alertPopup: false })
+            }}>
             {btnText}
           </Button>
         </ModalFooter>
       </Modal>
     )
-    return(components)
+    return (components)
   }
 
-   // eslint-disable-next-line
-  constructor(){
+  // eslint-disable-next-line
+  constructor() {
     super()
   }
 }

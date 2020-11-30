@@ -33,12 +33,11 @@ function LoginButton(props) {
 }
 
 const SESSION_ID = 'sessionID'
-const SESSION_NAME = 'sessionNAME'
-const SESSION_IMG = 'sessionIMG'
 
 class AuthSys extends AppBase {
 
   state = {
+    wait: true,
     id: "",
     username: "",
     img: ""
@@ -52,8 +51,7 @@ class AuthSys extends AppBase {
 
   componentDidMount() {
     this.state.id = this.getCookie(SESSION_ID)
-    this.state.username = this.getCookie(SESSION_NAME)
-    this.state.img = this.getCookie(SESSION_IMG)
+    this.state.wait = false
 
     this.setState({
     });
@@ -61,12 +59,10 @@ class AuthSys extends AppBase {
 
   componentDidUpdate() {
     this.state.id = this.getCookie(SESSION_ID)
-    this.state.username = this.getCookie(SESSION_NAME)
-    this.state.img = this.getCookie(SESSION_IMG)
   }
 
   handleHasSession() {
-    return (this.state.username !== null && this.state.img !== null)
+    return (this.state.id !== null)
   }
 
   handleLoginClick() {
@@ -86,42 +82,39 @@ class AuthSys extends AppBase {
   }
 
   render() {
-    let components;
-    let accountimg;
-    let accountdetails;
+    if (this.state.wait)
+      return (<></>)
 
-    let name;
-    let image;
-    switch (this.state.id) {
-      case 0:
-        name = "Alicia Carter"
-        image = require("assets/img/userimage/user_alicia.png").default
-        break;
-      case 1:
-        name = "Jonny Evans"
-        image = require("assets/img/userimage/user_jonny.png").default
-        break;
-      case 2:
-        name = "Nahla Jones"
-        image = require("assets/img/userimage/user_nahla.png").default
-        break;
-      case 3:
-        name = "Peter Wood"
-        image = require("assets/img/userimage/user_pedro.png").default
-        break;
-      default:
-        break;
-    }
-
+    let components
     if (this.handleHasSession()) {
-      accountimg =
+      let user = this.getUser(this.state.id)
+
+      let image
+      switch (this.state.id) {
+        case 0:
+          image = require("assets/img/userimage/user_alicia.png").default
+          break;
+        case 1:
+          image = require("assets/img/userimage/user_jonny.png").default
+          break;
+        case 2:
+          image = require("assets/img/userimage/user_nahla.png").default
+          break;
+        case 3:
+          image = require("assets/img/userimage/user_pedro.png").default
+          break;
+        default:
+          break;
+      }
+
+      let accountimg =
         <img alt=""
           src={image}
           style={{ width: 42, height: 42, borderRadius: 90 / 2, borderStyle: "solid", borderColor: "white", borderWidth: 2 }}
         />
-      accountdetails =
+      let accountdetails =
         <div style={{ display: "grid", placeItems: "center", paddingInlineStart: 10, paddingInlineEnd: 10 }}>
-          <font color="white">{name}</font>
+          <font color="white">{user.name}</font>
         </div>
 
       components =
