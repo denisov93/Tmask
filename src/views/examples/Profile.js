@@ -33,7 +33,8 @@ class Profile extends AppBase {
     wait: true,
     id: -1,
     name: "",
-    img: ""
+    img: "",
+    displaySocialButtons: false
   }
 
   componentDidMount() {
@@ -51,6 +52,34 @@ class Profile extends AppBase {
     this.state.id = this.getCookie(SESSION_ID)
   }
 
+  renderSocialButtons() {
+    if(this.state.displaySocialButtons){
+    return (
+      <div className="card-profile-actions py-4 mt-lg-0">
+        <Button
+          className="mr-4"
+          color="info"
+          href="#user"
+          onClick={e => e.preventDefault()}
+          size="sm"
+        >
+          Send Friend Request
+  </Button>
+        <Button
+          className="float-right"
+          color="default"
+          href="#user"
+          onClick={e => e.preventDefault()}
+          size="sm"
+        >
+          Message
+  </Button>
+      </div>)
+    }else{
+      return(<div></div>)
+    }
+  }
+
   render() {
     if (this.state.wait)
       return (<></>)
@@ -58,8 +87,8 @@ class Profile extends AppBase {
     let user = this.getUser(this.state.id)
     let name = user.name
     let age = user.age
-
     let image
+
     switch (this.state.id) {
       case 0:
         image = require("assets/img/userimage/user_alicia.png").default
@@ -76,6 +105,8 @@ class Profile extends AppBase {
       default:
         break;
     }
+
+    const socialButtons = this.renderSocialButtons()
 
     return (
       <>
@@ -129,26 +160,7 @@ class Profile extends AppBase {
                       className="order-lg-3 text-lg-right align-self-lg-center"
                       lg="4"
                     >
-                      <div className="card-profile-actions py-4 mt-lg-0">
-                        <Button
-                          className="mr-4"
-                          color="info"
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                          size="sm"
-                        >
-                          Connect
-                        </Button>
-                        <Button
-                          className="float-right"
-                          color="default"
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                          size="sm"
-                        >
-                          Message
-                        </Button>
-                      </div>
+                      {socialButtons}
                     </Col>
                     <Col className="order-lg-1" lg="4">
                       <div className="card-profile-stats d-flex justify-content-center">
@@ -180,13 +192,7 @@ class Profile extends AppBase {
                   <div className="mt-5 py-5 border-top text-center">
                     <Row className="justify-content-center">
                       <Col lg="9">
-                        <p>
-                          An artist of considerable range, Ryan — the name taken
-                          by Melbourne-raised, Brooklyn-based Nick Murphy —
-                          writes, performs and records all of his own music,
-                          giving it a warm, intimate feel with a solid groove
-                          structure. An artist of considerable range.
-                        </p>
+                        <p>//An idea would be list masks shared and bought (Not part of the prototype)</p>
                       </Col>
                     </Row>
                   </div>
