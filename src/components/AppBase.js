@@ -85,8 +85,6 @@ const userImages = [
   "assets/img/userimage/user_pedro.png"]
 
 const SESSION_ID = 'sessionID'
-const SESSION_NAME = 'sessionNAME'
-const SESSION_IMG = 'sessionIMG'
 
 const features = [
   {
@@ -177,16 +175,10 @@ class AppBase extends React.Component {
     this.clearSession()
     this.doLogin()
     this.setCookie(SESSION_ID, id)
-    this.setCookie(SESSION_NAME, name)
-    this.setCookie(SESSION_IMG, this.getUserImage(id))
   }
 
   getSessionID() {
     return this.getCookie(SESSION_ID)
-  }
-
-  getSessionImg() {
-    return this.getUserImage(SESSION_IMG)
   }
 
   userHasSession() {
@@ -205,8 +197,6 @@ class AppBase extends React.Component {
 
   clearSession() {
     this.deleteCookie(SESSION_ID)
-    this.deleteCookie(SESSION_NAME)
-    this.deleteCookie(SESSION_IMG)
   }
 
   doLogout() {
