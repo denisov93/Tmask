@@ -44,7 +44,6 @@ import dataService from "components/dataService.js";
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 // eslint-disable-next-line
-import AuthSys from "components/AuthSys.js";
 import AppBase from "components/AppBase.js";
 
 function Popup() {

@@ -33,14 +33,13 @@ function LoginButton(props) {
 }
 
 const SESSION_ID = 'sessionID'
-const SESSION_NAME = 'sessionNAME'
-const SESSION_IMG = 'sessionIMG'
 
 class AuthSys extends AppBase {
 
   state = {
+    wait: true,
     id: "",
-    name: "",
+    username: "",
     img: ""
   }
 
@@ -52,8 +51,7 @@ class AuthSys extends AppBase {
 
   componentDidMount() {
     this.state.id = this.getCookie(SESSION_ID)
-    this.state.name = this.getCookie(SESSION_NAME)
-    this.state.img = this.getCookie(SESSION_IMG)
+    this.state.wait = false
 
     this.setState({
     });
@@ -61,12 +59,10 @@ class AuthSys extends AppBase {
 
   componentDidUpdate() {
     this.state.id = this.getCookie(SESSION_ID)
-    this.state.name = this.getCookie(SESSION_NAME)
-    this.state.img = this.getCookie(SESSION_IMG)
   }
 
   handleHasSession() {
-    return (this.state.name !== null && this.state.img !== null)
+    return (this.state.id !== null)
   }
 
   handleLoginClick() {
@@ -86,29 +82,39 @@ class AuthSys extends AppBase {
   }
 
   render() {
-    let components;
-    let accountimg;
-    let accountdetails;
+    if (this.state.wait)
+      return (<></>)
 
-    var image
-    if (this.state.id === 0)
-      image = require("assets/img/userimage/user_alicia.png").default
-    else if (this.state.id === 1)
-      image = require("assets/img/userimage/user_jonny.png").default
-    else if (this.state.id === 2)
-      image = require("assets/img/userimage/user_nahla.png").default
-    else if (this.state.id === 3)
-      image = require("assets/img/userimage/user_pedro.png").default
-
+    let components
     if (this.handleHasSession()) {
-      accountimg =
+      let user = this.getUser(this.state.id)
+
+      let image
+      switch (this.state.id) {
+        case 0:
+          image = require("assets/img/userimage/user_alicia.png").default
+          break;
+        case 1:
+          image = require("assets/img/userimage/user_jonny.png").default
+          break;
+        case 2:
+          image = require("assets/img/userimage/user_nahla.png").default
+          break;
+        case 3:
+          image = require("assets/img/userimage/user_pedro.png").default
+          break;
+        default:
+          break;
+      }
+
+      let accountimg =
         <img alt=""
           src={image}
           style={{ width: 42, height: 42, borderRadius: 90 / 2, borderStyle: "solid", borderColor: "white", borderWidth: 2 }}
         />
-      accountdetails =
+      let accountdetails =
         <div style={{ display: "grid", placeItems: "center", paddingInlineStart: 10, paddingInlineEnd: 10 }}>
-          <font color="white">{this.state.name}</font>
+          <font color="white">{user.name}</font>
         </div>
 
       components =
@@ -129,7 +135,7 @@ class AuthSys extends AppBase {
                 >
                   <i className="fa fa-user-circle fa-lg" />
 
-                  <Media body className="margin-tl">
+                  <Media body className="mt-2 ml-2">
                     <h6 className="text-primary mb-md-1">
                       My Profile
                     </h6>
@@ -142,7 +148,7 @@ class AuthSys extends AppBase {
                 >
                   <i className="fa fa-id-card fa-lg" />
 
-                  <Media body className="margin-tl">
+                  <Media body className="mt-2 ml-2">
                     <h6 className="text-primary mb-md-1">
                       Facial Features
                     </h6>
@@ -155,7 +161,7 @@ class AuthSys extends AppBase {
                 >
                   <i className="fa fa-sign-out fa-lg" />
 
-                  <Media body className="margin-tl" onClick={this.handleLogoutClick} >
+                  <Media body className="mt-2 ml-2" onClick={this.handleLogoutClick} >
                     <h6 className="text-primary mb-md-1">
                       Log Out
                     </h6>

@@ -17,15 +17,13 @@
 
 */
 import React from "react";
-import { Link } from "react-router-dom";
-
-// reactstrap components
 import { Button, Card, Container, Row, Col } from "reactstrap";
 
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import AppBase from "components/AppBase";
+import NewFacialFeatures from "./NewFacialFeatures";
 
 function SmallButton(props) {
   return (
@@ -33,9 +31,10 @@ function SmallButton(props) {
       className="btn-neutral btn-icon btn-sm"
       onClick={props.onClick}
       color="default"
-      to={props.route}
-      tag={Link}>
-      <i className={props.icon} />
+    >
+      <span className="fs-11">
+        <i className={props.icon} />
+      </span>
     </Button>
   );
 }
@@ -45,9 +44,7 @@ function BigButton(props) {
     <Button
       className="btn-neutral btn-icon btn-std-case"
       onClick={props.onClick}
-      color="default"
-      to={props.route}
-      tag={Link}>
+      color="default">
       <Row style={{
         display: 'flex',
         alignItems: 'center',
@@ -57,7 +54,7 @@ function BigButton(props) {
         <span className="btn-inner--icon">
           <i className={props.icon} />
         </span>
-        <h6 className="margin-tl">
+        <h6 className="mt-2 ml-2">
           {props.text}
         </h6>
       </Row>
@@ -72,17 +69,21 @@ function FeatureItem(props) {
       alignItems: 'center',
       justifyContent: 'center',
     }}>
-      <h5 className="margin-tr">
+      <h5 className="mt-2 mr-3">
         {props.item.title}
       </h5>
       <SmallButton icon="fa fa-pencil" />
       <SmallButton icon="fa fa-files-o" />
-      <SmallButton to="facial-features-page" icon="fa fa-times" />
+      <SmallButton icon="fa fa-times" />
     </Row>
   );
 }
 
 class FacialFeatures extends AppBase {
+
+  state = {
+    new: false,
+  }
 
   getElements() {
     return this.getFeatures()
@@ -100,8 +101,8 @@ class FacialFeatures extends AppBase {
 
   generateComponent() {
     let col =
-      <Col className="margin-b">
-        <BigButton route="/facial-features/new" icon="fa fa-plus" text="Create a new facial feature" />
+      <Col>
+        <BigButton icon="fa fa-plus" text="Create a new facial feature" onClick={() => this.setState({ new: true })} />
       </Col>
 
     if (this.getElements().length > 0) {
@@ -123,7 +124,7 @@ class FacialFeatures extends AppBase {
   }
 
   render() {
-    return (
+    return this.state.new ? <NewFacialFeatures /> : (
       <>
         <DemoNavbar />
         <main className="/facial-features" ref="main">

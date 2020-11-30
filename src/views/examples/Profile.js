@@ -24,14 +24,59 @@ import { Button, Card, Container, Row, Col } from "reactstrap";
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
+import AppBase from "components/AppBase";
 
-class Profile extends React.Component {
+const SESSION_ID = 'sessionID'
+
+class Profile extends AppBase {
+  state = {
+    wait: true,
+    id: "",
+    name: "",
+    img: ""
+  }
+
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
-    this.refs.main.scrollTop = 0;
+
+    this.state.id = this.getCookie(SESSION_ID)
+    this.state.wait = false
+
+    this.setState({
+    });
   }
+
+  componentDidUpdate() {
+    this.state.id = this.getCookie(SESSION_ID)
+  }
+
   render() {
+    if (this.state.wait)
+      return (<></>)
+
+    let user = this.getUser(this.state.id)
+    let name = user.name
+    let age = user.age
+
+    let image
+    switch (this.state.id) {
+      case 0:
+        image = require("assets/img/userimage/user_alicia.png").default
+        break;
+      case 1:
+        image = require("assets/img/userimage/user_jonny.png").default
+        break;
+      case 2:
+        image = require("assets/img/userimage/user_nahla.png").default
+        break;
+      case 3:
+        image = require("assets/img/userimage/user_pedro.png").default
+        break;
+      default:
+        break;
+    }
+
     return (
       <>
         <DemoNavbar />
@@ -75,7 +120,7 @@ class Profile extends React.Component {
                           <img
                             alt="..."
                             className="rounded-circle"
-                            src={require("assets/img/userimage/user_alicia.png").default}
+                            src={image}
                           />
                         </a>
                       </div>
@@ -117,15 +162,15 @@ class Profile extends React.Component {
                         </div>
                         <div>
                           <span className="heading">31</span>
-                          <span className="description"><i className="ni ni-chat-round"/>{" "}Comments</span>
+                          <span className="description"><i className="ni ni-chat-round" />{" "}Comments</span>
                         </div>
                       </div>
                     </Col>
                   </Row>
                   <div className="text-center mt-5">
                     <h3>
-                    <i className="ni ni-badge"/>{" "}Alicia Jones{""}
-                      <span className="font-weight-light">, 19</span>
+                      <i className="ni ni-badge" />{" "}{name}{""}
+                      <span className="font-weight-light">, {age}</span>
                     </h3>
                     <div>
                       <i className="ni education_hat mr-2" />
