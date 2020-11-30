@@ -240,23 +240,23 @@ class Catalog extends AppBase {
                 <span />
               </div>
               <Container>
-              
-              <Button 
+              <div style={{display: 'flex', flexDirection: 'row'}}>
+              <Button style={{minWidth: 210, maxHeight: 43}} 
               color="secondary" 
               type="button"
               onClick={() =>{this.setState({allcards: this.state.cards2});}}
               >
                 Made By TMask Team
               </Button>
-              <Button 
+              <Button style={{minWidth: 210, maxHeight: 43}} 
               color="secondary" 
               type="button"
               onClick={() =>{this.setState({allcards: this.state.cards});}}
               >
-                Made By Customers
+               Made By Customers
               </Button>
               <div >
-              <Form style={{minWidth:'400px' ,maxWidth:'400px', position:"absolute", top:0, right:10}}>
+              <Form style={{position: 'absolute', minWidth: 300, width: 320, maxWidth: 320, top:0, right:15}}>
                 <FormGroup>
                   <InputGroup className="input-group-alternative mb-4">
                     <InputGroupAddon addonType="prepend">
@@ -275,6 +275,7 @@ class Catalog extends AppBase {
                   </InputGroup>
                 </FormGroup>
               </Form>
+              </div>
               </div>
               
                   <Row className="row-grid align-items-center my-md">
