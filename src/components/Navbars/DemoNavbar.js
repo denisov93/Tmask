@@ -224,10 +224,12 @@ class DemoNavbar extends AppBase {
                     <UncontrolledTooltip delay={0} target="tooltip112445449">
                       Any Questions?
                     </UncontrolledTooltip>
+                    
                   </NavItem>
-                  <NavItem className="d-none d-lg-block ml-lg-4">
-                    <AuthSys />
-                  </NavItem>
+                  <div style={{display: 'flex', alignItems:'left'}}>
+                    <AuthSys/>
+                  </div>
+                  
                 </Nav>
               </UncontrolledCollapse>
             </Container>
