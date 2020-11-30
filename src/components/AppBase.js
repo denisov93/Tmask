@@ -207,6 +207,7 @@ class AppBase extends React.Component{
     this.globalVar.cart.push(item)
     this.submitForm(item)  
   }
+  
 
   submitForm = (cart) => { 
     dataService.setData(cart);

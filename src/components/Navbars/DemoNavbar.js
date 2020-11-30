@@ -71,6 +71,7 @@ class DemoNavbar extends AppBase {
         })
     }
     });
+    
 
     let sessionID = this.getCookie("sessionID")
     if( sessionID !== null )

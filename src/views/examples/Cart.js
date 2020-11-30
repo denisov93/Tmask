@@ -52,6 +52,8 @@ import {
   Col
 } from "reactstrap";
 
+
+
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import CardsFooter from "components/Footers/CardsFooter.js";
@@ -59,15 +61,37 @@ import CardsFooter from "components/Footers/CardsFooter.js";
 // index page sections
 // eslint-disable-next-line
 import Download from "../IndexSections/Download.js";
+import dataService from "components/dataService.js";
+import AppBase from "components/AppBase.js";
+import ItemDeletionButton from "components/ItemDeletionButton.js";
 
-class Cart extends React.Component {
-  state = {};
+class Cart extends AppBase {
+  state = {
+    itemList:[]
+  };
+  
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
+    
+    
+    var newItemList = this.getCookie('cart')
+    console.log("cart is: ",newItemList)
+    if(newItemList!=null){
+      this.setState({
+        itemList: newItemList
+      })
+    
+      
+    }
+    
   }
+   
+
+  
   render() {
+    var counter =-1;
     return (
       <>
         <DemoNavbar />
@@ -94,13 +118,22 @@ class Cart extends React.Component {
                 
                 
                 <div className="col px-0" >
+                <div>{
+                this.state.itemList.map(
+                    (item)=>(
+                      <div className="row">
+                      <CartItem name={item.title} image={item.image} price='5'id={counter++}/>
+                      <div style = {{marginLeft:20, marginTop:20}}>
+                      <ItemDeletionButton id={counter}></ItemDeletionButton>
+                      </div>
+                      </div>
+                      )
+                      
+                 )}</div>
                 
-                <CartItem name="ABC" image={require("assets/img/masks/fire.png").default} price='5'></CartItem>
-                <CartItem name="Fire" image={require("assets/img/masks/fire.png").default} price='5'></CartItem>
-                <CartItem name="Goku" image={require("assets/img/masks/goku.png").default} price='5'></CartItem>
-                <CartItem name="Nameisjusttoodamnlongitshouldntfit" image={require("assets/img/masks/fire.png").default} price='5'></CartItem>
                 <div style={{marginTop:"20px"}}>
-                <Button>Checkout</Button>
+                
+                <Button >Checkout</Button>
                 </div>
                 </div>
               </Container>
