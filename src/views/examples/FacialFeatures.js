@@ -30,7 +30,7 @@ const SESSION_ID = 'sessionID'
 function BigButton(props) {
   return (
     <Button
-      className="btn-neutral btn-icon btn-std-case"
+      className="btn-neutral btn-icon btn-std-case mb-2"
       onClick={props.onClick}
       color="default"
       to={props.route}
@@ -162,7 +162,7 @@ class FacialFeatures extends AppBase {
           </section>
           <section className="section">
             <Container>
-              <Card className="card-profile shadow mt--300">
+              <Card className="card-profile shadow mt--300 mb-6">
                 <div className="px-4">
                   <div className="text-center mt-5">
                     <h3>
