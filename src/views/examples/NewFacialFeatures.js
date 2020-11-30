@@ -209,7 +209,7 @@ class NewFacialFeatures extends AppBase {
                       value={this.state.yaxis} min="1" max="25" step="0.25"
                       onChange={e => this.setState({ yaxis: e.target.value })} />
                     <InputGroupAddon addonType="append">
-                      <InputGroupText>centimeters</InputGroupText>
+                      <InputGroupText>centimetres</InputGroupText>
                     </InputGroupAddon>
                   </InputGroup>
                 </FormGroup>
@@ -227,7 +227,7 @@ class NewFacialFeatures extends AppBase {
                       value={this.state.xaxis} min="1" max="50" step="0.25"
                       onChange={e => this.setState({ xaxis: e.target.value })} />
                     <InputGroupAddon addonType="append">
-                      <InputGroupText>centimeters</InputGroupText>
+                      <InputGroupText>centimetres</InputGroupText>
                     </InputGroupAddon>
                   </InputGroup>
                 </FormGroup>
@@ -295,8 +295,8 @@ class NewFacialFeatures extends AppBase {
         let block = toComplete.length === 0
           ? <div className="text-center">
             <p className="text-center">The shape of your face is <strong>{this.state.face}</strong></p>
-            <p>You have <strong>{this.state.xaxis}</strong> centimeters between the ears</p>
-            <p>And <strong>{this.state.yaxis}</strong> centimeters from the nose to the chin</p>
+            <p>You have <strong>{this.state.xaxis}</strong> centimetres between the ears</p>
+            <p>And <strong>{this.state.yaxis}</strong> centimetres from the nose to the chin</p>
             <p>Your preferred mask is <strong>{this.state.mask}</strong> with <strong>{this.state.layers}</strong> {l}</p>
             <Row style={rowStyle} className="mt-5 mb-2">
               <h4>Save as:</h4>
