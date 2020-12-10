@@ -20,7 +20,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Card, Container, Row, Col } from "reactstrap";
 
-// core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import AppBase from "components/AppBase";
@@ -67,23 +66,6 @@ function SmallButton(props) {
   );
 }
 
-function FeatureItem(props) {
-  return (
-    <Row style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    }}>
-      <h5 className="mt-2 mr-3">
-        {props.item.title}
-      </h5>
-      <SmallButton icon="fa fa-pencil" />
-      <SmallButton icon="fa fa-files-o" />
-      <SmallButton icon="fa fa-times" />
-    </Row>
-  );
-}
-
 class FacialFeatures extends AppBase {
 
   state = {
@@ -103,6 +85,35 @@ class FacialFeatures extends AppBase {
     }
   }
 
+  pressedEdit(item) {
+    //TODO: complete
+  }
+
+  pressedDuplicate(item) {
+    this.setState({ features: this.addFeature(item) })
+  }
+
+  pressedRemove(index) {
+    this.setState({ features: this.removeFeature(index) })
+  }
+
+  featureItem(item, i) {
+    return (
+      <Row key={i} style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+        <h5 className="mt-2 mr-3">
+          {item.title}
+        </h5>
+        <SmallButton icon="fa fa-pencil" onClick={() => { this.pressedEdit(item) }} />
+        <SmallButton icon="fa fa-files-o" onClick={() => { this.pressedDuplicate(item) }} />
+        <SmallButton icon="fa fa-times" onClick={() => { this.pressedRemove(i) }} />
+      </Row>
+    );
+  }
+
   generateComponent() {
     let col =
       <Col>
@@ -114,7 +125,7 @@ class FacialFeatures extends AppBase {
         <Row>
           <Col>
             {this.state.features.map((feature, i) => {
-              return (<FeatureItem key={i} item={feature} />)
+              return this.featureItem(feature, i)
             })}
           </Col>
           {col}

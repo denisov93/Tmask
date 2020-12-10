@@ -276,11 +276,14 @@ class AppBase extends React.Component {
     let features = this.getSessionFeatures()
     features.push(element)
     this.setSessionFeatures(features)
+    return features
   }
 
-  removeFeature(id, index) {
-    let user = this.getUser(id)
-    user.features.splice(index, 1)
+  removeFeature(index) {
+    let features = this.getSessionFeatures()
+    features.splice(index, 1)
+    this.setSessionFeatures(features)
+    return features
   }
 
   popup(title, body, btnText, flag) {

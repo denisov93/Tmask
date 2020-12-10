@@ -17,12 +17,6 @@
 
 */
 
-/*
-  TODO:
-    - better display for review
-    - no need to reload to return to FacialFeatures
-*/
-
 import React from "react";
 import {
   Button,
@@ -121,6 +115,12 @@ class NewFacialFeatures extends AppBase {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
+
+    if (this.props.feature) {
+      console.log("aa")
+    }
+    else
+      console.log("bb")
   }
 
   pressedSave() {

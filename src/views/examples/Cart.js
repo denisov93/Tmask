@@ -17,54 +17,22 @@
 
 */
 import React from "react";
-// nodejs library that concatenates classes
-// eslint-disable-next-line
 import CartItem from 'components/CartItem'
-import classnames from "classnames";
 
 // reactstrap components
 import {
-  // eslint-disable-next-line
   Badge,
-  // eslint-disable-next-line
   Button,
   Modal,
-
-  // eslint-disable-next-line
-  Card,
-  // eslint-disable-next-line
-  CardBody,
-  // eslint-disable-next-line
-  CardImg,
-  // eslint-disable-next-line
-  FormGroup,
-  // eslint-disable-next-line
-  Input,
-  // eslint-disable-next-line
-  InputGroupAddon,
-  // eslint-disable-next-line
-  InputGroupText,
-  // eslint-disable-next-line
-  InputGroup,
-  // eslint-disable-next-line
-  Container,
-  // eslint-disable-next-line
-  Row,
-  // eslint-disable-next-line
-  Col
+  Container
 } from "reactstrap";
 import { Link } from "react-router-dom";
-
-
 
 // core components
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import CardsFooter from "components/Footers/CardsFooter.js";
 
 // index page sections
-// eslint-disable-next-line
-import Download from "../IndexSections/Download.js";
-import dataService from "components/dataService.js";
 import AppBase from "components/AppBase.js";
 import ItemDeletionButton from "components/ItemDeletionButton.js";
 
@@ -75,7 +43,7 @@ class Cart extends AppBase {
     facialFeatures: [],
     finalCost: 0,
     popup: false,
-    popup2:false
+    popup2: false
   };
 
   componentDidMount() {
@@ -103,8 +71,6 @@ class Cart extends AppBase {
   hasItems() {
     return (this.state.itemList.length > 0)
   }
-
-  
 
   cartHeader() {
     if (this.hasItems())
@@ -143,92 +109,90 @@ class Cart extends AppBase {
     )
 
   }
- 
 
-  loadCheckoutSection(){
-    if(this.hasItems()){
-        
 
-      return(<div>
+  loadCheckoutSection() {
+    if (this.hasItems()) {
+
+
+      return (<div>
         <Button onClick={this.togglePopup} >Checkout</Button>
         <Modal className="modal-dialog-centered"
-            isOpen={this.state.popup1}>
-              <Badge style={{height:250}}>
-                <h2>Complete purchase?</h2>
-                <div style={{marginTop:30}}>
-                <b style={{fontSize:20}}>Total: {this.state.finalCost.toFixed(2)}€</b></div>
-                <div className="row" style={{marginTop:50}}>
-                    <Button onClick={this.cartCheckout} color="primary" style={{marginLeft:155, height:45}}>PAY</Button>
-                    <Button onClick={this.togglePopup} color="light" style={{marginLeft:50, height:45}}>BACK</Button>
-                </div>
-              </Badge>
-              
-              
-               </Modal>
-               <Modal className="modal-dialog-centered"
-            isOpen={this.state.popup2}>
-              <Badge style={{height:200}}>
-                <h2>Purchsed with success</h2>
-                <div style={{marginTop:30}}>
-                <b style={{fontSize:20}}>Total: {this.state.finalCost.toFixed(2)}€</b></div>
-                <div className="row" style={{marginTop:50}}>
-                    <Button onClick={this.emptyCart} color="primary" style={{marginLeft:200, height:45}}>OK</Button>
-                    
-                </div>
-              </Badge>
-              
-              
-               </Modal>
+          isOpen={this.state.popup1}>
+          <Badge style={{ height: 250 }}>
+            <h2>Complete purchase?</h2>
+            <div style={{ marginTop: 30 }}>
+              <b style={{ fontSize: 20 }}>Total: {this.state.finalCost.toFixed(2)}€</b></div>
+            <div className="row" style={{ marginTop: 50 }}>
+              <Button onClick={this.cartCheckout} color="primary" style={{ marginLeft: 155, height: 45 }}>PAY</Button>
+              <Button onClick={this.togglePopup} color="light" style={{ marginLeft: 50, height: 45 }}>BACK</Button>
+            </div>
+          </Badge>
+
+
+        </Modal>
+        <Modal className="modal-dialog-centered"
+          isOpen={this.state.popup2}>
+          <Badge style={{ height: 200 }}>
+            <h2>Purchsed with success</h2>
+            <div style={{ marginTop: 30 }}>
+              <b style={{ fontSize: 20 }}>Total: {this.state.finalCost.toFixed(2)}€</b></div>
+            <div className="row" style={{ marginTop: 50 }}>
+              <Button onClick={this.emptyCart} color="primary" style={{ marginLeft: 200, height: 45 }} to={"/Tmask"} tag={Link} >OK</Button>
+
+            </div>
+          </Badge>
+
+
+        </Modal>
 
       </div>)
     }
   }
-  updateState(){
-    console.log("1F:",this.state.finalCost)
-        
+  updateState() {
+    console.log("1F:", this.state.finalCost)
+
     var newItemList = this.getCookie('cart')
     if (newItemList != null) {
       this.setState({
         itemList: newItemList
       })
     }
-    console.log("2F:",this.state.finalCost)
-   
-        
+    console.log("2F:", this.state.finalCost)
+
+
     var totalPrice = 0;
-    for(var i=0;i<this.state.itemList.length;i++){
-       var item=this.state.itemList[i]
-        totalPrice+= item.amount*item.price
-        console.log(item.price)
-        console.log(totalPrice)
+    for (var i = 0; i < this.state.itemList.length; i++) {
+      var item = this.state.itemList[i]
+      totalPrice += item.amount * item.price
+      console.log(item.price)
+      console.log(totalPrice)
     }
-    console.log("3F:",this.state.finalCost)
-    console.log("4TP:",totalPrice)
+    console.log("3F:", this.state.finalCost)
+    console.log("4TP:", totalPrice)
     this.setState({
       finalCost: totalPrice
     })
-    console.log("5F:",this.state.finalCost)
-    console.log("6TP:",totalPrice)
+    console.log("5F:", this.state.finalCost)
+    console.log("6TP:", totalPrice)
 
   }
 
 
-  togglePopup=()=>{
+  togglePopup = () => {
     this.updateState();
-    
+
     this.setState({
       popup1: !this.state.popup1
     })
   }
-  emptyCart=()=>{
+  emptyCart = () => {
     var newCart = []
-    this.setCookie('cart',newCart);
-    window.location.reload(false)
-
+    this.setCookie('cart', newCart);
   }
 
-  cartCheckout=()=>{
-    if(this.hasItems()){
+  cartCheckout = () => {
+    if (this.hasItems()) {
       this.setState({
         popup1: !this.state.popup1
       })
@@ -237,7 +201,7 @@ class Cart extends AppBase {
       })
     }
   }
- 
+
 
 
 
