@@ -375,6 +375,29 @@ class NewFacialFeatures extends AppBase {
     }
   }
 
+  topBar() {
+    switch (this.state.index) {
+      case 0:
+        return <>
+          <span style={{ textDecoration: "underline" }}>Face Shape</span> | <span>Distances</span> | <span>Mask Preference</span> | <span>Review</span>
+        </>
+      case 1:
+        return <>
+          <span>Face Shape</span> | <span style={{ textDecoration: "underline" }}>Distances</span> | <span>Mask Preference</span> | <span>Review</span>
+        </>
+      case 2:
+        return <>
+          <span>Face Shape</span> | <span>Distances</span> | <span style={{ textDecoration: "underline" }}>Mask Preference</span> | <span>Review</span>
+        </>
+      case 3:
+        return <>
+          <span>Face Shape</span> | <span>Distances</span> | <span>Mask Preference</span> | <span style={{ textDecoration: "underline" }}>Review</span>
+        </>
+      default:
+        return <></>
+    }
+  }
+
   render() {
     return (
       <>
@@ -417,8 +440,11 @@ class NewFacialFeatures extends AppBase {
                     <h3>
                       <i className="fa fa-id-card" />&nbsp;&nbsp;New facial feature
                     </h3>
+                    <h6 className="mt-4">
+                      {this.topBar()}
+                    </h6>
                   </div>
-                  <div className="border-top text-center mt-5 mb-2">
+                  <div className="border-top text-center mt-4 mb-2">
                     <Form role="form" onSubmit={this.handleSubmit}>
                       {this.renderSwitch()}
                       {this.renderBottomButtons()}
