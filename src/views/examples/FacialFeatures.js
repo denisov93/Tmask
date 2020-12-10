@@ -85,8 +85,19 @@ class FacialFeatures extends AppBase {
     }
   }
 
-  pressedEdit(item) {
-    //TODO: complete
+  pressedEdit(i, item) {
+    this.props.history.push({
+      pathname: '/facial-features/new',
+      state: {
+        name: item.title,
+        face: item.type,
+        xaxis: item.xaxis,
+        yaxis: item.yaxis,
+        mask: item.mask,
+        layers: item.layers,
+        i: i,
+      }
+    })
   }
 
   pressedDuplicate(item) {
@@ -107,7 +118,7 @@ class FacialFeatures extends AppBase {
         <h5 className="mt-2 mr-3">
           {item.title}
         </h5>
-        <SmallButton icon="fa fa-pencil" onClick={() => { this.pressedEdit(item) }} />
+        <SmallButton icon="fa fa-pencil" onClick={() => { this.pressedEdit(i, item) }} />
         <SmallButton icon="fa fa-files-o" onClick={() => { this.pressedDuplicate(item) }} />
         <SmallButton icon="fa fa-times" onClick={() => { this.pressedRemove(i) }} />
       </Row>

@@ -109,6 +109,8 @@ class NewFacialFeatures extends AppBase {
     yaxis: 10,
     mask: "",
     layers: 1,
+    edit: false,
+    i: -1,
   }
 
   componentDidMount() {
@@ -116,8 +118,17 @@ class NewFacialFeatures extends AppBase {
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
 
-    if (this.props.feature) {
-      console.log("aa")
+    if (this.props.location.state) {
+      this.setState({
+        name: this.props.location.state.name,
+        face: this.props.location.state.face,
+        xaxis: this.props.location.state.xaxis,
+        yaxis: this.props.location.state.yaxis,
+        mask: this.props.location.state.mask,
+        layers: this.props.location.state.layers,
+        edit: true,
+        i: this.props.location.state.i
+      })
     }
     else
       console.log("bb")
@@ -133,7 +144,11 @@ class NewFacialFeatures extends AppBase {
       layers: this.state.layers,
     }
 
-    this.addFeature(feature)
+    if (this.state.edit)
+      this.editFeature(this.state.i, feature)
+    else
+      this.addFeature(feature)
+
     this.props.history.push("/facial-features")
   }
 
@@ -438,7 +453,7 @@ class NewFacialFeatures extends AppBase {
                   <IconButton icon="fa fa-angle-left" route="/facial-features" />
                   <div className="text-center ajuda mt--43">
                     <h3>
-                      <i className="fa fa-id-card" />&nbsp;&nbsp;New facial feature
+                      <i className="fa fa-id-card" />&nbsp;&nbsp;{this.state.edit ? <>Facial feature: {this.state.name}</> : <>New facial feature</>}
                     </h3>
                     <h6 className="mt-4">
                       {this.topBar()}

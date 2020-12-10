@@ -279,6 +279,13 @@ class AppBase extends React.Component {
     return features
   }
 
+  editFeature(index, element) {
+    let features = this.getSessionFeatures()
+    features[index] = element
+    this.setSessionFeatures(features)
+    return features
+  }
+
   removeFeature(index) {
     let features = this.getSessionFeatures()
     features.splice(index, 1)
