@@ -215,16 +215,24 @@ class Catalog extends AppBase {
     var res = []
     filtered = filtered.concat(this.state.cards).map(
       (ml)=>{
-        
-        let values = ml.tags
-        values = values.map(
-          (a)=>{ 
-            let peq = a.trim().toUpperCase()            
-            if(peq === keyw.toUpperCase()){
-              res.push(ml)
+       
+        if(!res.includes(ml)){
+          let values = ml.tags 
+          values.push(ml.title) 
+          
+          values = values.map(
+            (a)=>{ 
+              if(!res.includes(ml)){              
+                let peq = a.trim().toUpperCase()            
+                if(peq === keyw.toUpperCase()){
+                  res.push(ml)
+                }else if(ml.title.trim().toUpperCase() === keyw.toUpperCase()){
+                  res.push(ml)
+                }
+              }
             }
-          }
-        )
+          )
+        }
       }
     )
     if(res.length > 0){
