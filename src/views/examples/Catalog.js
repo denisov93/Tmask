@@ -47,6 +47,21 @@ import CardsFooter from "components/Footers/CardsFooter.js";
 
 import AppBase from "components/AppBase.js";
 
+const titleStyle = {
+  fontSize: "42px",
+  color: "#e4e2e9"
+}
+
+const styleButton = {
+  minWidth: 210, 
+  maxHeight: 43,
+}
+
+const styleButtonSelected = {
+  minWidth: 210, 
+  maxHeight: 43,
+  color: "#879bf4",
+}
 
 const cards2 = [
   {
@@ -168,7 +183,8 @@ class Catalog extends AppBase {
     allcards: cards2,
     cards: cards,
     cards2: cards2,
-    masksFilter:''
+    masksFilter:'',
+    flag: false
   };
   componentDidMount() {
     document.documentElement.scrollTop = 0;
@@ -257,17 +273,23 @@ class Catalog extends AppBase {
               </div>
               <Container>
               <div style={{display: 'flex', flexDirection: 'row'}}>
-              <Button style={{minWidth: 210, maxHeight: 43}} 
+              <Button style={this.state.flag? styleButton : styleButtonSelected} 
               color="secondary" 
               type="button"
-              onClick={() =>{this.setState({allcards: this.state.cards2});}}
+              onClick={() =>{this.setState({
+                allcards: this.state.cards2,
+                flag: false
+              });}}
               >
                 Made By TMask Team
               </Button>
-              <Button style={{minWidth: 210, maxHeight: 43}} 
+              <Button style={!this.state.flag? styleButton : styleButtonSelected} 
               color="secondary" 
               type="button"
-              onClick={() =>{this.setState({allcards: this.state.cards});}}
+              onClick={() =>{this.setState({
+                allcards: this.state.cards,
+                flag: true
+              });}}
               >
                Made By Customers
               </Button>
@@ -294,7 +316,12 @@ class Catalog extends AppBase {
               </Form>
               </div>
               </div>
-              
+                  <br></br>
+                  <br></br>
+                    <div style={titleStyle} >
+                      {!this.state.flag && "Made By TMask Team"}
+                      {this.state.flag &&  "Made By Our Customers"}
+                    </div>
                   <Row className="row-grid align-items-center my-md">
                       <Cards cards={ this.state.allcards }/>
                   </Row>
