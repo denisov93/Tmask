@@ -42,8 +42,8 @@ class Cart extends AppBase {
     itemList: [],
     facialFeatures: [],
     finalCost: 0,
-    popup: false,
-    popup2: false
+    confirmPopup: false,
+    successPopup: false
   };
 
   componentDidMount() {
@@ -52,14 +52,8 @@ class Cart extends AppBase {
     this.refs.main.scrollTop = 0;
 
 
-    //var newItemList = this.getCookie('cart')
     var sessionID = this.getCookie('sessionID')
 
-    /*if (newItemList != null) {
-      this.setState({
-        itemList: newItemList
-      })
-    }*/
     this.updateState();
     if (sessionID != null) {
       var newFeatures = this.getFeatures(sessionID)
@@ -116,29 +110,29 @@ class Cart extends AppBase {
   loadCheckoutSection() {
     if (this.hasItems()) {
       return(<div>
-        <Button onClick={this.togglePopup} >Checkout: {this.state.finalCost.toFixed(2)}€</Button>
+        <Button onClick={this.toggleConfirmPopup} >Checkout: {this.state.finalCost.toFixed(2)}€</Button>
         <Modal className="modal-dialog-centered"
-          isOpen={this.state.popup1}>
+          isOpen={this.state.confirmPopup}>
           <Badge style={{ height: 250 }}>
             <h2>Complete purchase?</h2>
             <div style={{ marginTop: 30 }}>
               <b style={{ fontSize: 20 }}>Total: {this.state.finalCost.toFixed(2)}€</b></div>
             <div className="row" style={{ marginTop: 50 }}>
               <Button onClick={this.cartCheckout} color="primary" style={{ marginLeft: 155, height: 45 }}>PAY</Button>
-              <Button onClick={this.togglePopup} color="light" style={{ marginLeft: 50, height: 45 }}>BACK</Button>
+              <Button onClick={this.toggleConfirmPopup} color="light" style={{ marginLeft: 50, height: 45 }}>BACK</Button>
             </div>
           </Badge>
 
 
         </Modal>
         <Modal className="modal-dialog-centered"
-          isOpen={this.state.popup2}>
+          isOpen={this.state.successPopup}>
           <Badge style={{ height: 200 }}>
-            <h2>Purchsed with success</h2>
+            <h2>Purchased with success</h2>
             <div style={{ marginTop: 30 }}>
               <b style={{ fontSize: 20 }}>Total: {this.state.finalCost.toFixed(2)}€</b></div>
             <div className="row" style={{ marginTop: 50 }}>
-              <Button onClick={this.emptyCart} color="primary" style={{ marginLeft: 200, height: 45 }} to={"/Tmask"} tag={Link} >OK</Button>
+              <Button onClick={this.emptyCart} color="primary" style={{ marginLeft: 225, height: 45 }} to={"/Tmask"} tag={Link} >OK</Button>
 
             </div>
           </Badge>
@@ -151,9 +145,8 @@ class Cart extends AppBase {
   }
 
 
-  //TODO
-  updateState=()=>{
-    
+  
+  updateState=()=>{ 
         
 
     var newItemList = this.getCookie('cart')
@@ -185,32 +178,30 @@ class Cart extends AppBase {
 
   
 //TODO
-  togglePopup=()=>{
+  toggleConfirmPopup=()=>{
 
     this.updateState();
 
     this.setState({
-      popup1: !this.state.popup1
+      confirmPopup: !this.state.confirmPopup
     })
   }
 
 
-//TODO
   emptyCart=()=>{
 
     var newCart = []
     this.setCookie('cart', newCart);
   }
 
-//TODO
   cartCheckout=()=>{
     if(this.hasItems()){
 
       this.setState({
-        popup1: !this.state.popup1
+        confirmPopup: !this.state.confirmPopup
       })
       this.setState({
-        popup2: !this.state.popup2
+        successPopup: !this.state.successPopup
       })
     }
   }
