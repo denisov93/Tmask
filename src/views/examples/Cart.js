@@ -52,13 +52,15 @@ class Cart extends AppBase {
     this.refs.main.scrollTop = 0;
 
 
-    var newItemList = this.getCookie('cart')
+    //var newItemList = this.getCookie('cart')
     var sessionID = this.getCookie('sessionID')
-    if (newItemList != null) {
+
+    /*if (newItemList != null) {
       this.setState({
         itemList: newItemList
       })
-    }
+    }*/
+    this.updateState();
     if (sessionID != null) {
       var newFeatures = this.getFeatures(sessionID)
       if (newFeatures != null)
@@ -111,12 +113,8 @@ class Cart extends AppBase {
   }
 
 
-  loadCheckoutSection() {
-    if (this.hasItems()) {
-
-
-      return (<div>
-        <Button onClick={this.togglePopup} >Checkout</Button>
+      return(<div>
+        <Button onClick={this.togglePopup} >Checkout: {this.state.finalCost.toFixed(2)}€</Button>
         <Modal className="modal-dialog-centered"
           isOpen={this.state.popup1}>
           <Badge style={{ height: 250 }}>
@@ -149,37 +147,38 @@ class Cart extends AppBase {
       </div>)
     }
   }
-  updateState() {
-    console.log("1F:", this.state.finalCost)
 
+  //TODO
+  updateState=()=>{
+    
+        
     var newItemList = this.getCookie('cart')
     if (newItemList != null) {
       this.setState({
         itemList: newItemList
       })
-    }
-    console.log("2F:", this.state.finalCost)
+      var totalPrice = 0;
+      for(var i=0;i<newItemList.length;i++){
+        var item=newItemList[i]
+         totalPrice+= item.amount*item.price
+         
+     }
+   
+     this.setState({
+       finalCost: totalPrice
+     })
 
 
-    var totalPrice = 0;
-    for (var i = 0; i < this.state.itemList.length; i++) {
-      var item = this.state.itemList[i]
-      totalPrice += item.amount * item.price
-      console.log(item.price)
-      console.log(totalPrice)
     }
-    console.log("3F:", this.state.finalCost)
-    console.log("4TP:", totalPrice)
-    this.setState({
-      finalCost: totalPrice
-    })
-    console.log("5F:", this.state.finalCost)
-    console.log("6TP:", totalPrice)
+    
 
   }
 
 
-  togglePopup = () => {
+
+  
+//TODO
+  togglePopup=()=>{
     this.updateState();
 
     this.setState({
@@ -240,7 +239,7 @@ class Cart extends AppBase {
                     this.state.itemList.map(
                       (item) => (
                         <div className="row">
-                          <CartItem name={item.title} image={item.image} price={item.price} itemID={counter} facial={this.state.facialFeatures} amount={item.amount} />
+                          <CartItem name={item.title} func={this.updateState} image={item.image} price={item.price} itemID={counter} facial={this.state.facialFeatures} amount={item.amount} />
                           <div style={{ marginLeft: 20, marginTop: 20 }}>
                             <ItemDeletionButton id={counter++} name={item.title} image={item.image}></ItemDeletionButton>
                           </div>

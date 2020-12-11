@@ -51,6 +51,7 @@ class CartItem extends AppBase{
         
     }
     handleChange = (e) =>{
+        
         var newAmount = e.target.value
         this.setState({
             amountOfItems: newAmount
@@ -58,6 +59,8 @@ class CartItem extends AppBase{
           var newCart = this.getCookie('cart');
           newCart[this.state.itemID].amount = newAmount;
           this.setCookie('cart',newCart);
+
+          this.props.func();
     }
     getFacialSelector(){
         if(this.props.facial.length==0) return(<div></div>)
