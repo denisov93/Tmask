@@ -1,5 +1,6 @@
 import React from 'react';
 import AppBase from "components/AppBase.js";
+import { Link } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -28,6 +29,7 @@ class ItemDeletionButton extends AppBase {
   }
 
   removeThisItem = () => {
+
     console.log(this.state.id)
     var thisId = this.state.id
 
@@ -35,7 +37,8 @@ class ItemDeletionButton extends AppBase {
     cart.splice(thisId, 1);
     this.setCookie('cart', cart)
     this.toggleModal()
-    window.location.reload(false) //TODO: remove
+    this.props.func();
+    //window.location.reload(false) //TODO: remove
   }
 
   render() {
@@ -63,7 +66,7 @@ class ItemDeletionButton extends AppBase {
             <p style={{ overflow: "hidden", textAlign: "center" }}>{this.props.name}</p>
 
             <div className="row">
-              <Button onClick={this.removeThisItem} color="primary" style={{ marginLeft: 130, height: 45 }}>REMOVE</Button>
+              <Button onClick={this.removeThisItem} color="primary" style={{ marginLeft: 130, height: 45 }}>REMOVE </Button>
               <Button onClick={this.toggleModal} color="light" style={{ marginLeft: 50, height: 45 }}>CANCEL</Button>
             </div>
           </Badge>

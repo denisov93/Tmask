@@ -38,6 +38,7 @@ import ItemDeletionButton from "components/ItemDeletionButton.js";
 
 
 class Cart extends AppBase {
+  
   state = {
     itemList: [],
     facialFeatures: [],
@@ -64,6 +65,10 @@ class Cart extends AppBase {
     }
 
   }
+
+  
+
+
   hasItems() {
     return (this.state.itemList.length > 0)
   }
@@ -76,7 +81,7 @@ class Cart extends AppBase {
     else return (
       <>
         <h2 style={{ textAlign: "center", marginBottom: 30, color: "white" }}>Your Cart Is Empty!</h2>
-        <div className="row" style={{ alignItems: "center" }}>
+        <div className="row" style={{ alignItems: "center", alignSelf:"center"}}>
           <Button style={{ marginLeft: "33%" }}
             className="btn-icon mb-3 mb-sm-0"
             color="info"
@@ -168,16 +173,8 @@ class Cart extends AppBase {
 
 
     }
-    
+   }
 
-
-  }
-
-
-
-
-  
-//TODO
   toggleConfirmPopup=()=>{
 
     this.updateState();
@@ -206,8 +203,7 @@ class Cart extends AppBase {
     }
   }
 
-
-
+ 
 
 
 
@@ -246,7 +242,7 @@ class Cart extends AppBase {
                         <div className="row">
                           <CartItem name={item.title} func={this.updateState} image={item.image} price={item.price} itemID={counter} facial={this.state.facialFeatures} amount={item.amount} />
                           <div style={{ marginLeft: 20, marginTop: 20 }}>
-                            <ItemDeletionButton id={counter++} name={item.title} image={item.image}></ItemDeletionButton>
+                            <ItemDeletionButton func={this.updateState} id={counter++} name={item.title} image={item.image}></ItemDeletionButton>
                           </div>
                         </div>
                       )
