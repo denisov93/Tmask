@@ -113,6 +113,8 @@ class Cart extends AppBase {
   }
 
 
+  loadCheckoutSection() {
+    if (this.hasItems()) {
       return(<div>
         <Button onClick={this.togglePopup} >Checkout: {this.state.finalCost.toFixed(2)}€</Button>
         <Modal className="modal-dialog-centered"
@@ -148,15 +150,18 @@ class Cart extends AppBase {
     }
   }
 
+
   //TODO
   updateState=()=>{
     
         
+
     var newItemList = this.getCookie('cart')
     if (newItemList != null) {
       this.setState({
         itemList: newItemList
       })
+
       var totalPrice = 0;
       for(var i=0;i<newItemList.length;i++){
         var item=newItemList[i]
@@ -172,26 +177,35 @@ class Cart extends AppBase {
     }
     
 
+
   }
+
 
 
 
   
 //TODO
   togglePopup=()=>{
+
     this.updateState();
 
     this.setState({
       popup1: !this.state.popup1
     })
   }
-  emptyCart = () => {
+
+
+//TODO
+  emptyCart=()=>{
+
     var newCart = []
     this.setCookie('cart', newCart);
   }
 
-  cartCheckout = () => {
-    if (this.hasItems()) {
+//TODO
+  cartCheckout=()=>{
+    if(this.hasItems()){
+
       this.setState({
         popup1: !this.state.popup1
       })
