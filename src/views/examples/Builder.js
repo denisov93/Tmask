@@ -614,7 +614,8 @@ class Builder extends AppBase {
       image: image,
       description: description,
       tags: ["YourMask","FromEditor"],
-      price: 5
+      price: 5,
+      amount:1
     }
     return mask
   }
