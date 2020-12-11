@@ -9,13 +9,14 @@ import {
 
 class CartItem extends AppBase{
 
-    
+     
     state = {
       amountOfItems : -1    ,
       itemID: -1
     };
 
     componentDidMount() {
+        
         this.setState({
             itemID: this.props.itemID
         });
@@ -82,12 +83,15 @@ class CartItem extends AppBase{
 
     
     render(){
+        var screenWidth = window.innerWidth
+        console.log(screenWidth)
+        
         return(
 
 
             
             <Badge style={{width:620, height:110, marginBottom:20}}>
-                    <div className="row" style={{alignItems:'center'} }>
+                    <div className="row" style={{alignItems:'center', width:620} }>
                      <div style={{marginLeft:20}}>
                          <img width="90"
                         src={this.props.image} alt="..."/>
