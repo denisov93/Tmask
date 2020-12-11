@@ -65,7 +65,7 @@ const styleButton = {
 const styleButtonSelected = {
   minWidth: 210, 
   maxHeight: 43,
-  color: "#879bf4",
+  color: "#879bf4", 
 }
 
 const cards2 = [
