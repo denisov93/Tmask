@@ -49,7 +49,12 @@ import AppBase from "components/AppBase.js";
 
 const titleStyle = {
   fontSize: "42px",
-  color: "#e4e2e9"
+  color: "#e4e2e9",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  textDecoration: "underline",
+  textTransform: "uppercase"
 }
 
 const styleButton = {
