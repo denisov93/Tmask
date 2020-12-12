@@ -48,8 +48,8 @@ import CardsFooter from "components/Footers/CardsFooter.js";
 import AppBase from "components/AppBase.js";
 
 const titleStyle = {
-  fontSize: "42px",
-  color: "#e4e2e9",
+  fontSize: "36px",
+  color: "#ffffff",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -332,10 +332,11 @@ class Catalog extends AppBase {
                   <br></br>
                   <br></br>
                     <div style={titleStyle} >
-                      {!this.state.flag && "Made By TMask Team"}
-                      {this.state.flag &&  "Made By Our Customers"}
+                      {this.state.masksFilter !== "" && "Search Results:"}
+                      {this.state.masksFilter === "" && !this.state.flag && "Made By TMask Team"}
+                      {this.state.masksFilter === "" && this.state.flag &&  "Made By Our Customers"}
                     </div>
-                  <Row className="row-grid align-items-center my-md">
+                  <Row className="row-grid align-items-center mt-4 mb-md">
                       <Cards cards={ this.state.allcards }/>
                   </Row>
                 
