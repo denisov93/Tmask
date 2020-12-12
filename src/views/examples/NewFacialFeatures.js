@@ -130,8 +130,6 @@ class NewFacialFeatures extends AppBase {
         i: this.props.location.state.i
       })
     }
-    else
-      console.log("bb")
   }
 
   pressedSave() {
@@ -364,7 +362,7 @@ class NewFacialFeatures extends AppBase {
           />
         )
       case 3:
-        return (this.state.face === "" || this.state.mask === "" || this.state.name === "")
+        return (this.state.face === "" || this.state.mask === "" || this.state.name.trim() === "")
           ? <IconTextButton text="Previous" icon="fa fa-arrow-left"
             onClick={() => { this.setState({ index: this.state.index - 1 }); }}
           />
