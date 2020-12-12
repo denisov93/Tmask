@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 
 import {
-    Badge
+    Badge,
+    UncontrolledTooltip,
+    NavLink,
+    Container
 
   } from "reactstrap";
+  import { Link } from "react-router-dom";
   import AppBase from "components/AppBase.js";
+  import ItemDeletionButton from "components/ItemDeletionButton.js";
 
 
 class CartItem extends AppBase{
@@ -24,36 +29,15 @@ class CartItem extends AppBase{
             amountOfItems: this.props.amount
         })
     }
-    
-    increaseAmount = () =>{
-       
-        var newAmount = this.state.amountOfItems+1;
-        this.setState({
-            amountOfItems: newAmount
-          });
-          var newCart = this.getCookie('cart');
-          newCart[this.state.itemID].amount = newAmount;
-          this.setCookie('cart',newCart);
-
-         
-        
-    }
-    decreaseAmount = () =>{
-        if(this.state.amountOfItems>1){
-        var newAmount = this.state.amountOfItems-1;
-        this.setState({
-            amountOfItems: newAmount
-          });
-          var newCart = this.getCookie('cart');
-          newCart[this.state.itemID].amount = newAmount;
-          this.setCookie('cart',newCart);
-        }
-        
-        
-    }
+  
+   
     handleChange = (e) =>{
         
         var newAmount = e.target.value
+        if(newAmount<1){
+           
+            return;
+        }
         this.setState({
             amountOfItems: newAmount
           })
@@ -63,11 +47,73 @@ class CartItem extends AppBase{
 
           this.props.func();
     }
+    fixDeselect = (e)=>{
+        if(e.target.value<1){
+            e.target.value =1
+            this.setState({
+                amountOfItems: 1
+              })
+              var newCart = this.getCookie('cart');
+              newCart[this.state.itemID].amount = 1;
+              this.setCookie('cart',newCart);
+    
+              this.props.func();
+        }
+        
+    }
+
     getFacialSelector(){
-        if(this.props.facial.length==0) return(<div></div>)
-       console.log("FACE", this.props.facial)
+        if(this.props.facial.length==0){
+            var iconDisplay = (<></>);
+            var sessionID = this.getCookie("sessionID")
+            if (sessionID !== null) {
+                iconDisplay =(
+                    <div style={{width:"10"}}>
+            <NavLink
+                      to="/facial-features"
+                      id="tooltipff2"
+                      tag={Link}
+                    >
+                      <i className="fa fa-question-circle" style={{color:"darkSlateBlue", fontSize:20}}/>
+                    </NavLink>
+                    <UncontrolledTooltip delay={0} target="tooltipff2">
+                      Add Facial Features?
+                    </UncontrolledTooltip>
+                    </div>
+                    
+                )
+                
+            }
+            else{
+                iconDisplay =(
+                    <div style={{width:"10"}}>
+                    <Container id="tooltipff3">
+                <i className="fa fa-question-circle" style={{color:"darkSlateBlue", fontSize:20}}/>
+                </Container >
+                <UncontrolledTooltip delay={0} target="tooltipff3">
+                Log in to Add Facial Features!
+              </UncontrolledTooltip>
+              </div>
+                )
+            }
+         return(
+        <div style={{transform:"translateY(35%)"}}>{iconDisplay}</div>
+        )}
         return(
-             <select style={{width:"90%", height:"90%", fontSize:"15px",fontFamily:"verdana", textTransform:"uppercase"}}> 
+            <div className="row" style={{alignItems:'center'}}>
+                <div style={{width:"10"}}>
+            <NavLink
+                      to="/facial-features"
+                      id="tooltipff1"
+                      tag={Link}
+                    >
+                      <i className="fa fa-question-circle" style={{color:"darkSlateBlue", fontSize:20}}/>
+                    </NavLink>
+                    <UncontrolledTooltip delay={0} target="tooltipff1">
+                      Edit Facial Features?
+                    </UncontrolledTooltip>
+                    </div>
+             <select style={{width:"130px", height:"35px", fontSize:"15px",fontFamily:"verdana", textTransform:"uppercase",marginLeft:0}}> 
                 {this.props.facial.map(
                     (face)=>(
                         <option>
@@ -77,40 +123,45 @@ class CartItem extends AppBase{
 
                     
                 )}
-            </select>)
+            </select>
+            </div>
+            )
     }
     
 
     
     render(){
-        var screenWidth = window.innerWidth
-        console.log(screenWidth)
+        
+       
         
         return(
 
 
             
-            <Badge style={{width:620, height:110, marginBottom:20}}>
-                    <div className="row" style={{alignItems:'center', width:620} }>
+            <Badge style={{width:760, height:150, marginBottom:25}}>
+                    <div className="row" style={{alignItems:'center', width:770} }>
                      <div style={{marginLeft:20}}>
-                         <img width="90"
+                         <img width="130"
                         src={this.props.image} alt="..."/>
                      </div>
-                     <div style={{width:150,height:30,marginLeft:10}}>
+                     <div style={{width:180,height:30,marginLeft:10}}>
                          
-                        <p style={{width:150,overflow:"hidden"}}>{this.props.name}</p>
-                         
+                        <p style={{width:180,overflow:"hidden", transform:"translateY(-50%)", fontSize:"18px"}}>{this.props.name}</p>
+                        <h2 style={{transform:"translateY(-100%)", fontSize:"18px"}}>{this.props.price}{"€"}</h2>
                         
                      </div>
-                     <div  style={{width:30,height:23,marginLeft:15}}>
-                        <b style={{width:20, fontSize:"18px"}}>{this.props.price}{"€"}</b>
-                     </div>
-                     <div  style={{width:160, height:40,marginLeft:15}}>
+                     <div  style={{width:180, height:40,marginLeft:25}}>
                         {this.getFacialSelector()}
                      </div>
-                     <div style={{width:10, height:30,marginLeft:10}}>
-                         <input onChange={this.handleChange}type="number" defaultValue={this.props.amount} min="1" step="1" style={{width:40,height:30, fontSize:15}}></input>
+                     <div style={{width:10, height:30,marginLeft:20}}>
+                         <input onChange={this.handleChange} onBlur={this.fixDeselect} type="number" defaultValue={this.props.amount} min="1" step="1" style={{width:40,height:30, fontSize:15}}></input>
                          </div>
+                     <div style={{width:10,marginLeft:45}}>
+                        <b style={{width:20, fontSize:"18px"}}>{(this.props.price * this.state.amountOfItems).toFixed(2)}{"€"}</b>
+                     </div>
+                     <div style={{marginLeft:70}}>
+                     <ItemDeletionButton func={this.props.func} id={this.props.itemID} name={this.props.title} image={this.props.image}></ItemDeletionButton>
+                     </div>
                      </div>
                     
                           

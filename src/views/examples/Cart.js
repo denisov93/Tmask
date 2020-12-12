@@ -35,16 +35,19 @@ import CardsFooter from "components/Footers/CardsFooter.js";
 // index page sections
 import AppBase from "components/AppBase.js";
 import ItemDeletionButton from "components/ItemDeletionButton.js";
+import Navbar from "reactstrap/lib/Navbar";
 
 
 class Cart extends AppBase {
-  
+
   state = {
     itemList: [],
     facialFeatures: [],
     finalCost: 0,
     confirmPopup: false,
-    successPopup: false
+    successPopup: false,
+    totalItems: 0
+
   };
 
   componentDidMount() {
@@ -52,37 +55,39 @@ class Cart extends AppBase {
     document.scrollingElement.scrollTop = 0;
     this.refs.main.scrollTop = 0;
 
-
-    var sessionID = this.getCookie('sessionID')
-
     this.updateState();
-    if (sessionID != null) {
-      var newFeatures = this.getFeatures(sessionID)
-      if (newFeatures != null)
-        this.setState({
-          facialFeatures: newFeatures
-        })
-    }
+
+    var newFeatures = this.getSessionFeatures()
+    if (newFeatures != null)
+      this.setState({
+        facialFeatures: newFeatures
+      })
+
+
 
   }
 
-  
+
 
 
   hasItems() {
     return (this.state.itemList.length > 0)
   }
 
+
   cartHeader() {
     if (this.hasItems())
       return (
-        <h2 style={{ marginLeft: "15%", marginBottom: 30, color: "white" }}>Your Cart:</h2>
+        <div className="row" style={{ width: 760, marginLeft: "20%", marginTop:20 }}>
+          <h2 style={{ marginBottom: 30, color: "white" }}>Your Cart:</h2>
+      <h3 style={{ marginLeft: 470, marginBottom: 30, color: "white" }}>{this.state.totalItems} Items</h3>
+        </div>
       )
     else return (
-      <>
-        <h2 style={{ textAlign: "center", marginBottom: 30, color: "white" }}>Your Cart Is Empty!</h2>
-        <div className="row" style={{ alignItems: "center", alignSelf:"center"}}>
-          <Button style={{ marginLeft: "33%" }}
+      <div style={{}}>
+        <h2 style={{ textAlign: "center",marginTop:30, marginBottom: 30, color: "white" }}>Your Cart Is Empty!</h2>
+        <div className="row" style={{ transform: "translateX(50%) translateY(200%)" }}>
+          <Button style={{ transform: "translateX(-110%)" }}
             className="btn-icon mb-3 mb-sm-0"
             color="info"
             to="/catalog"
@@ -93,8 +98,8 @@ class Cart extends AppBase {
             </span>
             <span className="btn-inner--text">view mask Catalog</span>
           </Button>
-          <b style={{ marginRight: 10 }}>OR</b>
-          <Button
+          <b style={{ transform: "translateY(25%) translateX(-1050%)" }}>OR</b>
+          <Button style={{ transform: "translateX(-125%)" }}
             className="btn-icon mb-3 mb-sm-0"
             color="info"
             to="/builder"
@@ -106,7 +111,7 @@ class Cart extends AppBase {
             <span className="btn-inner--text"> Go to Builder</span>
           </Button>
         </div>
-      </>
+      </div>
     )
 
   }
@@ -114,11 +119,17 @@ class Cart extends AppBase {
 
   loadCheckoutSection() {
     if (this.hasItems()) {
-      return(<div>
-        <Button onClick={this.toggleConfirmPopup} >Checkout: {this.state.finalCost.toFixed(2)}€</Button>
+      return (<div className="row" style={{ width: 760, marginLeft: "20%" }}>
+        <Button style={{ transform: "translateX(-50%)" }}
+            to="/catalog"
+            tag={Link}
+          >
+          Back to catalog
+          </Button>
+        <Button onClick={this.toggleConfirmPopup} style={{backgroundColor:"darkSlateBlue", color:"white", border:"none", marginLeft:280}}>Checkout: {this.state.finalCost.toFixed(2)}€</Button>
         <Modal className="modal-dialog-centered"
           isOpen={this.state.confirmPopup}>
-          <Badge style={{ height: 250 }}>
+          <Badge style={{ height: 230 }}>
             <h2>Complete purchase?</h2>
             <div style={{ marginTop: 30 }}>
               <b style={{ fontSize: 20 }}>Total: {this.state.finalCost.toFixed(2)}€</b></div>
@@ -133,11 +144,11 @@ class Cart extends AppBase {
         <Modal className="modal-dialog-centered"
           isOpen={this.state.successPopup}>
           <Badge style={{ height: 200 }}>
-            <h2>Purchased with success</h2>
+            <h2>Purchased with success!</h2>
             <div style={{ marginTop: 30 }}>
               <b style={{ fontSize: 20 }}>Total: {this.state.finalCost.toFixed(2)}€</b></div>
             <div className="row" style={{ marginTop: 50 }}>
-              <Button onClick={this.emptyCart} color="primary" style={{ marginLeft: 225, height: 45 }} to={"/Tmask"} tag={Link} >OK</Button>
+              <Button onClick={this.emptyCart} color="primary" style={{ marginLeft: 225, height: 45,transform:"translateY(-30%)" }} to={"/Tmask"} tag={Link} >OK</Button>
 
             </div>
           </Badge>
@@ -150,9 +161,9 @@ class Cart extends AppBase {
   }
 
 
-  
-  updateState=()=>{ 
-        
+
+  updateState = () => {
+
 
     var newItemList = this.getCookie('cart')
     if (newItemList != null) {
@@ -160,22 +171,37 @@ class Cart extends AppBase {
         itemList: newItemList
       })
 
+
+
+
       var totalPrice = 0;
-      for(var i=0;i<newItemList.length;i++){
-        var item=newItemList[i]
-         totalPrice+= item.amount*item.price
-         
-     }
-   
-     this.setState({
-       finalCost: totalPrice
-     })
+      for (var i = 0; i < newItemList.length; i++) {
+        var item = newItemList[i]
+        totalPrice += item.amount * item.price
+
+      }
+
+      this.setState({
+        finalCost: totalPrice
+      })
+
+      var newTotalItems = 0;
+      for (var i = 0; i < newItemList.length; i++) {
+        var item = newItemList[i]
+        newTotalItems += item.amount*1
+
+      }
+
+      this.setState({
+        totalItems: newTotalItems
+      })
 
 
     }
-   }
+  }
 
-  toggleConfirmPopup=()=>{
+
+  toggleConfirmPopup = () => {
 
     this.updateState();
 
@@ -185,14 +211,14 @@ class Cart extends AppBase {
   }
 
 
-  emptyCart=()=>{
+  emptyCart = () => {
 
     var newCart = []
     this.setCookie('cart', newCart);
   }
 
-  cartCheckout=()=>{
-    if(this.hasItems()){
+  cartCheckout = () => {
+    if (this.hasItems()) {
 
       this.setState({
         confirmPopup: !this.state.confirmPopup
@@ -203,7 +229,7 @@ class Cart extends AppBase {
     }
   }
 
- 
+
 
 
 
@@ -239,11 +265,8 @@ class Cart extends AppBase {
                   <div>{
                     this.state.itemList.map(
                       (item) => (
-                        <div className="row">
-                          <CartItem name={item.title} func={this.updateState} image={item.image} price={item.price} itemID={counter} facial={this.state.facialFeatures} amount={item.amount} />
-                          <div style={{ marginLeft: 20, marginTop: 20 }}>
-                            <ItemDeletionButton func={this.updateState} id={counter++} name={item.title} image={item.image}></ItemDeletionButton>
-                          </div>
+                        <div className="row" style={{ width: 850, marginLeft: "10%" }}>
+                          <CartItem name={item.title} func={this.updateState} image={item.image} price={item.price} itemID={counter++} facial={this.state.facialFeatures} amount={item.amount} />
                         </div>
                       )
 

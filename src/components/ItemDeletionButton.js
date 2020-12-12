@@ -38,14 +38,13 @@ class ItemDeletionButton extends AppBase {
     this.setCookie('cart', cart)
     this.toggleModal()
     this.props.func();
-    //window.location.reload(false) //TODO: remove
   }
 
   render() {
     return (
       <div>
-        <Badge ><button onClick={this.toggleModal} style={{ border: "none", outline: "none" }}><img src={require("assets/img/icons/common/trash-can_icon.png").default} alt="..." width="40"></img></button>
-        </Badge>
+        <button onClick={this.toggleModal} style={{ border: "none", outline: "none"}}><img src={require("assets/img/icons/common/trash-can_icon.png").default} alt="..." width="40" height="50" style={{opacity:0.85}}></img></button>
+        
         <Modal className="modal-dialog-centered"
           isOpen={this.state.exampleModal}
         >
