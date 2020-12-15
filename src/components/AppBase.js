@@ -213,10 +213,20 @@ class AppBase extends React.Component {
     this.globalVar.cart.push(item)
     this.submitForm(item)
   }
+  
+  removeItemFromCart(id){
+    if (typeof id == 'number'){
+    this.submitForm(id)
+    
+    }
+  }
 
 
   submitForm = (cart) => {
+    
     dataService.setData(cart);
+   
+    
   }
 
   clearSession() {

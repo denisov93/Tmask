@@ -30,13 +30,14 @@ class ItemDeletionButton extends AppBase {
 
   removeThisItem = () => {
 
-    console.log(this.state.id)
+    
     var thisId = this.state.id
 
     var cart = this.getCookie('cart')
     cart.splice(thisId, 1);
     this.setCookie('cart', cart)
     this.toggleModal()
+    this.removeItemFromCart(thisId)
     this.props.func();
   }
 

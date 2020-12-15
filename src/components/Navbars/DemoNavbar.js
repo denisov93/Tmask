@@ -74,7 +74,15 @@ class DemoNavbar extends AppBase {
       })
 
       dataService.getData().subscribe(message => {
-        if (typeof message.value !== 'string') {
+        if(typeof message.value== "number"){
+          var newItemCount = this.state.itemCount
+          newItemCount.splice(message.value,1) 
+          this.setState({
+            itemCount: newItemCount
+          })
+        }
+        else if (typeof message.value !== 'string') {
+          
           this.setState({
             itemCount: [...this.state.itemCount, message.value]
           })
